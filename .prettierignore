@@ -11,3 +11,4 @@ pnpm-lock.yaml
 apps/web/src/data
 apps/web/public/data
 CHANGELOG.md
+*.sarif

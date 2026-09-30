@@ -10,6 +10,7 @@
     "typecheck": "tsc -p tsconfig.json"
   },
   "dependencies": {
-    "@huddle/shared": "workspace:*"
+    "@huddle/shared": "workspace:*",
+    "zod": "^4.6.5"
   }
 }
