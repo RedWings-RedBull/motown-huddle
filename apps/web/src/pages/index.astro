@@ -1,0 +1,21 @@
+---
+import { teamConfig } from "@huddle/shared";
+
+import Base from "../layouts/Base.astro";
+
+const siteName = import.meta.env.PUBLIC_SITE_NAME ?? teamConfig.siteName;
+---
+
+<Base title={siteName}>
+  <section class="py-12">
+    <p class="text-sm font-semibold tracking-widest text-honolulu uppercase">
+      {teamConfig.division}
+    </p>
+    <h1 class="mt-2 text-4xl font-extrabold tracking-tight sm:text-5xl">{siteName}</h1>
+    <p class="mt-4 max-w-2xl text-lg">{teamConfig.tagline}</p>
+    <p class="mt-6 max-w-2xl">
+      Weekly game breakdowns, a clickable field heat map of every position group, and a transparent
+      grading method built entirely from open data. The first game breakdown lands with milestone 1.
+    </p>
+  </section>
+</Base>

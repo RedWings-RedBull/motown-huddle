@@ -1,0 +1,62 @@
+{
+  "name": "motown-huddle",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Motown Huddle: an open-source, data-driven NFL fan-site kit. Detroit Lions edition.",
+  "license": "MIT",
+  "type": "module",
+  "packageManager": "pnpm@10.34.6",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "dev": "pnpm --filter web dev",
+    "build": "pnpm --filter web build",
+    "preview": "pnpm --filter web preview",
+    "lint": "eslint . --max-warnings 0",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "pnpm -r --parallel typecheck",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "e2e": "pnpm --filter web e2e",
+    "lhci": "lhci autorun",
+    "depcruise": "depcruise --config .dependency-cruiser.cjs apps packages infra",
+    "knip": "knip",
+    "secrets": "node scripts/secret-scan.mjs",
+    "verify:quick": "pnpm secrets && pnpm lint && pnpm typecheck && pnpm test",
+    "verify": "pnpm secrets && pnpm format:check && pnpm lint && pnpm typecheck && pnpm depcruise && pnpm knip && pnpm test:coverage && pnpm build && pnpm e2e && pnpm lhci",
+    "pipeline": "tsx packages/pipeline/src/cli.ts",
+    "infra:preflight": "tsx infra/scripts/preflight.ts",
+    "infra:synth": "pnpm --filter @huddle/infra synth",
+    "infra:deploy": "pnpm infra:preflight && pnpm --filter @huddle/infra deploy",
+    "infra:bootstrap": "pnpm infra:preflight && pnpm --filter @huddle/infra bootstrap",
+    "prepare": "simple-git-hooks"
+  },
+  "simple-git-hooks": {
+    "pre-push": "pnpm verify:quick"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@eslint/js": "^10.0.1",
+    "@lhci/cli": "^0.15.1",
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^24",
+    "@vitest/coverage-v8": "^5.0.3",
+    "dependency-cruiser": "^18.4.0",
+    "eslint": "^10.11.0",
+    "eslint-plugin-astro": "^3.2.1",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "globals": "^17.12.0",
+    "knip": "^6.39.0",
+    "prettier": "^3.9.9",
+    "prettier-plugin-astro": "^1.1.0",
+    "simple-git-hooks": "^2.14.0",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.0",
+    "typescript-eslint": "^8.71.0",
+    "vitest": "^5.0.3"
+  }
+}

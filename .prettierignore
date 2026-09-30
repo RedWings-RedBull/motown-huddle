@@ -1,0 +1,13 @@
+node_modules
+dist
+.astro
+cdk.out
+coverage
+test-results
+playwright-report
+.lighthouseci
+.cache
+pnpm-lock.yaml
+apps/web/src/data
+apps/web/public/data
+CHANGELOG.md

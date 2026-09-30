@@ -1,0 +1,48 @@
+name: Deploy
+
+# No-op until the Launch milestone sets AWS_DEPLOY_ROLE_ARN as a repository variable.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+env:
+  ASTRO_TELEMETRY_DISABLED: "1"
+
+permissions:
+  id-token: write
+  contents: read
+
+concurrency:
+  group: deploy-prod
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: vars.AWS_DEPLOY_ROLE_ARN != ''
+    name: Build and sync to S3
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment: production
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+        env:
+          PUBLIC_SITE_URL: ${{ vars.PUBLIC_SITE_URL }}
+          PUBLIC_SITE_NAME: ${{ vars.PUBLIC_SITE_NAME }}
+      - uses: aws-actions/configure-aws-credentials@v6
+        with:
+          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: us-east-1
+      - name: Sync and invalidate
+        env:
+          HUDDLE_AWS_ACCOUNT_ID: ${{ vars.HUDDLE_AWS_ACCOUNT_ID }}
+          SITE_BUCKET: ${{ vars.SITE_BUCKET }}
+          CF_DISTRIBUTION_ID: ${{ vars.CF_DISTRIBUTION_ID }}
+        run: bash infra/scripts/deploy.sh

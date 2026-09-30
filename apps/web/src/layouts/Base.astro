@@ -1,0 +1,71 @@
+---
+import { teamConfig } from "@huddle/shared";
+
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const siteName = import.meta.env.PUBLIC_SITE_NAME ?? teamConfig.siteName;
+const { title, description = teamConfig.tagline } = Astro.props;
+const fullTitle = title === siteName ? siteName : `${title} · ${siteName}`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <title>{fullTitle}</title>
+  </head>
+  <body class="flex min-h-screen flex-col">
+    <a class="skip-link" href="#main">
+      Skip to content
+    </a>
+    <header class="border-b border-silver/40">
+      <nav
+        class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3"
+        aria-label="Primary"
+      >
+        <a href="/" class="text-xl font-extrabold tracking-tight text-honolulu">
+          {siteName}
+        </a>
+        <ul class="flex gap-4 text-sm font-medium">
+          <li>
+            <a href="/games/" class="hover:text-honolulu">
+              Games
+            </a>
+          </li>
+          <li>
+            <a href="/methodology/" class="hover:text-honolulu">
+              Methodology
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main id="main" class="mx-auto w-full max-w-6xl flex-1 px-4 py-8">
+      <slot />
+    </main>
+    <footer class="border-t border-silver/40 text-xs text-ink/70 dark:text-silver/70">
+      <div class="mx-auto max-w-6xl space-y-2 px-4 py-6">
+        <p>{teamConfig.disclaimer}</p>
+        <p>{teamConfig.attribution}</p>
+        <p>
+          <a
+            href="https://github.com/RedWings-RedBull/motown-huddle"
+            class="underline hover:text-honolulu"
+          >
+            Open source on GitHub
+          </a>
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

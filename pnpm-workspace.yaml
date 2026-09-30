@@ -1,0 +1,10 @@
+packages:
+  - apps/*
+  - packages/*
+  - infra
+
+# pnpm 10 blocks lifecycle scripts by default; allow only what genuinely needs them.
+onlyBuiltDependencies:
+  - esbuild
+  - sharp
+  - simple-git-hooks
