@@ -1,0 +1,18 @@
+---
+import type { Tier } from "@huddle/shared";
+
+interface Props {
+  tier: Tier;
+}
+
+const { tier } = Astro.props;
+const label = tier === "final" ? "Final" : "Provisional";
+const title =
+  tier === "final"
+    ? "Final: includes Pro-Football-Reference advanced stats"
+    : "Provisional: play-by-play, stats, snaps, FTN and NGS only; PFR advanced stats pending";
+---
+
+<span class:list={["badge", tier === "final" ? "badge-final" : "badge-provisional"]} title={title}>
+  {label}
+</span>

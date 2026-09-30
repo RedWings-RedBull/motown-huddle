@@ -2,8 +2,8 @@ import { z } from "zod";
 
 import { Bin, Pool, Slot, Source, Tier, Unit, WeekId } from "./common.js";
 
-const finite = () => z.number().finite();
-const nullableFinite = () => z.number().finite().nullable();
+const finite = () => z.number();
+const nullableFinite = () => z.number().nullable();
 
 /** One explainable sub-metric of a grade, as rendered in the UI. */
 export const Component = z
@@ -92,7 +92,7 @@ export type Grades = z.infer<typeof Grades>;
 export const Score = z.object({ team: z.string(), score: z.number().int().min(0) }).strict();
 
 export const GameSummary = WeekId.extend({
-  kickoffUtc: z.string().datetime(),
+  kickoffUtc: z.iso.datetime(),
   home: Score,
   away: Score,
   team: z

@@ -1,3 +1,155 @@
-import { PIPELINE_VERSION } from "./index.js";
+import { parseArgs } from "node:util";
 
-console.log(`huddle pipeline ${PIPELINE_VERSION}: not implemented yet (M1).`);
+import { gradesEngine } from "./engine.js";
+import {
+  EXIT_NOT_READY,
+  EXIT_OK,
+  EXIT_VALIDATION,
+  NotReadyError,
+  ValidationError,
+} from "./errors.js";
+import { consoleLogger, type Logger } from "./log.js";
+import { fitFgTable, type FitOptions } from "./models/fitFgTable.js";
+import { parseWeeks, runWeek, type RunOptions } from "./run.js";
+import { PIPELINE_VERSION } from "./version.js";
+
+export const USAGE = `huddle pipeline ${PIPELINE_VERSION}
+usage: pnpm pipeline --season <yyyy> (--week <n>|auto | --weeks <a-b>) [--final] [--refresh] [--dump-fixture]
+       pnpm pipeline --fit-fg-table
+
+  --season        NFL season (required unless --fit-fg-table)
+  --week          week number, or "auto" for the latest completed game (default: auto)
+  --weeks         backfill a range, e.g. 1-18 (byes are skipped)
+  --final         Final tier: also requires PFR advanced stats (default: provisional)
+  --refresh       ignore the download cache
+  --dump-fixture  also write the GradeRequest and engine output under packages/pipeline/out
+  --data-dir      override apps/web/src/data (tests)
+  --fit-fg-table  refit src/models/fg-make.json from 2021-2025 play-by-play and exit
+
+exit codes: 0 ok, 2 validation failure, 3 data not ready yet`;
+
+export type CliArgs =
+  | { command: "help" }
+  | { command: "fit-fg-table"; refresh: boolean }
+  | {
+      command: "week";
+      season: number;
+      week: number | "auto";
+      weeks: number[] | null;
+      tier: "provisional" | "final";
+      refresh: boolean;
+      dumpFixture: boolean;
+      dataDir: string | undefined;
+    };
+
+export function parseCli(argv: readonly string[]): CliArgs {
+  const { values } = parseArgs({
+    args: [...argv],
+    options: {
+      season: { type: "string" },
+      week: { type: "string", default: "auto" },
+      weeks: { type: "string" },
+      final: { type: "boolean", default: false },
+      refresh: { type: "boolean", default: false },
+      "dump-fixture": { type: "boolean", default: false },
+      "data-dir": { type: "string" },
+      "fit-fg-table": { type: "boolean", default: false },
+      help: { type: "boolean", short: "h", default: false },
+    },
+    strict: true,
+  });
+  if (values.help) return { command: "help" };
+  if (values["fit-fg-table"]) return { command: "fit-fg-table", refresh: values.refresh };
+  const season = Number(values.season);
+  if (!Number.isInteger(season) || season < 1999) {
+    throw new ValidationError(`--season is required (got "${values.season ?? ""}")\n${USAGE}`);
+  }
+  let week: number | "auto" = "auto";
+  if (values.week !== "auto") {
+    week = Number(values.week);
+    if (!Number.isInteger(week) || week < 1 || week > 22) {
+      throw new ValidationError(`--week must be 1-22 or auto (got "${values.week}")`);
+    }
+  }
+  return {
+    command: "week",
+    season,
+    week,
+    weeks: values.weeks === undefined ? null : parseWeeks(values.weeks),
+    tier: values.final ? "final" : "provisional",
+    refresh: values.refresh,
+    dumpFixture: values["dump-fixture"],
+    dataDir: values["data-dir"],
+  };
+}
+
+export type Runner = (options: RunOptions) => Promise<{ status: "written" | "bye" }>;
+export type Fitter = (options: FitOptions) => Promise<unknown>;
+
+export interface CliDeps {
+  run?: Runner;
+  fit?: Fitter;
+  log?: Logger;
+  engine?: RunOptions["engine"];
+}
+
+/** Runs the CLI and returns the process exit code. */
+export async function main(argv: readonly string[], deps: CliDeps = {}): Promise<number> {
+  const log = deps.log ?? consoleLogger;
+  const run = deps.run ?? runWeek;
+  const fit = deps.fit ?? fitFgTable;
+  try {
+    const args = parseCli(argv);
+    if (args.command === "help") {
+      log.info(USAGE);
+      return EXIT_OK;
+    }
+    if (args.command === "fit-fg-table") {
+      await fit({ refresh: args.refresh, log });
+      return EXIT_OK;
+    }
+    const base = {
+      season: args.season,
+      tier: args.tier,
+      refresh: args.refresh,
+      dumpFixture: args.dumpFixture,
+      engine: deps.engine ?? gradesEngine,
+      log,
+      ...(args.dataDir === undefined ? {} : { dataDir: args.dataDir }),
+    };
+    const weeks: (number | "auto")[] = args.weeks ?? [args.week];
+    let notReady = 0;
+    for (const week of weeks) {
+      try {
+        await run({ ...base, week });
+      } catch (error) {
+        // A backfill keeps going past weeks whose data is not posted yet.
+        if (error instanceof NotReadyError && weeks.length > 1) {
+          log.warn(error.message);
+          notReady += 1;
+          continue;
+        }
+        throw error;
+      }
+    }
+    if (notReady > 0) log.warn(`${notReady} of ${weeks.length} weeks not ready`);
+    return EXIT_OK;
+  } catch (error) {
+    if (error instanceof NotReadyError) {
+      log.warn(`not ready: ${error.message}`);
+      return EXIT_NOT_READY;
+    }
+    if (error instanceof ValidationError) {
+      log.warn(error.message);
+      return EXIT_VALIDATION;
+    }
+    log.warn(error instanceof Error ? (error.stack ?? error.message) : String(error));
+    return EXIT_VALIDATION;
+  }
+}
+
+/* c8 ignore start -- process entry point */
+if (process.argv[1] !== undefined && /cli\.(ts|js)$/.test(process.argv[1])) {
+  process.exitCode = await main(process.argv.slice(2));
+}
+/* c8 ignore stop */

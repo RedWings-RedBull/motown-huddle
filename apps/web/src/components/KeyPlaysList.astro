@@ -1,0 +1,70 @@
+---
+import type { KeyPlay, KeyPlays } from "@huddle/shared";
+
+import { formatSigned } from "../lib/format";
+
+interface Props {
+  plays: KeyPlays;
+  team: string;
+}
+
+const { plays, team } = Astro.props;
+
+const TAG_LABEL: Record<KeyPlay["tags"][number], string> = {
+  td: "Touchdown",
+  turnover: "Turnover",
+  "fourth-down": "Fourth down",
+  sack: "Sack",
+  explosive: "Explosive",
+  fg: "Field goal",
+  penalty: "Penalty",
+};
+
+function situation(p: KeyPlay): string {
+  const parts: string[] = [];
+  if (p.down !== null && p.ydstogo !== null) {
+    const down = ["1st", "2nd", "3rd", "4th"][p.down - 1] ?? `${p.down}th`;
+    parts.push(`${down} & ${p.ydstogo}`);
+  }
+  if (p.yardline100 !== null) {
+    parts.push(p.yardline100 > 50 ? `own ${100 - p.yardline100}` : `opp ${p.yardline100}`);
+  }
+  return parts.join(", ");
+}
+---
+
+<section aria-labelledby="plays-heading" class="mt-8">
+  <h2 id="plays-heading" class="text-2xl font-extrabold">
+    Key plays
+  </h2>
+  <p class="mt-1 text-sm text-ink/80 dark:text-silver/80">
+    Biggest swings in win probability plus scoring plays and {team} fourth-down decisions. EPA and
+    WPA are from the possessing team's point of view.
+  </p>
+  <ol class="mt-4 divide-y divide-silver/40">
+    {plays.plays.map((p) => (
+      <li id={`play-${p.playId}`} class="py-3">
+        <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 text-sm">
+          <span class="font-semibold tabular-nums">
+            Q{p.qtr} {p.clock}
+          </span>
+          <span class:list={["font-semibold", p.posteam === team && "text-honolulu"]}>
+            {p.posteam} ball
+          </span>
+          <span>{situation(p)}</span>
+          <span class="ml-auto tabular-nums">
+            EPA {formatSigned(p.epa, 2)} · WPA {formatSigned(p.wpa * 100, 1)} pts
+          </span>
+        </div>
+        <p class="mt-1">{p.desc}</p>
+        {p.tags.length > 0 && (
+          <ul class="mt-1 flex flex-wrap gap-1" aria-label="Tags">
+            {p.tags.map((t) => (
+              <li class="badge">{TAG_LABEL[t]}</li>
+            ))}
+          </ul>
+        )}
+      </li>
+    ))}
+  </ol>
+</section>

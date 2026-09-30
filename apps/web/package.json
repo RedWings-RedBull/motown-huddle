@@ -8,7 +8,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "typecheck": "astro check",
-    "e2e": "playwright test"
+    "e2e": "playwright test",
+    "fixture": "tsx scripts/make-fixture.ts"
   },
   "dependencies": {
     "@astrojs/mdx": "^8.0.2",

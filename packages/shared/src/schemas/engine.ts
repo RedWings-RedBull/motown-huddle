@@ -12,7 +12,7 @@ import { Pool, Slot, Tier, Unit } from "./common.js";
  */
 
 /** Raw metric values keyed by MetricDef.key; null when the input for that metric is missing. */
-export const MetricValues = z.record(z.string(), z.number().finite().nullable());
+export const MetricValues = z.record(z.string(), z.number().nullable());
 export type MetricValues = z.infer<typeof MetricValues>;
 
 /** Per-metric sample sizes (attempts, targets, snaps ...) keyed by MetricDef.key. */
@@ -29,14 +29,12 @@ export const PlayerRow = z
     team: z.string(),
     /** Snaps on the unit the pool belongs to (offense, defense or special teams). */
     snaps: z.number().int().min(0),
-    snapPct: z.number().finite().min(0).max(1),
+    snapPct: z.number().min(0).max(1),
     /** Primary sample size used for qualification and shrinkage. */
     n: z.number().int().min(0),
     values: MetricValues,
     samples: MetricSamples,
-    penalties: z
-      .array(z.object({ type: z.string(), yards: z.number().finite() }).strict())
-      .default([]),
+    penalties: z.array(z.object({ type: z.string(), yards: z.number() }).strict()).default([]),
   })
   .strict();
 export type PlayerRow = z.infer<typeof PlayerRow>;
@@ -58,7 +56,7 @@ export const SlotAssignment = z
     unit: Unit,
     gsisId: z.string(),
     snaps: z.number().int().min(0),
-    snapPct: z.number().finite().min(0).max(1),
+    snapPct: z.number().min(0).max(1),
   })
   .strict();
 export type SlotAssignment = z.infer<typeof SlotAssignment>;
@@ -66,11 +64,12 @@ export type SlotAssignment = z.infer<typeof SlotAssignment>;
 export const GapHeatInput = z
   .object({
     zone: z.enum(["LT", "LG", "C", "RG", "RT"]),
-    epaPerRush: z.number().finite(),
-    successRate: z.number().finite().min(0).max(1),
+    epaPerRush: z.number(),
+    successRate: z.number().min(0).max(1),
     n: z.number().int().min(0),
   })
   .strict();
+export type GapHeatInput = z.infer<typeof GapHeatInput>;
 
 export const GradeRequest = z
   .object({

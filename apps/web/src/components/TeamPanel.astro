@@ -1,0 +1,184 @@
+---
+import type { Metric, SideMetrics, TeamMetrics } from "@huddle/shared";
+import { teamConfig } from "@huddle/shared";
+
+import { formatPct, formatSigned, ordinal } from "../lib/format";
+
+interface Props {
+  metrics: TeamMetrics;
+  opponent: string;
+}
+
+const { metrics, opponent } = Astro.props;
+const team = teamConfig.team;
+
+type Key = keyof Pick<
+  SideMetrics,
+  | "epaPerPlay"
+  | "successRate"
+  | "passEpaPerDropback"
+  | "rushEpaPerAtt"
+  | "explosiveRate"
+  | "sackRate"
+  | "thirdDownRate"
+>;
+
+/** (value: number) => string; typeof avoids a type-position param the core lint rule misreads. */
+type Formatter = typeof formatPct;
+
+const ROWS: { key: Key; label: string; format: Formatter; unit: string }[] = [
+  { key: "epaPerPlay", label: "EPA per play", format: (v) => formatSigned(v, 2), unit: "plays" },
+  { key: "successRate", label: "Success rate", format: (v) => formatPct(v), unit: "plays" },
+  {
+    key: "passEpaPerDropback",
+    label: "Pass EPA per dropback",
+    format: (v) => formatSigned(v, 2),
+    unit: "dropbacks",
+  },
+  {
+    key: "rushEpaPerAtt",
+    label: "Rush EPA per attempt",
+    format: (v) => formatSigned(v, 2),
+    unit: "carries",
+  },
+  {
+    key: "explosiveRate",
+    label: "Explosive play rate",
+    format: (v) => formatPct(v),
+    unit: "plays",
+  },
+  {
+    key: "sackRate",
+    label: "Sack rate (lower is better)",
+    format: (v) => formatPct(v),
+    unit: "dropbacks",
+  },
+  {
+    key: "thirdDownRate",
+    label: "Third-down conversion",
+    format: (v) => formatPct(v),
+    unit: "attempts",
+  },
+];
+
+const gradeCards = [
+  { label: "Offense", value: metrics.teamGrade.offense },
+  { label: "Defense", value: metrics.teamGrade.defense },
+  { label: "Special teams", value: metrics.teamGrade.specialTeams },
+  { label: "Overall", value: metrics.teamGrade.overall },
+];
+
+const pctWidth = (m: Metric) => `${Math.round(m.leaguePercentile)}%`;
+---
+
+<section aria-labelledby="team-heading" class="mt-8">
+  <h2 id="team-heading" class="text-2xl font-extrabold">
+    Team level
+  </h2>
+  <p class="mt-1 text-sm text-ink/80 dark:text-silver/80">
+    {team} versus {opponent}. Percentiles and ranks compare this week's {team} performance with all
+    32 teams' week results.
+  </p>
+
+  <ul class="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4" aria-label="Team Huddle Grades">
+    {gradeCards.map((card) => (
+      <li class="rounded-lg border border-silver/50 p-3">
+        <p class="text-xs font-semibold tracking-wide text-ink/70 uppercase dark:text-silver/70">
+          {card.label}
+        </p>
+        <p class="mt-1 text-2xl font-extrabold tabular-nums">{Math.round(card.value)}</p>
+      </li>
+    ))}
+  </ul>
+
+  {/* eslint-disable astro/jsx-a11y/no-noninteractive-tabindex -- APG pattern for scrollable data tables (also what axe's scrollable-region-focusable asks for) */}
+  <div
+    class="mt-4 overflow-x-auto"
+    tabindex="0"
+    role="region"
+    aria-label="Team metrics table, scrolls horizontally"
+  >
+    {/* eslint-enable astro/jsx-a11y/no-noninteractive-tabindex */}
+    <table class="w-full text-sm">
+      <caption class="sr-only">
+        {`Team metrics with league percentile and rank, ${team} and ${opponent}`}
+      </caption>
+      <thead>
+        <tr class="border-b border-silver/50 text-left">
+          <th scope="col" class="py-2 pr-2">
+            Metric
+          </th>
+          <th scope="col" class="py-2 pr-2 text-right">
+            {team}
+          </th>
+          <th scope="col" class="py-2 pr-2">
+            League percentile
+          </th>
+          <th scope="col" class="py-2 pr-2 text-right">
+            Rank
+          </th>
+          <th scope="col" class="py-2 text-right">
+            {opponent}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {ROWS.map((row) => {
+          const mine = metrics.team[row.key];
+          const theirs = metrics.opponent[row.key];
+          return (
+            <tr class="border-b border-silver/30">
+              <th scope="row" class="py-2 pr-2 text-left font-medium">
+                {row.label}
+                <span class="block text-xs font-normal text-ink/70 dark:text-silver/70">
+                  {mine.n} {row.unit}
+                </span>
+              </th>
+              <td class="py-2 pr-2 text-right font-semibold tabular-nums">
+                {row.format(mine.value)}
+              </td>
+              <td class="py-2 pr-2">
+                <div class="flex items-center gap-2">
+                  <div
+                    class="h-2 w-full min-w-24 overflow-hidden rounded bg-silver/40"
+                    aria-hidden="true"
+                  >
+                    <div class="h-full rounded bg-honolulu" style={`width:${pctWidth(mine)}`} />
+                  </div>
+                  <span class="w-10 text-right tabular-nums">
+                    {Math.round(mine.leaguePercentile)}
+                  </span>
+                </div>
+              </td>
+              <td class="py-2 pr-2 text-right tabular-nums">{ordinal(mine.leagueRank)}</td>
+              <td class="py-2 text-right tabular-nums">{row.format(theirs.value)}</td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  </div>
+
+  <dl class="mt-4 grid grid-cols-2 gap-3 text-sm sm:grid-cols-3">
+    <div class="rounded-lg border border-silver/50 p-3">
+      <dt class="text-xs font-semibold tracking-wide uppercase">Fourth downs</dt>
+      <dd class="mt-1">
+        {team} {metrics.team.fourthDown.conv}/{metrics.team.fourthDown.att} · {opponent}{" "}
+        {metrics.opponent.fourthDown.conv}/{metrics.opponent.fourthDown.att}
+      </dd>
+    </div>
+    <div class="rounded-lg border border-silver/50 p-3">
+      <dt class="text-xs font-semibold tracking-wide uppercase">Turnovers</dt>
+      <dd class="mt-1">
+        {team} {metrics.team.turnovers} · {opponent} {metrics.opponent.turnovers}
+      </dd>
+    </div>
+    <div class="rounded-lg border border-silver/50 p-3">
+      <dt class="text-xs font-semibold tracking-wide uppercase">Penalties</dt>
+      <dd class="mt-1">
+        {team} {metrics.team.penalties.count} for {metrics.team.penalties.yards} · {opponent}{" "}
+        {metrics.opponent.penalties.count} for {metrics.opponent.penalties.yards}
+      </dd>
+    </div>
+  </dl>
+</section>

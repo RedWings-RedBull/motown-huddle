@@ -69,13 +69,13 @@ export const METRICS: readonly MetricDef[] = [
   ),
   m(
     "qb.sackRate",
-    "Sack rate",
+    "QB-fault sack rate",
     "QB",
     "pbp",
     "lower",
     "provisional",
     "pct",
-    "Sacks per dropback, excluding sacks FTN charts as not the QB's fault.",
+    "Sacks FTN charts as the QB's fault per dropback; sacks charged to the protection count against the OL unit instead, so 0 is common.",
   ),
   m(
     "qb.turnoverWorthyRate",
@@ -533,7 +533,7 @@ export const METRICS: readonly MetricDef[] = [
     "pct",
     "PFR def_pressures per def_times_blitzed.",
   ),
-  // CB and S (qualify at >= 20 defensive snaps; coverage needs 3+ targets)
+  // CB and S (qualify at >= 20 defensive snaps; the four coverage metrics score neutral below 3 targets)
   m(
     "cb.yardsPerCoverageSnap",
     "Yards allowed per coverage snap",
@@ -542,7 +542,7 @@ export const METRICS: readonly MetricDef[] = [
     "lower",
     "final",
     "yds",
-    "PFR def_yards_allowed per defensive snap.",
+    "PFR def_yards_allowed per estimated coverage snap (defensive snaps × opponent dropback share); neutral below 3 targets.",
   ),
   m(
     "cb.passerRatingAllowed",
@@ -552,7 +552,7 @@ export const METRICS: readonly MetricDef[] = [
     "lower",
     "final",
     "score",
-    "PFR def_passer_rating_allowed.",
+    "PFR def_passer_rating_allowed; neutral below 3 targets.",
   ),
   m(
     "cb.completionPctAllowed",
@@ -562,7 +562,7 @@ export const METRICS: readonly MetricDef[] = [
     "lower",
     "final",
     "pct",
-    "PFR def_completion_pct.",
+    "PFR def_completion_pct; neutral below 3 targets.",
   ),
   m(
     "cb.ballProduction",
@@ -592,7 +592,7 @@ export const METRICS: readonly MetricDef[] = [
     "lower",
     "final",
     "count",
-    "PFR def_receiving_td_allowed.",
+    "PFR def_receiving_td_allowed; neutral below 3 targets.",
   ),
   m(
     "s.yardsPerCoverageSnap",
@@ -602,7 +602,7 @@ export const METRICS: readonly MetricDef[] = [
     "lower",
     "final",
     "yds",
-    "PFR def_yards_allowed per defensive snap.",
+    "PFR def_yards_allowed per estimated coverage snap (defensive snaps × opponent dropback share); neutral below 3 targets.",
   ),
   m(
     "s.passerRatingAllowed",
@@ -612,7 +612,7 @@ export const METRICS: readonly MetricDef[] = [
     "lower",
     "final",
     "score",
-    "PFR def_passer_rating_allowed.",
+    "PFR def_passer_rating_allowed; neutral below 3 targets.",
   ),
   m(
     "s.completionPctAllowed",
@@ -622,7 +622,7 @@ export const METRICS: readonly MetricDef[] = [
     "lower",
     "final",
     "pct",
-    "PFR def_completion_pct.",
+    "PFR def_completion_pct; neutral below 3 targets.",
   ),
   m(
     "s.ballProduction",
@@ -652,7 +652,7 @@ export const METRICS: readonly MetricDef[] = [
     "lower",
     "final",
     "count",
-    "PFR def_receiving_td_allowed.",
+    "PFR def_receiving_td_allowed; neutral below 3 targets.",
   ),
   // Specialists
   m(
@@ -663,7 +663,7 @@ export const METRICS: readonly MetricDef[] = [
     "higher",
     "provisional",
     "score",
-    "Made × 3 minus expected points from a distance/roof make table fit on 2016-2025.",
+    "Made × 3 minus expected points from a distance make table (5-yard buckets, kicks under 20 yards pooled with 20-24) fit on 2021-2025 play-by-play.",
   ),
   m(
     "k.xpRate",
