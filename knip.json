@@ -1,0 +1,15 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "workspaces": {
+    ".": {
+      "entry": ["scripts/*.mjs"]
+    },
+    "apps/web": {},
+    "packages/*": {},
+    "infra": {
+      "entry": ["bin/app.ts"],
+      "ignore": ["functions/**"],
+      "ignoreDependencies": ["tsx"]
+    }
+  }
+}

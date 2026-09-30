@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+@theme {
+  --color-honolulu: #0076b6;
+  --color-silver: #b0b7bc;
+  --color-ink: #0b1f33;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+html {
+  color-scheme: light dark;
+}
+
+body {
+  @apply bg-white text-ink antialiased dark:bg-ink dark:text-silver;
+}
+
+.skip-link {
+  @apply sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:rounded focus:bg-honolulu focus:px-3 focus:py-2 focus:text-white;
+}

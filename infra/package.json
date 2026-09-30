@@ -1,0 +1,20 @@
+{
+  "name": "@huddle/infra",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json",
+    "synth": "cdk synth --quiet",
+    "deploy": "cdk deploy --profile huddle --require-approval broadening",
+    "bootstrap": "cdk bootstrap --profile huddle"
+  },
+  "dependencies": {
+    "aws-cdk-lib": "^2.272.0",
+    "constructs": "^10.8.1"
+  },
+  "devDependencies": {
+    "aws-cdk": "^2.1143.0",
+    "tsx": "^4.23.15"
+  }
+}
