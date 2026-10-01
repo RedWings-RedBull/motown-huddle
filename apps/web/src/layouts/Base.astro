@@ -30,6 +30,20 @@ const links = [
     <meta name="theme-color" content="#06111f" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    <link
+      rel="preload"
+      as="image"
+      href="/bg/ford-field-1920.avif"
+      type="image/avif"
+      media="(min-width: 768px) and (max-width: 1920px)"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="/bg/ford-field-1280.avif"
+      type="image/avif"
+      media="(max-width: 767px)"
+    />
     <Fonts />
     <title>{fullTitle}</title>
   </head>
@@ -68,6 +82,13 @@ const links = [
       <div class="mx-auto max-w-6xl space-y-2 px-4 py-6">
         <p>{teamConfig.disclaimer}</p>
         <p>{teamConfig.attribution}</p>
+        {teamConfig.backgroundCredit && (
+          <p>
+            <a href={teamConfig.backgroundCredit.url} class="underline hover:text-honolulu-bright">
+              {teamConfig.backgroundCredit.text}
+            </a>
+          </p>
+        )}
         <p>
           <a
             href="https://github.com/RedWings-RedBull/motown-huddle"

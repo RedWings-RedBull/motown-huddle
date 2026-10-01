@@ -21,16 +21,56 @@ html {
 
 body {
   @apply bg-night text-chalk antialiased;
-  /* Standing in one end zone, looking down the field. Fixed so the page floats over it. */
-  background-image: url("/field.svg");
+  /* Ford Field (Michael Barera, CC BY-SA 4.0) under a dark scrim so panels stay readable. */
+  background-color: #06111f;
+  background-image:
+    linear-gradient(
+      180deg,
+      rgb(6 17 31 / 0.55) 0%,
+      rgb(6 17 31 / 0.7) 55%,
+      rgb(6 17 31 / 0.92) 100%
+    ),
+    image-set(
+      url("/bg/ford-field-1920.avif") type("image/avif"),
+      url("/bg/ford-field-1920.webp") type("image/webp"),
+      url("/bg/ford-field-1920.jpg") type("image/jpeg")
+    );
   background-size: cover;
-  background-position: center bottom;
+  background-position: center 30%;
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
 @media (max-width: 767px) {
   body {
     background-attachment: scroll;
+    background-image:
+      linear-gradient(
+        180deg,
+        rgb(6 17 31 / 0.6) 0%,
+        rgb(6 17 31 / 0.75) 55%,
+        rgb(6 17 31 / 0.94) 100%
+      ),
+      image-set(
+        url("/bg/ford-field-1280.avif") type("image/avif"),
+        url("/bg/ford-field-1280.webp") type("image/webp"),
+        url("/bg/ford-field-1920.jpg") type("image/jpeg")
+      );
+  }
+}
+@media (min-width: 1921px) {
+  body {
+    background-image:
+      linear-gradient(
+        180deg,
+        rgb(6 17 31 / 0.55) 0%,
+        rgb(6 17 31 / 0.7) 55%,
+        rgb(6 17 31 / 0.92) 100%
+      ),
+      image-set(
+        url("/bg/ford-field-2560.avif") type("image/avif"),
+        url("/bg/ford-field-2560.webp") type("image/webp"),
+        url("/bg/ford-field-1920.jpg") type("image/jpeg")
+      );
   }
 }
 
