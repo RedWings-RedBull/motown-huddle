@@ -1,5 +1,5 @@
 /**
- * Refuse to run any infra command unless the resolved AWS identity is the personal account.
+ * Refuse to run any infra command unless the resolved AWS identity is the project's pinned account.
  * Layers: (1) the `huddle` named profile is mandatory, (2) STS account must equal
  * HUDDLE_AWS_ACCOUNT_ID, (3) ambient credentials/profiles are rejected outright.
  */
