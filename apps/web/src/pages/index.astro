@@ -22,7 +22,7 @@ const oppScore = game
   : null;
 const venue = game ? (game.data.team.side === "home" ? "vs" : "at") : "";
 
-const features = [
+const features: { title: string; body: string; href?: string }[] = [
   {
     title: "Field heat map",
     body: "Twenty-seven spots on a drawn field, coloured by how each position group played. Click any tile to see who was there and why they graded that way.",
@@ -34,6 +34,21 @@ const features = [
   {
     title: "Open data, open code",
     body: "Built on nflverse play-by-play and advanced stats. Every number on the site can be traced to its source, and the repository is public.",
+  },
+  {
+    title: "Next game",
+    href: "/preview/",
+    body: "Kickoff countdown, the line, both teams' season-to-date splits with league ranks, key matchups, injuries and recent meetings.",
+  },
+  {
+    title: teamConfig.division,
+    href: "/division/",
+    body: "Standings with the NFL tiebreakers applied step by step, plus division and playoff odds from a seeded simulation of the rest of the season.",
+  },
+  {
+    title: "Coach's Corner",
+    href: "/coach/",
+    body: "The Fourth-Down Aggression Index, every fourth-down call scored against an empirical calculator, and the head coach's era record.",
   },
 ];
 ---
@@ -88,7 +103,15 @@ const features = [
   <section aria-label="What is here" class="bare mt-10 grid gap-4 sm:grid-cols-3">
     {features.map((f) => (
       <article class="panel p-5">
-        <h2 class="display text-2xl text-white">{f.title}</h2>
+        <h2 class="display text-2xl text-white">
+          {f.href ? (
+            <a href={f.href} class="no-underline hover:text-honolulu-bright">
+              {f.title}
+            </a>
+          ) : (
+            f.title
+          )}
+        </h2>
         <p class="mt-2 text-sm leading-relaxed text-silver">{f.body}</p>
       </article>
     ))}

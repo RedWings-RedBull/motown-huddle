@@ -44,6 +44,16 @@ pnpm verify         # everything CI runs, locally
 Node 24 and pnpm 10 are required (`npm i -g pnpm`). No cloud account, API key or domain is needed
 to build, test or run the site locally.
 
+The committed data under `apps/web/src/data` is rebuilt by the pipeline from public nflverse files:
+
+```bash
+pnpm pipeline --season 2026 --week auto   # game breakdown and Huddle Grades
+pnpm pipeline --roster --season 2026      # roster and injuries
+pnpm pipeline --preview --season 2026     # next-game preview
+pnpm pipeline --division --season 2026    # standings, tiebreakers, playoff odds
+pnpm pipeline --coach --season 2026       # fourth-down index, decision log, calculator tables
+```
+
 ## Repository layout
 
 | Path                | What lives there                                                                              |
@@ -74,7 +84,7 @@ template" and go.
 
 - **M0** foundation: monorepo, tooling, tests, CI, infra as code (synth-only) ✅
 - **M1** core showpiece: pipeline, grading engine, game breakdown page, field heat map ✅
-- **M2** roster, NFC North, next-week preview, Coach's Corner
+- **M2** roster with verified socials, next-game preview, division page, Coach's Corner ✅
 - **M3** grounded article generation with human approval
 - **M4** compliance pages and ads
 - **M5** picks game on Firebase (emulator-first)
