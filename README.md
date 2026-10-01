@@ -58,7 +58,8 @@ to build, test or run the site locally.
 ## Guardrails worth copying
 
 - `scripts/claude-guard-aws.mjs`: a Claude Code hook that blocks any AWS or CDK shell command not
-  pinned to the project's named profile, so an AI agent can never touch the wrong account.
+  pinned to the project's named profile, so an AI agent can never deploy through a stray default
+  identity.
 - `infra/scripts/preflight.ts`: refuses to deploy unless STS confirms the expected account.
 - `scripts/secret-scan.mjs` on every push, `gitleaks` in CI, and `dependency-cruiser` rules that keep
   the grading engine pure and the web app decoupled from the pipeline.
