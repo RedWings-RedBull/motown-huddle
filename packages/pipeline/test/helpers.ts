@@ -61,6 +61,8 @@ const FIXTURE_FOR: Record<AssetKey, string> = {
   ngsPassing: "ngs_passing.csv.gz",
   ngsRushing: "ngs_rushing.csv.gz",
   ngsReceiving: "ngs_receiving.csv.gz",
+  weeklyRosters: "roster_weekly.csv",
+  injuries: "injuries.csv",
 };
 
 /** Loads the fixture slices into WeekInputs the way load.ts does, without any network. */

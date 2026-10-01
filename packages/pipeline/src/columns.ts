@@ -37,6 +37,7 @@ export const PbpRow = z.object({
   play_id: num(),
   game_id: text(),
   season: num(),
+  season_type: str(),
   week: num(),
   home_team: text(),
   away_team: text(),
@@ -55,6 +56,7 @@ export const PbpRow = z.object({
   wp: na(),
   vegas_wp: na(),
   wpa: na(),
+  score_differential: na(),
   success: na(),
   cp: na(),
   cpoe: na(),
@@ -298,6 +300,14 @@ export const GamesRow = z.object({
   temp: na(),
   wind: na(),
   stadium: str(),
+  away_rest: na(),
+  home_rest: na(),
+  div_game: na(),
+  away_qb_name: str(),
+  home_qb_name: str(),
+  away_coach: str(),
+  home_coach: str(),
+  referee: str(),
 });
 export type GamesRow = z.infer<typeof GamesRow>;
 
@@ -340,3 +350,45 @@ export const forSeason =
   (season: number) =>
   (row: Record<string, string>): boolean =>
     row.season === String(season);
+
+/** weekly_rosters/roster_weekly_<season>.csv (header verified 2026-10-01). */
+export const WeeklyRosterRow = z.object({
+  season: num(),
+  team: text(),
+  position: text(),
+  depth_chart_position: str(),
+  jersey_number: na(),
+  status: text(),
+  full_name: text(),
+  first_name: text(),
+  last_name: text(),
+  birth_date: str(),
+  height: na(),
+  weight: na(),
+  college: str(),
+  gsis_id: str(),
+  espn_id: str(),
+  pfr_id: str(),
+  years_exp: na(),
+  ngs_position: str(),
+  week: num(),
+  game_type: text(),
+  rookie_year: na(),
+  draft_club: str(),
+  draft_number: na(),
+});
+export type WeeklyRosterRow = z.infer<typeof WeeklyRosterRow>;
+
+/** injuries/injuries_<season>.csv (header verified 2026-10-01). */
+export const InjuryRow = z.object({
+  season: num(),
+  team: text(),
+  week: num(),
+  gsis_id: str(),
+  full_name: str(),
+  position: str(),
+  report_primary_injury: str(),
+  report_status: str(),
+  practice_status: str(),
+});
+export type InjuryRow = z.infer<typeof InjuryRow>;

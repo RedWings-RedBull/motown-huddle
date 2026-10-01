@@ -1,0 +1,224 @@
+---
+import type { SideMetrics } from "@huddle/shared";
+import { teamConfig } from "@huddle/shared";
+import { getEntry } from "astro:content";
+
+import Countdown from "../../components/Countdown";
+import Base from "../../layouts/Base.astro";
+import { type Formatter, formatPct, formatSigned, ordinal } from "../../lib/format";
+import { formatKickoff, resultWord } from "../../lib/week";
+
+const entry = await getEntry("preview", "next");
+if (!entry)
+  throw new Error("Preview data is missing; run `pnpm pipeline --preview --season <year>`.");
+const p = entry.data;
+const team = teamConfig.team;
+const venue = p.isHome ? "vs" : "at";
+const rec = (r: { w: number; l: number; t: number }) =>
+  r.t ? `${r.w}-${r.l}-${r.t}` : `${r.w}-${r.l}`;
+const spread =
+  p.line.spread === null
+    ? null
+    : p.line.spread < 0
+      ? `${team} ${p.line.spread}`
+      : `${team} +${p.line.spread}`;
+const chips = [
+  p.venue.stadium,
+  p.venue.roof,
+  p.venue.surface,
+  p.venue.temp !== null ? `${Math.round(p.venue.temp)}°F` : null,
+  p.venue.wind !== null ? `wind ${Math.round(p.venue.wind)} mph` : null,
+  spread !== null ? `line ${spread}` : null,
+  p.line.total !== null ? `total ${p.line.total}` : null,
+  p.divGame ? "division game" : null,
+  p.referee ? `referee ${p.referee}` : null,
+].filter((c): c is string => c !== null);
+
+type MetricKey = keyof Pick<
+  SideMetrics,
+  | "epaPerPlay"
+  | "successRate"
+  | "passEpaPerDropback"
+  | "rushEpaPerAtt"
+  | "explosiveRate"
+  | "thirdDownRate"
+>;
+type Row = { key: MetricKey; label: string; fmt: Formatter };
+const ROWS: Row[] = [
+  { key: "epaPerPlay", label: "EPA / play", fmt: (v) => formatSigned(v, 2) },
+  { key: "successRate", label: "Success rate", fmt: (v) => formatPct(v) },
+  { key: "passEpaPerDropback", label: "Pass EPA / dropback", fmt: (v) => formatSigned(v, 2) },
+  { key: "rushEpaPerAtt", label: "Rush EPA / attempt", fmt: (v) => formatSigned(v, 2) },
+  { key: "explosiveRate", label: "Explosive rate", fmt: (v) => formatPct(v) },
+  { key: "thirdDownRate", label: "Third-down rate", fmt: (v) => formatPct(v) },
+];
+const sides = [
+  { label: team, profile: p.team },
+  { label: p.opponent, profile: p.opp },
+];
+const EDGE_LABEL = { team: team, opponent: p.opponent, even: "Even" } as const;
+---
+
+<Base
+  title={`Next game: ${team} ${venue} ${p.opponent}`}
+  description={`Week ${p.week} preview: ${team} ${venue} ${p.opponent}. Season-to-date splits with league ranks, key matchups, injuries and recent meetings.`}
+>
+  <section class="bare">
+    <p class="eyebrow">
+      Next game · {p.season} week {p.week}
+    </p>
+    <h1 class="display mt-2 text-5xl text-white sm:text-7xl">
+      {team} <span class="text-silver">{venue}</span> {p.opponent}
+    </h1>
+    <p class="muted mt-2 text-sm">
+      {rec(p.team.record)} {venue} {rec(p.opp.record)} ·{" "}
+      <time datetime={p.kickoffUtc}>{formatKickoff(p.kickoffUtc)}</time>
+    </p>
+    <div class="mt-5 min-h-24">
+      <Countdown client:idle kickoffUtc={p.kickoffUtc} label={formatKickoff(p.kickoffUtc)} />
+    </div>
+    <ul class="muted mt-4 flex flex-wrap gap-x-3 gap-y-1 text-sm" aria-label="Game details">
+      {chips.map((c, i) => (
+        <li class={i ? "before:mr-3 before:text-white/30 before:content-['·']" : ""}>{c}</li>
+      ))}
+    </ul>
+  </section>
+
+  <section aria-labelledby="keys-heading" class="mt-8">
+    <h2 id="keys-heading" class="section-title">
+      Key matchups
+    </h2>
+    <p class="muted mt-2 text-sm">
+      League ranks through week {p.throughWeek}; an edge needs an 8-rank gap.
+    </p>
+    <ul class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      {p.keyMatchups.map((k) => (
+        <li class="rounded-xl border border-white/10 bg-white/5 p-4">
+          <p class="eyebrow">{k.label}</p>
+          <p class="mt-2 flex items-baseline justify-between font-display text-2xl text-white">
+            <span>
+              {team} <span class="text-silver">{ordinal(k.teamRank)}</span>
+            </span>
+            <span>
+              {p.opponent} <span class="text-silver">{ordinal(k.oppRank)}</span>
+            </span>
+          </p>
+          <p
+            class:list={[
+              "mt-1 text-sm font-semibold",
+              k.edge === "even" ? "muted" : "text-honolulu-bright",
+            ]}
+          >
+            Edge: {EDGE_LABEL[k.edge]}
+          </p>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  {sides.map((s) => (
+    <section aria-labelledby={`profile-${s.label}`} class="mt-8">
+      <h2 id={`profile-${s.label}`} class="section-title">
+        {s.label} season to date
+      </h2>
+      <p class="muted mt-2 text-sm">
+        {rec(s.profile.record)}. Ranks among all 32 teams through week {p.throughWeek}; defense
+        ranks are what the unit allows (1 = stingiest).
+      </p>
+      <div class="mt-4 grid gap-4 md:grid-cols-2">
+        {(["offense", "defense"] as const).map((unit) => (
+          <table class="w-full text-sm">
+            <caption class="eyebrow mb-2 text-left">{unit}</caption>
+            <thead class="sr-only">
+              <tr>
+                <th scope="col">Metric</th>
+                <th scope="col">Value</th>
+                <th scope="col">Rank</th>
+              </tr>
+            </thead>
+            <tbody>
+              {ROWS.map((r) => {
+                const m = s.profile[unit][r.key];
+                return (
+                  <tr class="border-b border-white/10">
+                    <th scope="row" class="py-1.5 pr-2 text-left font-medium">
+                      {r.label}
+                    </th>
+                    <td class="py-1.5 pr-2 text-right font-semibold tabular-nums">
+                      {r.fmt(m.value)}
+                    </td>
+                    <td class="muted py-1.5 text-right tabular-nums">{ordinal(m.leagueRank)}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        ))}
+      </div>
+    </section>
+  ))}
+
+  <section aria-labelledby="inj-heading" class="mt-8">
+    <h2 id="inj-heading" class="section-title">
+      Injury report
+    </h2>
+    {p.injuries.length === 0 ? (
+      <p class="muted mt-2 text-sm">No report published yet for this week.</p>
+    ) : (
+      <ul class="mt-4 grid gap-2 sm:grid-cols-2">
+        {p.injuries.map((i) => (
+          <li class="flex flex-wrap items-baseline gap-x-2 rounded-lg bg-white/5 px-3 py-2 text-sm">
+            <span
+              class:list={[
+                "font-display text-base font-semibold",
+                i.team === team ? "text-honolulu-bright" : "text-silver",
+              ]}
+            >
+              {i.team}
+            </span>
+            <span class="font-semibold text-white">{i.name}</span>
+            <span class="muted">{i.position}</span>
+            {i.reportStatus && (
+              <span class="badge border-amber-400/50 bg-amber-400/15 text-amber-200">
+                {i.reportStatus}
+                {i.primary ? ` · ${i.primary}` : ""}
+              </span>
+            )}
+            {!i.reportStatus && i.practiceStatus && (
+              <span class="muted ml-auto text-xs">{i.practiceStatus}</span>
+            )}
+          </li>
+        ))}
+      </ul>
+    )}
+  </section>
+
+  {p.lastMeetings.length > 0 && (
+    <section aria-labelledby="hist-heading" class="mt-8">
+      <h2 id="hist-heading" class="section-title">
+        Recent meetings
+      </h2>
+      <ol class="mt-4 divide-y divide-white/10">
+        {p.lastMeetings.map((m) => (
+          <li class="flex flex-wrap items-baseline gap-x-3 py-2 text-sm">
+            <span class="muted w-28">
+              {m.season} week {m.week}
+            </span>
+            <span
+              class:list={[
+                "font-display text-lg",
+                m.result === "W" ? "text-honolulu-bright" : "text-silver",
+              ]}
+            >
+              {resultWord(m.result)}
+            </span>
+            <span class="font-semibold tabular-nums text-white">
+              {m.teamScore}–{m.oppScore}
+            </span>
+            <span class="muted">{m.home ? "home" : "away"}</span>
+          </li>
+        ))}
+      </ol>
+    </section>
+  )}
+</Base>

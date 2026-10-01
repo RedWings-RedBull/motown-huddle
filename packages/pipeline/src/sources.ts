@@ -22,7 +22,9 @@ export type AssetKey =
   | "games"
   | "ngsPassing"
   | "ngsRushing"
-  | "ngsReceiving";
+  | "ngsReceiving"
+  | "weeklyRosters"
+  | "injuries";
 
 export interface AssetSpec {
   key: AssetKey;
@@ -146,6 +148,22 @@ export const ASSETS: readonly AssetSpec[] = [
     tag: "nextgen_stats",
     file: "ngs_receiving.csv.gz",
     perSeason: false,
+    finalOnly: false,
+    license: "CC-BY-4.0",
+  },
+  {
+    key: "weeklyRosters",
+    tag: "weekly_rosters",
+    file: "roster_weekly_<season>.csv",
+    perSeason: true,
+    finalOnly: false,
+    license: "CC-BY-4.0",
+  },
+  {
+    key: "injuries",
+    tag: "injuries",
+    file: "injuries_<season>.csv",
+    perSeason: true,
     finalOnly: false,
     license: "CC-BY-4.0",
   },

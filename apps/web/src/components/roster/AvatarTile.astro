@@ -1,0 +1,46 @@
+---
+import type { PositionGroup } from "@huddle/shared";
+
+interface Props {
+  fullName: string;
+  jersey: number | null;
+  group: PositionGroup;
+}
+
+const { fullName, jersey, group } = Astro.props;
+const initials = fullName
+  .split(/\s+/)
+  .filter(Boolean)
+  .slice(0, 2)
+  .map((part) => part[0]?.toUpperCase() ?? "")
+  .join("");
+
+const TONE: Record<PositionGroup, string> = {
+  QB: "from-honolulu to-honolulu-bright",
+  RB: "from-sky-800 to-sky-500",
+  WR: "from-cyan-800 to-cyan-500",
+  TE: "from-teal-800 to-teal-500",
+  OL: "from-slate-700 to-slate-400",
+  DL: "from-indigo-900 to-indigo-600",
+  EDGE: "from-violet-900 to-violet-600",
+  LB: "from-blue-900 to-blue-600",
+  CB: "from-fuchsia-900 to-fuchsia-600",
+  S: "from-rose-900 to-rose-600",
+  ST: "from-amber-800 to-amber-500",
+};
+---
+
+<div
+  class:list={[
+    "relative flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br text-white shadow-inner",
+    TONE[group],
+  ]}
+  aria-hidden="true"
+>
+  <span class="display text-2xl">{initials}</span>
+  {jersey !== null && (
+    <span class="absolute -right-1.5 -bottom-1.5 rounded-md bg-night px-1.5 py-0.5 font-display text-xs font-bold tabular-nums ring-1 ring-white/20">
+      #{jersey}
+    </span>
+  )}
+</div>

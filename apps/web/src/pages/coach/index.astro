@@ -1,0 +1,311 @@
+---
+import { teamConfig, teamName } from "@huddle/shared";
+import { getEntry } from "astro:content";
+
+import GoForItCalculator from "../../components/coach/GoForItCalculator";
+import Base from "../../layouts/Base.astro";
+import { formatSigned, ordinal } from "../../lib/format";
+import { gameHref } from "../../lib/week";
+
+const entry = await getEntry("coach", "current");
+if (!entry) throw new Error("Coach data is missing; run `pnpm pipeline --coach --season <year>`.");
+const c = entry.data;
+const quotes = (await getEntry("quotes", "quotes"))?.data.quotes ?? [];
+const team = teamConfig.team;
+const current = c.index.find((i) => i.season === c.season);
+const rec = (r: { w: number; l: number; t: number }) =>
+  r.t ? `${r.w}-${r.l}-${r.t}` : `${r.w}-${r.l}`;
+const sum = (key: keyof Omit<(typeof c.era)[number], "season">) =>
+  c.era.reduce((acc, e) => ({ w: acc.w + e[key].w, l: acc.l + e[key].l, t: acc.t + e[key].t }), {
+    w: 0,
+    l: 0,
+    t: 0,
+  });
+const pctText = (x: number) => `${Math.round(x * 100)}%`;
+const DECISION: Record<string, string> = { go: "Went for it", punt: "Punted", fg: "Field goal" };
+const byGame = new Map<string, typeof c.log>();
+for (const e of c.log) byGame.set(e.gameId, [...(byGame.get(e.gameId) ?? []), e]);
+const agreed = c.log.filter((e) => !e.forced && e.decision === e.calc.recommended).length;
+const scored = c.log.filter((e) => !e.forced).length;
+const tableSeasons = c.tableSeasons.length ? c.tableSeasons : [c.season];
+---
+
+<Base
+  title="Coach's Corner"
+  description={`Fourth-down decision analysis for the ${teamConfig.teamName}: the Fourth-Down Aggression Index, every fourth-down call this season against an empirical calculator, and the head coach's era record.`}
+>
+  <section class="bare">
+    <p class="eyebrow">Coach's Corner · through week {c.throughWeek}</p>
+    <h1 class="display mt-2 text-5xl text-white sm:text-7xl">Fourth-down decisions</h1>
+    <p class="muted mt-2 max-w-2xl text-sm">
+      How the {teamConfig.teamName} head coach handles fourth down, measured against the whole
+      league and against an empirical go-for-it calculator built from play-by-play.
+    </p>
+  </section>
+
+  <section aria-labelledby="index-heading" class="mt-8">
+    <h2 id="index-heading" class="section-title">
+      Fourth-Down Aggression Index
+    </h2>
+    <p class="muted mt-2 text-sm">
+      Percentage points above the league go rate after matching on distance, field position and win
+      probability. Clock-forced attempts (fourth quarter, under four minutes, trailing) are
+      excluded.
+    </p>
+    {current && (
+      <div class="mt-4 grid gap-3 sm:grid-cols-4">
+        <div class="stat-tile">
+          <p class="eyebrow">{c.season} index</p>
+          <p class="display text-4xl text-white">{formatSigned(current.index, 1)}</p>
+          <p class="muted text-xs">
+            {ordinal(current.rank)} of {c.league.length}
+          </p>
+        </div>
+        <div class="stat-tile">
+          <p class="eyebrow">Go rate</p>
+          <p class="display text-4xl text-white">{pctText(current.goRate)}</p>
+          <p class="muted text-xs">league {pctText(current.leagueGoRate)}</p>
+        </div>
+        <div class="stat-tile">
+          <p class="eyebrow">Attempts</p>
+          <p class="display text-4xl text-white">{current.goes}</p>
+          <p class="muted text-xs">of {current.decisions} decisions</p>
+        </div>
+        <div class="stat-tile">
+          <p class="eyebrow">Converted</p>
+          <p class="display text-4xl text-white">
+            {current.goes ? pctText(current.conversions / current.goes) : "—"}
+          </p>
+          <p class="muted text-xs">
+            {current.conversions} of {current.goes}
+          </p>
+        </div>
+      </div>
+    )}
+    <div class="mt-6 grid gap-6 md:grid-cols-2">
+      <div>
+        <h3 class="eyebrow">By season</h3>
+        <table class="mt-2 w-full text-sm">
+          <thead class="sr-only">
+            <tr>
+              <th scope="col">Season</th>
+              <th scope="col">Index</th>
+              <th scope="col">Rank</th>
+              <th scope="col">Go rate</th>
+            </tr>
+          </thead>
+          <tbody>
+            {c.index.map((i) => (
+              <tr class="border-t border-white/10">
+                <th scope="row" class="py-1.5 pr-3 text-left font-medium">
+                  {i.season}
+                </th>
+                <td class="py-1.5 pr-3 text-right font-semibold tabular-nums text-white">
+                  {formatSigned(i.index, 1)}
+                </td>
+                <td class="muted py-1.5 pr-3 text-right tabular-nums">{ordinal(i.rank)}</td>
+                <td class="muted py-1.5 text-right tabular-nums">{pctText(i.goRate)} go</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <h3 class="eyebrow">{c.season} league ranking</h3>
+        <ol class="mt-2 grid grid-cols-2 gap-x-4 text-sm" data-league>
+          {c.league.map((r) => (
+            <li
+              class:list={[
+                "flex justify-between border-t border-white/10 py-1",
+                r.team === team ? "text-honolulu-bright" : "",
+              ]}
+            >
+              <span>
+                <span class="muted mr-2 tabular-nums">{r.rank}</span>
+                {r.team}
+              </span>
+              <span class="tabular-nums">{formatSigned(r.index, 1)}</span>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="calc-heading" class="mt-8">
+    <h2 id="calc-heading" class="section-title">
+      Go-For-It Calculator
+    </h2>
+    <p class="muted mt-2 text-sm">
+      Set the situation; the calculator scores going for it, punting and kicking.
+    </p>
+    <div class="mt-4">
+      <GoForItCalculator client:visible tables={c.tables} seasons={tableSeasons} />
+    </div>
+  </section>
+
+  <section aria-labelledby="log-heading" class="mt-8">
+    <h2 id="log-heading" class="section-title">
+      Fourth-Down Decision Log
+    </h2>
+    <p class="muted mt-2 text-sm">
+      Every {team} fourth-down decision this season. "Calc" is what the calculator above preferred
+      before the snap; the coach agreed on {agreed} of {scored} unforced calls.
+    </p>
+    {byGame.size === 0 ? (
+      <p class="muted mt-4 text-sm">No fourth-down decisions recorded yet.</p>
+    ) : (
+      [...byGame.entries()].map(([gameId, entries]) => {
+        const first = entries[0];
+        if (!first) return null;
+        return (
+          <div class="mt-5">
+            <h3 class="font-display text-xl text-white">
+              <a
+                href={gameHref(c.season, first.week)}
+                class="no-underline hover:text-honolulu-bright"
+              >
+                Week {first.week} vs {teamName(first.opponent)}
+              </a>
+            </h3>
+            <ol class="mt-2 divide-y divide-white/10" data-log={gameId}>
+              {entries.map((e) => {
+                const agreed = e.decision === e.calc.recommended;
+                return (
+                  <li class="grid gap-x-4 gap-y-1 py-2 text-sm sm:grid-cols-[7rem_1fr_auto]">
+                    <span class="muted tabular-nums">
+                      Q{e.qtr} {e.clock}
+                    </span>
+                    <span>
+                      <span class="font-semibold text-white">
+                        4th &amp; {e.ydstogo} at the{" "}
+                        {e.yardline100 > 50
+                          ? `own ${100 - e.yardline100}`
+                          : e.yardline100 === 50
+                            ? "50"
+                            : `${e.opponent} ${e.yardline100}`}
+                      </span>
+                      <span class="muted">
+                        {" "}
+                        ·{" "}
+                        {e.scoreDiff === 0
+                          ? "tied"
+                          : e.scoreDiff > 0
+                            ? `up ${e.scoreDiff}`
+                            : `down ${-e.scoreDiff}`}{" "}
+                        · {DECISION[e.decision]}, {e.result}
+                      </span>
+                      {e.forced && (
+                        <span class="badge ml-2 border-white/30 text-silver">forced</span>
+                      )}
+                    </span>
+                    <span
+                      class:list={[
+                        "text-xs tabular-nums sm:text-right",
+                        agreed || e.forced ? "muted" : "text-amber-200",
+                      ]}
+                    >
+                      calc: {DECISION[e.calc.recommended]?.toLowerCase()} · go{" "}
+                      {pctText(e.calc.goWp)} / punt {pctText(e.calc.puntWp)}
+                      {e.calc.fgWp !== null ? ` / fg ${pctText(e.calc.fgWp)}` : ""}
+                      {e.wpa !== null ? ` · WPA ${formatSigned(e.wpa * 100, 1)}` : ""}
+                    </span>
+                  </li>
+                );
+              })}
+            </ol>
+          </div>
+        );
+      })
+    )}
+  </section>
+
+  <section aria-labelledby="era-heading" class="mt-8">
+    <h2 id="era-heading" class="section-title">
+      Era tracker
+    </h2>
+    <p class="muted mt-2 text-sm">
+      {c.coach}, head coach since {c.firstSeason}. Regular season {rec(sum("regular"))}, postseason{" "}
+      {rec(sum("postseason"))}; one-score games {rec(sum("oneScore"))}; as favorite{" "}
+      {rec(sum("favorite"))}, as underdog {rec(sum("underdog"))}; division {rec(sum("division"))}.
+    </p>
+    <table class="mt-4 w-full text-sm">
+      <thead>
+        <tr class="eyebrow text-left">
+          <th scope="col" class="py-2 pr-3">
+            Season
+          </th>
+          <th scope="col" class="py-2 pr-3 text-right">
+            Reg
+          </th>
+          <th scope="col" class="py-2 pr-3 text-right">
+            Post
+          </th>
+          <th scope="col" class="hidden py-2 pr-3 text-right sm:table-cell">
+            Home
+          </th>
+          <th scope="col" class="hidden py-2 pr-3 text-right sm:table-cell">
+            Away
+          </th>
+          <th scope="col" class="py-2 pr-3 text-right">
+            One-score
+          </th>
+          <th scope="col" class="hidden py-2 pr-3 text-right sm:table-cell">
+            Favorite
+          </th>
+          <th scope="col" class="hidden py-2 pr-3 text-right sm:table-cell">
+            Underdog
+          </th>
+          <th scope="col" class="py-2 text-right">
+            Division
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {c.era.map((e) => (
+          <tr class="border-t border-white/10">
+            <th scope="row" class="py-2 pr-3 text-left font-medium">
+              {e.season}
+            </th>
+            <td class="py-2 pr-3 text-right tabular-nums text-white">{rec(e.regular)}</td>
+            <td class="py-2 pr-3 text-right tabular-nums">
+              {e.postseason.w + e.postseason.l + e.postseason.t ? rec(e.postseason) : "—"}
+            </td>
+            <td class="hidden py-2 pr-3 text-right tabular-nums sm:table-cell">{rec(e.home)}</td>
+            <td class="hidden py-2 pr-3 text-right tabular-nums sm:table-cell">{rec(e.away)}</td>
+            <td class="py-2 pr-3 text-right tabular-nums">{rec(e.oneScore)}</td>
+            <td class="hidden py-2 pr-3 text-right tabular-nums sm:table-cell">
+              {rec(e.favorite)}
+            </td>
+            <td class="hidden py-2 pr-3 text-right tabular-nums sm:table-cell">
+              {rec(e.underdog)}
+            </td>
+            <td class="py-2 text-right tabular-nums">{rec(e.division)}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </section>
+
+  {quotes.length > 0 && (
+    <section aria-labelledby="quotes-heading" class="mt-8">
+      <h2 id="quotes-heading" class="section-title">
+        In his words
+      </h2>
+      <ul class="mt-4 grid gap-3 sm:grid-cols-2">
+        {quotes.map((q) => (
+          <li class="rounded-xl border border-white/10 bg-white/5 p-4">
+            <blockquote class="text-white">“{q.quote}”</blockquote>
+            <p class="muted mt-2 text-xs">
+              {q.context} ·{" "}
+              <a href={q.sourceUrl} rel="noopener nofollow">
+                {q.sourceName}
+              </a>
+              , {q.date}
+            </p>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+</Base>

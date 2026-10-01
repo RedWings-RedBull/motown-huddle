@@ -3,14 +3,20 @@ import {
   Grades,
   KeyPlays,
   LeagueBaselines,
+  CoachFile,
+  DivisionFile,
   Manifest,
+  QuotesFile,
+  MatchupPreview,
+  RosterFile,
+  SocialsFile,
   TeamMetrics,
   WeekMeta,
   WinProbability,
 } from "@huddle/shared";
 import { file, glob } from "astro/loaders";
 // astro/zod re-exports the same zod 4 instance @huddle/shared is built with.
-import type { ZodType } from "astro/zod";
+import { type ZodType, z } from "astro/zod";
 import { defineCollection } from "astro:content";
 
 /**
@@ -37,6 +43,42 @@ export const collections = {
   winProbability: week("win-probability", WinProbability),
   meta: week("meta", WeekMeta),
   baselines: week("league-baselines", LeagueBaselines),
+  coach: defineCollection({
+    loader: file("./src/data/coach/current.json", {
+      parser: (text) => ({ current: JSON.parse(text) as Record<string, unknown> }),
+    }),
+    schema: CoachFile,
+  }),
+  quotes: defineCollection({
+    loader: file("./src/data/coach/quotes.json", {
+      parser: (text) => ({ quotes: JSON.parse(text) as Record<string, unknown> }),
+    }),
+    schema: QuotesFile,
+  }),
+  division: defineCollection({
+    loader: file("./src/data/division/current.json", {
+      parser: (text) => ({ current: JSON.parse(text) as Record<string, unknown> }),
+    }),
+    schema: DivisionFile,
+  }),
+  preview: defineCollection({
+    loader: file("./src/data/preview/next.json", {
+      parser: (text) => ({ next: JSON.parse(text) as Record<string, unknown> }),
+    }),
+    schema: MatchupPreview,
+  }),
+  roster: defineCollection({
+    loader: file("./src/data/roster/current.json", {
+      parser: (text) => ({ current: JSON.parse(text) as Record<string, unknown> }),
+    }),
+    schema: RosterFile,
+  }),
+  socials: defineCollection({
+    loader: file("./src/data/players_socials.json", {
+      parser: (text) => ({ socials: { entries: JSON.parse(text) as Record<string, unknown> } }),
+    }),
+    schema: z.object({ entries: SocialsFile }),
+  }),
   manifest: defineCollection({
     // The file loader wants an array or an id-keyed object; wrap the manifest under one id.
     loader: file("./src/data/manifest.json", {

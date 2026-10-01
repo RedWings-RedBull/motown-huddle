@@ -7,7 +7,8 @@
     ".": "./src/index.ts"
   },
   "scripts": {
-    "typecheck": "tsc -p tsconfig.json"
+    "typecheck": "tsc -p tsconfig.json",
+    "seed:socials": "tsx src/socials/seedWikidata.ts ../../apps/web/src/data"
   },
   "dependencies": {
     "@date-fns/tz": "^1.5.0",
