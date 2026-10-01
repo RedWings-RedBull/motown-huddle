@@ -23,6 +23,11 @@ export const teamConfig = {
   /** Disclaimer rendered in every footer. */
   disclaimer:
     "Unofficial fan site. Not affiliated with or endorsed by the Detroit Lions, the NFL, or the NFLPA. Team names and marks belong to their owners.",
+  /** Background photograph credit (CC licence requires it); null for a plain background. */
+  backgroundCredit: {
+    text: "Background: Ford Field by Michael Barera, CC BY-SA 4.0, via Wikimedia Commons",
+    url: "https://commons.wikimedia.org/wiki/File:Detroit_December_2015_06_(Ford_Field).jpg",
+  },
   attribution:
     "Data: nflverse (CC-BY 4.0) · Charting: FTN Data via nflverse (CC-BY-SA 4.0) · Advanced stats: Pro-Football-Reference via nflverse · Schedule and lines: nflverse (Lee Sharpe)",
 } as const;

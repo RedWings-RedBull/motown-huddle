@@ -1,6 +1,8 @@
 ---
 import { teamConfig } from "@huddle/shared";
 
+import Fonts from "../components/Fonts.astro";
+
 import "../styles/global.css";
 
 interface Props {
@@ -11,56 +13,86 @@ interface Props {
 const siteName = import.meta.env.PUBLIC_SITE_NAME ?? teamConfig.siteName;
 const { title, description = teamConfig.tagline } = Astro.props;
 const fullTitle = title === siteName ? siteName : `${title} · ${siteName}`;
+const path = Astro.url.pathname;
+const links = [
+  { href: "/games/", label: "Games" },
+  { href: "/methodology/", label: "Methodology" },
+];
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#06111f" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    <link
+      rel="preload"
+      as="image"
+      href="/bg/ford-field-1920.avif"
+      type="image/avif"
+      media="(min-width: 768px) and (max-width: 1920px)"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="/bg/ford-field-1280.avif"
+      type="image/avif"
+      media="(max-width: 767px)"
+    />
+    <Fonts />
     <title>{fullTitle}</title>
   </head>
   <body class="flex min-h-screen flex-col">
     <a class="skip-link" href="#main">
       Skip to content
     </a>
-    <header class="border-b border-silver/40">
+    <header class="sticky top-0 z-40 border-b border-white/10 bg-night/80 backdrop-blur">
       <nav
-        class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3"
+        class="mx-auto flex max-w-6xl items-center justify-between gap-6 px-4 py-3"
         aria-label="Primary"
       >
-        <a href="/" class="text-xl font-extrabold tracking-tight text-honolulu">
+        <a href="/" class="display flex items-center gap-2 text-2xl text-white no-underline">
+          <span aria-hidden="true" class="h-6 w-1.5 rounded-sm bg-honolulu-bright"></span>
           {siteName}
         </a>
-        <ul class="flex gap-4 text-sm font-medium">
-          <li>
-            <a href="/games/" class="hover:text-honolulu">
-              Games
-            </a>
-          </li>
-          <li>
-            <a href="/methodology/" class="hover:text-honolulu">
-              Methodology
-            </a>
-          </li>
+        <ul class="flex gap-5 font-display text-base font-semibold tracking-wider uppercase">
+          {links.map((l) => (
+            <li>
+              <a
+                href={l.href}
+                aria-current={path.startsWith(l.href) ? "page" : undefined}
+                class="text-silver no-underline hover:text-white aria-[current=page]:text-honolulu-bright"
+              >
+                {l.label}
+              </a>
+            </li>
+          ))}
         </ul>
       </nav>
     </header>
     <main id="main" class="mx-auto w-full max-w-6xl flex-1 px-4 py-8">
       <slot />
     </main>
-    <footer class="border-t border-silver/40 text-xs text-ink/70 dark:text-silver/70">
+    <footer class="border-t border-white/10 text-xs text-silver/70">
       <div class="mx-auto max-w-6xl space-y-2 px-4 py-6">
         <p>{teamConfig.disclaimer}</p>
         <p>{teamConfig.attribution}</p>
+        {teamConfig.backgroundCredit && (
+          <p>
+            <a href={teamConfig.backgroundCredit.url} class="underline hover:text-honolulu-bright">
+              {teamConfig.backgroundCredit.text}
+            </a>
+          </p>
+        )}
         <p>
           <a
             href="https://github.com/RedWings-RedBull/motown-huddle"
-            class="underline hover:text-honolulu"
+            class="underline hover:text-honolulu-bright"
           >
             Open source on GitHub
           </a>

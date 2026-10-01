@@ -46,8 +46,8 @@ const sources = Object.entries(meta.data.sources).sort(([a], [b]) => a.localeCom
 ---
 
 <Base title={title} description={description}>
-  <nav aria-label="Breadcrumb" class="text-sm">
-    <a href="/games/" class="underline hover:text-honolulu">
+  <nav aria-label="Breadcrumb" class="text-sm text-silver">
+    <a href="/games/" class="underline hover:text-honolulu-bright">
       Games
     </a>
     <span aria-hidden="true"> / </span>
@@ -55,12 +55,15 @@ const sources = Object.entries(meta.data.sources).sort(([a], [b]) => a.localeCom
       {game.data.season} week {game.data.week}
     </span>
   </nav>
-  <h1 class="mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl">
-    {resultWord(game.data.team.result)} over {opponent}, {teamScore}-{oppScore}
-  </h1>
-  <p class="mt-1 text-ink/80 dark:text-silver/80">
-    {game.data.season} season, week {game.data.week}. Game {game.data.gameId}.
+  <p class="eyebrow mt-4">
+    {game.data.season} season · week {game.data.week}
   </p>
+  <h1 class="bare display mt-2 text-5xl text-white sm:text-7xl">
+    <span class={game.data.team.result === "W" ? "text-honolulu-bright" : "text-silver"}>
+      {resultWord(game.data.team.result)}
+    </span>
+    {` ${game.data.team.side === "home" ? "vs" : "at"} ${opponent}`}
+  </h1>
 
   <div class="mt-6">
     <ScoreStrip game={game.data} />
@@ -69,7 +72,7 @@ const sources = Object.entries(meta.data.sources).sort(([a], [b]) => a.localeCom
   <TeamPanel metrics={teamMetrics.data} opponent={opponent} />
 
   <section aria-labelledby="wp-heading" class="mt-8">
-    <h2 id="wp-heading" class="text-2xl font-extrabold">
+    <h2 id="wp-heading" class="section-title">
       Win probability
     </h2>
     <WinProbChart data={winProbability.data} team={team} opponent={opponent} />
@@ -77,16 +80,16 @@ const sources = Object.entries(meta.data.sources).sort(([a], [b]) => a.localeCom
 
   <section aria-labelledby="field-heading" class="mt-8">
     <div class="flex flex-wrap items-center gap-3">
-      <h2 id="field-heading" class="text-2xl font-extrabold">
+      <h2 id="field-heading" class="section-title">
         Field heat map
       </h2>
       <TierBadge tier={grades.data.tier} />
     </div>
-    <p class="mt-1 text-sm text-ink/80 dark:text-silver/80">
+    <p class="muted mt-2 max-w-3xl text-sm">
       Every slot shows the snap-weighted Huddle Grade of the players who lined up there. Pick a tile
       (click, tap, or Tab and Enter; arrow keys move between tiles) to see who played, how much, and
       every component behind the grade. Offensive linemen share one unit grade.{" "}
-      <a href="/methodology/" class="underline hover:text-honolulu">
+      <a href="/methodology/" class="underline hover:text-honolulu-bright">
         How the grade works
       </a>
       .
@@ -98,8 +101,8 @@ const sources = Object.entries(meta.data.sources).sort(([a], [b]) => a.localeCom
 
   <KeyPlaysList plays={keyPlays.data} team={team} />
 
-  <section aria-labelledby="sources-heading" class="mt-8 text-sm">
-    <h2 id="sources-heading" class="text-lg font-bold">
+  <section aria-labelledby="sources-heading" class="muted mt-10 text-sm">
+    <h2 id="sources-heading" class="eyebrow">
       Data build
     </h2>
     <p class="mt-1">

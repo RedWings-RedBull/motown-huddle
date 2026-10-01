@@ -13,8 +13,9 @@ test.describe("home", () => {
   test("shows the latest game result with a link to the breakdown", async ({ page }) => {
     await page.goto("/");
     const latest = page.getByRole("region", { name: "Latest game" });
-    await expect(latest).toContainText("Win vs NYJ, 31-24");
-    await latest.getByRole("link", { name: "Read the breakdown" }).click();
+    await expect(latest).toContainText("Win vs NYJ");
+    await expect(latest).toContainText("31 – 24");
+    await latest.getByRole("link", { name: "Open the breakdown" }).click();
     await expect(page).toHaveURL(/\/games\/2026\/week-03\/$/);
   });
 

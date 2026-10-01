@@ -36,3 +36,6 @@ Thumbs.db
 
 # gitleaks action output
 *.sarif
+
+# Claude app preview config (local only)
+.claude/launch.json

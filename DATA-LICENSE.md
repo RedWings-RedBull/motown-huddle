@@ -21,3 +21,6 @@ Attribution for the inputs:
 
 This is an unofficial fan project. It is not affiliated with or endorsed by the Detroit Lions, the NFL,
 or the NFLPA. Team names and marks belong to their owners.
+
+- Background photograph: "Detroit December 2015 06 (Ford Field)" by Michael Barera, CC BY-SA 4.0, via
+  Wikimedia Commons (resized derivatives under `apps/web/public/bg/`).

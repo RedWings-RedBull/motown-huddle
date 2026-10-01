@@ -17,51 +17,68 @@ const spread =
     : game.line.spread < 0
       ? `${team} ${game.line.spread}`
       : `${team} +${game.line.spread}`;
-const venueBits = [game.venue.stadium, game.venue.roof, game.venue.surface];
-if (game.venue.temp !== null) venueBits.push(`${Math.round(game.venue.temp)}°F`);
-if (game.venue.wind !== null) venueBits.push(`wind ${Math.round(game.venue.wind)} mph`);
+const chips = [game.venue.stadium, game.venue.roof, game.venue.surface];
+if (game.venue.temp !== null) chips.push(`${Math.round(game.venue.temp)}°F`);
+if (game.venue.wind !== null) chips.push(`wind ${Math.round(game.venue.wind)} mph`);
+if (spread !== null) chips.push(`line ${spread}`);
+if (game.line.total !== null) chips.push(`total ${game.line.total}`);
+
+const sides = [game.away, game.home] as const;
+const won = game.team.result === "W";
 ---
 
-<section aria-labelledby="score-heading" class="rounded-lg border border-silver/50 p-4">
+<section aria-labelledby="score-heading" class="panel overflow-hidden">
   <h2 id="score-heading" class="sr-only">
     Final score
   </h2>
-  <div class="flex flex-wrap items-center justify-between gap-4">
-    <dl class="flex items-center gap-6 text-2xl font-extrabold tabular-nums sm:text-3xl">
-      <div class="flex items-baseline gap-2">
-        <dt class:list={["text-base font-semibold", game.away.team === team && "text-honolulu"]}>
-          {game.away.team}
-        </dt>
-        <dd>{game.away.score}</dd>
-      </div>
-      <span aria-hidden="true" class="text-base font-medium text-ink/70 dark:text-silver/70">
-        at
-      </span>
-      <div class="flex items-baseline gap-2">
-        <dt class:list={["text-base font-semibold", game.home.team === team && "text-honolulu"]}>
-          {game.home.team}
-        </dt>
-        <dd>{game.home.score}</dd>
-      </div>
-    </dl>
-    <p class="flex items-center gap-2 text-sm font-semibold">
+  <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-2 px-4 pt-5 pb-4 sm:gap-6 sm:px-8">
+    {sides.map((side, i) => {
+      const isTeam = side.team === team;
+      return (
+        <div class:list={["flex flex-col", i === 0 ? "items-end text-right" : "items-start"]}>
+          <span
+            class:list={[
+              "font-display text-lg font-semibold tracking-wider uppercase",
+              isTeam ? "text-honolulu-bright" : "text-silver",
+            ]}
+          >
+            {side.team}
+            {isTeam && <span class="sr-only"> ({teamConfig.teamName})</span>}
+          </span>
+          <span
+            class:list={[
+              "display text-7xl tabular-nums sm:text-8xl",
+              isTeam ? "text-white" : "text-silver/80",
+            ]}
+          >
+            {side.score}
+          </span>
+        </div>
+      );
+    })}
+    <div class="col-start-2 row-start-1 flex flex-col items-center gap-2">
+      <span class="eyebrow">at</span>
       <span
         class:list={[
-          "rounded px-2 py-0.5 text-white",
-          game.team.result === "W" ? "bg-honolulu" : "bg-ink dark:bg-silver dark:text-ink",
+          "display rounded-md px-3 py-1 text-lg",
+          won ? "bg-honolulu text-white" : "bg-silver text-ink",
         ]}
       >
         {resultWord(game.team.result)}
-        {game.overtime && " (OT)"}
+        {game.overtime && " · OT"}
       </span>
       <TierBadge tier={game.tier} />
-    </p>
+    </div>
   </div>
-  <p class="mt-3 text-sm text-ink/80 dark:text-silver/80">
-    <time datetime={game.kickoffUtc}>{formatKickoff(game.kickoffUtc)}</time>
-    {" · "}
-    {venueBits.join(" · ")}
-    {spread !== null && ` · line ${spread}`}
-    {game.line.total !== null && ` · total ${game.line.total}`}
-  </p>
+  <ul
+    class="flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-white/10 bg-black/20 px-4 py-2 text-sm text-silver sm:px-8"
+    aria-label="Game details"
+  >
+    <li>
+      <time datetime={game.kickoffUtc}>{formatKickoff(game.kickoffUtc)}</time>
+    </li>
+    {chips.map((c) => (
+      <li class="before:mr-3 before:text-white/30 before:content-['·']">{c}</li>
+    ))}
+  </ul>
 </section>
