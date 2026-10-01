@@ -1,3 +1,39 @@
 {
-  "quotes": []
+  "quotes": [
+    {
+      "quote": "I think you have to feel good about your players and the plan, and if you do, I think you go for it.",
+      "date": "2021-12-27",
+      "context": "Asked why he keeps going for it on fourth down, after the week 16 loss at Atlanta",
+      "sourceName": "detroitlions.com",
+      "sourceUrl": "https://www.detroitlions.com/news/key-questions-why-campbell-is-aggressive-on-fourth-down-goff-reynolds-cabinda"
+    },
+    {
+      "quote": "I frickin regret my decision there at the end. I should have gone for it on fourth down.",
+      "date": "2022-09-25",
+      "context": "After kicking a 54-yard field goal on fourth-and-4 at the Minnesota 36 with 1:14 left; the kick missed and the Vikings won 28-24",
+      "sourceName": "detroitlions.com",
+      "sourceUrl": "https://www.detroitlions.com/news/campbell-regrets-not-going-for-one-more-fourth-down-goff-decker-williams"
+    },
+    {
+      "quote": "I just wanted to finish with the ball in our hands. I liked where we were offensively.",
+      "date": "2023-11-12",
+      "context": "On going for it on fourth-and-2 with 1:47 left instead of kicking, in the win at the Chargers",
+      "sourceName": "detroitlions.com",
+      "sourceUrl": "https://www.detroitlions.com/news/four-downs-campbell-i-just-wanted-to-finish-with-the-ball-in-our-hands"
+    },
+    {
+      "quote": "It's easy hindsight. I get it. I get that, but I don't regret those decisions, and it's hard.",
+      "date": "2024-01-29",
+      "context": "The day after two failed fourth-down attempts in the NFC Championship Game loss at San Francisco",
+      "sourceName": "ESPN",
+      "sourceUrl": "https://www.espn.com/nfl/story/_/id/39414214/lions-coach-dan-campbell-regret-costly-4th-calls"
+    },
+    {
+      "quote": "I just felt like we needed to end it on offense. I did not want to give that ball back.",
+      "date": "2024-12-06",
+      "context": "On the fourth-and-1 run with 43 seconds left, tied 31-31 against Green Bay, that set up the winning field goal",
+      "sourceName": "NFL.com",
+      "sourceUrl": "https://www.nfl.com/news/dan-campbell-on-fourth-down-call-i-just-felt-like-we-needed-to-end-it-on-offense"
+    }
+  ]
 }
