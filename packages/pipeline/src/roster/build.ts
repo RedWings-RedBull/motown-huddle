@@ -132,4 +132,3 @@ export function buildRoster(
 
   return RosterFileSchema.parse({ season, week, team, players });
 }
-

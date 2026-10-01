@@ -2,7 +2,15 @@
   "ci": {
     "collect": {
       "staticDistDir": "./apps/web/dist",
-      "url": ["/", "/404.html", "/games/", "/games/2026/week-03/", "/methodology/", "/roster/"],
+      "url": [
+        "/",
+        "/404.html",
+        "/games/",
+        "/games/2026/week-03/",
+        "/methodology/",
+        "/roster/",
+        "/preview/"
+      ],
       "numberOfRuns": 1
     },
     "assert": {

@@ -161,7 +161,7 @@ export function leaguePercentile(
   return { percentile: lowerIsBetter ? 100 - pct : pct, rank: better + 1 };
 }
 
-function sideMetrics(team: string, totals: Map<string, OffenseTotals>): SideMetrics {
+export function sideMetrics(team: string, totals: Map<string, OffenseTotals>): SideMetrics {
   const t = totals.get(team) ?? empty(team);
   const metric = (key: RateKey): Metric => {
     const own = rate(t, key);

@@ -13,9 +13,9 @@ const ROSTER_CSV = `season,team,position,depth_chart_position,jersey_number,stat
 2026,CHI,QB,QB,18,ACT,Caleb Williams,Caleb,Williams,2001-11-18,73,215,USC,00-0039918,4431611,WillCa04,2,QB,4,REG,2024,CHI,1
 `;
 
-const INJURY_CSV = `season,team,week,gsis_id,report_primary_injury,report_status,practice_status
-2026,DET,4,00-0037239,Knee,Out,Did Not Participate In Practice
-2026,DET,3,00-0033106,Ankle,Questionable,Limited Participation in Practice
+const INJURY_CSV = `season,team,week,gsis_id,full_name,position,report_primary_injury,report_status,practice_status
+2026,DET,4,00-0037239,Aidan Hutchinson,DE,Knee,Out,Did Not Participate In Practice
+2026,DET,3,00-0033106,Jared Goff,QB,Ankle,Questionable,Limited Participation in Practice
 `;
 
 describe("buildRoster", () => {

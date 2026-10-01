@@ -4,6 +4,7 @@ import {
   KeyPlays,
   LeagueBaselines,
   Manifest,
+  MatchupPreview,
   RosterFile,
   SocialsFile,
   TeamMetrics,
@@ -39,6 +40,12 @@ export const collections = {
   winProbability: week("win-probability", WinProbability),
   meta: week("meta", WeekMeta),
   baselines: week("league-baselines", LeagueBaselines),
+  preview: defineCollection({
+    loader: file("./src/data/preview/next.json", {
+      parser: (text) => ({ next: JSON.parse(text) as Record<string, unknown> }),
+    }),
+    schema: MatchupPreview,
+  }),
   roster: defineCollection({
     loader: file("./src/data/roster/current.json", {
       parser: (text) => ({ current: JSON.parse(text) as Record<string, unknown> }),

@@ -9,6 +9,18 @@ pnpm pipeline --roster --season 2026
 Rebuilds `apps/web/src/data/roster/current.json` from nflverse weekly rosters, injuries and
 `players.csv` (specific position and NGS role). Deterministic; commit the result.
 
+## Next-game preview
+
+```bash
+pnpm pipeline --preview --season 2026
+```
+
+Rebuilds `apps/web/src/data/preview/next.json` for the team's next scheduled game: schedule row
+(kickoff, venue, line, rest, quarterbacks, coaches), season-to-date offense and defense splits for both
+teams with league ranks over every completed regular-season week, the current injury report for both
+teams, and the last five meetings. "Next" means the first kickoff after the time the command runs, so
+rerun it after each game. Deterministic for a given schedule state; commit the result.
+
 ## Socials
 
 Social links live in `apps/web/src/data/players_socials.json`, keyed by `gsis_id`. The site renders

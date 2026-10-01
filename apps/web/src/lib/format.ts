@@ -77,3 +77,6 @@ export function ordinal(n: number): string {
       return `${n}th`;
   }
 }
+
+/** Formats one numeric metric for display. */
+export type Formatter = (value: number) => string;

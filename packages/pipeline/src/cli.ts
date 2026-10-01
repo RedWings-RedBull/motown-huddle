@@ -10,6 +10,7 @@ import {
 } from "./errors.js";
 import { consoleLogger, type Logger } from "./log.js";
 import { fitFgTable, type FitOptions } from "./models/fitFgTable.js";
+import { type PreviewRunOptions, runPreview } from "./preview/run.js";
 import { type RosterRunOptions, runRoster } from "./roster/run.js";
 import { DEFAULT_DATA_DIR, parseWeeks, runWeek, type RunOptions } from "./run.js";
 import { PIPELINE_VERSION } from "./version.js";
@@ -25,6 +26,7 @@ usage: pnpm pipeline --season <yyyy> (--week <n>|auto | --weeks <a-b>) [--final]
   --refresh       ignore the download cache
   --dump-fixture  also write the GradeRequest and engine output under packages/pipeline/out
   --data-dir      override apps/web/src/data (tests)
+  --preview       build apps/web/src/data/preview/next.json for the next game and exit
   --roster        build apps/web/src/data/roster/current.json for --season and exit
   --fit-fg-table  refit src/models/fg-make.json from 2021-2025 play-by-play and exit
 
@@ -34,6 +36,7 @@ export type CliArgs =
   | { command: "help" }
   | { command: "fit-fg-table"; refresh: boolean }
   | { command: "roster"; season: number; refresh: boolean; dataDir: string | undefined }
+  | { command: "preview"; season: number; refresh: boolean; dataDir: string | undefined }
   | {
       command: "week";
       season: number;
@@ -58,6 +61,7 @@ export function parseCli(argv: readonly string[]): CliArgs {
       "data-dir": { type: "string" },
       "fit-fg-table": { type: "boolean", default: false },
       roster: { type: "boolean", default: false },
+      preview: { type: "boolean", default: false },
       help: { type: "boolean", short: "h", default: false },
     },
     strict: true,
@@ -67,6 +71,9 @@ export function parseCli(argv: readonly string[]): CliArgs {
   const season = Number(values.season);
   if (!Number.isInteger(season) || season < 1999) {
     throw new ValidationError(`--season is required (got "${values.season ?? ""}")\n${USAGE}`);
+  }
+  if (values.preview) {
+    return { command: "preview", season, refresh: values.refresh, dataDir: values["data-dir"] };
   }
   if (values.roster) {
     return { command: "roster", season, refresh: values.refresh, dataDir: values["data-dir"] };
@@ -93,11 +100,13 @@ export function parseCli(argv: readonly string[]): CliArgs {
 export type Runner = (options: RunOptions) => Promise<{ status: "written" | "bye" }>;
 export type Fitter = (options: FitOptions) => Promise<unknown>;
 export type RosterRunner = (options: RosterRunOptions) => Promise<unknown>;
+export type PreviewRunner = (options: PreviewRunOptions) => Promise<unknown>;
 
 export interface CliDeps {
   run?: Runner;
   fit?: Fitter;
   roster?: RosterRunner;
+  preview?: PreviewRunner;
   log?: Logger;
   engine?: RunOptions["engine"];
 }
@@ -108,11 +117,21 @@ export async function main(argv: readonly string[], deps: CliDeps = {}): Promise
   const run = deps.run ?? runWeek;
   const fit = deps.fit ?? fitFgTable;
   const roster = deps.roster ?? runRoster;
+  const preview = deps.preview ?? runPreview;
   try {
     const args = parseCli(argv);
     if (args.command === "help") {
       log.info(USAGE);
       return EXIT_OK;
+    }
+    if (args.command === "preview") {
+      await preview({
+        season: args.season,
+        refresh: args.refresh,
+        dataDir: args.dataDir ?? DEFAULT_DATA_DIR,
+        log,
+      });
+      return 0;
     }
     if (args.command === "roster") {
       await roster({

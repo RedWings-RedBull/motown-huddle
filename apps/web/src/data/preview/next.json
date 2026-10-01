@@ -1,0 +1,466 @@
+{
+  "coaches": {
+    "opponent": "Dave Canales",
+    "team": "Dan Campbell"
+  },
+  "divGame": false,
+  "gameId": "2026_04_DET_CAR",
+  "injuries": [
+    {
+      "gsisId": "00-0039150",
+      "name": "Bryce Young",
+      "position": "QB",
+      "practiceStatus": "Full Participation in Practice",
+      "primary": null,
+      "reportStatus": null,
+      "team": "CAR"
+    },
+    {
+      "gsisId": "00-0036555",
+      "name": "Chuba Hubbard",
+      "position": "RB",
+      "practiceStatus": "Did Not Participate In Practice",
+      "primary": null,
+      "reportStatus": null,
+      "team": "CAR"
+    },
+    {
+      "gsisId": "00-0036417",
+      "name": "Damien Lewis",
+      "position": "G",
+      "practiceStatus": "Did Not Participate In Practice",
+      "primary": null,
+      "reportStatus": null,
+      "team": "CAR"
+    },
+    {
+      "gsisId": "00-0031610",
+      "name": "Darren Waller",
+      "position": "TE",
+      "practiceStatus": "Did Not Participate In Practice",
+      "primary": null,
+      "reportStatus": null,
+      "team": "CAR"
+    },
+    {
+      "gsisId": "00-0037244",
+      "name": "Devin Lloyd",
+      "position": "LB",
+      "practiceStatus": "Full Participation in Practice",
+      "primary": null,
+      "reportStatus": null,
+      "team": "CAR"
+    },
+    {
+      "gsisId": "00-0039491",
+      "name": "Jalen Coker",
+      "position": "WR",
+      "practiceStatus": "Did Not Participate In Practice",
+      "primary": null,
+      "reportStatus": null,
+      "team": "CAR"
+    },
+    {
+      "gsisId": "00-0041034",
+      "name": "Monroe Freeling",
+      "position": "T",
+      "practiceStatus": "Did Not Participate In Practice",
+      "primary": null,
+      "reportStatus": null,
+      "team": "CAR"
+    },
+    {
+      "gsisId": "00-0035669",
+      "name": "Nick Scott",
+      "position": "S",
+      "practiceStatus": "Full Participation in Practice",
+      "primary": null,
+      "reportStatus": null,
+      "team": "CAR"
+    },
+    {
+      "gsisId": "00-0040136",
+      "name": "Princely Umanmielen",
+      "position": "LB",
+      "practiceStatus": "Did Not Participate In Practice",
+      "primary": null,
+      "reportStatus": null,
+      "team": "CAR"
+    },
+    {
+      "gsisId": "00-0039342",
+      "name": "Xavier Legette",
+      "position": "WR",
+      "practiceStatus": "Did Not Participate In Practice",
+      "primary": null,
+      "reportStatus": null,
+      "team": "CAR"
+    },
+    {
+      "gsisId": "00-0036272",
+      "name": "Ben Bartch",
+      "position": "G",
+      "practiceStatus": "Did Not Participate In Practice",
+      "primary": null,
+      "reportStatus": null,
+      "team": "DET"
+    },
+    {
+      "gsisId": "00-0034384",
+      "name": "D.J. Reed",
+      "position": "CB",
+      "practiceStatus": "Limited Participation in Practice",
+      "primary": null,
+      "reportStatus": null,
+      "team": "DET"
+    },
+    {
+      "gsisId": "00-0036335",
+      "name": "D.J. Wonnum",
+      "position": "DE",
+      "practiceStatus": "Did Not Participate In Practice",
+      "primary": null,
+      "reportStatus": null,
+      "team": "DET"
+    }
+  ],
+  "isHome": false,
+  "keyMatchups": [
+    {
+      "edge": "even",
+      "label": "Pass offense vs pass defense",
+      "oppRank": 13,
+      "teamRank": 8
+    },
+    {
+      "edge": "even",
+      "label": "Run offense vs run defense",
+      "oppRank": 20,
+      "teamRank": 14
+    },
+    {
+      "edge": "opponent",
+      "label": "Pass defense vs pass offense",
+      "oppRank": 11,
+      "teamRank": 26
+    },
+    {
+      "edge": "even",
+      "label": "Run defense vs run offense",
+      "oppRank": 22,
+      "teamRank": 29
+    },
+    {
+      "edge": "even",
+      "label": "Explosive plays",
+      "oppRank": 15,
+      "teamRank": 10
+    },
+    {
+      "edge": "team",
+      "label": "Third downs",
+      "oppRank": 24,
+      "teamRank": 13
+    }
+  ],
+  "kickoffUtc": "2026-10-05T00:20:00Z",
+  "lastMeetings": [
+    {
+      "gameId": "2023_05_CAR_DET",
+      "home": true,
+      "oppScore": 24,
+      "result": "W",
+      "season": 2023,
+      "teamScore": 42,
+      "week": 5
+    },
+    {
+      "gameId": "2022_16_DET_CAR",
+      "home": false,
+      "oppScore": 37,
+      "result": "L",
+      "season": 2022,
+      "teamScore": 23,
+      "week": 16
+    },
+    {
+      "gameId": "2020_11_DET_CAR",
+      "home": false,
+      "oppScore": 20,
+      "result": "L",
+      "season": 2020,
+      "teamScore": 0,
+      "week": 11
+    },
+    {
+      "gameId": "2018_11_CAR_DET",
+      "home": true,
+      "oppScore": 19,
+      "result": "W",
+      "season": 2018,
+      "teamScore": 20,
+      "week": 11
+    },
+    {
+      "gameId": "2017_05_CAR_DET",
+      "home": true,
+      "oppScore": 27,
+      "result": "L",
+      "season": 2017,
+      "teamScore": 24,
+      "week": 5
+    }
+  ],
+  "line": {
+    "spread": -3.5,
+    "total": 51.5
+  },
+  "opp": {
+    "defense": {
+      "epaPerPlay": {
+        "leaguePercentile": 57.813,
+        "leagueRank": 14,
+        "n": 199,
+        "value": -0.022
+      },
+      "explosiveRate": {
+        "leaguePercentile": 54.688,
+        "leagueRank": 15,
+        "n": 199,
+        "value": 0.09
+      },
+      "fourthDown": {
+        "att": 6,
+        "conv": 3
+      },
+      "passEpaPerDropback": {
+        "leaguePercentile": 60.938,
+        "leagueRank": 13,
+        "n": 116,
+        "value": -0.006
+      },
+      "penalties": {
+        "count": 27,
+        "yards": 210
+      },
+      "rushEpaPerAtt": {
+        "leaguePercentile": 39.063,
+        "leagueRank": 20,
+        "n": 83,
+        "value": -0.045
+      },
+      "sackRate": {
+        "leaguePercentile": 42.188,
+        "leagueRank": 19,
+        "n": 116,
+        "value": 0.06
+      },
+      "successRate": {
+        "leaguePercentile": 64.063,
+        "leagueRank": 12,
+        "n": 199,
+        "value": 0.427
+      },
+      "thirdDownRate": {
+        "leaguePercentile": 26.563,
+        "leagueRank": 24,
+        "n": 42,
+        "value": 0.452
+      },
+      "turnovers": 8
+    },
+    "offense": {
+      "epaPerPlay": {
+        "leaguePercentile": 70.313,
+        "leagueRank": 10,
+        "n": 195,
+        "value": 0.053
+      },
+      "explosiveRate": {
+        "leaguePercentile": 79.688,
+        "leagueRank": 7,
+        "n": 195,
+        "value": 0.108
+      },
+      "fourthDown": {
+        "att": 6,
+        "conv": 1
+      },
+      "passEpaPerDropback": {
+        "leaguePercentile": 67.188,
+        "leagueRank": 11,
+        "n": 132,
+        "value": 0.149
+      },
+      "penalties": {
+        "count": 27,
+        "yards": 210
+      },
+      "rushEpaPerAtt": {
+        "leaguePercentile": 32.813,
+        "leagueRank": 22,
+        "n": 63,
+        "value": -0.15
+      },
+      "sackRate": {
+        "leaguePercentile": 60.938,
+        "leagueRank": 13,
+        "n": 132,
+        "value": 0.053
+      },
+      "successRate": {
+        "leaguePercentile": 42.188,
+        "leagueRank": 19,
+        "n": 195,
+        "value": 0.421
+      },
+      "thirdDownRate": {
+        "leaguePercentile": 35.938,
+        "leagueRank": 21,
+        "n": 38,
+        "value": 0.368
+      },
+      "turnovers": 3
+    },
+    "record": {
+      "l": 2,
+      "t": 0,
+      "w": 1
+    },
+    "team": "CAR"
+  },
+  "opponent": "CAR",
+  "quarterbacks": {
+    "opponent": "Bryce Young",
+    "team": "Jared Goff"
+  },
+  "referee": null,
+  "rest": {
+    "opponent": 7,
+    "team": 7
+  },
+  "season": 2026,
+  "team": {
+    "defense": {
+      "epaPerPlay": {
+        "leaguePercentile": 10.938,
+        "leagueRank": 29,
+        "n": 215,
+        "value": 0.149
+      },
+      "explosiveRate": {
+        "leaguePercentile": 1.563,
+        "leagueRank": 32,
+        "n": 215,
+        "value": 0.13
+      },
+      "fourthDown": {
+        "att": 3,
+        "conv": 3
+      },
+      "passEpaPerDropback": {
+        "leaguePercentile": 20.313,
+        "leagueRank": 26,
+        "n": 147,
+        "value": 0.208
+      },
+      "penalties": {
+        "count": 22,
+        "yards": 160
+      },
+      "rushEpaPerAtt": {
+        "leaguePercentile": 10.938,
+        "leagueRank": 29,
+        "n": 68,
+        "value": 0.02
+      },
+      "sackRate": {
+        "leaguePercentile": 84.375,
+        "leagueRank": 6,
+        "n": 147,
+        "value": 0.082
+      },
+      "successRate": {
+        "leaguePercentile": 14.063,
+        "leagueRank": 28,
+        "n": 215,
+        "value": 0.479
+      },
+      "thirdDownRate": {
+        "leaguePercentile": 4.688,
+        "leagueRank": 31,
+        "n": 41,
+        "value": 0.561
+      },
+      "turnovers": 4
+    },
+    "offense": {
+      "epaPerPlay": {
+        "leaguePercentile": 79.688,
+        "leagueRank": 7,
+        "n": 197,
+        "value": 0.133
+      },
+      "explosiveRate": {
+        "leaguePercentile": 70.313,
+        "leagueRank": 10,
+        "n": 197,
+        "value": 0.102
+      },
+      "fourthDown": {
+        "att": 4,
+        "conv": 3
+      },
+      "passEpaPerDropback": {
+        "leaguePercentile": 76.563,
+        "leagueRank": 8,
+        "n": 121,
+        "value": 0.247
+      },
+      "penalties": {
+        "count": 22,
+        "yards": 160
+      },
+      "rushEpaPerAtt": {
+        "leaguePercentile": 57.813,
+        "leagueRank": 14,
+        "n": 76,
+        "value": -0.047
+      },
+      "sackRate": {
+        "leaguePercentile": 51.563,
+        "leagueRank": 16,
+        "n": 121,
+        "value": 0.058
+      },
+      "successRate": {
+        "leaguePercentile": 89.063,
+        "leagueRank": 4,
+        "n": 197,
+        "value": 0.508
+      },
+      "thirdDownRate": {
+        "leaguePercentile": 60.938,
+        "leagueRank": 13,
+        "n": 34,
+        "value": 0.412
+      },
+      "turnovers": 1
+    },
+    "record": {
+      "l": 1,
+      "t": 0,
+      "w": 2
+    },
+    "team": "DET"
+  },
+  "throughWeek": 3,
+  "venue": {
+    "roof": "outdoors",
+    "stadium": "Bank of America Stadium",
+    "surface": "grass",
+    "temp": null,
+    "wind": null
+  },
+  "week": 4
+}
