@@ -10,6 +10,14 @@ test.describe("home", () => {
     await expect(page.getByRole("link", { name: "Skip to content" })).toHaveCount(1);
   });
 
+  test("shows the latest game result with a link to the breakdown", async ({ page }) => {
+    await page.goto("/");
+    const latest = page.getByRole("region", { name: "Latest game" });
+    await expect(latest).toContainText("Win vs NYJ, 31-24");
+    await latest.getByRole("link", { name: "Read the breakdown" }).click();
+    await expect(page).toHaveURL(/\/games\/2026\/week-03\/$/);
+  });
+
   test("has no accessibility violations", async ({ page }) => {
     await page.goto("/");
     const results = await new AxeBuilder({ page }).analyze();

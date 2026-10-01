@@ -1,0 +1,5 @@
+game_id,pfr_game_id,season,week,game_type,team,opponent,pfr_player_name,pfr_player_id,passing_drops,passing_drop_pct,receiving_drop,receiving_drop_pct,passing_bad_throws,passing_bad_throw_pct,times_sacked,times_blitzed,times_hurried,times_hit,times_pressured,times_pressured_pct,def_times_blitzed,def_times_hurried,def_times_hitqb
+2026_03_ATL_GB,202609240gnb,2026,3,REG,GB,ATL,Jordan Love,LoveJo03,4,0.077,,,10,0.192,1,5,0,9,10,0.185,,,
+2026_03_ATL_GB,202609240gnb,2026,3,REG,ATL,GB,Michael Penix,PeniMi00,1,0.043,,,2,0.087,0,4,1,1,2,0.08,,,
+2026_03_NYJ_DET,202609270det,2026,3,REG,DET,NYJ,Jared Goff,GoffJa00,1,0.032,,,4,0.129,2,15,1,3,6,0.167,,,
+2026_03_NYJ_DET,202609270det,2026,3,REG,NYJ,DET,Geno Smith,SmitGe00,0,0,,,3,0.081,5,9,1,1,7,0.159,,,

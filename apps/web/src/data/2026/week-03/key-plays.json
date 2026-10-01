@@ -1,0 +1,190 @@
+{
+  "gameId": "2026_03_NYJ_DET",
+  "plays": [
+    {
+      "clock": "05:40",
+      "desc": "(5:40) (Shotgun) 7-G.Smith pass deep right to 16-K.Sadiq for 24 yards, TOUCHDOWN.",
+      "down": 2,
+      "epa": 3.41,
+      "playId": 1389,
+      "posteam": "NYJ",
+      "qtr": 2,
+      "tags": [
+        "td",
+        "explosive"
+      ],
+      "wpa": 0.112,
+      "yardline100": 24,
+      "ydstogo": 12
+    },
+    {
+      "clock": "01:47",
+      "desc": "(1:47) (Shotgun) 16-J.Goff pass short left to 18-I.TeSlaa to NYJ 4 for 5 yards (8-A.Cisco).",
+      "down": 4,
+      "epa": 2.674,
+      "playId": 1689,
+      "posteam": "DET",
+      "qtr": 2,
+      "tags": [
+        "fourth-down"
+      ],
+      "wpa": 0.061,
+      "yardline100": 9,
+      "ydstogo": 2
+    },
+    {
+      "clock": "01:40",
+      "desc": "(1:40) 16-J.Goff pass short right to 14-A.St. Brown for 4 yards, TOUCHDOWN.",
+      "down": 2,
+      "epa": 1.76,
+      "playId": 1744,
+      "posteam": "DET",
+      "qtr": 2,
+      "tags": [
+        "td"
+      ],
+      "wpa": 0.086,
+      "yardline100": 4,
+      "ydstogo": 4
+    },
+    {
+      "clock": "00:41",
+      "desc": "(:41) (Shotgun) 7-G.Smith pass short left to 0-B.Allen to DET 32 for 11 yards (55-D.Barnes; 21-R.McCreary). PENALTY on NYJ-64-D.Parham, Offensive Holding, 10 yards, enforced at DET 43 - No Play.",
+      "down": 1,
+      "epa": -1.089,
+      "playId": 1915,
+      "posteam": "NYJ",
+      "qtr": 2,
+      "tags": [
+        "penalty"
+      ],
+      "wpa": -0.07,
+      "yardline100": 43,
+      "ydstogo": 10
+    },
+    {
+      "clock": "11:06",
+      "desc": "(11:06) 0-J.Gibbs right end for 17 yards, TOUCHDOWN.",
+      "down": 2,
+      "epa": 1.866,
+      "playId": 2265,
+      "posteam": "DET",
+      "qtr": 3,
+      "tags": [
+        "td",
+        "explosive"
+      ],
+      "wpa": 0.042,
+      "yardline100": 17,
+      "ydstogo": 4
+    },
+    {
+      "clock": "11:21",
+      "desc": "(11:21) 7-G.Smith pass short middle to 89-J.Ruckert for 4 yards, TOUCHDOWN.",
+      "down": 3,
+      "epa": 2.465,
+      "playId": 3240,
+      "posteam": "NYJ",
+      "qtr": 4,
+      "tags": [
+        "td"
+      ],
+      "wpa": 0.048,
+      "yardline100": 4,
+      "ydstogo": 4
+    },
+    {
+      "clock": "08:37",
+      "desc": "(8:37) 0-J.Gibbs left tackle to NYJ 45 for no gain (52-K.Enagbare). Penalty on DET, Illegal Formation, declined.",
+      "down": 4,
+      "epa": -3.541,
+      "playId": 3403,
+      "posteam": "DET",
+      "qtr": 4,
+      "tags": [
+        "fourth-down"
+      ],
+      "wpa": -0.067,
+      "yardline100": 45,
+      "ydstogo": 1
+    },
+    {
+      "clock": "04:11",
+      "desc": "(4:11) (Shotgun) 7-G.Smith pass deep right to 5-G.Wilson to DET 1 for 22 yards (4-D.Reed). Penalty on DET-4-D.Reed, Defensive Pass Interference, declined. New York Jets challenged the short of the goal line ruling, and the play was REVERSED. (Shotgun) 7-G.Smith pass deep right to 5-G.Wilson for 23 yards, TOUCHDOWN. Penalty on DET-4-D.Reed, Defensive Pass Interference, declined.",
+      "down": 4,
+      "epa": 4.657,
+      "playId": 3619,
+      "posteam": "NYJ",
+      "qtr": 4,
+      "tags": [
+        "td",
+        "fourth-down",
+        "explosive"
+      ],
+      "wpa": 0.201,
+      "yardline100": 23,
+      "ydstogo": 6
+    },
+    {
+      "clock": "04:06",
+      "desc": "TWO-POINT CONVERSION ATTEMPT. 7-G.Smith pass to 87-S.Shepard is complete. ATTEMPT SUCCEEDS.",
+      "down": null,
+      "epa": 1.053,
+      "playId": 3662,
+      "posteam": "NYJ",
+      "qtr": 4,
+      "tags": [],
+      "wpa": 0.111,
+      "yardline100": 2,
+      "ydstogo": 0
+    },
+    {
+      "clock": "04:06",
+      "desc": "(4:06) (Shotgun) 16-J.Goff pass deep middle to 18-I.TeSlaa to NYJ 16 for 49 yards (8-A.Cisco).",
+      "down": 1,
+      "epa": 3.117,
+      "playId": 3745,
+      "posteam": "DET",
+      "qtr": 4,
+      "tags": [
+        "explosive"
+      ],
+      "wpa": 0.145,
+      "yardline100": 65,
+      "ydstogo": 10
+    },
+    {
+      "clock": "02:30",
+      "desc": "(2:30) (Shotgun) 16-J.Goff pass short right to 0-J.Gibbs for 11 yards, TOUCHDOWN.",
+      "down": 3,
+      "epa": 3.095,
+      "playId": 3817,
+      "posteam": "DET",
+      "qtr": 4,
+      "tags": [
+        "td"
+      ],
+      "wpa": 0.168,
+      "yardline100": 11,
+      "ydstogo": 5
+    },
+    {
+      "clock": "00:51",
+      "desc": "(:51) (Shotgun) 7-G.Smith sacked at DET 41 for -13 yards (36-C.Clark). FUMBLES (36-C.Clark) [36-C.Clark], RECOVERED by DET-46-J.Campbell at DET 45. 46-J.Campbell to NYJ 43 for 12 yards (0-B.Allen).",
+      "down": 2,
+      "epa": -4.704,
+      "playId": 4086,
+      "posteam": "NYJ",
+      "qtr": 4,
+      "tags": [
+        "turnover",
+        "sack"
+      ],
+      "wpa": -0.113,
+      "yardline100": 28,
+      "ydstogo": 10
+    }
+  ],
+  "season": 2026,
+  "week": 3
+}

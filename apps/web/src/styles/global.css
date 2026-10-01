@@ -18,3 +18,53 @@ body {
 .skip-link {
   @apply sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:rounded focus:bg-honolulu focus:px-3 focus:py-2 focus:text-white;
 }
+
+/* Small labelled chips: data source, grade tier, result. */
+.badge {
+  @apply inline-flex items-center rounded border border-silver/70 px-1.5 py-0.5 text-[11px] leading-none font-semibold tracking-wide uppercase;
+}
+.badge-final {
+  @apply border-honolulu bg-honolulu/15 text-ink dark:text-white;
+}
+.badge-provisional {
+  @apply border-silver bg-silver/30;
+}
+
+/* Field heat map tiles: focus ring drawn on the tile rect (SVG <g> cannot show an outline). */
+.field-tile:focus-visible .tile-bg {
+  stroke: var(--color-honolulu);
+  stroke-width: 5;
+  stroke-opacity: 1;
+}
+@media (prefers-color-scheme: dark) {
+  .field-tile:focus-visible .tile-bg {
+    stroke: #ffffff;
+  }
+}
+
+/* Mobile bottom sheet for the slot detail panel. */
+dialog.sheet {
+  margin: auto 0 0;
+  width: 100%;
+  max-width: none;
+  max-height: 85dvh;
+  border: 0;
+  border-radius: 1rem 1rem 0 0;
+  overflow-y: auto;
+}
+dialog.sheet::backdrop {
+  background: rgb(11 31 51 / 0.55);
+}
+@media (prefers-reduced-motion: no-preference) {
+  dialog.sheet[open] {
+    animation: sheet-up 0.25s ease-out;
+  }
+  @keyframes sheet-up {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: none;
+    }
+  }
+}

@@ -56,7 +56,7 @@ for (const segment of segments) {
   if (pinned.test(segment)) continue;
   process.stderr.write(
     `Blocked: "${executable}" commands must include --profile ${REQUIRED_PROFILE}. ` +
-      `The default AWS profile on this machine is not this project's account.\n`,
+      `This project never deploys through the default AWS profile.\n`,
   );
   process.exit(2);
 }

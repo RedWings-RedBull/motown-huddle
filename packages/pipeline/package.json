@@ -9,5 +9,12 @@
   "scripts": {
     "typecheck": "tsc -p tsconfig.json"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@date-fns/tz": "^1.5.0",
+    "@huddle/grades": "workspace:*",
+    "@huddle/shared": "workspace:*",
+    "csv-parse": "^7.0.3",
+    "date-fns": "^4.4.0",
+    "zod": "^4.6.5"
+  }
 }

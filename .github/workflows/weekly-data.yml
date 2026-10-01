@@ -1,0 +1,164 @@
+name: Weekly data
+
+# Tuesday 13:17 UTC: provisional Huddle Grades from pbp + stats + snaps + FTN + NGS.
+# Friday and Saturday 13:17 UTC: final grades once PFR advanced stats have landed (Saturday is
+# the retry when PFR lags). Every run opens a pull request; nothing merges without a human.
+on:
+  schedule:
+    - cron: "17 13 * * 2"
+    - cron: "17 13 * * 5"
+    - cron: "17 13 * * 6"
+  workflow_dispatch:
+    inputs:
+      season:
+        description: NFL season (defaults to the current season)
+        required: false
+        type: string
+      week:
+        description: Week number, or "auto" for the latest completed game
+        required: false
+        default: auto
+        type: string
+      final:
+        description: Build the Final tier (requires PFR advanced stats)
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+
+concurrency:
+  group: weekly-data
+  cancel-in-progress: false
+
+env:
+  ASTRO_TELEMETRY_DISABLED: "1"
+
+jobs:
+  build:
+    name: Build week and open PR
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      - name: Decide tier, season and week
+        id: decide
+        env:
+          INPUT_SEASON: ${{ inputs.season }}
+          INPUT_WEEK: ${{ inputs.week }}
+          INPUT_FINAL: ${{ inputs.final }}
+        run: |
+          set -euo pipefail
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            if [ "$INPUT_FINAL" = "true" ]; then tier=final; else tier=provisional; fi
+            week="${INPUT_WEEK:-auto}"
+            season="$INPUT_SEASON"
+          else
+            # Tuesday (2) -> provisional; Friday (5) and Saturday (6) -> final.
+            dow=$(date -u +%u)
+            if [ "$dow" = "2" ]; then tier=provisional; else tier=final; fi
+            week=auto
+            season=""
+          fi
+          if [ -z "$season" ]; then
+            # NFL seasons are labelled by the year they start; January games belong to the prior year.
+            month=$(date -u +%m)
+            year=$(date -u +%Y)
+            if [ "$month" -lt 3 ]; then season=$((year - 1)); else season=$year; fi
+          fi
+          echo "tier=$tier" >> "$GITHUB_OUTPUT"
+          echo "week=$week" >> "$GITHUB_OUTPUT"
+          echo "season=$season" >> "$GITHUB_OUTPUT"
+          echo "Building season $season week $week ($tier)"
+
+      - name: Restore nflverse download cache
+        uses: actions/cache@v6
+        with:
+          path: packages/pipeline/.cache/nflverse
+          key: nflverse-${{ steps.decide.outputs.season }}-${{ github.run_id }}
+          restore-keys: |
+            nflverse-${{ steps.decide.outputs.season }}-
+
+      - name: Run pipeline
+        id: pipeline
+        env:
+          SEASON: ${{ steps.decide.outputs.season }}
+          WEEK: ${{ steps.decide.outputs.week }}
+          TIER: ${{ steps.decide.outputs.tier }}
+        run: |
+          set -uo pipefail
+          args=(--season "$SEASON" --week "$WEEK")
+          if [ "$TIER" = "final" ]; then args+=(--final); fi
+          pnpm pipeline "${args[@]}"
+          code=$?
+          if [ "$code" = "3" ]; then
+            echo "::notice::Data for season $SEASON week $WEEK is not ready for the $TIER tier yet; nothing to publish."
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          if [ "$code" != "0" ]; then
+            echo "::error::Pipeline failed with exit code $code"
+            exit "$code"
+          fi
+          echo "ready=true" >> "$GITHUB_OUTPUT"
+
+      - name: Detect changes
+        id: changes
+        if: steps.pipeline.outputs.ready == 'true'
+        run: |
+          set -euo pipefail
+          git add -N apps/web/src/data
+          if git diff --quiet apps/web/src/data; then
+            echo "::notice::No changes under apps/web/src/data; nothing to publish."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+          # Week label for the branch and title, read back from the manifest (latest entry).
+          week=$(node -e "const m=require('./apps/web/src/data/manifest.json');const w=m.weeks.at(-1);console.log(String(w.week).padStart(2,'0'))")
+          season=$(node -e "const m=require('./apps/web/src/data/manifest.json');console.log(m.weeks.at(-1).season)")
+          echo "week=$week" >> "$GITHUB_OUTPUT"
+          echo "season=$season" >> "$GITHUB_OUTPUT"
+
+      - name: Create GitHub App token
+        id: app-token
+        if: steps.changes.outputs.changed == 'true'
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ vars.HUDDLE_APP_ID }}
+          private-key: ${{ secrets.HUDDLE_APP_PRIVATE_KEY }}
+
+      - name: Open pull request
+        if: steps.changes.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v8
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          branch: weekly/${{ steps.changes.outputs.season }}-w${{ steps.changes.outputs.week }}-${{ steps.decide.outputs.tier }}
+          delete-branch: true
+          add-paths: apps/web/src/data
+          commit-message: "data(${{ steps.changes.outputs.season }}-w${{ steps.changes.outputs.week }}): ${{ steps.decide.outputs.tier }} Huddle Grades"
+          title: "data(${{ steps.changes.outputs.season }}-w${{ steps.changes.outputs.week }}): ${{ steps.decide.outputs.tier }} Huddle Grades"
+          labels: weekly-data
+          body: |
+            Automated weekly data build (${{ steps.decide.outputs.tier }} tier) for season ${{ steps.changes.outputs.season }}, week ${{ steps.changes.outputs.week }}.
+
+            Generated by the `weekly-data` workflow from nflverse releases (CC-BY 4.0; charting: FTN Data via nflverse, CC-BY-SA 4.0; advanced stats: Pro-Football-Reference via nflverse). Review the diff under `apps/web/src/data` and merge when it looks right. Nothing merges automatically.
+
+      # Enabling an already-enabled workflow resets GitHub's 60-day inactivity timer so the crons
+      # keep firing through the off-season.
+      - name: Keep the schedule alive
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X PUT "repos/$GITHUB_REPOSITORY/actions/workflows/weekly-data.yml/enable"
