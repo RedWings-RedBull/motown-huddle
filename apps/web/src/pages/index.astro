@@ -39,7 +39,7 @@ const features = [
 ---
 
 <Base title={siteName}>
-  <section class="pt-10 pb-12 sm:pt-16">
+  <section class="bare pt-10 pb-12 sm:pt-16">
     <p class="eyebrow">
       {teamConfig.division} · {teamConfig.teamName}
     </p>
@@ -85,7 +85,7 @@ const features = [
     </section>
   )}
 
-  <section aria-label="What is here" class="mt-10 grid gap-4 sm:grid-cols-3">
+  <section aria-label="What is here" class="bare mt-10 grid gap-4 sm:grid-cols-3">
     {features.map((f) => (
       <article class="panel p-5">
         <h2 class="display text-2xl text-white">{f.title}</h2>

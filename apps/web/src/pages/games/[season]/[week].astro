@@ -58,7 +58,7 @@ const sources = Object.entries(meta.data.sources).sort(([a], [b]) => a.localeCom
   <p class="eyebrow mt-4">
     {game.data.season} season · week {game.data.week}
   </p>
-  <h1 class="display mt-2 text-5xl text-white sm:text-7xl">
+  <h1 class="bare display mt-2 text-5xl text-white sm:text-7xl">
     <span class={game.data.team.result === "W" ? "text-honolulu-bright" : "text-silver"}>
       {resultWord(game.data.team.result)}
     </span>
@@ -94,7 +94,7 @@ const sources = Object.entries(meta.data.sources).sort(([a], [b]) => a.localeCom
       </a>
       .
     </p>
-    <div class="panel mt-4 p-3 sm:p-5">
+    <div class="mt-4">
       <FieldHeatMap client:visible grades={grades.data} />
     </div>
   </section>

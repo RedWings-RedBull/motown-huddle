@@ -21,10 +21,25 @@ html {
 
 body {
   @apply bg-night text-chalk antialiased;
-  background-image:
-    radial-gradient(60rem 30rem at 50% -12rem, rgb(0 118 182 / 0.35), transparent 70%),
-    linear-gradient(180deg, #081a2f 0%, #06111f 40rem);
+  /* Standing in one end zone, looking down the field. Fixed so the page floats over it. */
+  background-image: url("/field.svg");
+  background-size: cover;
+  background-position: center bottom;
   background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+@media (max-width: 767px) {
+  body {
+    background-attachment: scroll;
+  }
+}
+
+/* Every top-level section floats on the field unless it opts out with .bare */
+main > section:not(.panel):not(.bare) {
+  @apply panel p-5 sm:p-6;
+}
+.bare {
+  text-shadow: 0 2px 12px rgb(0 0 0 / 0.6);
 }
 
 a {
@@ -51,7 +66,7 @@ a {
 
 /* Surfaces */
 @utility panel {
-  @apply rounded-xl border border-white/10 bg-ink/80 shadow-[0_1px_0_rgb(255_255_255/0.06)_inset,0_20px_40px_-24px_rgb(0_0_0/0.8)];
+  @apply rounded-xl border border-white/10 bg-ink/85 shadow-[0_1px_0_rgb(255_255_255/0.06)_inset,0_20px_40px_-24px_rgb(0_0_0/0.8)] backdrop-blur-md;
 }
 .stat-tile {
   @apply panel flex flex-col gap-1 p-4;
