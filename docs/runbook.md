@@ -21,6 +21,18 @@ teams with league ranks over every completed regular-season week, the current in
 teams, and the last five meetings. "Next" means the first kickoff after the time the command runs, so
 rerun it after each game. Deterministic for a given schedule state; commit the result.
 
+## Division page
+
+```bash
+pnpm pipeline --division --season 2026
+```
+
+Rebuilds `apps/web/src/data/division/current.json`: standings for the team's division with the NFL
+tiebreaking steps applied (the step that settled a place is recorded as `resolvedBy`), division and
+playoff odds from a seeded 10,000-run simulation of the remaining schedule, season-to-date efficiency
+for all four clubs, and the coming week's games. Deterministic for a given schedule state; commit the
+result. The seed lives in `packages/pipeline/src/division/build.ts`.
+
 ## Socials
 
 Social links live in `apps/web/src/data/players_socials.json`, keyed by `gsis_id`. The site renders

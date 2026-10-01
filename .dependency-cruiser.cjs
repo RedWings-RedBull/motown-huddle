@@ -40,6 +40,8 @@ module.exports = {
           "\\.spec\\.ts$",
           "^infra/functions/",
           "^apps/web/src/pages/",
+          // React islands are imported from .astro files, which the cruiser does not parse.
+          "^apps/web/src/components/.*\\.tsx$",
         ],
       },
       to: {},

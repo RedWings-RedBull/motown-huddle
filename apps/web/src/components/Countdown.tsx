@@ -16,14 +16,19 @@ function parts(ms: number): { d: number; h: number; m: number; s: number } {
   };
 }
 
-/** Re-renders subscribers once a second. */
+/** Shared clock: the snapshot must be stable between ticks or React re-renders forever. */
+let now = Date.now();
 function subscribe(onTick: () => void): () => void {
-  const id = window.setInterval(onTick, 1000);
+  now = Date.now();
+  const id = window.setInterval(() => {
+    now = Date.now();
+    onTick();
+  }, 1000);
   return () => {
     window.clearInterval(id);
   };
 }
-const clientNow = (): number | null => Date.now();
+const clientNow = (): number | null => now;
 const serverNow = (): number | null => null;
 
 /** Live countdown to kickoff; renders the static kickoff label on the server and after kickoff. */

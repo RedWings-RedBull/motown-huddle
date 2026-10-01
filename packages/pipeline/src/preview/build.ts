@@ -71,7 +71,8 @@ function invert(m: SideMetrics): SideMetrics {
   };
 }
 
-function profile(
+/** Season-to-date offense and defense of one team with league percentiles and ranks. */
+export function teamProfile(
   team: string,
   games: readonly GamesRow[],
   pbp: readonly PbpRow[],
@@ -163,8 +164,8 @@ export function buildPreview(inputs: PreviewInputs): MatchupPreview | null {
   const isHome = resolved.side === "home";
   const opponent = resolved.opponent;
   const throughWeek = Math.max(0, ...pbp.map((p) => p.week));
-  const teamProfile = profile(team, games, pbp, season);
-  const oppProfile = profile(opponent, games, pbp, season);
+  const mine = teamProfile(team, games, pbp, season);
+  const theirs = teamProfile(opponent, games, pbp, season);
 
   const injuryWeek = Math.max(
     0,
@@ -222,9 +223,9 @@ export function buildPreview(inputs: PreviewInputs): MatchupPreview | null {
     },
     referee: row.referee,
     throughWeek,
-    team: teamProfile,
-    opp: oppProfile,
-    keyMatchups: keyMatchups(teamProfile, oppProfile),
+    team: mine,
+    opp: theirs,
+    keyMatchups: keyMatchups(mine, theirs),
     injuries: injuryLines,
     lastMeetings: meetings(games, team, opponent),
   });
