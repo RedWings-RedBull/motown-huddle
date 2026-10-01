@@ -1,0 +1,190 @@
+---
+import type { PositionGroup, RosterPlayer, SocialPlatform } from "@huddle/shared";
+import { teamConfig } from "@huddle/shared";
+import { getCollection, getEntry } from "astro:content";
+
+import { BIN_FILL, BIN_TEXT } from "../../components/field/bins";
+import AvatarTile from "../../components/roster/AvatarTile.astro";
+import Base from "../../layouts/Base.astro";
+import { byWeekDesc } from "../../lib/week";
+
+const roster = await getEntry("roster", "current");
+const socialsEntry = await getEntry("socials", "socials");
+const socials = socialsEntry?.data.entries ?? {};
+if (!roster)
+  throw new Error("Roster data is missing; run `pnpm pipeline --roster --season <year>`.");
+
+// Latest Huddle Grade per player, from the most recent week's field data.
+const weeks = (await getCollection("grades")).map((e) => e.data).sort(byWeekDesc);
+const latestGrades = weeks[0];
+const gradeById = new Map<
+  string,
+  { value: number | null; bin: RosterPlayer["positionGroup"] | string }
+>();
+for (const slot of latestGrades?.slots ?? []) {
+  for (const p of slot.players) {
+    if (!gradeById.has(p.gsisId))
+      gradeById.set(p.gsisId, { value: p.grade.value, bin: p.grade.bin });
+  }
+}
+
+const GROUPS: { key: PositionGroup; label: string }[] = [
+  { key: "QB", label: "Quarterbacks" },
+  { key: "RB", label: "Running backs" },
+  { key: "WR", label: "Wide receivers" },
+  { key: "TE", label: "Tight ends" },
+  { key: "OL", label: "Offensive line" },
+  { key: "DL", label: "Interior defensive line" },
+  { key: "EDGE", label: "Edge rushers" },
+  { key: "LB", label: "Linebackers" },
+  { key: "CB", label: "Cornerbacks" },
+  { key: "S", label: "Safeties" },
+  { key: "ST", label: "Specialists" },
+];
+
+const PLATFORM_LABEL: Record<SocialPlatform, string> = {
+  x: "X",
+  instagram: "Instagram",
+  tiktok: "TikTok",
+  youtube: "YouTube",
+  bluesky: "Bluesky",
+};
+
+const STATUS_LABEL: Record<string, string> = {
+  ACT: "Active",
+  RES: "Injured reserve",
+  PUP: "PUP",
+  NON: "NFI",
+  SUS: "Suspended",
+  EXE: "Exempt",
+  DEV: "Practice squad",
+  RSN: "Reserve",
+};
+
+function height(inches: number | null): string | null {
+  if (inches === null) return null;
+  return `${Math.floor(inches / 12)}'${inches % 12}"`;
+}
+
+function verifiedLinks(id: string) {
+  const entry = socials[id];
+  if (!entry) return [];
+  return (
+    Object.entries(entry.socials) as [SocialPlatform, (typeof entry.socials)[SocialPlatform]][]
+  )
+    .filter(([, link]) => link?.verified)
+    .map(([platform, link]) => ({
+      platform,
+      label: PLATFORM_LABEL[platform],
+      url: link!.url,
+      handle: link!.handle,
+    }));
+}
+
+const byGroup = new Map<PositionGroup, RosterPlayer[]>();
+for (const p of roster.data.players)
+  byGroup.set(p.positionGroup, [...(byGroup.get(p.positionGroup) ?? []), p]);
+const active = roster.data.players.filter((p) => p.status === "ACT").length;
+---
+
+<Base
+  title="Roster"
+  description={`The ${roster.data.season} ${teamConfig.teamName} roster with bios, injury status, verified social links and the latest Huddle Grade.`}
+>
+  <section class="bare">
+    <p class="eyebrow">
+      {teamConfig.teamName} · {roster.data.season} week {roster.data.week}
+    </p>
+    <h1 class="display mt-2 text-5xl text-white sm:text-6xl">Roster</h1>
+    <p class="muted mt-3 max-w-2xl">
+      {roster.data.players.length} players on the latest weekly roster, {active} active. Social
+      links are shown only after a human has verified them; the Huddle Grade chip is from week{" "}
+      {latestGrades?.week ?? "–"}.
+    </p>
+  </section>
+
+  {GROUPS.map((g) => {
+    const players = byGroup.get(g.key) ?? [];
+    if (players.length === 0) return null;
+    return (
+      <section aria-labelledby={`group-${g.key}`} class="mt-6">
+        <h2 id={`group-${g.key}`} class="section-title">
+          {g.label}
+          <span class="muted ml-2 font-sans text-base font-normal tracking-normal normal-case">
+            {players.length}
+          </span>
+        </h2>
+        <ul class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {players.map((p) => {
+            const grade = gradeById.get(p.gsisId);
+            const links = verifiedLinks(p.gsisId);
+            const bits = [
+              p.position,
+              height(p.heightIn),
+              p.weightLb ? `${p.weightLb} lb` : null,
+              p.college,
+            ].filter(Boolean);
+            const exp =
+              p.yearsExp === null ? null : p.yearsExp === 0 ? "Rookie" : `Year ${p.yearsExp + 1}`;
+            return (
+              <li
+                class="flex gap-4 rounded-xl border border-white/10 bg-white/5 p-4"
+                data-player={p.gsisId}
+              >
+                <AvatarTile fullName={p.fullName} jersey={p.jersey} group={p.positionGroup} />
+                <div class="min-w-0 flex-1">
+                  <div class="flex flex-wrap items-center gap-2">
+                    <h3 class="display text-2xl text-white">{p.fullName}</h3>
+                    {grade && grade.value !== null && (
+                      <span
+                        class="rounded-md px-1.5 py-0.5 font-display text-sm font-bold tabular-nums"
+                        style={`background:${BIN_FILL[grade.bin as keyof typeof BIN_FILL]};color:${BIN_TEXT[grade.bin as keyof typeof BIN_TEXT]}`}
+                        title={`Huddle Grade, week ${latestGrades?.week ?? ""}`}
+                      >
+                        {Math.round(grade.value)}
+                      </span>
+                    )}
+                  </div>
+                  <p class="muted mt-0.5 text-sm">{bits.join(" · ")}</p>
+                  <p class="muted mt-0.5 text-xs">
+                    {[
+                      exp,
+                      p.draft
+                        ? `Drafted ${p.draft.year}, pick ${p.draft.overall} (${p.draft.club})`
+                        : "Undrafted",
+                    ]
+                      .filter(Boolean)
+                      .join(" · ")}
+                  </p>
+                  <ul class="mt-2 flex flex-wrap gap-1.5" aria-label="Status">
+                    {p.status !== "ACT" && (
+                      <li class="badge badge-provisional">{STATUS_LABEL[p.status] ?? p.status}</li>
+                    )}
+                    {p.injury?.reportStatus && (
+                      <li class="badge border-amber-400/50 bg-amber-400/15 text-amber-200">
+                        {p.injury.reportStatus}
+                        {p.injury.primary ? ` · ${p.injury.primary}` : ""}
+                      </li>
+                    )}
+                    {links.map((l) => (
+                      <li>
+                        <a
+                          href={l.url}
+                          rel="noopener nofollow"
+                          class="badge hover:border-honolulu-bright hover:text-white"
+                          aria-label={`${p.fullName} on ${l.label}`}
+                        >
+                          {l.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+    );
+  })}
+</Base>

@@ -1,0 +1,2086 @@
+{
+  "players": [
+    {
+      "birthDate": "1992-11-10",
+      "college": "Louisville",
+      "depthChartPosition": "QB",
+      "draft": {
+        "club": "MIN",
+        "overall": 32,
+        "year": 2014
+      },
+      "firstName": "Theodore",
+      "fullName": "Teddy Bridgewater",
+      "gsisId": "00-0031237",
+      "heightIn": 74,
+      "ids": {
+        "espn": "16728",
+        "pfr": "BridTe00"
+      },
+      "injury": null,
+      "jersey": 5,
+      "lastName": "Bridgewater",
+      "position": "QB",
+      "positionGroup": "QB",
+      "rookieYear": 2014,
+      "status": "RET",
+      "weightLb": 215,
+      "yearsExp": 12
+    },
+    {
+      "birthDate": "1995-01-26",
+      "college": "Tennessee",
+      "depthChartPosition": "QB",
+      "draft": {
+        "club": "PIT",
+        "overall": 135,
+        "year": 2017
+      },
+      "firstName": "Robert",
+      "fullName": "Joshua Dobbs",
+      "gsisId": "00-0033949",
+      "heightIn": 75,
+      "ids": {
+        "espn": "3044720",
+        "pfr": "DobbJo00"
+      },
+      "injury": null,
+      "jersey": 11,
+      "lastName": "Dobbs",
+      "position": "QB",
+      "positionGroup": "QB",
+      "rookieYear": 2017,
+      "status": "ACT",
+      "weightLb": 216,
+      "yearsExp": 9
+    },
+    {
+      "birthDate": "2002-10-22",
+      "college": "Illinois; Mississippi",
+      "depthChartPosition": "QB",
+      "draft": null,
+      "firstName": "Luke",
+      "fullName": "Luke Altmyer",
+      "gsisId": "00-0041453",
+      "heightIn": 73,
+      "ids": {
+        "espn": "4597679",
+        "pfr": "AltmLu00"
+      },
+      "injury": null,
+      "jersey": 15,
+      "lastName": "Altmyer",
+      "position": "QB",
+      "positionGroup": "QB",
+      "rookieYear": 2026,
+      "status": "DEV",
+      "weightLb": 210,
+      "yearsExp": 0
+    },
+    {
+      "birthDate": "1994-10-14",
+      "college": "California",
+      "depthChartPosition": "QB",
+      "draft": {
+        "club": "LAR",
+        "overall": 1,
+        "year": 2016
+      },
+      "firstName": "Jared",
+      "fullName": "Jared Goff",
+      "gsisId": "00-0033106",
+      "heightIn": 76,
+      "ids": {
+        "espn": "3046779",
+        "pfr": "GoffJa00"
+      },
+      "injury": null,
+      "jersey": 16,
+      "lastName": "Goff",
+      "position": "QB",
+      "positionGroup": "QB",
+      "rookieYear": 2016,
+      "status": "ACT",
+      "weightLb": 217,
+      "yearsExp": 10
+    },
+    {
+      "birthDate": "2002-03-20",
+      "college": "Alabama; Georgia Tech",
+      "depthChartPosition": "RB",
+      "draft": {
+        "club": "DET",
+        "overall": 12,
+        "year": 2023
+      },
+      "firstName": "Jahmyr",
+      "fullName": "Jahmyr Gibbs",
+      "gsisId": "00-0039139",
+      "heightIn": 69,
+      "ids": {
+        "espn": "4429795",
+        "pfr": "GibbJa01"
+      },
+      "injury": null,
+      "jersey": 0,
+      "lastName": "Gibbs",
+      "position": "RB",
+      "positionGroup": "RB",
+      "rookieYear": 2023,
+      "status": "ACT",
+      "weightLb": 200,
+      "yearsExp": 3
+    },
+    {
+      "birthDate": "1999-03-02",
+      "college": "Rutgers",
+      "depthChartPosition": "RB",
+      "draft": {
+        "club": "KC",
+        "overall": 251,
+        "year": 2022
+      },
+      "firstName": "Isiah",
+      "fullName": "Isiah Pacheco",
+      "gsisId": "00-0037197",
+      "heightIn": 70,
+      "ids": {
+        "espn": "4361529",
+        "pfr": "PachIs00"
+      },
+      "injury": null,
+      "jersey": 10,
+      "lastName": "Pacheco",
+      "position": "RB",
+      "positionGroup": "RB",
+      "rookieYear": 2022,
+      "status": "RES",
+      "weightLb": 210,
+      "yearsExp": 4
+    },
+    {
+      "birthDate": "2000-03-08",
+      "college": "East Tennessee State",
+      "depthChartPosition": "RB",
+      "draft": null,
+      "firstName": "Jacob",
+      "fullName": "Jacob Saylors",
+      "gsisId": "00-0038896",
+      "heightIn": 71,
+      "ids": {
+        "espn": "4383429",
+        "pfr": "SaylJa00"
+      },
+      "injury": null,
+      "jersey": 25,
+      "lastName": "Saylors",
+      "position": "RB",
+      "positionGroup": "RB",
+      "rookieYear": 2023,
+      "status": "ACT",
+      "weightLb": 195,
+      "yearsExp": 3
+    },
+    {
+      "birthDate": "2002-01-31",
+      "college": "Tennessee",
+      "depthChartPosition": "RB",
+      "draft": null,
+      "firstName": "Jabari",
+      "fullName": "Jabari Small",
+      "gsisId": "00-0039652",
+      "heightIn": 71,
+      "ids": {
+        "espn": "4432545",
+        "pfr": "SmalJa00"
+      },
+      "injury": null,
+      "jersey": 26,
+      "lastName": "Small",
+      "position": "RB",
+      "positionGroup": "RB",
+      "rookieYear": 2024,
+      "status": "DEV",
+      "weightLb": 208,
+      "yearsExp": 2
+    },
+    {
+      "birthDate": "2001-07-30",
+      "college": "Utah",
+      "depthChartPosition": "RB",
+      "draft": {
+        "club": "DET",
+        "overall": 132,
+        "year": 2024
+      },
+      "firstName": "Sione",
+      "fullName": "Sione Vaki",
+      "gsisId": "00-0039364",
+      "heightIn": 71,
+      "ids": {
+        "espn": "4912274",
+        "pfr": "VakiSi00"
+      },
+      "injury": null,
+      "jersey": 33,
+      "lastName": "Vaki",
+      "position": "RB",
+      "positionGroup": "RB",
+      "rookieYear": 2024,
+      "status": "ACT",
+      "weightLb": 216,
+      "yearsExp": 2
+    },
+    {
+      "birthDate": "2001-03-26",
+      "college": "Alabama; Ohio State",
+      "depthChartPosition": "WR",
+      "draft": {
+        "club": "DET",
+        "overall": 12,
+        "year": 2022
+      },
+      "firstName": "Jameson",
+      "fullName": "Jameson Williams",
+      "gsisId": "00-0037240",
+      "heightIn": 73,
+      "ids": {
+        "espn": "4426388",
+        "pfr": "WillJa11"
+      },
+      "injury": null,
+      "jersey": 1,
+      "lastName": "Williams",
+      "position": "WR",
+      "positionGroup": "WR",
+      "rookieYear": 2022,
+      "status": "ACT",
+      "weightLb": 182,
+      "yearsExp": 4
+    },
+    {
+      "birthDate": "1997-07-17",
+      "college": "Western Kentucky",
+      "depthChartPosition": "WR",
+      "draft": null,
+      "firstName": "Dontavian",
+      "fullName": "Lucky Jackson",
+      "gsisId": "00-0038181",
+      "heightIn": 72,
+      "ids": {
+        "espn": "3915802",
+        "pfr": "JackLu00"
+      },
+      "injury": null,
+      "jersey": 9,
+      "lastName": "Jackson",
+      "position": "WR",
+      "positionGroup": "WR",
+      "rookieYear": 2023,
+      "status": "DEV",
+      "weightLb": 185,
+      "yearsExp": 6
+    },
+    {
+      "birthDate": "1999-10-24",
+      "college": "USC",
+      "depthChartPosition": "WR",
+      "draft": {
+        "club": "DET",
+        "overall": 112,
+        "year": 2021
+      },
+      "firstName": "Amon-Ra",
+      "fullName": "Amon-Ra St. Brown",
+      "gsisId": "00-0036963",
+      "heightIn": 72,
+      "ids": {
+        "espn": "4374302",
+        "pfr": "StxxAm00"
+      },
+      "injury": null,
+      "jersey": 14,
+      "lastName": "St. Brown",
+      "position": "WR",
+      "positionGroup": "WR",
+      "rookieYear": 2021,
+      "status": "ACT",
+      "weightLb": 202,
+      "yearsExp": 5
+    },
+    {
+      "birthDate": "1997-12-14",
+      "college": "Oklahoma State",
+      "depthChartPosition": "WR",
+      "draft": null,
+      "firstName": "Davontavean",
+      "fullName": "Tay Martin",
+      "gsisId": "00-0037524",
+      "heightIn": 75,
+      "ids": {
+        "espn": "4245144",
+        "pfr": "MartTa00"
+      },
+      "injury": null,
+      "jersey": 17,
+      "lastName": "Martin",
+      "position": "WR",
+      "positionGroup": "WR",
+      "rookieYear": 2022,
+      "status": "ACT",
+      "weightLb": 186,
+      "yearsExp": 4
+    },
+    {
+      "birthDate": "2002-02-20",
+      "college": "Arkansas; Hillsdale",
+      "depthChartPosition": "WR",
+      "draft": {
+        "club": "DET",
+        "overall": 70,
+        "year": 2025
+      },
+      "firstName": "Isaac",
+      "fullName": "Isaac TeSlaa",
+      "gsisId": "00-0040669",
+      "heightIn": 76,
+      "ids": {
+        "espn": "5123663",
+        "pfr": "TeSlIs00"
+      },
+      "injury": null,
+      "jersey": 18,
+      "lastName": "TeSlaa",
+      "position": "WR",
+      "positionGroup": "WR",
+      "rookieYear": 2025,
+      "status": "ACT",
+      "weightLb": 214,
+      "yearsExp": 1
+    },
+    {
+      "birthDate": "2002-11-08",
+      "college": "Georgia; Missouri",
+      "depthChartPosition": "WR",
+      "draft": {
+        "club": "DET",
+        "overall": 244,
+        "year": 2025
+      },
+      "firstName": "Dominic",
+      "fullName": "Dominic Lovett",
+      "gsisId": "00-0040241",
+      "heightIn": 70,
+      "ids": {
+        "espn": "4596439",
+        "pfr": "LoveDo00"
+      },
+      "injury": null,
+      "jersey": 19,
+      "lastName": "Lovett",
+      "position": "WR",
+      "positionGroup": "WR",
+      "rookieYear": 2025,
+      "status": "DEV",
+      "weightLb": 185,
+      "yearsExp": 1
+    },
+    {
+      "birthDate": null,
+      "college": null,
+      "depthChartPosition": "WR",
+      "draft": null,
+      "firstName": "Lawrence",
+      "fullName": "Lawrence Keys",
+      "gsisId": "00-0039474",
+      "heightIn": null,
+      "ids": {
+        "espn": null,
+        "pfr": null
+      },
+      "injury": null,
+      "jersey": 80,
+      "lastName": "Keys",
+      "position": "WR",
+      "positionGroup": "WR",
+      "rookieYear": 2024,
+      "status": "DEV",
+      "weightLb": 170,
+      "yearsExp": 2
+    },
+    {
+      "birthDate": "1996-07-29",
+      "college": "Bryant",
+      "depthChartPosition": "WR",
+      "draft": null,
+      "firstName": "Thomas",
+      "fullName": "Tom Kennedy",
+      "gsisId": "00-0035544",
+      "heightIn": 70,
+      "ids": {
+        "espn": "3126997",
+        "pfr": "KennTo01"
+      },
+      "injury": null,
+      "jersey": 85,
+      "lastName": "Kennedy",
+      "position": "WR",
+      "positionGroup": "WR",
+      "rookieYear": 2019,
+      "status": "ACT",
+      "weightLb": 194,
+      "yearsExp": 7
+    },
+    {
+      "birthDate": "2004-06-13",
+      "college": "Kentucky; Alabama",
+      "depthChartPosition": "WR",
+      "draft": {
+        "club": "DET",
+        "overall": 168,
+        "year": 2026
+      },
+      "firstName": "Kendrick",
+      "fullName": "Kendrick Law",
+      "gsisId": "00-0041446",
+      "heightIn": 71,
+      "ids": {
+        "espn": "4685441",
+        "pfr": "LawxKe00"
+      },
+      "injury": null,
+      "jersey": 88,
+      "lastName": "Law",
+      "position": "WR",
+      "positionGroup": "WR",
+      "rookieYear": 2026,
+      "status": "RES",
+      "weightLb": 203,
+      "yearsExp": 0
+    },
+    {
+      "birthDate": "2003-03-24",
+      "college": "Syracuse",
+      "depthChartPosition": "TE",
+      "draft": null,
+      "firstName": "Jackson",
+      "fullName": "Jackson Meeks",
+      "gsisId": "00-0040390",
+      "heightIn": 74,
+      "ids": {
+        "espn": "4602788",
+        "pfr": "MeekJa00"
+      },
+      "injury": null,
+      "jersey": 13,
+      "lastName": "Meeks",
+      "position": "WR",
+      "positionGroup": "TE",
+      "rookieYear": 2025,
+      "status": "ACT",
+      "weightLb": 235,
+      "yearsExp": 1
+    },
+    {
+      "birthDate": "2000-09-05",
+      "college": "Northwestern",
+      "depthChartPosition": "TE",
+      "draft": null,
+      "firstName": "Thomas",
+      "fullName": "Thomas Gordon",
+      "gsisId": "00-0040697",
+      "heightIn": 76,
+      "ids": {
+        "espn": null,
+        "pfr": null
+      },
+      "injury": null,
+      "jersey": 82,
+      "lastName": "Gordon",
+      "position": "TE",
+      "positionGroup": "TE",
+      "rookieYear": 2025,
+      "status": "DEV",
+      "weightLb": 250,
+      "yearsExp": 1
+    },
+    {
+      "birthDate": "1995-07-30",
+      "college": "Central Michigan; Northwood",
+      "depthChartPosition": "TE",
+      "draft": {
+        "club": "MIN",
+        "overall": 157,
+        "year": 2018
+      },
+      "firstName": "Tyler",
+      "fullName": "Tyler Conklin",
+      "gsisId": "00-0034270",
+      "heightIn": 75,
+      "ids": {
+        "espn": "3915486",
+        "pfr": "ConkTy00"
+      },
+      "injury": null,
+      "jersey": 83,
+      "lastName": "Conklin",
+      "position": "TE",
+      "positionGroup": "TE",
+      "rookieYear": 2018,
+      "status": "ACT",
+      "weightLb": 245,
+      "yearsExp": 8
+    },
+    {
+      "birthDate": "2002-09-25",
+      "college": "Tennessee; Alabama; Hutchinson CC",
+      "depthChartPosition": "TE",
+      "draft": null,
+      "firstName": "Miles",
+      "fullName": "Miles Kitselman",
+      "gsisId": "00-0041457",
+      "heightIn": 77,
+      "ids": {
+        "espn": null,
+        "pfr": null
+      },
+      "injury": null,
+      "jersey": 84,
+      "lastName": "Kitselman",
+      "position": "TE",
+      "positionGroup": "TE",
+      "rookieYear": 2026,
+      "status": "DEV",
+      "weightLb": 251,
+      "yearsExp": 0
+    },
+    {
+      "birthDate": "2001-01-12",
+      "college": "Iowa",
+      "depthChartPosition": "TE",
+      "draft": {
+        "club": "DET",
+        "overall": 34,
+        "year": 2023
+      },
+      "firstName": "Sam",
+      "fullName": "Sam LaPorta",
+      "gsisId": "00-0039065",
+      "heightIn": 75,
+      "ids": {
+        "espn": "4430027",
+        "pfr": "LaPoSa01"
+      },
+      "injury": null,
+      "jersey": 87,
+      "lastName": "LaPorta",
+      "position": "TE",
+      "positionGroup": "TE",
+      "rookieYear": 2023,
+      "status": "ACT",
+      "weightLb": 245,
+      "yearsExp": 3
+    },
+    {
+      "birthDate": "1998-11-27",
+      "college": "Notre Dame",
+      "depthChartPosition": "TE",
+      "draft": null,
+      "firstName": "Brock",
+      "fullName": "Brock Wright",
+      "gsisId": "00-0036754",
+      "heightIn": 77,
+      "ids": {
+        "espn": "4242392",
+        "pfr": "WrigBr01"
+      },
+      "injury": null,
+      "jersey": 89,
+      "lastName": "Wright",
+      "position": "TE",
+      "positionGroup": "TE",
+      "rookieYear": 2021,
+      "status": "ACT",
+      "weightLb": 255,
+      "yearsExp": 5
+    },
+    {
+      "birthDate": "2000-10-09",
+      "college": "Oregon",
+      "depthChartPosition": "T",
+      "draft": {
+        "club": "DET",
+        "overall": 7,
+        "year": 2021
+      },
+      "firstName": "Penei",
+      "fullName": "Penei Sewell",
+      "gsisId": "00-0036880",
+      "heightIn": 77,
+      "ids": {
+        "espn": null,
+        "pfr": null
+      },
+      "injury": null,
+      "jersey": 58,
+      "lastName": "Sewell",
+      "position": "OT",
+      "positionGroup": "OL",
+      "rookieYear": 2021,
+      "status": "ACT",
+      "weightLb": 335,
+      "yearsExp": 5
+    },
+    {
+      "birthDate": "2001-01-26",
+      "college": "University of British Columbia",
+      "depthChartPosition": "T",
+      "draft": {
+        "club": "DET",
+        "overall": 126,
+        "year": 2024
+      },
+      "firstName": "Giovanni",
+      "fullName": "Giovanni Manu",
+      "gsisId": "00-0039362",
+      "heightIn": 79,
+      "ids": {
+        "espn": null,
+        "pfr": null
+      },
+      "injury": null,
+      "jersey": 59,
+      "lastName": "Manu",
+      "position": "OL",
+      "positionGroup": "OL",
+      "rookieYear": 2024,
+      "status": "RES",
+      "weightLb": 345,
+      "yearsExp": 2
+    },
+    {
+      "birthDate": "2001-11-26",
+      "college": "North Dakota State",
+      "depthChartPosition": "G",
+      "draft": null,
+      "firstName": "Mason",
+      "fullName": "Mason Miller",
+      "gsisId": "00-0040391",
+      "heightIn": 79,
+      "ids": {
+        "espn": null,
+        "pfr": null
+      },
+      "injury": null,
+      "jersey": 63,
+      "lastName": "Miller",
+      "position": "OT",
+      "positionGroup": "OL",
+      "rookieYear": 2025,
+      "status": "DEV",
+      "weightLb": 305,
+      "yearsExp": 1
+    },
+    {
+      "birthDate": "1999-04-26",
+      "college": "Tennessee",
+      "depthChartPosition": "C",
+      "draft": {
+        "club": "CAR",
+        "overall": 199,
+        "year": 2022
+      },
+      "firstName": "Cade",
+      "fullName": "Cade Mays",
+      "gsisId": "00-0037297",
+      "heightIn": 78,
+      "ids": {
+        "espn": null,
+        "pfr": null
+      },
+      "injury": null,
+      "jersey": 64,
+      "lastName": "Mays",
+      "position": "C",
+      "positionGroup": "OL",
+      "rookieYear": 2022,
+      "status": "RES",
+      "weightLb": 325,
+      "yearsExp": 4
+    },
+    {
+      "birthDate": "2001-08-27",
+      "college": "Ohio State; Alabama",
+      "depthChartPosition": "C",
+      "draft": null,
+      "firstName": "Seth",
+      "fullName": "Seth McLaughlin",
+      "gsisId": "00-0040374",
+      "heightIn": 76,
+      "ids": {
+        "espn": null,
+        "pfr": null
+      },
+      "injury": null,
+      "jersey": 65,
+      "lastName": "McLaughlin",
+      "position": "C",
+      "positionGroup": "OL",
+      "rookieYear": 2025,
+      "status": "ACT",
+      "weightLb": 305,
+      "yearsExp": 1
+    },
+    {
+      "birthDate": "2000-04-08",
+      "college": "Texas-El Paso",
+      "depthChartPosition": "G",
+      "draft": {
+        "club": "TB",
+        "overall": 220,
+        "year": 2024
+      },
+      "firstName": "Elijah",
+      "fullName": "Elijah Klein",
+      "gsisId": "00-0039411",
+      "heightIn": 76,
+      "ids": {
+        "espn": null,
+        "pfr": null
+      },
+      "injury": null,
+      "jersey": 67,
+      "lastName": "Klein",
+      "position": "G",
+      "positionGroup": "OL",
+      "rookieYear": 2024,
+      "status": "DEV",
+      "weightLb": 319,
+      "yearsExp": 2
+    },
+    {
+      "birthDate": "2001-04-26",
+      "college": "Georgia",
+      "depthChartPosition": "G",
+      "draft": {
+        "club": "DET",
+        "overall": 57,
+        "year": 2025
+      },
+      "firstName": "Tate",
+      "fullName": "Tate Ratledge",
+      "gsisId": "00-0040728",
+      "heightIn": 78,
+      "ids": {
+        "espn": null,
+        "pfr": null
+      },
+      "injury": null,
+      "jersey": 69,
+      "lastName": "Ratledge",
+      "position": "G",
+      "positionGroup": "OL",
+      "rookieYear": 2025,
+      "status": "ACT",
+      "weightLb": 322,
+      "yearsExp": 1
+    },
+    {
+      "birthDate": "2000-01-19",
+      "college": "Penn State",
+      "depthChartPosition": "G",
+      "draft": {
+        "club": "HOU",
+        "overall": 62,
+        "year": 2023
+      },
+      "firstName": "Fredrick",
+      "fullName": "Juice Scruggs",
+      "gsisId": "00-0038936",
+      "heightIn": 75,
+      "ids": {
+        "espn": null,
+        "pfr": null
+      },
+      "injury": null,
+      "jersey": 70,
+      "lastName": "Scruggs",
+      "position": "C",
+      "positionGroup": "OL",
+      "rookieYear": 2023,
+      "status": "ACT",
+      "weightLb": 320,
+      "yearsExp": 3
+    },
+    {
+      "birthDate": "2001-09-12",
+      "college": "LSU; Florida International",
+      "depthChartPosition": "G",
+      "draft": {
+        "club": "DET",
+        "overall": 171,
+        "year": 2025
+      },
+      "firstName": "Miles",
+      "fullName": "Miles Frazier",
+      "gsisId": "00-0040193",
+      "heightIn": 78,
+      "ids": {
+        "espn": null,
+        "pfr": null
+      },
+      "injury": null,
+      "jersey": 71,
+      "lastName": "Frazier",
+      "position": "G",
+      "positionGroup": "OL",
+      "rookieYear": 2025,
+      "status": "ACT",
+      "weightLb": 325,
+      "yearsExp": 1
+    },
+    {
+      "birthDate": "2000-10-11",
+      "college": "Boston College",
+      "depthChartPosition": "G",
+      "draft": {
+        "club": "DET",
+        "overall": 210,
+        "year": 2024
+      },
+      "firstName": "Christian",
+      "fullName": "Christian Mahogany",
+      "gsisId": "00-0039408",
+      "heightIn": 75,
+      "ids": {
+        "espn": null,
+        "pfr": null
+      },
+      "injury": null,
+      "jersey": 73,
+      "lastName": "Mahogany",
+      "position": "G",
+      "positionGroup": "OL",
+      "rookieYear": 2024,
+      "status": "ACT",
+      "weightLb": 327,
+      "yearsExp": 2
+    },
+    {
+      "birthDate": "2004-02-25",
+      "college": "Clemson",
+      "depthChartPosition": "T",
+      "draft": {
+        "club": "DET",
+        "overall": 17,
+        "year": 2026
+      },
+      "firstName": "Blake",
+      "fullName": "Blake Miller",
+      "gsisId": "00-0041439",
+      "heightIn": 78,
+      "ids": {
+        "espn": null,
+        "pfr": null
+      },
+      "injury": null,
+      "jersey": 76,
+      "lastName": "Miller",
+      "position": "OT",
+      "positionGroup": "OL",
+      "rookieYear": 2026,
+      "status": "ACT",
+      "weightLb": 317,
+      "yearsExp": 0
+    },
+    {
+      "birthDate": "1998-07-17",
+      "college": "Georgia Tech",
+      "depthChartPosition": "T",
+      "draft": null,
+      "firstName": "Devin",
+      "fullName": "Devin Cochran",
+      "gsisId": "00-0037414",
+      "heightIn": 79,
+      "ids": {
+        "espn": null,
+        "pfr": null
+      },
+      "injury": null,
+      "jersey": 77,
+      "lastName": "Cochran",
+      "position": "OT",
+      "positionGroup": "OL",
+      "rookieYear": 2022,
+      "status": "DEV",
+      "weightLb": 322,
+      "yearsExp": 4
+    },
+    {
+      "birthDate": "1998-07-22",
+      "college": "St. John's (MN)",
+      "depthChartPosition": "G",
+      "draft": {
+        "club": "JAX",
+        "overall": 116,
+        "year": 2020
+      },
+      "firstName": "Benjamin",
+      "fullName": "Ben Bartch",
+      "gsisId": "00-0036272",
+      "heightIn": 78,
+      "ids": {
+        "espn": null,
+        "pfr": null
+      },
+      "injury": {
+        "practiceStatus": "Did Not Participate In Practice",
+        "primary": null,
+        "reportStatus": null
+      },
+      "jersey": 78,
+      "lastName": "Bartch",
+      "position": "OT",
+      "positionGroup": "OL",
+      "rookieYear": 2020,
+      "status": "ACT",
+      "weightLb": 315,
+      "yearsExp": 6
+    },
+    {
+      "birthDate": "1999-03-30",
+      "college": "Missouri",
+      "depthChartPosition": "T",
+      "draft": {
+        "club": "CHI",
+        "overall": 151,
+        "year": 2021
+      },
+      "firstName": "Larry",
+      "fullName": "Larry Borom",
+      "gsisId": "00-0036905",
+      "heightIn": 77,
+      "ids": {
+        "espn": null,
+        "pfr": null
+      },
+      "injury": null,
+      "jersey": 79,
+      "lastName": "Borom",
+      "position": "G",
+      "positionGroup": "OL",
+      "rookieYear": 2021,
+      "status": "ACT",
+      "weightLb": 325,
+      "yearsExp": 5
+    },
+    {
+      "birthDate": "2002-10-13",
+      "college": "Texas Tech",
+      "depthChartPosition": "DT",
+      "draft": {
+        "club": "DET",
+        "overall": 205,
+        "year": 2026
+      },
+      "firstName": "Skyler",
+      "fullName": "Skyler Gill-Howard",
+      "gsisId": "00-0041447",
+      "heightIn": 72,
+      "ids": {
+        "espn": "5103940",
+        "pfr": "GillSk00"
+      },
+      "injury": null,
+      "jersey": 50,
+      "lastName": "Gill-Howard",
+      "position": "DT",
+      "positionGroup": "DL",
+      "rookieYear": 2026,
+      "status": "ACT",
+      "weightLb": 280,
+      "yearsExp": 0
+    },
+    {
+      "birthDate": "2000-05-11",
+      "college": "N.C. State",
+      "depthChartPosition": "DT",
+      "draft": {
+        "club": "DET",
+        "overall": 72,
+        "year": 2021
+      },
+      "firstName": "Alim",
+      "fullName": "Alim McNeill",
+      "gsisId": "00-0036624",
+      "heightIn": 74,
+      "ids": {
+        "espn": "4361662",
+        "pfr": "McNeAl00"
+      },
+      "injury": null,
+      "jersey": 54,
+      "lastName": "McNeill",
+      "position": "DT",
+      "positionGroup": "DL",
+      "rookieYear": 2021,
+      "status": "ACT",
+      "weightLb": 310,
+      "yearsExp": 5
+    },
+    {
+      "birthDate": "1999-12-15",
+      "college": "Notre Dame; Harvard",
+      "depthChartPosition": "DT",
+      "draft": null,
+      "firstName": "Chris",
+      "fullName": "Chris Smith",
+      "gsisId": "00-0038661",
+      "heightIn": 73,
+      "ids": {
+        "espn": "4367835",
+        "pfr": null
+      },
+      "injury": null,
+      "jersey": 90,
+      "lastName": "Smith",
+      "position": "DT",
+      "positionGroup": "DL",
+      "rookieYear": 2023,
+      "status": "DEV",
+      "weightLb": 320,
+      "yearsExp": 3
+    },
+    {
+      "birthDate": "2003-02-24",
+      "college": "Ohio State",
+      "depthChartPosition": "DT",
+      "draft": {
+        "club": "DET",
+        "overall": 28,
+        "year": 2025
+      },
+      "firstName": "Tyleik",
+      "fullName": "Tyleik Williams",
+      "gsisId": "00-0040672",
+      "heightIn": 75,
+      "ids": {
+        "espn": "4431615",
+        "pfr": "WillTy02"
+      },
+      "injury": null,
+      "jersey": 91,
+      "lastName": "Williams",
+      "position": "DT",
+      "positionGroup": "DL",
+      "rookieYear": 2025,
+      "status": "ACT",
+      "weightLb": 328,
+      "yearsExp": 1
+    },
+    {
+      "birthDate": "1999-11-10",
+      "college": "Oklahoma State",
+      "depthChartPosition": "DE",
+      "draft": {
+        "club": "JAX",
+        "overall": 130,
+        "year": 2023
+      },
+      "firstName": "Tyler",
+      "fullName": "Tyler Lacy",
+      "gsisId": "00-0038940",
+      "heightIn": 76,
+      "ids": {
+        "espn": "4361861",
+        "pfr": "LacyTy00"
+      },
+      "injury": null,
+      "jersey": 93,
+      "lastName": "Lacy",
+      "position": "DE",
+      "positionGroup": "DL",
+      "rookieYear": 2023,
+      "status": "ACT",
+      "weightLb": 300,
+      "yearsExp": 3
+    },
+    {
+      "birthDate": "2003-04-17",
+      "college": "LSU; Missouri",
+      "depthChartPosition": "DT",
+      "draft": {
+        "club": "DET",
+        "overall": 189,
+        "year": 2024
+      },
+      "firstName": "Mekhi",
+      "fullName": "Mekhi Wingo",
+      "gsisId": "00-0039396",
+      "heightIn": 72,
+      "ids": {
+        "espn": "4586333",
+        "pfr": "WingMe00"
+      },
+      "injury": null,
+      "jersey": 94,
+      "lastName": "Wingo",
+      "position": "DT",
+      "positionGroup": "DL",
+      "rookieYear": 2024,
+      "status": "ACT",
+      "weightLb": 282,
+      "yearsExp": 2
+    },
+    {
+      "birthDate": "1998-03-02",
+      "college": "Washington",
+      "depthChartPosition": "DE",
+      "draft": {
+        "club": "DET",
+        "overall": 41,
+        "year": 2021
+      },
+      "firstName": "Levi",
+      "fullName": "Levi Onwuzurike",
+      "gsisId": "00-0036954",
+      "heightIn": 75,
+      "ids": {
+        "espn": "4039020",
+        "pfr": "OnwuLe00"
+      },
+      "injury": null,
+      "jersey": 95,
+      "lastName": "Onwuzurike",
+      "position": "DT",
+      "positionGroup": "DL",
+      "rookieYear": 2021,
+      "status": "ACT",
+      "weightLb": 304,
+      "yearsExp": 5
+    },
+    {
+      "birthDate": "1997-11-12",
+      "college": "Nebraska",
+      "depthChartPosition": "DT",
+      "draft": null,
+      "firstName": "Ben",
+      "fullName": "Ben Stille",
+      "gsisId": "00-0037356",
+      "heightIn": 76,
+      "ids": {
+        "espn": "4034861",
+        "pfr": "StilBe00"
+      },
+      "injury": null,
+      "jersey": 96,
+      "lastName": "Stille",
+      "position": "DE",
+      "positionGroup": "DL",
+      "rookieYear": 2022,
+      "status": "DEV",
+      "weightLb": 293,
+      "yearsExp": 4
+    },
+    {
+      "birthDate": "2002-12-06",
+      "college": "Michigan",
+      "depthChartPosition": "OLB",
+      "draft": {
+        "club": "DET",
+        "overall": 44,
+        "year": 2026
+      },
+      "firstName": "Derrick",
+      "fullName": "Derrick Moore",
+      "gsisId": "00-0041441",
+      "heightIn": 75,
+      "ids": {
+        "espn": "4685461",
+        "pfr": "MoorDe03"
+      },
+      "injury": null,
+      "jersey": 8,
+      "lastName": "Moore",
+      "position": "DE",
+      "positionGroup": "EDGE",
+      "rookieYear": 2026,
+      "status": "ACT",
+      "weightLb": 260,
+      "yearsExp": 0
+    },
+    {
+      "birthDate": "1998-02-26",
+      "college": "Michigan State",
+      "depthChartPosition": "OLB",
+      "draft": null,
+      "firstName": "Joe",
+      "fullName": "Joe Bachie",
+      "gsisId": "00-0035895",
+      "heightIn": 74,
+      "ids": {
+        "espn": "4036507",
+        "pfr": "BachJo01"
+      },
+      "injury": null,
+      "jersey": 35,
+      "lastName": "Bachie",
+      "position": "LB",
+      "positionGroup": "EDGE",
+      "rookieYear": 2020,
+      "status": "DEV",
+      "weightLb": 235,
+      "yearsExp": 6
+    },
+    {
+      "birthDate": "1998-11-07",
+      "college": "Saginaw Valley State",
+      "depthChartPosition": "OLB",
+      "draft": null,
+      "firstName": "Trevor",
+      "fullName": "Trevor Nowaske",
+      "gsisId": "00-0038660",
+      "heightIn": 75,
+      "ids": {
+        "espn": "5144894",
+        "pfr": "NowaTr00"
+      },
+      "injury": null,
+      "jersey": 53,
+      "lastName": "Nowaske",
+      "position": "LB",
+      "positionGroup": "EDGE",
+      "rookieYear": 2023,
+      "status": "ACT",
+      "weightLb": 235,
+      "yearsExp": 3
+    },
+    {
+      "birthDate": "1998-09-04",
+      "college": "Oklahoma State",
+      "depthChartPosition": "OLB",
+      "draft": null,
+      "firstName": "Amen",
+      "fullName": "Amen Ogbongbemiga",
+      "gsisId": "00-0036716",
+      "heightIn": 72,
+      "ids": {
+        "espn": "4038432",
+        "pfr": "OgboAm00"
+      },
+      "injury": null,
+      "jersey": 57,
+      "lastName": "Ogbongbemiga",
+      "position": "LB",
+      "positionGroup": "EDGE",
+      "rookieYear": 2021,
+      "status": "ACT",
+      "weightLb": 231,
+      "yearsExp": 5
+    },
+    {
+      "birthDate": "2004-10-08",
+      "college": "USC; Texas A&M",
+      "depthChartPosition": "DE",
+      "draft": null,
+      "firstName": "Anthony",
+      "fullName": "Anthony Lucas",
+      "gsisId": "00-0041458",
+      "heightIn": 77,
+      "ids": {
+        "espn": null,
+        "pfr": null
+      },
+      "injury": null,
+      "jersey": 61,
+      "lastName": "Lucas",
+      "position": "DE",
+      "positionGroup": "EDGE",
+      "rookieYear": 2026,
+      "status": "DEV",
+      "weightLb": 265,
+      "yearsExp": 0
+    },
+    {
+      "birthDate": "2003-07-01",
+      "college": "Rutgers; Long Island Coll.-Brooklyn",
+      "depthChartPosition": "DE",
+      "draft": null,
+      "firstName": "Eric",
+      "fullName": "Eric O'Neill",
+      "gsisId": "00-0041459",
+      "heightIn": 74,
+      "ids": {
+        "espn": "4892218",
+        "pfr": "ONeiEr00"
+      },
+      "injury": null,
+      "jersey": 66,
+      "lastName": "O'Neill",
+      "position": "DE",
+      "positionGroup": "EDGE",
+      "rookieYear": 2026,
+      "status": "ACT",
+      "weightLb": 250,
+      "yearsExp": 0
+    },
+    {
+      "birthDate": "1999-01-07",
+      "college": "Houston",
+      "depthChartPosition": "DE",
+      "draft": {
+        "club": "NO",
+        "overall": 28,
+        "year": 2021
+      },
+      "firstName": "Payton",
+      "fullName": "Payton Turner",
+      "gsisId": "00-0036926",
+      "heightIn": 78,
+      "ids": {
+        "espn": "4240269",
+        "pfr": "TurnPa02"
+      },
+      "injury": null,
+      "jersey": 92,
+      "lastName": "Turner",
+      "position": "DE",
+      "positionGroup": "EDGE",
+      "rookieYear": 2021,
+      "status": "RES",
+      "weightLb": 270,
+      "yearsExp": 5
+    },
+    {
+      "birthDate": "2000-08-09",
+      "college": "Michigan",
+      "depthChartPosition": "DE",
+      "draft": {
+        "club": "DET",
+        "overall": 2,
+        "year": 2022
+      },
+      "firstName": "Aidan",
+      "fullName": "Aidan Hutchinson",
+      "gsisId": "00-0037236",
+      "heightIn": 79,
+      "ids": {
+        "espn": "4372099",
+        "pfr": "HutcAi00"
+      },
+      "injury": null,
+      "jersey": 97,
+      "lastName": "Hutchinson",
+      "position": "DE",
+      "positionGroup": "EDGE",
+      "rookieYear": 2022,
+      "status": "ACT",
+      "weightLb": 265,
+      "yearsExp": 4
+    },
+    {
+      "birthDate": "1997-10-31",
+      "college": "South Carolina",
+      "depthChartPosition": "OLB",
+      "draft": {
+        "club": "MIN",
+        "overall": 117,
+        "year": 2020
+      },
+      "firstName": "Dennis",
+      "fullName": "D.J. Wonnum",
+      "gsisId": "00-0036335",
+      "heightIn": 77,
+      "ids": {
+        "espn": "4038849",
+        "pfr": "WonnDJ00"
+      },
+      "injury": {
+        "practiceStatus": "Did Not Participate In Practice",
+        "primary": null,
+        "reportStatus": null
+      },
+      "jersey": 98,
+      "lastName": "Wonnum",
+      "position": "DE",
+      "positionGroup": "EDGE",
+      "rookieYear": 2020,
+      "status": "ACT",
+      "weightLb": 260,
+      "yearsExp": 6
+    },
+    {
+      "birthDate": "2002-07-09",
+      "college": "Boise State",
+      "depthChartPosition": "DE",
+      "draft": {
+        "club": "DET",
+        "overall": 196,
+        "year": 2025
+      },
+      "firstName": "Ahmed",
+      "fullName": "Ahmed Hassanein",
+      "gsisId": "00-0040761",
+      "heightIn": 74,
+      "ids": {
+        "espn": "4710422",
+        "pfr": "HassAh00"
+      },
+      "injury": null,
+      "jersey": 99,
+      "lastName": "Hassanein",
+      "position": "DE",
+      "positionGroup": "EDGE",
+      "rookieYear": 2025,
+      "status": "ACT",
+      "weightLb": 275,
+      "yearsExp": 1
+    },
+    {
+      "birthDate": "2000-06-28",
+      "college": "LSU",
+      "depthChartPosition": "OLB",
+      "draft": {
+        "club": "DAL",
+        "overall": 176,
+        "year": 2022
+      },
+      "firstName": "Damone",
+      "fullName": "Damone Clark",
+      "gsisId": "00-0037281",
+      "heightIn": 74,
+      "ids": {
+        "espn": "4362636",
+        "pfr": "ClarDa02"
+      },
+      "injury": null,
+      "jersey": 11,
+      "lastName": "Clark",
+      "position": "LB",
+      "positionGroup": "LB",
+      "rookieYear": 2022,
+      "status": "RES",
+      "weightLb": 239,
+      "yearsExp": 4
+    },
+    {
+      "birthDate": "2004-02-09",
+      "college": "Michigan",
+      "depthChartPosition": "MLB",
+      "draft": {
+        "club": "DET",
+        "overall": 118,
+        "year": 2026
+      },
+      "firstName": "James",
+      "fullName": "Jimmy Rolder",
+      "gsisId": "00-0041442",
+      "heightIn": 74,
+      "ids": {
+        "espn": "4896353",
+        "pfr": "RoldJi00"
+      },
+      "injury": null,
+      "jersey": 41,
+      "lastName": "Rolder",
+      "position": "LB",
+      "positionGroup": "LB",
+      "rookieYear": 2026,
+      "status": "ACT",
+      "weightLb": 238,
+      "yearsExp": 0
+    },
+    {
+      "birthDate": "1999-03-29",
+      "college": "Oklahoma State",
+      "depthChartPosition": "OLB",
+      "draft": {
+        "club": "DET",
+        "overall": 188,
+        "year": 2022
+      },
+      "firstName": "Malcolm",
+      "fullName": "Malcolm Rodriguez",
+      "gsisId": "00-0037289",
+      "heightIn": 71,
+      "ids": {
+        "espn": "4241411",
+        "pfr": "RodrMa00"
+      },
+      "injury": null,
+      "jersey": 44,
+      "lastName": "Rodriguez",
+      "position": "LB",
+      "positionGroup": "LB",
+      "rookieYear": 2022,
+      "status": "ACT",
+      "weightLb": 230,
+      "yearsExp": 4
+    },
+    {
+      "birthDate": "1998-02-17",
+      "college": "LSU",
+      "depthChartPosition": "OLB",
+      "draft": {
+        "club": "TB",
+        "overall": 5,
+        "year": 2019
+      },
+      "firstName": "Devin",
+      "fullName": "Devin White",
+      "gsisId": "00-0035707",
+      "heightIn": 72,
+      "ids": {
+        "espn": "4035434",
+        "pfr": "WhitDe02"
+      },
+      "injury": null,
+      "jersey": 45,
+      "lastName": "White",
+      "position": "LB",
+      "positionGroup": "LB",
+      "rookieYear": 2019,
+      "status": "ACT",
+      "weightLb": 252,
+      "yearsExp": 7
+    },
+    {
+      "birthDate": "2000-08-22",
+      "college": "Iowa",
+      "depthChartPosition": "MLB",
+      "draft": {
+        "club": "DET",
+        "overall": 18,
+        "year": 2023
+      },
+      "firstName": "Jack",
+      "fullName": "Jack Campbell",
+      "gsisId": "00-0039018",
+      "heightIn": 77,
+      "ids": {
+        "espn": "4569465",
+        "pfr": "CampJa04"
+      },
+      "injury": null,
+      "jersey": 46,
+      "lastName": "Campbell",
+      "position": "LB",
+      "positionGroup": "LB",
+      "rookieYear": 2023,
+      "status": "ACT",
+      "weightLb": 243,
+      "yearsExp": 3
+    },
+    {
+      "birthDate": "1999-05-29",
+      "college": "Purdue",
+      "depthChartPosition": "OLB",
+      "draft": {
+        "club": "DET",
+        "overall": 113,
+        "year": 2021
+      },
+      "firstName": "Derrick",
+      "fullName": "Derrick Barnes",
+      "gsisId": "00-0036964",
+      "heightIn": 72,
+      "ids": {
+        "espn": "4260409",
+        "pfr": "BarnDe02"
+      },
+      "injury": null,
+      "jersey": 55,
+      "lastName": "Barnes",
+      "position": "LB",
+      "positionGroup": "LB",
+      "rookieYear": 2021,
+      "status": "ACT",
+      "weightLb": 240,
+      "yearsExp": 5
+    },
+    {
+      "birthDate": "2002-06-05",
+      "college": "Missouri",
+      "depthChartPosition": "CB",
+      "draft": {
+        "club": "DET",
+        "overall": 61,
+        "year": 2024
+      },
+      "firstName": "Ennis",
+      "fullName": "Ennis Rakestraw Jr.",
+      "gsisId": "00-0039862",
+      "heightIn": 71,
+      "ids": {
+        "espn": "4566092",
+        "pfr": "RakeEn00"
+      },
+      "injury": null,
+      "jersey": 2,
+      "lastName": "Rakestraw",
+      "position": "CB",
+      "positionGroup": "CB",
+      "rookieYear": 2024,
+      "status": "ACT",
+      "weightLb": 192,
+      "yearsExp": 2
+    },
+    {
+      "birthDate": "1996-11-11",
+      "college": "Kansas State; Cerritos College; Fresno State",
+      "depthChartPosition": "CB",
+      "draft": {
+        "club": "SF",
+        "overall": 142,
+        "year": 2018
+      },
+      "firstName": "Dennis",
+      "fullName": "D.J. Reed",
+      "gsisId": "00-0034384",
+      "heightIn": 69,
+      "ids": {
+        "espn": "3139387",
+        "pfr": "ReedD.00"
+      },
+      "injury": {
+        "practiceStatus": "Limited Participation in Practice",
+        "primary": null,
+        "reportStatus": null
+      },
+      "jersey": 4,
+      "lastName": "Reed",
+      "position": "CB",
+      "positionGroup": "CB",
+      "rookieYear": 2018,
+      "status": "ACT",
+      "weightLb": 188,
+      "yearsExp": 8
+    },
+    {
+      "birthDate": "2005-01-11",
+      "college": "Arizona State",
+      "depthChartPosition": "CB",
+      "draft": {
+        "club": "DET",
+        "overall": 157,
+        "year": 2026
+      },
+      "firstName": "Keith",
+      "fullName": "Keith Abney II",
+      "gsisId": "00-0041445",
+      "heightIn": 69,
+      "ids": {
+        "espn": "5093004",
+        "pfr": "AbneKe00"
+      },
+      "injury": null,
+      "jersey": 6,
+      "lastName": "Abney",
+      "position": "CB",
+      "positionGroup": "CB",
+      "rookieYear": 2026,
+      "status": "ACT",
+      "weightLb": 187,
+      "yearsExp": 0
+    },
+    {
+      "birthDate": "2000-02-10",
+      "college": "Auburn",
+      "depthChartPosition": "CB",
+      "draft": {
+        "club": "TEN",
+        "overall": 35,
+        "year": 2022
+      },
+      "firstName": "Roger",
+      "fullName": "Roger McCreary",
+      "gsisId": "00-0038125",
+      "heightIn": 71,
+      "ids": {
+        "espn": "4371973",
+        "pfr": "McCrRo01"
+      },
+      "injury": null,
+      "jersey": 21,
+      "lastName": "McCreary",
+      "position": "CB",
+      "positionGroup": "CB",
+      "rookieYear": 2022,
+      "status": "ACT",
+      "weightLb": 188,
+      "yearsExp": 4
+    },
+    {
+      "birthDate": "1996-05-23",
+      "college": "Temple",
+      "depthChartPosition": "CB",
+      "draft": {
+        "club": "IND",
+        "overall": 34,
+        "year": 2019
+      },
+      "firstName": "Abdurrahman",
+      "fullName": "Rock Ya-Sin",
+      "gsisId": "00-0035637",
+      "heightIn": 71,
+      "ids": {
+        "espn": "3910229",
+        "pfr": "Ya-SRo00"
+      },
+      "injury": null,
+      "jersey": 23,
+      "lastName": "Ya-Sin",
+      "position": "CB",
+      "positionGroup": "CB",
+      "rookieYear": 2019,
+      "status": "ACT",
+      "weightLb": 195,
+      "yearsExp": 7
+    },
+    {
+      "birthDate": "1994-04-06",
+      "college": "LSU",
+      "depthChartPosition": "FS",
+      "draft": {
+        "club": "PHI",
+        "overall": 233,
+        "year": 2016
+      },
+      "firstName": "Jalen",
+      "fullName": "Jalen Mills",
+      "gsisId": "00-0032803",
+      "heightIn": 72,
+      "ids": {
+        "espn": "2976540",
+        "pfr": "MillJa02"
+      },
+      "injury": null,
+      "jersey": 27,
+      "lastName": "Mills",
+      "position": "CB",
+      "positionGroup": "CB",
+      "rookieYear": 2016,
+      "status": "DEV",
+      "weightLb": 191,
+      "yearsExp": 10
+    },
+    {
+      "birthDate": "1998-03-31",
+      "college": "Northern Arizona",
+      "depthChartPosition": "CB",
+      "draft": null,
+      "firstName": "Khalil",
+      "fullName": "Khalil Dorsey",
+      "gsisId": "00-0036124",
+      "heightIn": 68,
+      "ids": {
+        "espn": "4027919",
+        "pfr": "DorsKh00"
+      },
+      "injury": null,
+      "jersey": 30,
+      "lastName": "Dorsey",
+      "position": "CB",
+      "positionGroup": "CB",
+      "rookieYear": 2020,
+      "status": "ACT",
+      "weightLb": 188,
+      "yearsExp": 6
+    },
+    {
+      "birthDate": "2001-10-22",
+      "college": "Alabama",
+      "depthChartPosition": "SS",
+      "draft": {
+        "club": "DET",
+        "overall": 45,
+        "year": 2023
+      },
+      "firstName": "Brian",
+      "fullName": "Brian Branch",
+      "gsisId": "00-0039141",
+      "heightIn": 72,
+      "ids": {
+        "espn": "4692025",
+        "pfr": "BranBr00"
+      },
+      "injury": null,
+      "jersey": 32,
+      "lastName": "Branch",
+      "position": "CB",
+      "positionGroup": "CB",
+      "rookieYear": 2023,
+      "status": "RES",
+      "weightLb": 203,
+      "yearsExp": 3
+    },
+    {
+      "birthDate": "2000-05-01",
+      "college": "Saginaw Valley State",
+      "depthChartPosition": "CB",
+      "draft": null,
+      "firstName": "Nick",
+      "fullName": "Nick Whiteside",
+      "gsisId": "00-0038841",
+      "heightIn": 73,
+      "ids": {
+        "espn": "5143915",
+        "pfr": "WhitNi02"
+      },
+      "injury": null,
+      "jersey": 38,
+      "lastName": "Whiteside",
+      "position": "DB",
+      "positionGroup": "CB",
+      "rookieYear": 2023,
+      "status": "DEV",
+      "weightLb": 200,
+      "yearsExp": 3
+    },
+    {
+      "birthDate": "2000-06-08",
+      "college": "Rutgers",
+      "depthChartPosition": "SS",
+      "draft": null,
+      "firstName": "Christian",
+      "fullName": "Christian Izien",
+      "gsisId": "00-0038820",
+      "heightIn": 70,
+      "ids": {
+        "espn": "4372459",
+        "pfr": "IzieCh00"
+      },
+      "injury": null,
+      "jersey": 5,
+      "lastName": "Izien",
+      "position": "SAF",
+      "positionGroup": "S",
+      "rookieYear": 2023,
+      "status": "ACT",
+      "weightLb": 206,
+      "yearsExp": 3
+    },
+    {
+      "birthDate": "2000-11-05",
+      "college": "Notre Dame; Oklahoma State",
+      "depthChartPosition": "FS",
+      "draft": null,
+      "firstName": "Thomas",
+      "fullName": "Thomas Harper",
+      "gsisId": "00-0039660",
+      "heightIn": 68,
+      "ids": {
+        "espn": "4569323",
+        "pfr": "HarpTh00"
+      },
+      "injury": null,
+      "jersey": 12,
+      "lastName": "Harper",
+      "position": "SAF",
+      "positionGroup": "S",
+      "rookieYear": 2024,
+      "status": "RES",
+      "weightLb": 195,
+      "yearsExp": 2
+    },
+    {
+      "birthDate": "2002-08-26",
+      "college": "UNLV; University of South Florida; Kansas State",
+      "depthChartPosition": "FS",
+      "draft": null,
+      "firstName": "Aamaris",
+      "fullName": "Aamaris Brown",
+      "gsisId": "00-0041454",
+      "heightIn": 70,
+      "ids": {
+        "espn": null,
+        "pfr": null
+      },
+      "injury": null,
+      "jersey": 24,
+      "lastName": "Brown",
+      "position": "DB",
+      "positionGroup": "S",
+      "rookieYear": 2026,
+      "status": "DEV",
+      "weightLb": 198,
+      "yearsExp": 0
+    },
+    {
+      "birthDate": "1996-03-31",
+      "college": "Pittsburgh",
+      "depthChartPosition": "FS",
+      "draft": {
+        "club": "PHI",
+        "overall": 125,
+        "year": 2018
+      },
+      "firstName": "Avonte",
+      "fullName": "Avonte Maddox",
+      "gsisId": "00-0034377",
+      "heightIn": 69,
+      "ids": {
+        "espn": "3123938",
+        "pfr": "MaddAv00"
+      },
+      "injury": null,
+      "jersey": 29,
+      "lastName": "Maddox",
+      "position": "FS",
+      "positionGroup": "S",
+      "rookieYear": 2018,
+      "status": "RES",
+      "weightLb": 191,
+      "yearsExp": 8
+    },
+    {
+      "birthDate": "2000-11-14",
+      "college": "Illinois",
+      "depthChartPosition": "FS",
+      "draft": {
+        "club": "DET",
+        "overall": 97,
+        "year": 2022
+      },
+      "firstName": "Kerby",
+      "fullName": "Kerby Joseph",
+      "gsisId": "00-0037667",
+      "heightIn": 72,
+      "ids": {
+        "espn": "4360383",
+        "pfr": "JoseKe03"
+      },
+      "injury": null,
+      "jersey": 31,
+      "lastName": "Joseph",
+      "position": "SAF",
+      "positionGroup": "S",
+      "rookieYear": 2022,
+      "status": "RES",
+      "weightLb": 210,
+      "yearsExp": 4
+    },
+    {
+      "birthDate": "2003-07-14",
+      "college": "USC; N.C. State; Coffeyville CC",
+      "depthChartPosition": "FS",
+      "draft": null,
+      "firstName": "Bishop",
+      "fullName": "Bishop Fitzgerald",
+      "gsisId": "00-0040914",
+      "heightIn": 71,
+      "ids": {
+        "espn": null,
+        "pfr": null
+      },
+      "injury": null,
+      "jersey": 34,
+      "lastName": "Fitzgerald",
+      "position": "SAF",
+      "positionGroup": "S",
+      "rookieYear": 2026,
+      "status": "ACT",
+      "weightLb": 201,
+      "yearsExp": 0
+    },
+    {
+      "birthDate": "1995-04-19",
+      "college": "Virginia Tech",
+      "depthChartPosition": "SS",
+      "draft": {
+        "club": "BAL",
+        "overall": 186,
+        "year": 2017
+      },
+      "firstName": "Charles",
+      "fullName": "Chuck Clark",
+      "gsisId": "00-0033294",
+      "heightIn": 72,
+      "ids": {
+        "espn": "3045463",
+        "pfr": "ClarCh00"
+      },
+      "injury": null,
+      "jersey": 36,
+      "lastName": "Clark",
+      "position": "SAF",
+      "positionGroup": "S",
+      "rookieYear": 2017,
+      "status": "ACT",
+      "weightLb": 210,
+      "yearsExp": 9
+    },
+    {
+      "birthDate": "1996-09-01",
+      "college": "Rice",
+      "depthChartPosition": "P",
+      "draft": null,
+      "firstName": "John",
+      "fullName": "Jack Fox",
+      "gsisId": "00-0035156",
+      "heightIn": 74,
+      "ids": {
+        "espn": "3916370",
+        "pfr": "FoxxJa01"
+      },
+      "injury": null,
+      "jersey": 3,
+      "lastName": "Fox",
+      "position": "P",
+      "positionGroup": "ST",
+      "rookieYear": 2019,
+      "status": "ACT",
+      "weightLb": 218,
+      "yearsExp": 7
+    },
+    {
+      "birthDate": "1999-03-03",
+      "college": "Arkansas; Central Arkansas",
+      "depthChartPosition": "K",
+      "draft": null,
+      "firstName": "Jacob",
+      "fullName": "Jake Bates",
+      "gsisId": "00-0039172",
+      "heightIn": 70,
+      "ids": {
+        "espn": "4689936",
+        "pfr": "BateJa00"
+      },
+      "injury": null,
+      "jersey": 39,
+      "lastName": "Bates",
+      "position": "K",
+      "positionGroup": "ST",
+      "rookieYear": 2023,
+      "status": "ACT",
+      "weightLb": 202,
+      "yearsExp": 3
+    },
+    {
+      "birthDate": "2000-08-06",
+      "college": "Idaho",
+      "depthChartPosition": "LS",
+      "draft": null,
+      "firstName": "Hogan",
+      "fullName": "Hogan Hatten",
+      "gsisId": "00-0039445",
+      "heightIn": 74,
+      "ids": {
+        "espn": null,
+        "pfr": null
+      },
+      "injury": null,
+      "jersey": 49,
+      "lastName": "Hatten",
+      "position": "LS",
+      "positionGroup": "ST",
+      "rookieYear": 2024,
+      "status": "ACT",
+      "weightLb": 239,
+      "yearsExp": 2
+    }
+  ],
+  "season": 2026,
+  "team": "DET",
+  "week": 4
+}

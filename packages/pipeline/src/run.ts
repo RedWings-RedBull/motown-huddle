@@ -23,7 +23,7 @@ import { winProbability } from "./stages/winProbability.js";
 import { rebuildManifest, stableJson, writeWeek, type WeekArtifacts } from "./stages/write.js";
 
 /** apps/web/src/data, resolved from this package so the CLI works from any cwd. */
-const DEFAULT_DATA_DIR = join(
+export const DEFAULT_DATA_DIR = join(
   dirname(fileURLToPath(import.meta.url)),
   "..",
   "..",
