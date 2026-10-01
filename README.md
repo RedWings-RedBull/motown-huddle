@@ -6,7 +6,7 @@ Weekly game breakdowns, a clickable football-field heat map of every position gr
 per-player grading method built entirely from open data, division and matchup pages, and a free
 virtual-token picks game. Static site, free tiers only, everything reproducible from a clean clone.
 
-> Status: milestone 0 (foundation). See [Roadmap](#roadmap).
+> Status: milestone 1 (core showpiece) in review. See [Roadmap](#roadmap).
 
 <!-- hero GIF of the field heat map lands with milestone 1 -->
 
@@ -58,7 +58,8 @@ to build, test or run the site locally.
 ## Guardrails worth copying
 
 - `scripts/claude-guard-aws.mjs`: a Claude Code hook that blocks any AWS or CDK shell command not
-  pinned to the project's named profile, so an AI agent can never touch the wrong account.
+  pinned to the project's named profile, so an AI agent can never deploy through a stray default
+  identity.
 - `infra/scripts/preflight.ts`: refuses to deploy unless STS confirms the expected account.
 - `scripts/secret-scan.mjs` on every push, `gitleaks` in CI, and `dependency-cruiser` rules that keep
   the grading engine pure and the web app decoupled from the pipeline.
@@ -71,8 +72,8 @@ template" and go.
 
 ## Roadmap
 
-- **M0** foundation: monorepo, tooling, tests, CI, infra as code (synth-only)
-- **M1** core showpiece: pipeline, grading engine, game breakdown page, field heat map
+- **M0** foundation: monorepo, tooling, tests, CI, infra as code (synth-only) ✅
+- **M1** core showpiece: pipeline, grading engine, game breakdown page, field heat map ✅
 - **M2** roster, NFC North, next-week preview, Coach's Corner
 - **M3** grounded article generation with human approval
 - **M4** compliance pages and ads

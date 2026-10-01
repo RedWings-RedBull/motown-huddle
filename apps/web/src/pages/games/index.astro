@@ -1,8 +1,67 @@
 ---
+import { teamConfig } from "@huddle/shared";
+import { getCollection, getEntry } from "astro:content";
+
+import TierBadge from "../../components/TierBadge.astro";
 import Base from "../../layouts/Base.astro";
+import { byWeekDesc, formatKickoff, gameHref, resultWord, weekId } from "../../lib/week";
+
+const manifest = await getEntry("manifest", "manifest");
+const weeks = [...(manifest?.data.weeks ?? [])].sort(byWeekDesc);
+const games = new Map((await getCollection("games")).map((g) => [g.id, g.data] as const));
+const team = teamConfig.team;
 ---
 
-<Base title="Games">
+<Base title="Games" description={`Every ${teamConfig.teamName} game breakdown with Huddle Grades.`}>
   <h1 class="text-3xl font-extrabold">Game breakdowns</h1>
-  <p class="mt-4">Weekly breakdowns appear here once the pipeline runs (milestone 1).</p>
+  <p class="mt-2 text-ink/80 dark:text-silver/80">
+    One page per game: score, team metrics, win probability, the field heat map and key plays.
+  </p>
+  {weeks.length === 0 ? (
+    <p class="mt-6">No games yet. Run the pipeline to add one.</p>
+  ) : (
+    <ol class="mt-6 divide-y divide-silver/40 border-y border-silver/40">
+      {weeks.map((w) => {
+        const game = games.get(weekId(w.season, w.week));
+        const teamScore = game
+          ? game.team.side === "home"
+            ? game.home.score
+            : game.away.score
+          : null;
+        const oppScore = game
+          ? game.team.side === "home"
+            ? game.away.score
+            : game.home.score
+          : null;
+        const venue = game && game.team.side === "home" ? "vs" : "at";
+        const score = teamScore !== null && oppScore !== null ? `, ${teamScore}-${oppScore}` : "";
+        const label = `${resultWord(w.result)} ${venue} ${w.opponent}${score}`;
+        return (
+          <li class="flex flex-wrap items-center gap-x-4 gap-y-1 py-4">
+            <span class="w-32 text-sm text-ink/70 dark:text-silver/70">
+              {w.season} · week {w.week}
+            </span>
+            <a
+              href={gameHref(w.season, w.week)}
+              class="text-lg font-bold underline-offset-2 hover:text-honolulu hover:underline"
+            >
+              {label}
+            </a>
+            <span class="ml-auto flex items-center gap-2 text-sm">
+              {game && (
+                <time datetime={game.kickoffUtc} class="text-ink/70 dark:text-silver/70">
+                  {formatKickoff(game.kickoffUtc)}
+                </time>
+              )}
+              <TierBadge tier={w.tier} />
+            </span>
+          </li>
+        );
+      })}
+    </ol>
+  )}
+  <p class="mt-6 text-sm">
+    Grades for {team} are provisional on Tuesday and final once Pro-Football-Reference advanced
+    stats land later in the week.
+  </p>
 </Base>

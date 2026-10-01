@@ -1,0 +1,19 @@
+{
+  "gameId": "2026_03_NYJ_DET",
+  "gradesVersion": "1.1.0",
+  "pipelineVersion": "1.0.0",
+  "season": 2026,
+  "sources": {
+    "depth_charts": "2026-09-30 09:38:03 EDT",
+    "ftn_charting": "2026-09-30 13:01:25 EDT",
+    "nextgen_stats": "2026-09-30 09:13:01 EDT",
+    "pbp": "2026-09-30 12:15:13 EDT",
+    "pfr_advstats": "2026-09-30 14:00:00 EDT",
+    "players": "2026-09-29 10:32:36 EDT",
+    "schedules": "2026-09-30 15:16:50 EDT",
+    "snap_counts": "2026-09-29 07:01:25 EDT",
+    "stats_player": "2026-09-30 12:26:01 EDT"
+  },
+  "tier": "final",
+  "week": 3
+}
