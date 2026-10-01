@@ -13,14 +13,15 @@ const team = teamConfig.team;
 ---
 
 <Base title="Games" description={`Every ${teamConfig.teamName} game breakdown with Huddle Grades.`}>
-  <h1 class="text-3xl font-extrabold">Game breakdowns</h1>
-  <p class="mt-2 text-ink/80 dark:text-silver/80">
+  <p class="eyebrow">{teamConfig.teamName}</p>
+  <h1 class="display mt-2 text-5xl text-white sm:text-6xl">Game breakdowns</h1>
+  <p class="muted mt-3">
     One page per game: score, team metrics, win probability, the field heat map and key plays.
   </p>
   {weeks.length === 0 ? (
     <p class="mt-6">No games yet. Run the pipeline to add one.</p>
   ) : (
-    <ol class="mt-6 divide-y divide-silver/40 border-y border-silver/40">
+    <ol class="mt-6 grid gap-3">
       {weeks.map((w) => {
         const game = games.get(weekId(w.season, w.week));
         const teamScore = game
@@ -37,19 +38,19 @@ const team = teamConfig.team;
         const score = teamScore !== null && oppScore !== null ? `, ${teamScore}-${oppScore}` : "";
         const label = `${resultWord(w.result)} ${venue} ${w.opponent}${score}`;
         return (
-          <li class="flex flex-wrap items-center gap-x-4 gap-y-1 py-4">
-            <span class="w-32 text-sm text-ink/70 dark:text-silver/70">
+          <li class="panel flex flex-wrap items-center gap-x-4 gap-y-1 px-5 py-4">
+            <span class="eyebrow w-32">
               {w.season} · week {w.week}
             </span>
             <a
               href={gameHref(w.season, w.week)}
-              class="text-lg font-bold underline-offset-2 hover:text-honolulu hover:underline"
+              class="display text-3xl text-white no-underline hover:text-honolulu-bright"
             >
               {label}
             </a>
             <span class="ml-auto flex items-center gap-2 text-sm">
               {game && (
-                <time datetime={game.kickoffUtc} class="text-ink/70 dark:text-silver/70">
+                <time datetime={game.kickoffUtc} class="muted">
                   {formatKickoff(game.kickoffUtc)}
                 </time>
               )}

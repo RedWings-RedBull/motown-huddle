@@ -16,7 +16,7 @@ const tiles = (page: Page) => page.getByTestId("field").locator('[role="button"]
 test.describe("game breakdown", () => {
   test("renders the score, team panel, chart and 27 field tiles", async ({ page }) => {
     await openGame(page);
-    await expect(page.getByRole("heading", { level: 1 })).toContainText("Win over NYJ, 31-24");
+    await expect(page.getByRole("heading", { level: 1 })).toContainText("Win vs NYJ");
     await expect(page.getByRole("heading", { name: "Team level" })).toBeVisible();
     await expect(page.getByRole("img", { name: /win probability/i })).toBeVisible();
     await expect(tiles(page)).toHaveCount(27);

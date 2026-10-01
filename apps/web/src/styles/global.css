@@ -1,18 +1,66 @@
 @import "tailwindcss";
 
+/* The site is dark by design (stadium at night); `dark:` utilities are always on. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
-  --color-honolulu: #0076b6;
-  --color-silver: #b0b7bc;
+  --color-night: #06111f;
   --color-ink: #0b1f33;
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --color-panel: #0f2a45;
+  --color-honolulu: #0076b6;
+  --color-honolulu-bright: #2ea3f2;
+  --color-silver: #b0b7bc;
+  --color-chalk: #eef2f5;
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Barlow Condensed", "Inter Variable", ui-sans-serif, system-ui, sans-serif;
 }
 
 html {
-  color-scheme: light dark;
+  color-scheme: dark;
 }
 
 body {
-  @apply bg-white text-ink antialiased dark:bg-ink dark:text-silver;
+  @apply bg-night text-chalk antialiased;
+  background-image:
+    radial-gradient(60rem 30rem at 50% -12rem, rgb(0 118 182 / 0.35), transparent 70%),
+    linear-gradient(180deg, #081a2f 0%, #06111f 40rem);
+  background-repeat: no-repeat;
+}
+
+a {
+  @apply underline-offset-4;
+}
+
+/* Typography helpers (declared as utilities so other rules can @apply them) */
+@utility display {
+  @apply font-display leading-none font-extrabold tracking-tight uppercase;
+}
+@utility eyebrow {
+  @apply font-display text-sm font-semibold tracking-[0.2em] text-honolulu-bright uppercase;
+}
+.section-title {
+  @apply display text-3xl text-chalk sm:text-4xl;
+}
+.section-title::before {
+  content: "";
+  @apply mr-3 inline-block h-[0.8em] w-1.5 translate-y-[0.08em] rounded-sm bg-honolulu-bright align-baseline;
+}
+@utility muted {
+  @apply text-silver/80;
+}
+
+/* Surfaces */
+@utility panel {
+  @apply rounded-xl border border-white/10 bg-ink/80 shadow-[0_1px_0_rgb(255_255_255/0.06)_inset,0_20px_40px_-24px_rgb(0_0_0/0.8)];
+}
+.stat-tile {
+  @apply panel flex flex-col gap-1 p-4;
+}
+.stat-tile .value {
+  @apply display text-5xl tabular-nums;
+}
+.stat-tile .label {
+  @apply eyebrow;
 }
 
 .skip-link {
@@ -21,25 +69,28 @@ body {
 
 /* Small labelled chips: data source, grade tier, result. */
 .badge {
-  @apply inline-flex items-center rounded border border-silver/70 px-1.5 py-0.5 text-[11px] leading-none font-semibold tracking-wide uppercase;
+  @apply inline-flex items-center rounded border border-white/15 bg-white/5 px-1.5 py-0.5 text-[11px] leading-none font-semibold tracking-wide text-chalk uppercase;
 }
 .badge-final {
-  @apply border-honolulu bg-honolulu/15 text-ink dark:text-white;
+  @apply border-honolulu-bright/60 bg-honolulu/30 text-white;
 }
 .badge-provisional {
-  @apply border-silver bg-silver/30;
+  @apply border-silver/50 bg-silver/15 text-silver;
+}
+
+/* Percentile bars */
+.bar {
+  @apply h-2 w-full min-w-24 overflow-hidden rounded-full bg-white/10;
+}
+.bar > div {
+  @apply h-full rounded-full bg-gradient-to-r from-honolulu to-honolulu-bright;
 }
 
 /* Field heat map tiles: focus ring drawn on the tile rect (SVG <g> cannot show an outline). */
 .field-tile:focus-visible .tile-bg {
-  stroke: var(--color-honolulu);
+  stroke: #ffffff;
   stroke-width: 5;
   stroke-opacity: 1;
-}
-@media (prefers-color-scheme: dark) {
-  .field-tile:focus-visible .tile-bg {
-    stroke: #ffffff;
-  }
 }
 
 /* Mobile bottom sheet for the slot detail panel. */
@@ -53,7 +104,7 @@ dialog.sheet {
   overflow-y: auto;
 }
 dialog.sheet::backdrop {
-  background: rgb(11 31 51 / 0.55);
+  background: rgb(6 17 31 / 0.7);
 }
 @media (prefers-reduced-motion: no-preference) {
   dialog.sheet[open] {

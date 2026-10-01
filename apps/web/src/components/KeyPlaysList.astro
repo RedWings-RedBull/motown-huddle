@@ -34,21 +34,21 @@ function situation(p: KeyPlay): string {
 ---
 
 <section aria-labelledby="plays-heading" class="mt-8">
-  <h2 id="plays-heading" class="text-2xl font-extrabold">
+  <h2 id="plays-heading" class="section-title">
     Key plays
   </h2>
-  <p class="mt-1 text-sm text-ink/80 dark:text-silver/80">
+  <p class="muted mt-2 text-sm">
     Biggest swings in win probability plus scoring plays and {team} fourth-down decisions. EPA and
     WPA are from the possessing team's point of view.
   </p>
-  <ol class="mt-4 divide-y divide-silver/40">
+  <ol class="mt-4 divide-y divide-white/10">
     {plays.plays.map((p) => (
       <li id={`play-${p.playId}`} class="py-3">
         <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 text-sm">
           <span class="font-semibold tabular-nums">
             Q{p.qtr} {p.clock}
           </span>
-          <span class:list={["font-semibold", p.posteam === team && "text-honolulu"]}>
+          <span class:list={["font-semibold", p.posteam === team && "text-honolulu-bright"]}>
             {p.posteam} ball
           </span>
           <span>{situation(p)}</span>
