@@ -7,3 +7,5 @@ export * from "./schemas/roster.js";
 export * from "./schemas/preview.js";
 export * from "./nfl.js";
 export * from "./schemas/division.js";
+export * from "./fourthDown.js";
+export * from "./schemas/coach.js";

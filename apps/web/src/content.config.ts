@@ -3,8 +3,10 @@ import {
   Grades,
   KeyPlays,
   LeagueBaselines,
+  CoachFile,
   DivisionFile,
   Manifest,
+  QuotesFile,
   MatchupPreview,
   RosterFile,
   SocialsFile,
@@ -41,6 +43,18 @@ export const collections = {
   winProbability: week("win-probability", WinProbability),
   meta: week("meta", WeekMeta),
   baselines: week("league-baselines", LeagueBaselines),
+  coach: defineCollection({
+    loader: file("./src/data/coach/current.json", {
+      parser: (text) => ({ current: JSON.parse(text) as Record<string, unknown> }),
+    }),
+    schema: CoachFile,
+  }),
+  quotes: defineCollection({
+    loader: file("./src/data/coach/quotes.json", {
+      parser: (text) => ({ quotes: JSON.parse(text) as Record<string, unknown> }),
+    }),
+    schema: QuotesFile,
+  }),
   division: defineCollection({
     loader: file("./src/data/division/current.json", {
       parser: (text) => ({ current: JSON.parse(text) as Record<string, unknown> }),

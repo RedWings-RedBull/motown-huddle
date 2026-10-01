@@ -33,6 +33,22 @@ playoff odds from a seeded 10,000-run simulation of the remaining schedule, seas
 for all four clubs, and the coming week's games. Deterministic for a given schedule state; commit the
 result. The seed lives in `packages/pipeline/src/division/build.ts`.
 
+## Coach's Corner
+
+```bash
+pnpm pipeline --coach --season 2026
+```
+
+Rebuilds `apps/web/src/data/coach/current.json`. The head coach is whoever the schedule lists for the
+team's latest completed game. Play-by-play is loaded from the coach's first season (at most five
+seasons back) through the current one, keeping only fourth downs, first downs, punts and field
+goals. Outputs: the Fourth-Down Aggression Index per season with the current league ranking, every
+fourth-down decision this season scored by the calculator, the empirical calculator tables, and the
+era record from the schedule. Deterministic; commit the result.
+
+Quotes live in `apps/web/src/data/coach/quotes.json` (at most ten, each with a date, context, source
+name and source URL; the schema rejects anything else). The section is hidden while the list is empty.
+
 ## Socials
 
 Social links live in `apps/web/src/data/players_socials.json`, keyed by `gsis_id`. The site renders
