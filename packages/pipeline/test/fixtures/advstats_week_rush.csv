@@ -1,0 +1,13 @@
+game_id,pfr_game_id,season,week,game_type,team,opponent,pfr_player_name,pfr_player_id,carries,rushing_yards_before_contact,rushing_yards_before_contact_avg,rushing_yards_after_contact,rushing_yards_after_contact_avg,rushing_broken_tackles,receiving_broken_tackles
+2026_03_ATL_GB,202609240gnb,2026,3,REG,GB,ATL,Kaleb Johnson,JohnKa03,4,3,0.8,3,0.8,0,
+2026_03_ATL_GB,202609240gnb,2026,3,REG,GB,ATL,MarShawn Lloyd,LloyMa00,4,8,2,3,0.8,0,
+2026_03_ATL_GB,202609240gnb,2026,3,REG,GB,ATL,Jordan Love,LoveJo03,1,-2,-2,2,2,0,
+2026_03_ATL_GB,202609240gnb,2026,3,REG,ATL,GB,Bijan Robinson,RobiBi01,29,103,3.6,91,3.1,1,
+2026_03_ATL_GB,202609240gnb,2026,3,REG,ATL,GB,Brian Robinson Jr.,RobiBr01,10,12,1.2,38,3.8,0,
+2026_03_ATL_GB,202609240gnb,2026,3,REG,ATL,GB,Michael Penix,PeniMi00,2,-2,-1,0,0,0,
+2026_03_NYJ_DET,202609270det,2026,3,REG,DET,NYJ,Jahmyr Gibbs,GibbJa01,20,69,3.5,30,1.5,1,
+2026_03_NYJ_DET,202609270det,2026,3,REG,DET,NYJ,Sione Vaki,VakiSi00,6,16,2.7,10,1.7,0,
+2026_03_NYJ_DET,202609270det,2026,3,REG,DET,NYJ,Jared Goff,GoffJa00,4,5,1.3,1,0.3,0,
+2026_03_NYJ_DET,202609270det,2026,3,REG,NYJ,DET,Breece Hall,HallBr03,13,20,1.5,12,0.9,0,
+2026_03_NYJ_DET,202609270det,2026,3,REG,NYJ,DET,Braelon Allen,AlleBr05,4,7,1.8,7,1.8,0,
+2026_03_NYJ_DET,202609270det,2026,3,REG,NYJ,DET,Geno Smith,SmitGe00,2,12,6,0,0,0,

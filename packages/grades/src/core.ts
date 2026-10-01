@@ -52,15 +52,33 @@ export function shrink(raw: number, n: number, k: number): number {
   return 50 + (raw - 50) * (n / (n + k));
 }
 
-/** Seven-bin diverging scale used for tile colours. */
+/** One colour bin of the seven-bin diverging scale, with the displayed (rounded) grade range. */
+export interface BinRange {
+  readonly bin: Exclude<Bin, "na">;
+  readonly label: string;
+  readonly min: number;
+  readonly max: number;
+}
+
+/**
+ * The seven bins from best to worst. Ranges are on the rounded grade the UI shows, so a tile
+ * reading "60" is always Warm; the legend and the methodology page render from this table.
+ */
+export const BINS: readonly BinRange[] = [
+  { bin: "fire", label: "On fire", min: 90, max: 100 },
+  { bin: "hot", label: "Hot", min: 75, max: 89 },
+  { bin: "warm", label: "Warm", min: 60, max: 74 },
+  { bin: "neutral", label: "Neutral", min: 40, max: 59 },
+  { bin: "cool", label: "Cool", min: 25, max: 39 },
+  { bin: "cold", label: "Cold", min: 10, max: 24 },
+  { bin: "ice", label: "Ice", min: 0, max: 9 },
+];
+
+/** Seven-bin diverging scale used for tile colours, binned on the rounded grade that is displayed. */
 export function binFor(grade: number | null): Bin {
   if (grade === null || !Number.isFinite(grade)) return "na";
-  if (grade >= 90) return "fire";
-  if (grade >= 75) return "hot";
-  if (grade >= 60) return "warm";
-  if (grade >= 40) return "neutral";
-  if (grade >= 25) return "cool";
-  if (grade >= 10) return "cold";
+  const shown = Math.round(grade);
+  for (const b of BINS) if (shown >= b.min) return b.bin;
   return "ice";
 }
 

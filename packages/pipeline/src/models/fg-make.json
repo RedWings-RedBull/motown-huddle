@@ -1,0 +1,85 @@
+{
+  "version": 1,
+  "fittedOn": "2021-2025 nflverse pbp field_goal_attempt rows",
+  "smoothing": "laplace (made + 1) / (att + 2); attempts under 20 yards pooled with 20-24",
+  "bucketSize": 5,
+  "buckets": [
+    {
+      "from": 20,
+      "to": 24,
+      "att": 518,
+      "made": 514,
+      "p": 0.9904
+    },
+    {
+      "from": 25,
+      "to": 29,
+      "att": 716,
+      "made": 696,
+      "p": 0.9708
+    },
+    {
+      "from": 30,
+      "to": 34,
+      "att": 769,
+      "made": 743,
+      "p": 0.965
+    },
+    {
+      "from": 35,
+      "to": 39,
+      "att": 799,
+      "made": 723,
+      "p": 0.9039
+    },
+    {
+      "from": 40,
+      "to": 44,
+      "att": 788,
+      "made": 655,
+      "p": 0.8304
+    },
+    {
+      "from": 45,
+      "to": 49,
+      "att": 779,
+      "made": 595,
+      "p": 0.7631
+    },
+    {
+      "from": 50,
+      "to": 54,
+      "att": 803,
+      "made": 592,
+      "p": 0.7366
+    },
+    {
+      "from": 55,
+      "to": 59,
+      "att": 353,
+      "made": 222,
+      "p": 0.6282
+    },
+    {
+      "from": 60,
+      "to": 64,
+      "att": 54,
+      "made": 25,
+      "p": 0.4643
+    },
+    {
+      "from": 65,
+      "to": 69,
+      "att": 14,
+      "made": 5,
+      "p": 0.375
+    },
+    {
+      "from": 70,
+      "to": 74,
+      "att": 1,
+      "made": 0,
+      "p": 0.3333
+    }
+  ]
+}

@@ -1,12 +1,181 @@
 ---
+import { BINS, GRADES_VERSION, SPECS } from "@huddle/grades";
+import { metricDef, type Pool, teamConfig } from "@huddle/shared";
+import { getCollection } from "astro:content";
+
+import { BIN_TABLE } from "../../components/field/bins";
+import TierBadge from "../../components/TierBadge.astro";
 import Base from "../../layouts/Base.astro";
+import { formatComponentValue, SOURCE_LABEL, SOURCE_TITLE } from "../../lib/format";
+import { byWeekDesc } from "../../lib/week";
+
+const latest = (await getCollection("baselines")).map((e) => e.data).sort(byWeekDesc)[0];
+
+/** Never let the docs drift from the engine: every component must resolve to a metric definition. */
+const pools = SPECS.map((spec) => ({
+  ...spec,
+  components: spec.components.map((c) => {
+    const def = metricDef(c.key);
+    if (!def) throw new Error(`methodology: unknown metric ${c.key}`);
+    return { ...c, def };
+  }),
+}));
+
+const baselineFor = (pool: Pool, key: string) => latest?.pools[pool]?.[key];
+
+/** The field legend keeps its own copy of the bin table (see bins.ts); refuse to build if it drifts. */
+if (JSON.stringify(BIN_TABLE) !== JSON.stringify(BINS)) {
+  throw new Error(
+    "methodology: components/field/bins.ts BIN_TABLE drifted from @huddle/grades BINS",
+  );
+}
 ---
 
-<Base title="Methodology">
+<Base
+  title="Methodology"
+  description="How the Huddle Grade turns open nflverse data into a 0-100 grade per position slot."
+>
   <h1 class="text-3xl font-extrabold">How the Huddle Grade works</h1>
-  <p class="mt-4">
-    Every component is a league-wide weekly percentile within its position pool, blended with
-    published weights and shrunk toward 50 for small samples. The full table renders from the
-    grading engine's own specification once milestone 1 lands.
+  <p class="mt-4 max-w-3xl">
+    Every component below is a league-wide weekly percentile within its position pool
+    (lower-is-better metrics are inverted). The percentiles are blended with the published weights
+    into a raw composite, then shrunk toward 50 for small samples:
   </p>
+  <p class="mt-2 font-mono text-sm">grade = 50 + (raw − 50) × n / (n + k)</p>
+  <p class="mt-2 max-w-3xl">
+    A component whose input is missing is dropped and the remaining weights are renormalised. Grades
+    are <TierBadge tier="provisional" /> on Tuesday (play-by-play, weekly stats, snap counts, FTN
+    charting and Next Gen Stats) and <TierBadge tier="final" /> once Pro-Football-Reference advanced
+    stats arrive. Engine version {GRADES_VERSION}. The tables below render from the engine's own
+    specification, so they cannot drift from the code.
+  </p>
+
+  <h2 class="mt-8 text-2xl font-extrabold">Colour bins</h2>
+  <p class="mt-2 max-w-3xl text-sm">
+    Bins apply to the rounded grade shown on the tile, so a tile reading 60 is always Warm.
+  </p>
+  <ul class="mt-2 flex flex-wrap gap-x-6 gap-y-1 text-sm">
+    {BINS.map((b) => (
+      <li>
+        <span class="font-semibold">{b.label}</span> {b.min}–{b.max}
+      </li>
+    ))}
+    <li>
+      <span class="font-semibold">Not graded</span> did not play, below threshold, or pending
+    </li>
+  </ul>
+
+  <h2 class="mt-8 text-2xl font-extrabold">Pools, thresholds and weights</h2>
+  <p class="mt-2 text-sm">
+    League baselines show this week's distribution across every qualifying player in the pool
+    {latest && ` (${latest.season} week ${latest.week}, ${latest.tier})`}. Only these summaries are
+    published; raw league-wide rows never leave the pipeline.
+  </p>
+  {pools.map((spec) => (
+    <section aria-labelledby={`pool-${spec.pool}`} class="mt-6">
+      <h3 id={`pool-${spec.pool}`} class="text-xl font-bold">
+        {spec.label} <span class="font-mono text-sm font-normal">({spec.pool})</span>
+      </h3>
+      <p class="mt-1 text-sm">
+        Qualifies at {spec.threshold.description} (n ≥ {spec.threshold.n}
+        {spec.threshold.altSnaps !== undefined && ` or snaps ≥ ${spec.threshold.altSnaps}`}) ·
+        shrinkage k = {spec.k}
+      </p>
+      {/* eslint-disable astro/jsx-a11y/no-noninteractive-tabindex -- APG pattern for scrollable data tables (also what axe's scrollable-region-focusable asks for) */}
+      <div
+        class="mt-2 overflow-x-auto"
+        tabindex="0"
+        role="region"
+        aria-label={`${spec.label} components table, scrolls horizontally`}
+      >
+        {/* eslint-enable astro/jsx-a11y/no-noninteractive-tabindex */}
+        <table class="w-full text-sm">
+          <caption class="sr-only">{spec.label} components</caption>
+          <thead>
+            <tr class="border-b border-silver/50 text-left">
+              <th scope="col" class="py-1 pr-2">
+                Component
+              </th>
+              <th scope="col" class="py-1 pr-2 text-right">
+                Weight
+              </th>
+              <th scope="col" class="py-1 pr-2">
+                Source
+              </th>
+              <th scope="col" class="py-1 pr-2">
+                Direction
+              </th>
+              <th scope="col" class="py-1 pr-2">
+                Tier
+              </th>
+              <th scope="col" class="py-1 pr-2 text-right">
+                n
+              </th>
+              <th scope="col" class="py-1 pr-2 text-right">
+                p10
+              </th>
+              <th scope="col" class="py-1 pr-2 text-right">
+                p50
+              </th>
+              <th scope="col" class="py-1 text-right">
+                p90
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {spec.components.map(({ def, weight }) => {
+              const b = baselineFor(spec.pool, def.key);
+              return (
+                <tr class="border-b border-silver/30 align-top">
+                  <th scope="row" class="py-1 pr-2 text-left font-medium">
+                    {def.label}
+                    <span class="block max-w-md text-xs font-normal text-ink/70 dark:text-silver/70">
+                      {def.description}
+                    </span>
+                  </th>
+                  <td class="py-1 pr-2 text-right tabular-nums">{Math.round(weight * 100)}%</td>
+                  <td class="py-1 pr-2">
+                    <span class="badge" title={SOURCE_TITLE[def.source]}>
+                      {SOURCE_LABEL[def.source]}
+                    </span>
+                  </td>
+                  <td class="py-1 pr-2">
+                    {def.direction === "lower" ? "lower is better" : "higher is better"}
+                  </td>
+                  <td class="py-1 pr-2">
+                    <TierBadge tier={def.tier} />
+                  </td>
+                  <td class="py-1 pr-2 text-right tabular-nums">{b ? b.n : "–"}</td>
+                  <td class="py-1 pr-2 text-right tabular-nums">
+                    {b ? formatComponentValue(def.unit, b.p10) : "–"}
+                  </td>
+                  <td class="py-1 pr-2 text-right tabular-nums">
+                    {b ? formatComponentValue(def.unit, b.p50) : "–"}
+                  </td>
+                  <td class="py-1 text-right tabular-nums">
+                    {b ? formatComponentValue(def.unit, b.p90) : "–"}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  ))}
+
+  <h2 class="mt-8 text-2xl font-extrabold">Slots and tiles</h2>
+  <p class="mt-2 max-w-3xl">
+    Depth charts place {teamConfig.team} players on 27 field slots (11 personnel, 4-2-5 nickel, a
+    special-teams strip). Everyone who took a snap at a slot stacks on that tile, ordered by snap
+    share; the tile colour is the snap-weighted mean of the grades from that tile's own unit (a
+    running back who also fielded kickoffs is listed on KR, but his rushing grade never colours the
+    return tile). The kick and punt return tiles show whoever actually fielded a kick in the game; a
+    scrimmage player who did not qualify in his own pool but returned two kicks is graded as a
+    returner. Cornerback and safety coverage metrics score at the 50th percentile below three
+    targets. Offensive line tiles show one unit grade because the free data has no per-lineman
+    blocking grades; each lineman's tile lists snaps, penalties and the run-gap results behind him
+    instead. Kneel-downs are never designed runs.
+  </p>
+  <p class="mt-2 max-w-3xl text-sm">{teamConfig.attribution}.</p>
 </Base>

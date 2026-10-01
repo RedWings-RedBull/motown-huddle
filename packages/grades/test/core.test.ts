@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import {
   binFor,
+  BINS,
   percentileRank,
   shrink,
   snapWeightedMean,
@@ -76,9 +77,40 @@ describe("binFor", () => {
     expect(binFor(50)).toBe("neutral");
     expect(binFor(30)).toBe("cool");
     expect(binFor(10)).toBe("cold");
-    expect(binFor(9.9)).toBe("ice");
+    expect(binFor(9.4)).toBe("ice");
+    expect(binFor(-3)).toBe("ice");
     expect(binFor(null)).toBe("na");
     expect(binFor(Number.NaN)).toBe("na");
+  });
+
+  it("bins the rounded grade the UI displays, so a tile never contradicts the legend", () => {
+    expect(binFor(59.6)).toBe("warm");
+    expect(binFor(59.4)).toBe("neutral");
+    expect(binFor(9.5)).toBe("cold");
+    expect(binFor(89.5)).toBe("fire");
+    expect(binFor(74.49)).toBe("warm");
+  });
+
+  it("publishes contiguous bin ranges from 0 to 100 that agree with binFor", () => {
+    expect(BINS.map((b) => b.bin)).toEqual([
+      "fire",
+      "hot",
+      "warm",
+      "neutral",
+      "cool",
+      "cold",
+      "ice",
+    ]);
+    expect(BINS[0]?.max).toBe(100);
+    expect(BINS.at(-1)?.min).toBe(0);
+    for (let i = 1; i < BINS.length; i += 1) {
+      expect(BINS[i]?.max).toBe((BINS[i - 1]?.min ?? 0) - 1);
+    }
+    for (const b of BINS) {
+      expect(binFor(b.min)).toBe(b.bin);
+      expect(binFor(b.max)).toBe(b.bin);
+      expect(b.label.length).toBeGreaterThan(0);
+    }
   });
 });
 

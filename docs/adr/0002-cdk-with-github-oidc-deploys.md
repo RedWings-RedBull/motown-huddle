@@ -5,8 +5,8 @@
 ## Context
 
 The whole repository is TypeScript; infrastructure should be readable in the same language and
-testable without deploying. The developer machine's default AWS profile belongs to a different
-account, so an accidental deploy there must be impossible.
+testable without deploying. The developer machine's default AWS profile is an unrelated, limited IAM user, so every infra
+command must run through one explicit, correctly permissioned identity and never by accident.
 
 ## Decision
 

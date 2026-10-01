@@ -10,10 +10,10 @@ module.exports = {
     {
       name: "web-only-imports-shared",
       comment:
-        "apps/web may depend on @huddle/shared only; never on pipeline, grades internals, jobs or infra",
+        "apps/web may depend on @huddle/shared and the pure @huddle/grades engine only; never on pipeline, jobs, writer or infra",
       severity: "error",
       from: { path: "^apps/web" },
-      to: { path: "^(packages/(pipeline|grades|jobs|writer)|infra)" },
+      to: { path: "^(packages/(pipeline|jobs|writer)|infra)" },
     },
     {
       name: "grades-is-pure",
