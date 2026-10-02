@@ -8,10 +8,12 @@ import "../styles/global.css";
 interface Props {
   title: string;
   description?: string;
+  /** Third-party origins the page will fetch from early (e.g. video thumbnails). */
+  preconnect?: string[];
 }
 
 const siteName = import.meta.env.PUBLIC_SITE_NAME ?? teamConfig.siteName;
-const { title, description = teamConfig.tagline } = Astro.props;
+const { title, description = teamConfig.tagline, preconnect = [] } = Astro.props;
 const fullTitle = title === siteName ? siteName : `${title} · ${siteName}`;
 const path = Astro.url.pathname;
 const links = [
@@ -49,6 +51,9 @@ const links = [
       media="(max-width: 767px)"
     />
     <Fonts />
+    {preconnect.map((origin) => (
+      <link rel="preconnect" href={origin} />
+    ))}
     <title>{fullTitle}</title>
   </head>
   <body class="flex min-h-screen flex-col">

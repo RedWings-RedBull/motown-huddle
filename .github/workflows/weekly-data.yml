@@ -113,6 +113,24 @@ jobs:
           fi
           echo "ready=true" >> "$GITHUB_OUTPUT"
 
+      # Links each key play to a clip from the league's official YouTube channels (click-to-play).
+      # The API key is optional; without it only the search fallback is written, and a failure here
+      # never blocks the data PR.
+      # The embed check loads each chosen video in headless Chromium (the league blocks embeds of its
+      # own uploads; the data file records which ones play in place).
+      - name: Install Chromium for the embed check
+        if: steps.pipeline.outputs.ready == 'true'
+        run: pnpm --filter @huddle/pipeline exec playwright install --with-deps chromium
+
+      - name: Link highlight clips
+        if: steps.pipeline.outputs.ready == 'true'
+        continue-on-error: true
+        env:
+          SEASON: ${{ steps.decide.outputs.season }}
+          WEEK: ${{ steps.decide.outputs.week }}
+          HUDDLE_YOUTUBE_API_KEY: ${{ secrets.HUDDLE_YOUTUBE_API_KEY }}
+        run: pnpm pipeline --highlights --season "$SEASON" --week "$WEEK"
+
       - name: Detect changes
         id: changes
         if: steps.pipeline.outputs.ready == 'true'

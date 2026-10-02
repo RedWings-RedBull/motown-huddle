@@ -12,6 +12,7 @@ import { consoleLogger, type Logger } from "./log.js";
 import { fitFgTable, type FitOptions } from "./models/fitFgTable.js";
 import { type CoachRunOptions, runCoach } from "./coach/run.js";
 import { type DivisionRunOptions, runDivision } from "./division/run.js";
+import { type HighlightsRunOptions, runHighlights } from "./highlights/run.js";
 import { type PreviewRunOptions, runPreview } from "./preview/run.js";
 import { type RosterRunOptions, runRoster } from "./roster/run.js";
 import { DEFAULT_DATA_DIR, parseWeeks, runWeek, type RunOptions } from "./run.js";
@@ -28,6 +29,7 @@ usage: pnpm pipeline --season <yyyy> (--week <n>|auto | --weeks <a-b>) [--final]
   --refresh       ignore the download cache
   --dump-fixture  also write the GradeRequest and engine output under packages/pipeline/out
   --data-dir      override apps/web/src/data (tests)
+  --highlights    link the week's key plays to YouTube clips (needs HUDDLE_YOUTUBE_API_KEY)
   --coach         build apps/web/src/data/coach/current.json (fourth-down data) and exit
   --division      build apps/web/src/data/division/current.json (standings, odds) and exit
   --preview       build apps/web/src/data/preview/next.json for the next game and exit
@@ -43,6 +45,13 @@ export type CliArgs =
   | { command: "preview"; season: number; refresh: boolean; dataDir: string | undefined }
   | { command: "division"; season: number; refresh: boolean; dataDir: string | undefined }
   | { command: "coach"; season: number; refresh: boolean; dataDir: string | undefined }
+  | {
+      command: "highlights";
+      season: number;
+      week: number | "auto";
+      refresh: boolean;
+      dataDir: string | undefined;
+    }
   | {
       command: "week";
       season: number;
@@ -70,6 +79,7 @@ export function parseCli(argv: readonly string[]): CliArgs {
       preview: { type: "boolean", default: false },
       division: { type: "boolean", default: false },
       coach: { type: "boolean", default: false },
+      highlights: { type: "boolean", default: false },
       help: { type: "boolean", short: "h", default: false },
     },
     strict: true,
@@ -99,6 +109,15 @@ export function parseCli(argv: readonly string[]): CliArgs {
       throw new ValidationError(`--week must be 1-22 or auto (got "${values.week}")`);
     }
   }
+  if (values.highlights) {
+    return {
+      command: "highlights",
+      season,
+      week,
+      refresh: values.refresh,
+      dataDir: values["data-dir"],
+    };
+  }
   return {
     command: "week",
     season,
@@ -117,6 +136,7 @@ export type RosterRunner = (options: RosterRunOptions) => Promise<unknown>;
 export type PreviewRunner = (options: PreviewRunOptions) => Promise<unknown>;
 export type DivisionRunner = (options: DivisionRunOptions) => Promise<unknown>;
 export type CoachRunner = (options: CoachRunOptions) => Promise<unknown>;
+export type HighlightsRunner = (options: HighlightsRunOptions) => Promise<unknown>;
 
 export interface CliDeps {
   run?: Runner;
@@ -125,6 +145,7 @@ export interface CliDeps {
   preview?: PreviewRunner;
   division?: DivisionRunner;
   coach?: CoachRunner;
+  highlights?: HighlightsRunner;
   log?: Logger;
   engine?: RunOptions["engine"];
 }
@@ -138,11 +159,23 @@ export async function main(argv: readonly string[], deps: CliDeps = {}): Promise
   const preview = deps.preview ?? runPreview;
   const division = deps.division ?? runDivision;
   const coach = deps.coach ?? runCoach;
+  const highlights = deps.highlights ?? runHighlights;
   try {
     const args = parseCli(argv);
     if (args.command === "help") {
       log.info(USAGE);
       return EXIT_OK;
+    }
+    if (args.command === "highlights") {
+      await highlights({
+        season: args.season,
+        week: args.week,
+        refresh: args.refresh,
+        dataDir: args.dataDir ?? DEFAULT_DATA_DIR,
+        apiKey: process.env.HUDDLE_YOUTUBE_API_KEY,
+        log,
+      });
+      return 0;
     }
     if (args.command === "coach") {
       await coach({

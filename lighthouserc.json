@@ -46,7 +46,10 @@
         "unused-javascript": "off",
         "network-dependency-tree-insight": "off",
         "render-blocking-insight": "off",
-        "render-blocking-resources": "off"
+        "render-blocking-resources": "off",
+        "uses-long-cache-ttl": "warn",
+        "cache-insight": "warn",
+        "image-delivery-insight": "warn"
       }
     },
     "upload": {

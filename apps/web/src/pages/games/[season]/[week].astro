@@ -32,6 +32,7 @@ const [game, teamMetrics, grades, keyPlays, winProbability, meta] = await Promis
   getEntry("winProbability", id),
   getEntry("meta", id),
 ]);
+const highlights = await getEntry("highlights", id);
 if (!game || !teamMetrics || !grades || !keyPlays || !winProbability || !meta) {
   throw new Error(`Week ${id} is missing one of its data artifacts.`);
 }
@@ -45,7 +46,11 @@ const description = `${resultWord(game.data.team.result)} over ${opponent}, ${te
 const sources = Object.entries(meta.data.sources).sort(([a], [b]) => a.localeCompare(b));
 ---
 
-<Base title={title} description={description}>
+<Base
+  title={title}
+  description={description}
+  preconnect={highlights ? ["https://i.ytimg.com"] : []}
+>
   <nav aria-label="Breadcrumb" class="text-sm text-silver">
     <a href="/games/" class="underline hover:text-honolulu-bright">
       Games
@@ -99,7 +104,7 @@ const sources = Object.entries(meta.data.sources).sort(([a], [b]) => a.localeCom
     </div>
   </section>
 
-  <KeyPlaysList plays={keyPlays.data} team={team} />
+  <KeyPlaysList plays={keyPlays.data} team={team} highlights={highlights?.data} />
 
   <section aria-labelledby="sources-heading" class="muted mt-10 text-sm">
     <h2 id="sources-heading" class="eyebrow">

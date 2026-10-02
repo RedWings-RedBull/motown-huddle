@@ -1,14 +1,22 @@
 ---
-import type { KeyPlay, KeyPlays } from "@huddle/shared";
+import type { HighlightVideo, Highlights, KeyPlay, KeyPlays } from "@huddle/shared";
 
 import { formatSigned } from "../lib/format";
+import VideoFacade from "./VideoFacade.astro";
 
 interface Props {
   plays: KeyPlays;
   team: string;
+  highlights?: Highlights | undefined;
 }
 
-const { plays, team } = Astro.props;
+const { plays, team, highlights } = Astro.props;
+
+/** The play's own clip, else the game package; every one plays in place. */
+function videoFor(p: KeyPlay): HighlightVideo | null {
+  if (!highlights) return null;
+  return highlights.plays[String(p.playId)] ?? highlights.game;
+}
 
 const TAG_LABEL: Record<KeyPlay["tags"][number], string> = {
   td: "Touchdown",
@@ -40,6 +48,8 @@ function situation(p: KeyPlay): string {
   <p class="muted mt-2 text-sm">
     Biggest swings in win probability plus scoring plays and {team} fourth-down decisions. EPA and
     WPA are from the possessing team's point of view.
+    {highlights &&
+      " Highlights come from the league's official YouTube channels; nothing loads from YouTube until you press play."}
   </p>
   <ol class="mt-4 divide-y divide-white/10">
     {plays.plays.map((p) => (
@@ -64,6 +74,21 @@ function situation(p: KeyPlay): string {
             ))}
           </ul>
         )}
+        {(() => {
+          const v = videoFor(p);
+          return (
+            v && (
+              <div class="mt-2">
+                <VideoFacade
+                  videoId={v.videoId}
+                  title={v.title}
+                  url={v.url}
+                  embeddable={v.embeddable}
+                />
+              </div>
+            )
+          );
+        })()}
       </li>
     ))}
   </ol>
