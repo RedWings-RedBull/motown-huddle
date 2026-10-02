@@ -1,0 +1,112 @@
+---
+/**
+ * One look for every highlight: a lazy thumbnail under a "Watch the play" label. When YouTube lets
+ * the video play on other sites, pressing it swaps in the privacy-enhanced player
+ * (youtube-nocookie.com) with autoplay, so nothing loads from YouTube before that. When the
+ * uploader blocks embedding, which the league does for its own and the clubs' channels, the same
+ * control opens the video on YouTube in a new tab.
+ */
+interface Props {
+  videoId: string;
+  title: string;
+  url: string;
+  embeddable: boolean;
+}
+
+const { videoId, title, url, embeddable } = Astro.props;
+const thumbClass =
+  "yt-thumb group relative block aspect-video w-full max-w-xs overflow-hidden rounded-lg ring-1 ring-white/15 focus-visible:outline focus-visible:outline-2 focus-visible:outline-honolulu-bright";
+---
+
+<div
+  class="yt"
+  data-yt={videoId}
+  data-yt-title={title}
+  data-embeddable={embeddable ? "true" : "false"}
+>
+  {embeddable ? (
+    <button type="button" class={thumbClass} aria-label={`Watch the play: ${title}`}>
+      <picture>
+        <source
+          type="image/webp"
+          srcset={`https://i.ytimg.com/vi_webp/${videoId}/mqdefault.webp`}
+        />
+        <img
+          src={`https://i.ytimg.com/vi/${videoId}/mqdefault.jpg`}
+          alt=""
+          width="320"
+          height="180"
+          loading="lazy"
+          decoding="async"
+          class="h-full w-full object-cover opacity-80 transition group-hover:opacity-100"
+        />
+      </picture>
+      <span class="yt-label">Watch the play</span>
+    </button>
+  ) : (
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener nofollow"
+      class={thumbClass}
+      aria-label={`Watch the play on YouTube: ${title}`}
+    >
+      <picture>
+        <source
+          type="image/webp"
+          srcset={`https://i.ytimg.com/vi_webp/${videoId}/mqdefault.webp`}
+        />
+        <img
+          src={`https://i.ytimg.com/vi/${videoId}/mqdefault.jpg`}
+          alt=""
+          width="320"
+          height="180"
+          loading="lazy"
+          decoding="async"
+          class="h-full w-full object-cover opacity-80 transition group-hover:opacity-100"
+        />
+      </picture>
+      <span class="yt-label">Watch the play</span>
+    </a>
+  )}
+  <div class="yt-player mt-2 aspect-video w-full overflow-hidden rounded-xl bg-black" hidden></div>
+</div>
+
+<style>
+  .yt-label {
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    padding: 0.25rem 0.5rem;
+    text-align: center;
+    font-family: var(--font-display);
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: white;
+    background: color-mix(in srgb, var(--color-night) 80%, transparent);
+  }
+</style>
+
+<script>
+  // One delegated listener for every embeddable facade on the page.
+  document.addEventListener("click", (event) => {
+    const button = (event.target as HTMLElement | null)?.closest<HTMLElement>("button.yt-thumb");
+    const box = button?.closest<HTMLElement>(".yt");
+    const player = box?.querySelector<HTMLElement>(".yt-player");
+    if (!button || !box || !player) return;
+    const id = box.dataset.yt ?? "";
+    const title = box.dataset.ytTitle ?? "Highlight";
+    const frame = document.createElement("iframe");
+    frame.src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(id)}?autoplay=1&rel=0`;
+    frame.title = title;
+    frame.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen";
+    frame.setAttribute("allowfullscreen", "");
+    frame.className = "h-full w-full";
+    player.replaceChildren(frame);
+    player.hidden = false;
+    button.hidden = true;
+    frame.focus();
+  });
+</script>

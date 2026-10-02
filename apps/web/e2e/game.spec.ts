@@ -26,6 +26,30 @@ test.describe("game breakdown", () => {
     );
   });
 
+  test("key plays: embeddable highlights play in place, blocked ones open on YouTube", async ({
+    page,
+  }) => {
+    await page.goto(GAME);
+    const facades = page.locator(".yt");
+    expect(await facades.count()).toBeGreaterThan(0);
+    await expect(page.locator("iframe")).toHaveCount(0);
+
+    const blocked = page.locator('.yt[data-embeddable="false"] a.yt-thumb').first();
+    await expect(blocked).toHaveAttribute("href", new RegExp("youtube[.]com/watch"));
+    await expect(blocked).toHaveAttribute("target", "_blank");
+    await expect(blocked).toHaveAttribute("rel", new RegExp("noopener"));
+
+    const playable = page.locator('.yt[data-embeddable="true"]').first();
+    const button = playable.getByRole("button", { name: new RegExp("^Watch the play") });
+    await button.scrollIntoViewIfNeeded();
+    await button.click();
+    const frame = playable.locator("iframe");
+    await expect(frame).toHaveAttribute("src", new RegExp("youtube-nocookie[.]com/embed/"));
+    await expect(frame).toHaveAttribute("title", new RegExp(".+"));
+    await expect(button).toBeHidden();
+    await expect(page.locator("iframe")).toHaveCount(1);
+  });
+
   test("every tile is at least a 24 x 24 px target on this viewport", async ({
     page,
   }, testInfo) => {

@@ -52,6 +52,7 @@ pnpm pipeline --roster --season 2026      # roster and injuries
 pnpm pipeline --preview --season 2026     # next-game preview
 pnpm pipeline --division --season 2026    # standings, tiebreakers, playoff odds
 pnpm pipeline --coach --season 2026       # fourth-down index, decision log, calculator tables
+pnpm pipeline --highlights --season 2026  # YouTube clip links for the key plays (optional API key)
 ```
 
 ## Repository layout

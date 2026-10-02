@@ -1,6 +1,7 @@
 import {
   GameSummary,
   Grades,
+  Highlights,
   KeyPlays,
   LeagueBaselines,
   CoachFile,
@@ -40,6 +41,7 @@ export const collections = {
   teamMetrics: week("team-metrics", TeamMetrics),
   grades: week("grades", Grades),
   keyPlays: week("key-plays", KeyPlays),
+  highlights: week("highlights", Highlights),
   winProbability: week("win-probability", WinProbability),
   meta: week("meta", WeekMeta),
   baselines: week("league-baselines", LeagueBaselines),

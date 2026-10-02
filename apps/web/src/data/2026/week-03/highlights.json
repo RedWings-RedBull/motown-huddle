@@ -1,0 +1,99 @@
+{
+  "game": {
+    "channel": "NFL on FOX",
+    "embeddable": true,
+    "kind": "game",
+    "publishedAt": null,
+    "source": "manual",
+    "title": "Jahmyr Gibbs shines as Lions hold on to win CLUTCH back-and-forth affair against Jets",
+    "url": "https://www.youtube.com/watch?v=74xSzPILp0E",
+    "videoId": "74xSzPILp0E"
+  },
+  "gameId": "2026_03_NYJ_DET",
+  "plays": {
+    "1389": {
+      "channel": "NFL",
+      "kind": "clip",
+      "publishedAt": "2026-09-27T18:19:25Z",
+      "source": "manual",
+      "title": "Sadiq! Geno slings rookie TE his first receiving touchdown",
+      "url": "https://www.youtube.com/watch?v=vEotpncIWNw",
+      "videoId": "vEotpncIWNw",
+      "embeddable": false
+    },
+    "2265": {
+      "channel": "NFL",
+      "kind": "clip",
+      "publishedAt": "2026-09-27T18:46:46Z",
+      "source": "manual",
+      "title": "Gibbs flips the whole defense around on ELECTRIC run",
+      "url": "https://www.youtube.com/watch?v=5KFGhVPAtkg",
+      "videoId": "5KFGhVPAtkg",
+      "embeddable": false
+    },
+    "3240": {
+      "channel": "NFL",
+      "kind": "clip",
+      "publishedAt": "2026-09-27T19:29:17Z",
+      "source": "manual",
+      "title": "Ruckert TD for the J.E.T.S.",
+      "url": "https://www.youtube.com/watch?v=IBLENP5kxNM",
+      "videoId": "IBLENP5kxNM",
+      "embeddable": false
+    },
+    "3619": {
+      "channel": "NFL",
+      "kind": "clip",
+      "publishedAt": "2026-09-27T19:54:49Z",
+      "source": "manual",
+      "title": "Garrett Wilson Fourth-Down TD!",
+      "url": "https://www.youtube.com/watch?v=bGv0eVVU9_Q",
+      "videoId": "bGv0eVVU9_Q",
+      "embeddable": false
+    },
+    "3662": {
+      "channel": "NFL",
+      "kind": "segment",
+      "publishedAt": "2026-09-27T20:37:39Z",
+      "source": "manual",
+      "title": "Jets VS Lions down to the wire ending!",
+      "url": "https://www.youtube.com/watch?v=GSZ0Bax9eeA",
+      "videoId": "GSZ0Bax9eeA",
+      "embeddable": false
+    },
+    "3745": {
+      "channel": "NFL",
+      "kind": "segment",
+      "publishedAt": "2026-09-27T20:37:39Z",
+      "source": "manual",
+      "title": "Jets VS Lions down to the wire ending!",
+      "url": "https://www.youtube.com/watch?v=GSZ0Bax9eeA",
+      "videoId": "GSZ0Bax9eeA",
+      "embeddable": false
+    },
+    "3817": {
+      "channel": "NFL",
+      "kind": "clip",
+      "publishedAt": "2026-09-27T20:01:27Z",
+      "source": "manual",
+      "title": "Gibbs hops into the endzone for a TD!",
+      "url": "https://www.youtube.com/watch?v=EOwWgcn1ds0",
+      "videoId": "EOwWgcn1ds0",
+      "embeddable": false
+    },
+    "4086": {
+      "channel": "NFL",
+      "kind": "clip",
+      "publishedAt": "2026-09-27T20:22:48Z",
+      "source": "manual",
+      "title": "Lions bring the BOOM on game-ending defensive effort!",
+      "url": "https://www.youtube.com/watch?v=QwA-f_iGeUs",
+      "videoId": "QwA-f_iGeUs",
+      "embeddable": false
+    }
+  },
+  "searchUrl": "https://www.youtube.com/results?search_query=New%20York%20Jets%20vs.%20Detroit%20Lions%202026%20week%203%20highlights",
+  "season": 2026,
+  "week": 3,
+  "candidates": {}
+}

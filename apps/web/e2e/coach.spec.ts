@@ -17,6 +17,8 @@ test.describe("coach's corner", () => {
     await page.goto("/coach/");
     const calc = page.locator("[data-calculator]");
     await calc.scrollIntoViewIfNeeded();
+    // client:visible island: wait until Astro has hydrated it before using the keyboard.
+    await expect(page.locator("astro-island[ssr]")).toHaveCount(0);
     const go = calc.locator("[data-choice=go] .display");
     await expect(go).not.toHaveText("—");
     const before = await go.textContent();
