@@ -49,6 +49,28 @@ era record from the schedule. Deterministic; commit the result.
 Quotes live in `apps/web/src/data/coach/quotes.json` (at most ten, each with a date, context, source
 name and source URL; the schema rejects anything else). The section is hidden while the list is empty.
 
+## Game highlights
+
+```bash
+pnpm pipeline --highlights --season 2026 --week auto
+```
+
+Writes `apps/web/src/data/<season>/week-<nn>/game-highlights.json`: the league's official
+game-highlights video for that game, shown as a card under the score that opens YouTube (the league
+blocks playback of its videos on other sites). One `search.list` call per game, restricted to the
+league's channel and the seven days after kickoff. A result is accepted only when its title has both
+clubs' full names, the words "Game Highlights" and the right week number, and no preview or recap
+wording; otherwise nothing is guessed and the card shows a YouTube search link until a later run
+(Tuesday or Friday) finds the video.
+
+- Needs `HUDDLE_YOUTUBE_API_KEY`, a YouTube Data API v3 key from a Google Cloud project (no billing).
+  Locally it goes in `.env` at the repo root, which the pipeline reads; on GitHub it is a repository
+  secret. Without a key the command keeps whatever the file already has.
+- A found video is never dropped by a later empty search. Setting `"source": "manual"` pins a
+  hand-picked video; the command then never searches for that game again.
+- The card's thumbnail comes from YouTube's image host, so Lighthouse's cache-lifetime and
+  image-compression audits are warnings in `lighthouserc.json`: those headers and bytes are YouTube's.
+
 ## Socials
 
 Social links live in `apps/web/src/data/players_socials.json`, keyed by `gsis_id`. The site renders

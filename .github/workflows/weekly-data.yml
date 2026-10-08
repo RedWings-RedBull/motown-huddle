@@ -113,6 +113,17 @@ jobs:
           fi
           echo "ready=true" >> "$GITHUB_OUTPUT"
 
+      # Finds the league's official game-highlights video for the week (one YouTube API call). The
+      # key is optional; without it the page shows a YouTube search link. Never blocks the data PR.
+      - name: Link game highlights
+        if: steps.pipeline.outputs.ready == 'true'
+        continue-on-error: true
+        env:
+          SEASON: ${{ steps.decide.outputs.season }}
+          WEEK: ${{ steps.decide.outputs.week }}
+          HUDDLE_YOUTUBE_API_KEY: ${{ secrets.HUDDLE_YOUTUBE_API_KEY }}
+        run: pnpm pipeline --highlights --season "$SEASON" --week "$WEEK"
+
       - name: Detect changes
         id: changes
         if: steps.pipeline.outputs.ready == 'true'

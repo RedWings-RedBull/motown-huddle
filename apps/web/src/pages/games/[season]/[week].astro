@@ -4,6 +4,7 @@ import { getCollection, getEntry } from "astro:content";
 
 import FieldHeatMap from "../../../components/field/FieldHeatMap";
 import KeyPlaysList from "../../../components/KeyPlaysList.astro";
+import GameHighlightsCard from "../../../components/GameHighlightsCard.astro";
 import ScoreStrip from "../../../components/ScoreStrip.astro";
 import TeamPanel from "../../../components/TeamPanel.astro";
 import TierBadge from "../../../components/TierBadge.astro";
@@ -36,6 +37,8 @@ if (!game || !teamMetrics || !grades || !keyPlays || !winProbability || !meta) {
   throw new Error(`Week ${id} is missing one of its data artifacts.`);
 }
 
+// Optional: older weeks and brand-new ones may not have a highlights file yet.
+const highlights = await getEntry("gameHighlights", id);
 const team = teamConfig.team;
 const opponent = game.data.team.opponent;
 const teamScore = game.data.team.side === "home" ? game.data.home.score : game.data.away.score;
@@ -45,7 +48,11 @@ const description = `${resultWord(game.data.team.result)} over ${opponent}, ${te
 const sources = Object.entries(meta.data.sources).sort(([a], [b]) => a.localeCompare(b));
 ---
 
-<Base title={title} description={description}>
+<Base
+  title={title}
+  description={description}
+  preconnect={highlights?.data.video ? ["https://i.ytimg.com"] : []}
+>
   <nav aria-label="Breadcrumb" class="text-sm text-silver">
     <a href="/games/" class="underline hover:text-honolulu-bright">
       Games
@@ -68,6 +75,8 @@ const sources = Object.entries(meta.data.sources).sort(([a], [b]) => a.localeCom
   <div class="mt-6">
     <ScoreStrip game={game.data} />
   </div>
+
+  {highlights && <GameHighlightsCard highlights={highlights.data} />}
 
   <TeamPanel metrics={teamMetrics.data} opponent={opponent} />
 

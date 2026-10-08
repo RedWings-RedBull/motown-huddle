@@ -99,3 +99,10 @@ jobs:
           name: web-dist
           path: apps/web/dist
       - run: pnpm lhci
+      # Keep the full reports so a failing score can be diagnosed from the artifact.
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: lighthouse-reports
+          path: .lighthouseci
+          retention-days: 7

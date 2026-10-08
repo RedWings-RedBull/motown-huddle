@@ -1,0 +1,78 @@
+---
+/**
+ * The league's official game-highlights video, linked out to YouTube (the league blocks playback
+ * on other sites). Before the league has posted it, the card offers a YouTube search instead.
+ */
+import type { GameHighlights } from "@huddle/shared";
+
+interface Props {
+  highlights: GameHighlights;
+}
+
+const { highlights } = Astro.props;
+const video = highlights.video;
+---
+
+<section aria-labelledby="highlights-heading" class="mt-6" data-game-highlights>
+  <h2 id="highlights-heading" class="section-title">
+    Game highlights
+  </h2>
+  {video ? (
+    <div class="mt-4 flex items-center gap-4">
+      <a
+        href={video.url}
+        target="_blank"
+        rel="noopener nofollow"
+        class="group relative block aspect-video w-44 shrink-0 overflow-hidden rounded-lg ring-1 ring-white/15 sm:w-48"
+        aria-label={`Watch on YouTube: ${video.title} (opens in a new tab)`}
+        data-watch
+      >
+        <img
+          src={`https://i.ytimg.com/vi/${video.videoId}/mqdefault.jpg`}
+          alt=""
+          width="320"
+          height="180"
+          decoding="async"
+          fetchpriority="high"
+          class="h-full w-full object-cover opacity-85 transition group-hover:opacity-100"
+        />
+        <span
+          class="absolute inset-0 m-auto flex h-9 w-9 items-center justify-center sm:h-12 sm:w-12 rounded-full bg-night/80 ring-1 ring-white/30 transition group-hover:bg-honolulu"
+          aria-hidden="true"
+        >
+          <svg viewBox="0 0 24 24" class="ml-0.5 h-5 w-5 fill-white">
+            <path d="M8 5v14l11-7z"></path>
+          </svg>
+        </span>
+      </a>
+      <div class="min-w-0">
+        <p class="text-sm font-semibold text-white sm:text-base">{video.title}</p>
+        <p class="muted mt-1 text-sm">{video.channel} on YouTube</p>
+        <a
+          href={video.url}
+          target="_blank"
+          rel="noopener nofollow"
+          class="badge mt-3 border-honolulu/60 bg-honolulu/20 text-honolulu-bright no-underline hover:bg-honolulu/40"
+          tabindex="-1"
+          aria-hidden="true"
+        >
+          Watch on YouTube ↗
+        </a>
+      </div>
+    </div>
+  ) : (
+    <p class="mt-3 text-sm">
+      <span class="muted">The league has not posted this game's highlights yet. </span>
+      <a
+        href={highlights.searchUrl}
+        target="_blank"
+        rel="noopener nofollow"
+        class="underline hover:text-honolulu-bright"
+        data-watch-search
+      >
+        Search YouTube
+        <span class="sr-only"> (opens in a new tab)</span>
+      </a>
+    </p>
+  )}
+</section>
