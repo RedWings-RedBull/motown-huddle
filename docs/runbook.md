@@ -1,5 +1,38 @@
 # Runbook
 
+## Weekly data workflow
+
+`.github/workflows/weekly-data.yml` runs on Tuesday (provisional grades) and on Friday and Saturday
+(final grades), and can be started by hand from the Actions tab. One run rebuilds everything the site
+reads: the latest game's breakdown, the roster, the next-game preview, the division page, Coach's
+Corner and the game-highlights link. It then opens a pull request with the changes under
+`apps/web/src/data`. Nothing merges without the owner's approval. The PR body lists whether each
+page rebuilt; a page whose step failed keeps the previous week's data.
+
+### One-off setup: the GitHub App that opens the PRs
+
+Pull requests opened with the workflow's built-in `GITHUB_TOKEN` never trigger CI, so the workflow
+signs in as a small GitHub App instead.
+
+1. Account **Settings** → **Developer settings** → **GitHub Apps** → **New GitHub App**. Any unique
+   name; homepage URL = the repository URL; untick **Webhook → Active**.
+2. **Repository permissions**: Contents = Read and write, Pull requests = Read and write. Leave
+   everything else at No access. **Where can this app be installed?** Only on this account.
+3. After creating it, copy the **Client ID** from the app's General page, then **Generate a private
+   key** (a `.pem` file downloads).
+4. **Install App** → this account → **Only select repositories** → this repository.
+5. Store both values in the repository:
+
+   ```powershell
+   gh variable set HUDDLE_APP_CLIENT_ID --repo <owner>/<repo> --body "<client id>"
+   Get-Content -Raw "<path to .pem>" | gh secret set HUDDLE_APP_PRIVATE_KEY --repo <owner>/<repo>
+   ```
+
+6. Delete the downloaded `.pem` (or move it into a password manager), then start the workflow from
+   the Actions tab to confirm it opens a PR.
+
+To rotate, generate a new private key on the app page, update the secret, and delete the old key.
+
 ## Roster
 
 ```bash
