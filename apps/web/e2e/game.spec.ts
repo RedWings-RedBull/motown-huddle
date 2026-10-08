@@ -26,6 +26,18 @@ test.describe("game breakdown", () => {
     );
   });
 
+  test("links the league's game-highlights video out to YouTube", async ({ page }) => {
+    await page.goto(GAME);
+    const card = page.locator("[data-game-highlights]");
+    await expect(card.getByRole("heading", { name: "Game highlights" })).toBeVisible();
+    const watch = card.locator("a[data-watch]");
+    await expect(watch).toHaveAttribute("href", "https://www.youtube.com/watch?v=xsJzYyK4mGE");
+    await expect(watch).toHaveAttribute("target", "_blank");
+    await expect(watch).toHaveAttribute("rel", /noopener/);
+    await expect(watch).toHaveAccessibleName(/Game Highlights/);
+    await expect(page.locator("iframe")).toHaveCount(0);
+  });
+
   test("every tile is at least a 24 x 24 px target on this viewport", async ({
     page,
   }, testInfo) => {
