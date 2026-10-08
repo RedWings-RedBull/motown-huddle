@@ -192,5 +192,7 @@ describe("searchVideos", () => {
       expect(String(e)).not.toContain("SECRET");
     });
     expect(decodeEntities("a &amp; b &quot;c&quot; &lt;d&gt; &#39;e")).toBe(`a & b "c" <d> 'e`);
+    // One pass: an escaped entity stays escaped instead of being decoded twice.
+    expect(decodeEntities("&amp;lt;b&amp;gt; &amp;amp;")).toBe("&lt;b&gt; &amp;");
   });
 });

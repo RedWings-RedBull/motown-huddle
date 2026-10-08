@@ -57,12 +57,18 @@ export async function searchVideos(options: SearchOptions): Promise<VideoCandida
   return out;
 }
 
-/** search.list snippets come HTML-escaped ("Gibbs&#39; best plays"). */
+const ENTITIES: Readonly<Record<string, string>> = {
+  "#39": "'",
+  quot: '"',
+  amp: "&",
+  lt: "<",
+  gt: ">",
+};
+
+/**
+ * search.list snippets come HTML-escaped ("Gibbs&#39; best plays"). One pass, so "&amp;lt;" becomes
+ * the literal "&lt;" instead of being decoded twice into "<".
+ */
 export function decodeEntities(s: string): string {
-  return s
-    .replaceAll("&#39;", "'")
-    .replaceAll("&quot;", '"')
-    .replaceAll("&amp;", "&")
-    .replaceAll("&lt;", "<")
-    .replaceAll("&gt;", ">");
+  return s.replace(/&(#39|quot|amp|lt|gt);/g, (match, name: string) => ENTITIES[name] ?? match);
 }
