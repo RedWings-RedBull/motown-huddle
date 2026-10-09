@@ -1,6 +1,8 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
+import { latest } from "./latest";
+
 test.describe("home", () => {
   test("renders the brand, landmarks and disclaimer", async ({ page }) => {
     await page.goto("/");
@@ -12,11 +14,11 @@ test.describe("home", () => {
 
   test("shows the latest game result with a link to the breakdown", async ({ page }) => {
     await page.goto("/");
-    const latest = page.getByRole("region", { name: "Latest game" });
-    await expect(latest).toContainText("Win vs NYJ");
-    await expect(latest).toContainText("31 – 24");
-    await latest.getByRole("link", { name: "Open the breakdown" }).click();
-    await expect(page).toHaveURL(/\/games\/2026\/week-03\/$/);
+    const card = page.getByRole("region", { name: "Latest game" });
+    await expect(card).toContainText(latest.headline);
+    await expect(card).toContainText(`${String(latest.teamScore)} – ${String(latest.oppScore)}`);
+    await card.getByRole("link", { name: "Open the breakdown" }).click();
+    await expect(page).toHaveURL(new RegExp(`${latest.path}$`));
   });
 
   test("has no accessibility violations", async ({ page }) => {
