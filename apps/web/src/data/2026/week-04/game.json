@@ -1,0 +1,32 @@
+{
+  "away": {
+    "score": 26,
+    "team": "DET"
+  },
+  "gameId": "2026_04_DET_CAR",
+  "home": {
+    "score": 32,
+    "team": "CAR"
+  },
+  "kickoffUtc": "2026-10-05T00:20:00Z",
+  "line": {
+    "spread": -4.5,
+    "total": 52.5
+  },
+  "overtime": false,
+  "season": 2026,
+  "team": {
+    "opponent": "CAR",
+    "result": "L",
+    "side": "away"
+  },
+  "tier": "final",
+  "venue": {
+    "roof": "outdoors",
+    "stadium": "Bank of America Stadium",
+    "surface": "grass",
+    "temp": 66,
+    "wind": 2
+  },
+  "week": 4
+}

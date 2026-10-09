@@ -386,14 +386,14 @@
       "yearsExp": 1
     },
     {
-      "birthDate": null,
-      "college": null,
+      "birthDate": "1999-12-09",
+      "college": "Tulane; Notre Dame",
       "depthChartPosition": "WR",
       "draft": null,
       "firstName": "Lawrence",
       "fullName": "Lawrence Keys",
       "gsisId": "00-0039474",
-      "heightIn": null,
+      "heightIn": 71,
       "ids": {
         "espn": null,
         "pfr": null
@@ -698,7 +698,11 @@
         "espn": null,
         "pfr": null
       },
-      "injury": null,
+      "injury": {
+        "practiceStatus": "Limited Participation in Practice",
+        "primary": null,
+        "reportStatus": null
+      },
       "jersey": 64,
       "lastName": "Mays",
       "position": "C",
@@ -1029,6 +1033,29 @@
       "yearsExp": 5
     },
     {
+      "birthDate": "1999-09-14",
+      "college": "SMU; Purdue; Auburn; Independence Comm. College",
+      "depthChartPosition": "DT",
+      "draft": null,
+      "firstName": "Jeffrey",
+      "fullName": "Jeffrey M'ba",
+      "gsisId": "00-0040864",
+      "heightIn": 78,
+      "ids": {
+        "espn": null,
+        "pfr": null
+      },
+      "injury": null,
+      "jersey": 60,
+      "lastName": "M'ba",
+      "position": "DL",
+      "positionGroup": "DL",
+      "rookieYear": 2026,
+      "status": "DEV",
+      "weightLb": 312,
+      "yearsExp": 0
+    },
+    {
       "birthDate": "1999-12-15",
       "college": "Notre Dame; Harvard",
       "depthChartPosition": "DT",
@@ -1068,7 +1095,11 @@
         "espn": "4431615",
         "pfr": "WillTy02"
       },
-      "injury": null,
+      "injury": {
+        "practiceStatus": "Limited Participation in Practice",
+        "primary": null,
+        "reportStatus": null
+      },
       "jersey": 91,
       "lastName": "Williams",
       "position": "DT",
@@ -1077,33 +1108,6 @@
       "status": "ACT",
       "weightLb": 328,
       "yearsExp": 1
-    },
-    {
-      "birthDate": "1999-11-10",
-      "college": "Oklahoma State",
-      "depthChartPosition": "DE",
-      "draft": {
-        "club": "JAX",
-        "overall": 130,
-        "year": 2023
-      },
-      "firstName": "Tyler",
-      "fullName": "Tyler Lacy",
-      "gsisId": "00-0038940",
-      "heightIn": 76,
-      "ids": {
-        "espn": "4361861",
-        "pfr": "LacyTy00"
-      },
-      "injury": null,
-      "jersey": 93,
-      "lastName": "Lacy",
-      "position": "DE",
-      "positionGroup": "DL",
-      "rookieYear": 2023,
-      "status": "ACT",
-      "weightLb": 300,
-      "yearsExp": 3
     },
     {
       "birthDate": "2003-04-17",
@@ -1352,6 +1356,33 @@
       "yearsExp": 5
     },
     {
+      "birthDate": "1999-11-10",
+      "college": "Oklahoma State",
+      "depthChartPosition": "DE",
+      "draft": {
+        "club": "JAX",
+        "overall": 130,
+        "year": 2023
+      },
+      "firstName": "Tyler",
+      "fullName": "Tyler Lacy",
+      "gsisId": "00-0038940",
+      "heightIn": 76,
+      "ids": {
+        "espn": "4361861",
+        "pfr": "LacyTy00"
+      },
+      "injury": null,
+      "jersey": 93,
+      "lastName": "Lacy",
+      "position": "DE",
+      "positionGroup": "EDGE",
+      "rookieYear": 2023,
+      "status": "ACT",
+      "weightLb": 300,
+      "yearsExp": 3
+    },
+    {
       "birthDate": "2000-08-09",
       "college": "Michigan",
       "depthChartPosition": "DE",
@@ -1396,7 +1427,7 @@
         "pfr": "WonnDJ00"
       },
       "injury": {
-        "practiceStatus": "Did Not Participate In Practice",
+        "practiceStatus": "Limited Participation in Practice",
         "primary": null,
         "reportStatus": null
       },
@@ -1642,11 +1673,7 @@
         "espn": "3139387",
         "pfr": "ReedD.00"
       },
-      "injury": {
-        "practiceStatus": "Limited Participation in Practice",
-        "primary": null,
-        "reportStatus": null
-      },
+      "injury": null,
       "jersey": 4,
       "lastName": "Reed",
       "position": "CB",
@@ -1727,7 +1754,11 @@
         "espn": "3910229",
         "pfr": "Ya-SRo00"
       },
-      "injury": null,
+      "injury": {
+        "practiceStatus": "Did Not Participate In Practice",
+        "primary": null,
+        "reportStatus": null
+      },
       "jersey": 23,
       "lastName": "Ya-Sin",
       "position": "CB",
@@ -1736,33 +1767,6 @@
       "status": "ACT",
       "weightLb": 195,
       "yearsExp": 7
-    },
-    {
-      "birthDate": "1994-04-06",
-      "college": "LSU",
-      "depthChartPosition": "FS",
-      "draft": {
-        "club": "PHI",
-        "overall": 233,
-        "year": 2016
-      },
-      "firstName": "Jalen",
-      "fullName": "Jalen Mills",
-      "gsisId": "00-0032803",
-      "heightIn": 72,
-      "ids": {
-        "espn": "2976540",
-        "pfr": "MillJa02"
-      },
-      "injury": null,
-      "jersey": 27,
-      "lastName": "Mills",
-      "position": "CB",
-      "positionGroup": "CB",
-      "rookieYear": 2016,
-      "status": "DEV",
-      "weightLb": 191,
-      "yearsExp": 10
     },
     {
       "birthDate": "1998-03-31",
@@ -1804,7 +1808,11 @@
         "espn": "4692025",
         "pfr": "BranBr00"
       },
-      "injury": null,
+      "injury": {
+        "practiceStatus": "Limited Participation in Practice",
+        "primary": null,
+        "reportStatus": null
+      },
       "jersey": 32,
       "lastName": "Branch",
       "position": "CB",
@@ -1905,6 +1913,33 @@
       "status": "DEV",
       "weightLb": 198,
       "yearsExp": 0
+    },
+    {
+      "birthDate": "1994-04-06",
+      "college": "LSU",
+      "depthChartPosition": "FS",
+      "draft": {
+        "club": "PHI",
+        "overall": 233,
+        "year": 2016
+      },
+      "firstName": "Jalen",
+      "fullName": "Jalen Mills",
+      "gsisId": "00-0032803",
+      "heightIn": 72,
+      "ids": {
+        "espn": "2976540",
+        "pfr": "MillJa02"
+      },
+      "injury": null,
+      "jersey": 27,
+      "lastName": "Mills",
+      "position": "CB",
+      "positionGroup": "S",
+      "rookieYear": 2016,
+      "status": "DEV",
+      "weightLb": 191,
+      "yearsExp": 10
     },
     {
       "birthDate": "1996-03-31",
@@ -2082,5 +2117,5 @@
   ],
   "season": 2026,
   "team": "DET",
-  "week": 4
+  "week": 5
 }
