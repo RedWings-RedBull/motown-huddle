@@ -11,8 +11,8 @@
       "name": "Andrew Wingard",
       "position": "S",
       "practiceStatus": "Did Not Participate In Practice",
-      "primary": null,
-      "reportStatus": null,
+      "primary": "Knee",
+      "reportStatus": "Out",
       "team": "ARI"
     },
     {
@@ -28,7 +28,7 @@
       "gsisId": "00-0039864",
       "name": "Dadrion Taylor-Demerson",
       "position": "S",
-      "practiceStatus": "Limited Participation in Practice",
+      "practiceStatus": "Full Participation in Practice",
       "primary": null,
       "reportStatus": null,
       "team": "ARI"
@@ -47,15 +47,15 @@
       "name": "Isaiah Adams",
       "position": "G",
       "practiceStatus": "Did Not Participate In Practice",
-      "primary": null,
-      "reportStatus": null,
+      "primary": "Ankle",
+      "reportStatus": "Out",
       "team": "ARI"
     },
     {
       "gsisId": "00-0041027",
       "name": "Jeremiyah Love",
       "position": "RB",
-      "practiceStatus": "Limited Participation in Practice",
+      "practiceStatus": "Full Participation in Practice",
       "primary": null,
       "reportStatus": null,
       "team": "ARI"
@@ -64,7 +64,7 @@
       "gsisId": "00-0040137",
       "name": "Jordan Burch",
       "position": "LB",
-      "practiceStatus": "Did Not Participate In Practice",
+      "practiceStatus": "Full Participation in Practice",
       "primary": null,
       "reportStatus": null,
       "team": "ARI"
@@ -83,8 +83,8 @@
       "name": "Karson Sharar",
       "position": "LB",
       "practiceStatus": "Limited Participation in Practice",
-      "primary": null,
-      "reportStatus": null,
+      "primary": "Hamstring",
+      "reportStatus": "Questionable",
       "team": "ARI"
     },
     {
@@ -92,8 +92,8 @@
       "name": "Walter Nolen",
       "position": "DT",
       "practiceStatus": "Limited Participation in Practice",
-      "primary": null,
-      "reportStatus": null,
+      "primary": "Calf",
+      "reportStatus": "Questionable",
       "team": "ARI"
     },
     {
@@ -101,8 +101,8 @@
       "name": "Ben Bartch",
       "position": "G",
       "practiceStatus": "Did Not Participate In Practice",
-      "primary": null,
-      "reportStatus": null,
+      "primary": "Foot",
+      "reportStatus": "Out",
       "team": "DET"
     },
     {
@@ -110,8 +110,8 @@
       "name": "Brian Branch",
       "position": "S",
       "practiceStatus": "Limited Participation in Practice",
-      "primary": null,
-      "reportStatus": null,
+      "primary": "Achilles",
+      "reportStatus": "Out",
       "team": "DET"
     },
     {
@@ -119,15 +119,15 @@
       "name": "Cade Mays",
       "position": "C",
       "practiceStatus": "Limited Participation in Practice",
-      "primary": null,
-      "reportStatus": null,
+      "primary": "Wrist",
+      "reportStatus": "Out",
       "team": "DET"
     },
     {
       "gsisId": "00-0036335",
       "name": "D.J. Wonnum",
       "position": "DE",
-      "practiceStatus": "Limited Participation in Practice",
+      "practiceStatus": "Full Participation in Practice",
       "primary": null,
       "reportStatus": null,
       "team": "DET"
@@ -137,8 +137,8 @@
       "name": "Rock Ya-Sin",
       "position": "CB",
       "practiceStatus": "Did Not Participate In Practice",
-      "primary": null,
-      "reportStatus": null,
+      "primary": "Hamstring",
+      "reportStatus": "Out",
       "team": "DET"
     },
     {
@@ -146,8 +146,8 @@
       "name": "Tyleik Williams",
       "position": "DT",
       "practiceStatus": "Limited Participation in Practice",
-      "primary": null,
-      "reportStatus": null,
+      "primary": "Foot",
+      "reportStatus": "Questionable",
       "team": "DET"
     }
   ],
