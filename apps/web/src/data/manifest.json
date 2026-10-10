@@ -7,6 +7,14 @@
       "season": 2026,
       "tier": "final",
       "week": 3
+    },
+    {
+      "gameId": "2026_04_DET_CAR",
+      "opponent": "CAR",
+      "result": "L",
+      "season": 2026,
+      "tier": "final",
+      "week": 4
     }
   ]
 }

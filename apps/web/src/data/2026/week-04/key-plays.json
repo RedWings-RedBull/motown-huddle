@@ -1,0 +1,188 @@
+{
+  "gameId": "2026_04_DET_CAR",
+  "plays": [
+    {
+      "clock": "12:09",
+      "desc": "(12:09) 39-J.Bates 54 yard field goal is GOOD, Center-49-H.Hatten, Holder-3-J.Fox.",
+      "down": 4,
+      "epa": 2.086,
+      "playId": 230,
+      "posteam": "DET",
+      "qtr": 1,
+      "tags": [
+        "fourth-down",
+        "fg"
+      ],
+      "wpa": 0.067,
+      "yardline100": 36,
+      "ydstogo": 12
+    },
+    {
+      "clock": "08:32",
+      "desc": "(8:32) (Shotgun) 9-B.Young sacked at CAR 45 for -10 yards (54-A.McNeill).",
+      "down": 3,
+      "epa": -2.894,
+      "playId": 447,
+      "posteam": "CAR",
+      "qtr": 1,
+      "tags": [
+        "sack"
+      ],
+      "wpa": -0.088,
+      "yardline100": 45,
+      "ydstogo": 2
+    },
+    {
+      "clock": "01:56",
+      "desc": "(1:56) 30-C.Hubbard left tackle for 15 yards, TOUCHDOWN.",
+      "down": 1,
+      "epa": 1.835,
+      "playId": 829,
+      "posteam": "CAR",
+      "qtr": 1,
+      "tags": [
+        "td",
+        "explosive"
+      ],
+      "wpa": 0.05,
+      "yardline100": 15,
+      "ydstogo": 10
+    },
+    {
+      "clock": "13:45",
+      "desc": "(13:45) 0-J.Gibbs left tackle ran ob at CAR 28 for 13 yards (29-A.Evans).",
+      "down": 2,
+      "epa": 1.925,
+      "playId": 1049,
+      "posteam": "DET",
+      "qtr": 2,
+      "tags": [
+        "explosive"
+      ],
+      "wpa": 0.084,
+      "yardline100": 41,
+      "ydstogo": 13
+    },
+    {
+      "clock": "11:14",
+      "desc": "(11:14) (Shotgun) 9-B.Young pass short middle to 4-T.McMillan pushed ob at DET 48 for 26 yards (2-E.Rakestraw).",
+      "down": 3,
+      "epa": 2.494,
+      "playId": 1341,
+      "posteam": "CAR",
+      "qtr": 2,
+      "tags": [
+        "explosive"
+      ],
+      "wpa": 0.085,
+      "yardline100": 74,
+      "ydstogo": 9
+    },
+    {
+      "clock": "08:14",
+      "desc": "(8:14) (Shotgun) 9-B.Young pass deep right to 4-T.McMillan for 32 yards, TOUCHDOWN [98-D.Wonnum].",
+      "down": 2,
+      "epa": 3.745,
+      "playId": 1502,
+      "posteam": "CAR",
+      "qtr": 2,
+      "tags": [
+        "td",
+        "explosive"
+      ],
+      "wpa": 0.069,
+      "yardline100": 32,
+      "ydstogo": 10
+    },
+    {
+      "clock": "01:15",
+      "desc": "(1:15) (Shotgun) 9-B.Young pass deep right to 4-T.McMillan to DET 29 for 18 yards (2-E.Rakestraw). FUMBLES (2-E.Rakestraw), ball out of bounds at DET 29.",
+      "down": 2,
+      "epa": 1.366,
+      "playId": 2036,
+      "posteam": "CAR",
+      "qtr": 2,
+      "tags": [],
+      "wpa": 0.087,
+      "yardline100": 47,
+      "ydstogo": 10
+    },
+    {
+      "clock": "00:21",
+      "desc": "(:21) (Shotgun) 16-J.Goff pass deep right to 1-J.Williams to CAR 23 for 49 yards (22-L.Ransom; 29-A.Evans).",
+      "down": 1,
+      "epa": 2.398,
+      "playId": 2195,
+      "posteam": "DET",
+      "qtr": 2,
+      "tags": [
+        "explosive"
+      ],
+      "wpa": 0.131,
+      "yardline100": 72,
+      "ydstogo": 10
+    },
+    {
+      "clock": "11:25",
+      "desc": "(11:25) (Shotgun) 9-B.Young pass incomplete deep right to 4-T.McMillan [97-A.Hutchinson]. PENALTY on DET-21-R.McCreary, Defensive Pass Interference, 17 yards, enforced at DET 42 - No Play.",
+      "down": 1,
+      "epa": 1.484,
+      "playId": 2547,
+      "posteam": "CAR",
+      "qtr": 3,
+      "tags": [
+        "penalty"
+      ],
+      "wpa": 0.081,
+      "yardline100": 42,
+      "ydstogo": 15
+    },
+    {
+      "clock": "09:37",
+      "desc": "(9:37) (Shotgun) 9-B.Young pass short middle to 4-T.McMillan for 10 yards, TOUCHDOWN.",
+      "down": 2,
+      "epa": 2.196,
+      "playId": 2653,
+      "posteam": "CAR",
+      "qtr": 3,
+      "tags": [
+        "td"
+      ],
+      "wpa": 0.068,
+      "yardline100": 10,
+      "ydstogo": 9
+    },
+    {
+      "clock": "07:53",
+      "desc": "(7:53) (Shotgun) 16-J.Goff pass deep left to 18-I.TeSlaa to CAR 12 for 57 yards (29-A.Evans).",
+      "down": 1,
+      "epa": 4.031,
+      "playId": 2803,
+      "posteam": "DET",
+      "qtr": 3,
+      "tags": [
+        "explosive"
+      ],
+      "wpa": 0.154,
+      "yardline100": 69,
+      "ydstogo": 25
+    },
+    {
+      "clock": "02:12",
+      "desc": "(2:12) 6-S.Martin punts 38 yards to DET 13, Center-44-J.Jansen, fair catch by 85-T.Kennedy.",
+      "down": 4,
+      "epa": -0.342,
+      "playId": 4784,
+      "posteam": "CAR",
+      "qtr": 4,
+      "tags": [
+        "fourth-down"
+      ],
+      "wpa": -0.082,
+      "yardline100": 51,
+      "ydstogo": 11
+    }
+  ],
+  "season": 2026,
+  "week": 4
+}
