@@ -5,6 +5,7 @@ packages:
 
 # pnpm 10 blocks lifecycle scripts by default; allow only what genuinely needs them.
 onlyBuiltDependencies:
+  - "@anthropic-ai/claude-code"
   - esbuild
   - sharp
   - simple-git-hooks

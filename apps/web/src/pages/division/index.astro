@@ -2,7 +2,9 @@
 import { teamConfig, teamName } from "@huddle/shared";
 import { getEntry } from "astro:content";
 
+import ArticleCard from "../../components/ArticleCard.astro";
 import Base from "../../layouts/Base.astro";
+import { findArticle } from "../../lib/articles";
 import { formatPct, formatSigned, ordinal } from "../../lib/format";
 import { formatKickoff } from "../../lib/week";
 
@@ -10,6 +12,7 @@ const entry = await getEntry("division", "current");
 if (!entry)
   throw new Error("Division data is missing; run `pnpm pipeline --division --season <year>`.");
 const d = entry.data;
+const article = await findArticle("division", { season: d.season });
 const team = teamConfig.team;
 const rec = (r: { w: number; l: number; t: number }) =>
   r.t ? `${r.w}-${r.l}-${r.t}` : `${r.w}-${r.l}`;
@@ -35,6 +38,8 @@ const rowClass = (t: string) => (t === team ? "bg-honolulu/15" : "");
       highlighted.
     </p>
   </section>
+
+  {article && <ArticleCard article={article} />}
 
   <section aria-labelledby="standings-heading" class="mt-8">
     <h2 id="standings-heading" class="section-title">

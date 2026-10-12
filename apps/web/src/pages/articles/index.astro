@@ -1,0 +1,59 @@
+---
+import { teamConfig } from "@huddle/shared";
+
+import Base from "../../layouts/Base.astro";
+import { ARTICLE_LABEL, allArticles, articleHref, publishedDate } from "../../lib/articles";
+
+const articles = await allArticles();
+---
+
+<Base
+  title="Articles"
+  description={`Game recaps, ${teamConfig.division} roundups and previews, drafted from the week's data and checked against it before publishing.`}
+>
+  <section class="bare">
+    <p class="eyebrow">{teamConfig.teamName}</p>
+    <h1 class="display mt-2 text-5xl text-white sm:text-6xl">Articles</h1>
+    <p class="muted mt-3 max-w-2xl">
+      A recap after each game, a {teamConfig.division} roundup and a preview of the next game.
+    </p>
+  </section>
+
+  {articles.length === 0 ? (
+    <section class="mt-6">
+      <p>No articles yet. The first ones arrive with the next weekly data update.</p>
+    </section>
+  ) : (
+    <section aria-label="All articles" class="mt-6">
+      <ol class="divide-y divide-white/10" data-articles>
+        {articles.map((a) => (
+          <li class="py-4">
+            <p class="eyebrow">
+              {ARTICLE_LABEL[a.data.type]} · {a.data.season} week {a.data.week}
+            </p>
+            <h2 class="mt-1 font-display text-2xl font-bold">
+              <a href={articleHref(a)} class="text-white no-underline hover:text-honolulu-bright">
+                {a.data.title}
+              </a>
+            </h2>
+            <p class="muted mt-1 text-sm">{a.data.description}</p>
+            <p class="muted mt-1 text-xs">{publishedDate(a.data)}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
+  )}
+
+  <section id="how" aria-labelledby="how-heading" class="mt-8 text-sm">
+    <h2 id="how-heading" class="section-title">
+      How these are made
+    </h2>
+    <p class="muted mt-3 max-w-3xl">
+      Each article is drafted by Claude from that week's data files only: the game breakdown, team
+      metrics, Huddle Grades, standings and the next-game preview. A separate program then checks
+      every number, every multi-word name and every play mentioned against those files. An editor
+      pass fixes anything the check flags, and an article that still fails is not published. The
+      site owner reviews and approves every article before it goes live.
+    </p>
+  </section>
+</Base>

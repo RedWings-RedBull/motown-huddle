@@ -1,4 +1,5 @@
 import {
+  ArticleFrontmatter,
   GameSummary,
   GameHighlights,
   Grades,
@@ -37,6 +38,10 @@ function week<S extends ZodType>(name: string, schema: S) {
 }
 
 export const collections = {
+  articles: defineCollection({
+    loader: glob({ pattern: "**/*.md", base: "./src/content/articles" }),
+    schema: ArticleFrontmatter,
+  }),
   games: week("game", GameSummary),
   teamMetrics: week("team-metrics", TeamMetrics),
   grades: week("grades", Grades),

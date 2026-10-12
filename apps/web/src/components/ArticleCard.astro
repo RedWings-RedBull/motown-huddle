@@ -1,0 +1,29 @@
+---
+/** A compact link to one article, used on the game, division and next-game pages. */
+import type { CollectionEntry } from "astro:content";
+
+import { ARTICLE_LABEL, articleHref, publishedDate } from "../lib/articles";
+
+interface Props {
+  article: CollectionEntry<"articles">;
+}
+
+const { article } = Astro.props;
+const a = article.data;
+---
+
+<section aria-labelledby={`article-${article.id}`} class="mt-6" data-article-card>
+  <p class="eyebrow">{ARTICLE_LABEL[a.type]}</p>
+  <h2 id={`article-${article.id}`} class="mt-2 font-display text-2xl font-bold text-white">
+    <a href={articleHref(article)} class="no-underline hover:text-honolulu-bright">
+      {a.title}
+    </a>
+  </h2>
+  <p class="muted mt-1 text-sm">{a.description}</p>
+  <p class="mt-3 text-sm">
+    <a href={articleHref(article)} class="underline hover:text-honolulu-bright">
+      Read the {ARTICLE_LABEL[a.type].toLowerCase()}
+    </a>
+    <span class="muted"> · {publishedDate(a)}</span>
+  </p>
+</section>

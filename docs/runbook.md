@@ -33,6 +33,35 @@ signs in as a small GitHub App instead.
 
 To rotate, generate a new private key on the app page, update the secret, and delete the old key.
 
+## Articles
+
+```bash
+pnpm writer                 # newest week, all three articles
+pnpm writer --dry-run       # write the prompts to packages/writer/out/ without calling a model
+pnpm writer --type recap --force
+```
+
+Writes `apps/web/src/content/articles/<season>/w<nn>-<recap|division|preview>.md`. Each article goes
+through four steps:
+
+1. Claude drafts it from a compact data bundle built from the week's files under
+   `apps/web/src/data`, and nothing else.
+2. A deterministic checker (`packages/writer/src/ground.ts`) verifies every number, every multi-word
+   name and every play tag against that bundle, and requires a play tag on every sentence that
+   claims a touchdown or turnover.
+3. An editor pass fixes what the checker flagged. It runs up to twice.
+4. If anything is still flagged, the article is not written and the command exits 1.
+
+An article whose data has not changed since it was written is skipped, so reruns cost nothing.
+
+The command runs the pinned `@anthropic-ai/claude-code` CLI from an empty temporary folder with all
+tools off. It signs in with `CLAUDE_CODE_OAUTH_TOKEN`, a long-lived token from a Pro or Max
+subscription. To create one, run `pnpm --filter @huddle/writer exec claude setup-token`. Put the token
+in `.env` for local runs and in the `CLAUDE_CODE_OAUTH_TOKEN` repository secret for the weekly
+workflow, which skips the step when the secret is missing. Model and effort default to `sonnet` and
+`high`. Override them with `--model` and `--effort`, the `HUDDLE_WRITER_MODEL` and
+`HUDDLE_WRITER_EFFORT` variables in `.env`, or the repository variables of the same names.
+
 ## Roster
 
 ```bash
