@@ -15,6 +15,14 @@
       "season": 2026,
       "tier": "final",
       "week": 4
+    },
+    {
+      "gameId": "2026_05_DET_ARI",
+      "opponent": "ARI",
+      "result": "W",
+      "season": 2026,
+      "tier": "provisional",
+      "week": 5
     }
   ]
 }
