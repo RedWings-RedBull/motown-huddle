@@ -61,6 +61,20 @@ export function latestWeek(dataDir: string): { season: number; week: number } {
 
 const pct = (x: number) => Math.round(x * 1000) / 10;
 
+const easternFormat = new Intl.DateTimeFormat("en-US", {
+  weekday: "short",
+  month: "short",
+  day: "numeric",
+  year: "numeric",
+  hour: "numeric",
+  minute: "2-digit",
+  timeZone: "America/New_York",
+  timeZoneName: "short",
+});
+
+/** Kickoff as readers see it, e.g. "Sun, Oct 11, 2026, 4:25 PM EDT"; the model never sees UTC. */
+const eastern = (iso: string) => easternFormat.format(new Date(iso));
+
 /**
  * The schedule's spread is from the home side (positive: home favoured). Spelled out so the model
  * cannot misread who was favoured.
@@ -136,7 +150,7 @@ function recapBundle(dataDir: string, season: number, week: number): Bundle {
       },
       overtime: game.overtime,
       stadium: game.venue.stadium,
-      kickoffUtc: game.kickoffUtc,
+      kickoff: eastern(game.kickoffUtc),
       line: pregameLine(game.line, game.team.side, team, opponent),
       gradesTier: grades.tier,
       teamGrade: metrics.teamGrade,
@@ -197,7 +211,7 @@ function divisionBundle(dataDir: string, season: number, week: number): Bundle {
       upcoming: d.upcoming.map((u) => ({
         away: teamName(u.away),
         home: teamName(u.home),
-        kickoffUtc: u.kickoffUtc,
+        kickoff: eastern(u.kickoffUtc),
         divisionGame: u.divGame,
         line: pregameLine({ spread: u.spread, total: null }, "home", u.home, u.away),
       })),
@@ -243,7 +257,7 @@ function previewBundle(dataDir: string, season: number): Bundle {
       team: teamName(team),
       opponent: teamName(p.opponent),
       venue: p.isHome ? "home" : "away",
-      kickoffUtc: p.kickoffUtc,
+      kickoff: eastern(p.kickoffUtc),
       stadium: p.venue.stadium,
       roof: p.venue.roof,
       // The preview stores the spread from the team's side in betting notation (negative: team
@@ -291,7 +305,7 @@ export function buildBundle(
 }
 
 /** Bump when prompts or the checker change in a way that should rewrite existing articles. */
-const PROMPT_VERSION = "1";
+const PROMPT_VERSION = "2";
 
 export function bundleHash(bundle: Bundle): string {
   return createHash("sha256")

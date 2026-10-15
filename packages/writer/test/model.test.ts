@@ -4,7 +4,18 @@ import { join } from "node:path";
 
 import { describe, expect, it } from "vitest";
 
-import { claudeBinary, claudeCodeClient, parseCliOutput } from "../src/model.js";
+import { claudeBinary, claudeCodeClient, cliEnv, parseCliOutput } from "../src/model.js";
+
+describe("cliEnv", () => {
+  it("strips whitespace a wrapped terminal line put into the sign-in token", () => {
+    expect(cliEnv({ CLAUDE_CODE_OAUTH_TOKEN: " sk-ant-oat01-abc def\r\n", OTHER: "x y" })).toEqual({
+      CLAUDE_CODE_OAUTH_TOKEN: "sk-ant-oat01-abcdef",
+      OTHER: "x y",
+    });
+    const env = { PATH: "p" };
+    expect(cliEnv(env)).toBe(env);
+  });
+});
 
 const result = (extra: object) =>
   JSON.stringify({ type: "result", subtype: "success", is_error: false, ...extra });

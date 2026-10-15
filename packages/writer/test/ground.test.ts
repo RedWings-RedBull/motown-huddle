@@ -47,6 +47,17 @@ describe("grounding check", () => {
     expect(checkArticle(withHeading, recap).violations).toEqual([]);
   });
 
+  it("treats safety the position as no play claim, but safety the score as one", () => {
+    const position = groundedRecap("Ennis Rakestraw played at safety and held up.");
+    expect(
+      checkArticle(position, recap).violations.filter((v) => v.startsWith("play claim")),
+    ).toEqual([]);
+    const score = groundedRecap("The defense took a safety late.");
+    expect(checkArticle(score, recap).violations.some((v) => v.startsWith("play claim"))).toBe(
+      true,
+    );
+  });
+
   it("enforces a sensible length", () => {
     const short = { ...groundedRecap(), body: "The Detroit Lions won." };
     expect(checkArticle(short, recap).violations.some((v) => v.startsWith("too short"))).toBe(true);

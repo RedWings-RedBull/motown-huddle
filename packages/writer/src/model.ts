@@ -66,6 +66,15 @@ export function parseCliOutput(stdout: string): ModelResponse {
   return { output: JSON.parse(text.slice(start, end + 1)) as unknown, costUsd: cost };
 }
 
+/**
+ * The CLI's environment. Sign-in tokens never contain whitespace, but a token copied out of a
+ * wrapped terminal line often does, so it is removed rather than failing as "Not logged in".
+ */
+export function cliEnv(env: NodeJS.ProcessEnv): NodeJS.ProcessEnv {
+  const token = env.CLAUDE_CODE_OAUTH_TOKEN;
+  return token === undefined ? env : { ...env, CLAUDE_CODE_OAUTH_TOKEN: token.replace(/\s+/g, "") };
+}
+
 export function claudeCodeClient(options: ClaudeCodeOptions): ModelClient {
   return (request) =>
     new Promise((resolve, reject) => {
@@ -90,7 +99,7 @@ export function claudeCodeClient(options: ClaudeCodeOptions): ModelClient {
         "--disable-slash-commands",
         "--no-session-persistence",
       ];
-      const child = spawn(command.file, args, { cwd, env: process.env, windowsHide: true });
+      const child = spawn(command.file, args, { cwd, env: cliEnv(process.env), windowsHide: true });
       let stdout = "";
       let stderr = "";
       const timer = setTimeout(() => {

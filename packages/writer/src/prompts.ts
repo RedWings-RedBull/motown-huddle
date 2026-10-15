@@ -19,6 +19,7 @@ export const ARTICLE_SCHEMA = {
 } as const;
 
 const RULES = `Rules you must follow:
+- Attach a number or rank to a team or player only where DATA attaches it to that team or player. Never borrow one team's figure to describe another; if DATA has no figure for something, do not describe it with a number.
 - Use only facts in DATA. Every number you write must appear in DATA. You may round, and you may write a rate like 0.508 as 50.8%. Spell out counts that DATA does not state only if they are plainly countable from DATA.
 - Name people only as they appear in DATA. Use full names from "people" as written. For anyone else, use the last name exactly as it appears in a play description (for example "Smith" from "7-G.Smith"). Never add first names from memory.
 - Do not use outside knowledge: no other games, seasons, contracts, quotes, rumours or injury details beyond DATA.

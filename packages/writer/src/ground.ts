@@ -109,8 +109,9 @@ export function properPhrases(text: string): string[] {
 }
 
 const PLAY_TAG = /\[p:(\d+)\]/g;
+/** Scoring and turnover claims. "Safety" counts only as the score, never as the position. */
 const PLAY_CLAIM =
-  /\b(touchdown|touchdowns|intercepted|interception|picked off|fumble|fumbled|strip-sack|safety)\b/i;
+  /\b(touchdown|touchdowns|intercepted|interception|picked off|fumble|fumbled|strip-sack|(?:for|recorded|conceded|took) a safety)\b/i;
 
 /** Splits markdown prose into sentences, skipping headings. */
 function sentences(markdown: string): string[] {
