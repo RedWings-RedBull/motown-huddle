@@ -16,6 +16,6 @@
     "@huddle/shared": "workspace:*",
     "csv-parse": "^7.0.3",
     "date-fns": "^4.4.0",
-    "zod": "^4.6.5"
+    "zod": "^4.6.7"
   }
 }
