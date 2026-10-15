@@ -1,0 +1,32 @@
+{
+  "away": {
+    "score": 45,
+    "team": "DET"
+  },
+  "gameId": "2026_05_DET_ARI",
+  "home": {
+    "score": 21,
+    "team": "ARI"
+  },
+  "kickoffUtc": "2026-10-11T20:25:00Z",
+  "line": {
+    "spread": -5.5,
+    "total": 55.5
+  },
+  "overtime": false,
+  "season": 2026,
+  "team": {
+    "opponent": "ARI",
+    "result": "W",
+    "side": "away"
+  },
+  "tier": "provisional",
+  "venue": {
+    "roof": "closed",
+    "stadium": "State Farm Stadium",
+    "surface": "",
+    "temp": null,
+    "wind": null
+  },
+  "week": 5
+}
