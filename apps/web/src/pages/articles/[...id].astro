@@ -1,0 +1,63 @@
+---
+import { teamConfig } from "@huddle/shared";
+import { getCollection, render } from "astro:content";
+
+import Base from "../../layouts/Base.astro";
+import { ARTICLE_LABEL, publishedDate } from "../../lib/articles";
+
+export async function getStaticPaths() {
+  const articles = await getCollection("articles");
+  return articles.map((article) => ({ params: { id: article.id }, props: { article } }));
+}
+
+const { article } = Astro.props;
+const a = article.data;
+const { Content } = await render(article);
+const weekSlug = `week-${String(a.week).padStart(2, "0")}`;
+const related =
+  a.type === "recap"
+    ? { href: `/games/${String(a.season)}/${weekSlug}/`, label: "Full game breakdown" }
+    : a.type === "division"
+      ? { href: "/division/", label: `${teamConfig.division} standings and odds` }
+      : { href: "/preview/", label: "Next-game numbers" };
+---
+
+<Base title={a.title} description={a.description}>
+  <nav aria-label="Breadcrumb" class="text-sm text-silver">
+    <a href="/articles/" class="underline hover:text-honolulu-bright">
+      Articles
+    </a>
+    <span aria-hidden="true"> / </span>
+    <span>
+      {ARTICLE_LABEL[a.type]}, {a.season} week {a.week}
+    </span>
+  </nav>
+
+  <article class="mt-4" data-article={a.type}>
+    <header class="bare">
+      <p class="eyebrow">
+        {ARTICLE_LABEL[a.type]} · {a.season} week {a.week}
+      </p>
+      <h1 class="display mt-2 text-4xl text-white sm:text-6xl">{a.title}</h1>
+      <p class="mt-4 max-w-3xl text-lg text-silver">{a.description}</p>
+      <p class="muted mt-3 text-xs" data-byline>
+        <time datetime={a.publishedAt}>{publishedDate(a)}</time> · Drafted from the week's data by
+        Claude with AI assistance; every number, name and play was checked against that data, and
+        the site owner approved it before publishing.
+        <a href="/articles/#how" class="underline hover:text-honolulu-bright">
+          How this works
+        </a>
+      </p>
+    </header>
+
+    <section class="article-body mt-6" aria-label="Article">
+      <Content />
+    </section>
+
+    <section class="mt-6 text-sm">
+      <a href={related.href} class="underline hover:text-honolulu-bright">
+        {related.label}
+      </a>
+    </section>
+  </article>
+</Base>

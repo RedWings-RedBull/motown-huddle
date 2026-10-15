@@ -1,0 +1,32 @@
+{
+  "away": {
+    "score": 24,
+    "team": "NYJ"
+  },
+  "gameId": "2026_03_NYJ_DET",
+  "home": {
+    "score": 31,
+    "team": "DET"
+  },
+  "kickoffUtc": "2026-09-27T17:00:00Z",
+  "line": {
+    "spread": 7,
+    "total": 49.5
+  },
+  "overtime": false,
+  "season": 2026,
+  "team": {
+    "opponent": "NYJ",
+    "result": "W",
+    "side": "home"
+  },
+  "tier": "final",
+  "venue": {
+    "roof": "dome",
+    "stadium": "Ford Field",
+    "surface": "fieldturf",
+    "temp": null,
+    "wind": null
+  },
+  "week": 3
+}

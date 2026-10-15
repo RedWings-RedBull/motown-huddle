@@ -174,3 +174,17 @@ dialog.sheet::backdrop {
     }
   }
 }
+
+/* Generated articles: readable long-form text inside the floating panel. */
+.article-body {
+  @apply max-w-3xl px-5 py-6 text-base leading-relaxed sm:px-8;
+}
+.article-body h2 {
+  @apply mt-8 mb-3 font-display text-2xl font-bold text-white first:mt-0;
+}
+.article-body p {
+  @apply mt-4 text-chalk first:mt-0;
+}
+.article-body a {
+  @apply text-honolulu-bright underline;
+}

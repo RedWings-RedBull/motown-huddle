@@ -3,8 +3,10 @@ import type { SideMetrics } from "@huddle/shared";
 import { teamConfig } from "@huddle/shared";
 import { getEntry } from "astro:content";
 
+import ArticleCard from "../../components/ArticleCard.astro";
 import Countdown from "../../components/Countdown";
 import Base from "../../layouts/Base.astro";
+import { findArticle } from "../../lib/articles";
 import { type Formatter, formatPct, formatSigned, ordinal } from "../../lib/format";
 import { formatKickoff, resultWord } from "../../lib/week";
 
@@ -12,6 +14,7 @@ const entry = await getEntry("preview", "next");
 if (!entry)
   throw new Error("Preview data is missing; run `pnpm pipeline --preview --season <year>`.");
 const p = entry.data;
+const article = await findArticle("preview", { season: p.season, week: p.week });
 const team = teamConfig.team;
 const venue = p.isHome ? "vs" : "at";
 const rec = (r: { w: number; l: number; t: number }) =>
@@ -83,6 +86,8 @@ const EDGE_LABEL = { team: team, opponent: p.opponent, even: "Even" } as const;
       ))}
     </ul>
   </section>
+
+  {article && <ArticleCard article={article} />}
 
   <section aria-labelledby="keys-heading" class="mt-8">
     <h2 id="keys-heading" class="section-title">

@@ -1,0 +1,3672 @@
+{
+  "gameId": "2026_03_NYJ_DET",
+  "olUnit": {
+    "components": [
+      {
+        "direction": "lower",
+        "key": "ol.pressureRateAllowed",
+        "label": "Pressure rate allowed",
+        "n": 36,
+        "percentile": 81.667,
+        "poolN": 30,
+        "source": "pfr",
+        "unit": "pct",
+        "value": 0.167,
+        "weight": 0.3
+      },
+      {
+        "direction": "lower",
+        "key": "ol.sackRate",
+        "label": "Sack rate allowed",
+        "n": 36,
+        "percentile": 35.938,
+        "poolN": 32,
+        "source": "pbp",
+        "unit": "pct",
+        "value": 0.056,
+        "weight": 0.15
+      },
+      {
+        "direction": "lower",
+        "key": "ol.protectionVsFour",
+        "label": "Protection vs four rushers",
+        "n": 19,
+        "percentile": 67.188,
+        "poolN": 32,
+        "source": "ftn",
+        "unit": "pct",
+        "value": 0.105,
+        "weight": 0.1
+      },
+      {
+        "direction": "higher",
+        "key": "ol.yardsBeforeContact",
+        "label": "Rush yards before contact",
+        "n": 26,
+        "percentile": 88.333,
+        "poolN": 30,
+        "source": "pfr",
+        "unit": "yds",
+        "value": 3.269,
+        "weight": 0.2
+      },
+      {
+        "direction": "lower",
+        "key": "ol.stuffRate",
+        "label": "Stuff rate",
+        "n": 26,
+        "percentile": 82.813,
+        "poolN": 32,
+        "source": "pbp",
+        "unit": "pct",
+        "value": 0.115,
+        "weight": 0.15
+      },
+      {
+        "direction": "higher",
+        "key": "ol.adjustedLineYards",
+        "label": "Adjusted line yards",
+        "n": 26,
+        "percentile": 95.313,
+        "poolN": 32,
+        "source": "pbp",
+        "unit": "yds",
+        "value": 3.708,
+        "weight": 0.1
+      }
+    ],
+    "gapHeat": [
+      {
+        "epaPerRush": -0.553,
+        "n": 7,
+        "successRate": 0.429,
+        "zone": "LT"
+      },
+      {
+        "epaPerRush": -0.085,
+        "n": 2,
+        "successRate": 0.5,
+        "zone": "LG"
+      },
+      {
+        "epaPerRush": 0.478,
+        "n": 8,
+        "successRate": 1,
+        "zone": "C"
+      },
+      {
+        "epaPerRush": -0.251,
+        "n": 1,
+        "successRate": 0,
+        "zone": "RG"
+      },
+      {
+        "epaPerRush": 0.144,
+        "n": 8,
+        "successRate": 0.375,
+        "zone": "RT"
+      }
+    ],
+    "grade": {
+      "bin": "hot",
+      "k": 0,
+      "n": 62,
+      "qualified": true,
+      "rawComposite": 76.229,
+      "reason": null,
+      "value": 76.229
+    }
+  },
+  "pools": {
+    "CB": {
+      "n": 103,
+      "threshold": "20 defensive snaps"
+    },
+    "EDGE": {
+      "n": 112,
+      "threshold": "15 defensive snaps"
+    },
+    "IDL": {
+      "n": 131,
+      "threshold": "15 defensive snaps"
+    },
+    "K": {
+      "n": 32,
+      "threshold": "1 kick"
+    },
+    "LB": {
+      "n": 76,
+      "threshold": "20 defensive snaps"
+    },
+    "OL": {
+      "n": 32,
+      "threshold": "all 32 units"
+    },
+    "P": {
+      "n": 32,
+      "threshold": "1 punt"
+    },
+    "QB": {
+      "n": 32,
+      "threshold": "14 dropbacks"
+    },
+    "RB": {
+      "n": 46,
+      "threshold": "6 carries or 8 touches"
+    },
+    "RET": {
+      "n": 28,
+      "threshold": "2 returns"
+    },
+    "S": {
+      "n": 73,
+      "threshold": "20 defensive snaps"
+    },
+    "TE": {
+      "n": 81,
+      "threshold": "3 targets or 15 offensive snaps"
+    },
+    "WR": {
+      "n": 116,
+      "threshold": "3 targets or 15 offensive snaps"
+    }
+  },
+  "season": 2026,
+  "slots": [
+    {
+      "bin": "warm",
+      "label": "Quarterback",
+      "players": [
+        {
+          "components": [
+            {
+              "direction": "higher",
+              "key": "qb.epaPerDropback",
+              "label": "EPA per dropback",
+              "n": 36,
+              "percentile": 82.813,
+              "poolN": 32,
+              "source": "pbp",
+              "unit": "epa",
+              "value": 0.31,
+              "weight": 0.35
+            },
+            {
+              "direction": "higher",
+              "key": "qb.successRate",
+              "label": "Dropback success rate",
+              "n": 36,
+              "percentile": 92.188,
+              "poolN": 32,
+              "source": "pbp",
+              "unit": "pct",
+              "value": 0.611,
+              "weight": 0.15
+            },
+            {
+              "direction": "higher",
+              "key": "qb.cpoe",
+              "label": "Completion % over expected",
+              "n": 31,
+              "percentile": 76.563,
+              "poolN": 32,
+              "source": "pbp",
+              "unit": "pct",
+              "value": 6.942,
+              "weight": 0.15
+            },
+            {
+              "direction": "lower",
+              "key": "qb.sackRate",
+              "label": "QB-fault sack rate",
+              "n": 36,
+              "percentile": 64.063,
+              "poolN": 32,
+              "source": "pbp",
+              "unit": "pct",
+              "value": 0,
+              "weight": 0.1
+            },
+            {
+              "direction": "lower",
+              "key": "qb.turnoverWorthyRate",
+              "label": "Turnover-worthy play rate",
+              "n": 36,
+              "percentile": 89.063,
+              "poolN": 32,
+              "source": "ftn",
+              "unit": "pct",
+              "value": 0,
+              "weight": 0.1
+            },
+            {
+              "direction": "lower",
+              "key": "qb.badThrowPct",
+              "label": "Bad throw %",
+              "n": 36,
+              "percentile": 68.333,
+              "poolN": 30,
+              "source": "pfr",
+              "unit": "pct",
+              "value": 0.129,
+              "weight": 0.1
+            },
+            {
+              "direction": "higher",
+              "key": "qb.ngsCpoe",
+              "label": "NGS completion % above expectation",
+              "n": 36,
+              "percentile": 85.938,
+              "poolN": 32,
+              "source": "ngs",
+              "unit": "pct",
+              "value": 7.599,
+              "weight": 0.05
+            }
+          ],
+          "grade": {
+            "bin": "warm",
+            "k": 15,
+            "n": 36,
+            "qualified": true,
+            "rawComposite": 80.74,
+            "reason": null,
+            "value": 71.699
+          },
+          "gsisId": "00-0033106",
+          "jersey": 16,
+          "name": "Jared Goff",
+          "penalties": [],
+          "pool": "QB",
+          "position": "QB",
+          "snapPct": 1,
+          "snaps": 65
+        }
+      ],
+      "slot": "QB",
+      "tileGrade": 71.699,
+      "unit": "offense",
+      "unitOnly": false
+    },
+    {
+      "bin": "warm",
+      "label": "Running back",
+      "players": [
+        {
+          "components": [
+            {
+              "direction": "higher",
+              "key": "rb.rushEpaPerAtt",
+              "label": "Rush EPA per attempt",
+              "n": 20,
+              "percentile": 66.304,
+              "poolN": 46,
+              "source": "stats_player",
+              "unit": "epa",
+              "value": -0.001,
+              "weight": 0.3
+            },
+            {
+              "direction": "higher",
+              "key": "rb.successRate",
+              "label": "Rush success rate",
+              "n": 20,
+              "percentile": 85.87,
+              "poolN": 46,
+              "source": "pbp",
+              "unit": "pct",
+              "value": 0.6,
+              "weight": 0.2
+            },
+            {
+              "direction": "higher",
+              "key": "rb.ryoePerAtt",
+              "label": "Rush yards over expected per attempt",
+              "n": 20,
+              "percentile": 83.696,
+              "poolN": 46,
+              "source": "ngs",
+              "unit": "yds",
+              "value": 0.959,
+              "weight": 0.15
+            },
+            {
+              "direction": "higher",
+              "key": "rb.contact",
+              "label": "Yards after contact + broken tackles",
+              "n": 20,
+              "percentile": 33.721,
+              "poolN": 43,
+              "source": "pfr",
+              "unit": "yds",
+              "value": 1.55,
+              "weight": 0.15
+            },
+            {
+              "direction": "higher",
+              "key": "rb.recEpaPerTarget",
+              "label": "Receiving EPA per target",
+              "n": 8,
+              "percentile": 86.25,
+              "poolN": 40,
+              "source": "stats_player",
+              "unit": "epa",
+              "value": 0.73,
+              "weight": 0.2
+            }
+          ],
+          "grade": {
+            "bin": "warm",
+            "k": 8,
+            "n": 20,
+            "qualified": true,
+            "rawComposite": 71.928,
+            "reason": null,
+            "value": 65.663
+          },
+          "gsisId": "00-0039139",
+          "jersey": 0,
+          "name": "Jahmyr Gibbs",
+          "penalties": [],
+          "pool": "RB",
+          "position": "RB",
+          "snapPct": 0.69,
+          "snaps": 45
+        },
+        {
+          "components": [
+            {
+              "direction": "higher",
+              "key": "rb.rushEpaPerAtt",
+              "label": "Rush EPA per attempt",
+              "n": 6,
+              "percentile": 81.522,
+              "poolN": 46,
+              "source": "stats_player",
+              "unit": "epa",
+              "value": 0.118,
+              "weight": 0.3
+            },
+            {
+              "direction": "higher",
+              "key": "rb.successRate",
+              "label": "Rush success rate",
+              "n": 6,
+              "percentile": 69.565,
+              "poolN": 46,
+              "source": "pbp",
+              "unit": "pct",
+              "value": 0.5,
+              "weight": 0.2
+            },
+            {
+              "direction": "higher",
+              "key": "rb.ryoePerAtt",
+              "label": "Rush yards over expected per attempt",
+              "n": 6,
+              "percentile": 43.478,
+              "poolN": 46,
+              "source": "ngs",
+              "unit": "yds",
+              "value": 0,
+              "weight": 0.15
+            },
+            {
+              "direction": "higher",
+              "key": "rb.contact",
+              "label": "Yards after contact + broken tackles",
+              "n": 6,
+              "percentile": 53.488,
+              "poolN": 43,
+              "source": "pfr",
+              "unit": "yds",
+              "value": 1.7,
+              "weight": 0.15
+            },
+            {
+              "direction": "higher",
+              "key": "rb.recEpaPerTarget",
+              "label": "Receiving EPA per target",
+              "n": 1,
+              "percentile": 91.25,
+              "poolN": 40,
+              "source": "stats_player",
+              "unit": "epa",
+              "value": 0.744,
+              "weight": 0.2
+            }
+          ],
+          "grade": {
+            "bin": "neutral",
+            "k": 8,
+            "n": 6,
+            "qualified": true,
+            "rawComposite": 71.165,
+            "reason": null,
+            "value": 59.071
+          },
+          "gsisId": "00-0039364",
+          "jersey": 33,
+          "name": "Sione Vaki",
+          "penalties": [],
+          "pool": "RB",
+          "position": "RB",
+          "snapPct": 0.31,
+          "snaps": 20
+        },
+        {
+          "components": [
+            {
+              "direction": "higher",
+              "key": "ret.returnEpa",
+              "label": "Return EPA",
+              "n": 2,
+              "percentile": 87.5,
+              "poolN": 28,
+              "source": "pbp",
+              "unit": "epa",
+              "value": 2.2,
+              "weight": 0.6
+            },
+            {
+              "direction": "higher",
+              "key": "ret.yardsPerReturn",
+              "label": "Yards per return",
+              "n": 2,
+              "percentile": 98.214,
+              "poolN": 28,
+              "source": "pbp",
+              "unit": "yds",
+              "value": 40.5,
+              "weight": 0.4
+            }
+          ],
+          "grade": {
+            "bin": "warm",
+            "k": 3,
+            "n": 2,
+            "qualified": true,
+            "rawComposite": 91.786,
+            "reason": null,
+            "value": 66.714
+          },
+          "gsisId": "00-0038896",
+          "jersey": 25,
+          "name": "Jacob Saylors",
+          "penalties": [],
+          "pool": "RET",
+          "position": "RB",
+          "snapPct": 0.03,
+          "snaps": 2
+        }
+      ],
+      "slot": "RB",
+      "tileGrade": 63.634,
+      "unit": "offense",
+      "unitOnly": false
+    },
+    {
+      "bin": "neutral",
+      "label": "Wide receiver 1",
+      "players": [
+        {
+          "components": [
+            {
+              "direction": "higher",
+              "key": "wr.recEpaPerTarget",
+              "label": "Receiving EPA per target",
+              "n": 8,
+              "percentile": 27.982,
+              "poolN": 109,
+              "source": "stats_player",
+              "unit": "epa",
+              "value": -0.173,
+              "weight": 0.25
+            },
+            {
+              "direction": "higher",
+              "key": "wr.yardsPerEstRoute",
+              "label": "Yards per estimated route",
+              "n": 28,
+              "percentile": 25.446,
+              "poolN": 112,
+              "source": "snap_counts",
+              "unit": "yds",
+              "value": 0.682,
+              "weight": 0.2
+            },
+            {
+              "direction": "higher",
+              "key": "wr.targetShare",
+              "label": "Target share",
+              "n": 8,
+              "percentile": 80.088,
+              "poolN": 113,
+              "source": "stats_player",
+              "unit": "pct",
+              "value": 0.258,
+              "weight": 0.15
+            },
+            {
+              "direction": "higher",
+              "key": "wr.catchRateOverExpected",
+              "label": "Catch rate over expected",
+              "n": 8,
+              "percentile": 23.394,
+              "poolN": 109,
+              "source": "pbp",
+              "unit": "pct",
+              "value": -0.162,
+              "weight": 0.15
+            },
+            {
+              "direction": "higher",
+              "key": "wr.yacOverExpected",
+              "label": "YAC over expected",
+              "n": 4,
+              "percentile": 5.5,
+              "poolN": 100,
+              "source": "ngs",
+              "unit": "yds",
+              "value": -1.092,
+              "weight": 0.1
+            },
+            {
+              "direction": "lower",
+              "key": "wr.dropRate",
+              "label": "Drop rate",
+              "n": 4,
+              "percentile": 58.654,
+              "poolN": 104,
+              "source": "ftn",
+              "unit": "pct",
+              "value": 0,
+              "weight": 0.1
+            },
+            {
+              "direction": "higher",
+              "key": "wr.contestedCatchRate",
+              "label": "Contested catch rate",
+              "n": 3,
+              "percentile": 62.931,
+              "poolN": 58,
+              "source": "ftn",
+              "unit": "pct",
+              "value": 0.333,
+              "weight": 0.05
+            }
+          ],
+          "grade": {
+            "bin": "neutral",
+            "k": 5,
+            "n": 8,
+            "qualified": true,
+            "rawComposite": 37.169,
+            "reason": null,
+            "value": 42.104
+          },
+          "gsisId": "00-0036963",
+          "jersey": 14,
+          "name": "Amon-Ra St. Brown",
+          "penalties": [],
+          "pool": "WR",
+          "position": "WR",
+          "snapPct": 0.74,
+          "snaps": 48
+        }
+      ],
+      "slot": "WR1",
+      "tileGrade": 42.104,
+      "unit": "offense",
+      "unitOnly": false
+    },
+    {
+      "bin": "neutral",
+      "label": "Wide receiver 2",
+      "players": [
+        {
+          "components": [
+            {
+              "direction": "higher",
+              "key": "wr.recEpaPerTarget",
+              "label": "Receiving EPA per target",
+              "n": 4,
+              "percentile": 79.358,
+              "poolN": 109,
+              "source": "stats_player",
+              "unit": "epa",
+              "value": 0.837,
+              "weight": 0.25
+            },
+            {
+              "direction": "higher",
+              "key": "wr.yardsPerEstRoute",
+              "label": "Yards per estimated route",
+              "n": 31,
+              "percentile": 58.482,
+              "poolN": 112,
+              "source": "snap_counts",
+              "unit": "yds",
+              "value": 1.592,
+              "weight": 0.2
+            },
+            {
+              "direction": "higher",
+              "key": "wr.targetShare",
+              "label": "Target share",
+              "n": 4,
+              "percentile": 44.69,
+              "poolN": 113,
+              "source": "stats_player",
+              "unit": "pct",
+              "value": 0.129,
+              "weight": 0.15
+            },
+            {
+              "direction": "higher",
+              "key": "wr.catchRateOverExpected",
+              "label": "Catch rate over expected",
+              "n": 4,
+              "percentile": 92.202,
+              "poolN": 109,
+              "source": "pbp",
+              "unit": "pct",
+              "value": 0.339,
+              "weight": 0.15
+            },
+            {
+              "direction": "higher",
+              "key": "wr.yacOverExpected",
+              "label": "YAC over expected",
+              "n": 4,
+              "percentile": 24.5,
+              "poolN": 100,
+              "source": "ngs",
+              "unit": "yds",
+              "value": -0.353,
+              "weight": 0.1
+            },
+            {
+              "direction": "lower",
+              "key": "wr.dropRate",
+              "label": "Drop rate",
+              "n": 4,
+              "percentile": 58.654,
+              "poolN": 104,
+              "source": "ftn",
+              "unit": "pct",
+              "value": 0,
+              "weight": 0.1
+            },
+            {
+              "direction": "higher",
+              "key": "wr.contestedCatchRate",
+              "label": "Contested catch rate",
+              "n": 0,
+              "percentile": null,
+              "poolN": 58,
+              "source": "ftn",
+              "unit": "pct",
+              "value": null,
+              "weight": 0.05
+            }
+          ],
+          "grade": {
+            "bin": "neutral",
+            "k": 5,
+            "n": 4,
+            "qualified": true,
+            "rawComposite": 63.563,
+            "reason": null,
+            "value": 56.028
+          },
+          "gsisId": "00-0037240",
+          "jersey": 1,
+          "name": "Jameson Williams",
+          "penalties": [],
+          "pool": "WR",
+          "position": "WR",
+          "snapPct": 0.82,
+          "snaps": 53
+        }
+      ],
+      "slot": "WR2",
+      "tileGrade": 56.028,
+      "unit": "offense",
+      "unitOnly": false
+    },
+    {
+      "bin": "warm",
+      "label": "Wide receiver 3",
+      "players": [
+        {
+          "components": [
+            {
+              "direction": "higher",
+              "key": "wr.recEpaPerTarget",
+              "label": "Receiving EPA per target",
+              "n": 3,
+              "percentile": 97.706,
+              "poolN": 109,
+              "source": "stats_player",
+              "unit": "epa",
+              "value": 2.098,
+              "weight": 0.25
+            },
+            {
+              "direction": "higher",
+              "key": "wr.yardsPerEstRoute",
+              "label": "Yards per estimated route",
+              "n": 18,
+              "percentile": 94.196,
+              "poolN": 112,
+              "source": "snap_counts",
+              "unit": "yds",
+              "value": 3.667,
+              "weight": 0.2
+            },
+            {
+              "direction": "higher",
+              "key": "wr.targetShare",
+              "label": "Target share",
+              "n": 3,
+              "percentile": 34.956,
+              "poolN": 113,
+              "source": "stats_player",
+              "unit": "pct",
+              "value": 0.097,
+              "weight": 0.15
+            },
+            {
+              "direction": "higher",
+              "key": "wr.catchRateOverExpected",
+              "label": "Catch rate over expected",
+              "n": 3,
+              "percentile": 84.862,
+              "poolN": 109,
+              "source": "pbp",
+              "unit": "pct",
+              "value": 0.27,
+              "weight": 0.15
+            },
+            {
+              "direction": "higher",
+              "key": "wr.yacOverExpected",
+              "label": "YAC over expected",
+              "n": 3,
+              "percentile": 60.5,
+              "poolN": 100,
+              "source": "ngs",
+              "unit": "yds",
+              "value": 0.412,
+              "weight": 0.1
+            },
+            {
+              "direction": "lower",
+              "key": "wr.dropRate",
+              "label": "Drop rate",
+              "n": 3,
+              "percentile": 58.654,
+              "poolN": 104,
+              "source": "ftn",
+              "unit": "pct",
+              "value": 0,
+              "weight": 0.1
+            },
+            {
+              "direction": "higher",
+              "key": "wr.contestedCatchRate",
+              "label": "Contested catch rate",
+              "n": 0,
+              "percentile": null,
+              "poolN": 58,
+              "source": "ftn",
+              "unit": "pct",
+              "value": null,
+              "weight": 0.05
+            }
+          ],
+          "grade": {
+            "bin": "warm",
+            "k": 5,
+            "n": 3,
+            "qualified": true,
+            "rawComposite": 77.004,
+            "reason": null,
+            "value": 60.127
+          },
+          "gsisId": "00-0040669",
+          "jersey": 18,
+          "name": "Isaac TeSlaa",
+          "penalties": [],
+          "pool": "WR",
+          "position": "WR",
+          "snapPct": 0.48,
+          "snaps": 31
+        },
+        {
+          "components": [
+            {
+              "direction": "higher",
+              "key": "wr.recEpaPerTarget",
+              "label": "Receiving EPA per target",
+              "n": 0,
+              "percentile": null,
+              "poolN": 109,
+              "source": "stats_player",
+              "unit": "epa",
+              "value": null,
+              "weight": 0.25
+            },
+            {
+              "direction": "higher",
+              "key": "wr.yardsPerEstRoute",
+              "label": "Yards per estimated route",
+              "n": 1,
+              "percentile": null,
+              "poolN": 112,
+              "source": "snap_counts",
+              "unit": "yds",
+              "value": null,
+              "weight": 0.2
+            },
+            {
+              "direction": "higher",
+              "key": "wr.targetShare",
+              "label": "Target share",
+              "n": 0,
+              "percentile": null,
+              "poolN": 113,
+              "source": "stats_player",
+              "unit": "pct",
+              "value": null,
+              "weight": 0.15
+            },
+            {
+              "direction": "higher",
+              "key": "wr.catchRateOverExpected",
+              "label": "Catch rate over expected",
+              "n": 0,
+              "percentile": null,
+              "poolN": 109,
+              "source": "pbp",
+              "unit": "pct",
+              "value": null,
+              "weight": 0.15
+            },
+            {
+              "direction": "higher",
+              "key": "wr.yacOverExpected",
+              "label": "YAC over expected",
+              "n": 0,
+              "percentile": null,
+              "poolN": 100,
+              "source": "ngs",
+              "unit": "yds",
+              "value": null,
+              "weight": 0.1
+            },
+            {
+              "direction": "lower",
+              "key": "wr.dropRate",
+              "label": "Drop rate",
+              "n": 0,
+              "percentile": null,
+              "poolN": 104,
+              "source": "ftn",
+              "unit": "pct",
+              "value": null,
+              "weight": 0.1
+            },
+            {
+              "direction": "higher",
+              "key": "wr.contestedCatchRate",
+              "label": "Contested catch rate",
+              "n": 0,
+              "percentile": null,
+              "poolN": 58,
+              "source": "ftn",
+              "unit": "pct",
+              "value": null,
+              "weight": 0.05
+            }
+          ],
+          "grade": {
+            "bin": "na",
+            "k": 5,
+            "n": 0,
+            "qualified": false,
+            "rawComposite": null,
+            "reason": "below 3 targets or 15 offensive snaps",
+            "value": null
+          },
+          "gsisId": "00-0037524",
+          "jersey": 17,
+          "name": "Tay Martin",
+          "penalties": [],
+          "pool": "WR",
+          "position": "WR",
+          "snapPct": 0.03,
+          "snaps": 2
+        }
+      ],
+      "slot": "WR3",
+      "tileGrade": 60.127,
+      "unit": "offense",
+      "unitOnly": false
+    },
+    {
+      "bin": "neutral",
+      "label": "Tight end",
+      "players": [
+        {
+          "components": [
+            {
+              "direction": "higher",
+              "key": "te.recEpaPerTarget",
+              "label": "Receiving EPA per target",
+              "n": 4,
+              "percentile": 57.463,
+              "poolN": 67,
+              "source": "stats_player",
+              "unit": "epa",
+              "value": 0.262,
+              "weight": 0.25
+            },
+            {
+              "direction": "higher",
+              "key": "te.yardsPerEstRoute",
+              "label": "Yards per estimated route",
+              "n": 35,
+              "percentile": 62.676,
+              "poolN": 71,
+              "source": "snap_counts",
+              "unit": "yds",
+              "value": 1.263,
+              "weight": 0.2
+            },
+            {
+              "direction": "higher",
+              "key": "te.targetShare",
+              "label": "Target share",
+              "n": 4,
+              "percentile": 69.718,
+              "poolN": 71,
+              "source": "stats_player",
+              "unit": "pct",
+              "value": 0.129,
+              "weight": 0.15
+            },
+            {
+              "direction": "higher",
+              "key": "te.catchRateOverExpected",
+              "label": "Catch rate over expected",
+              "n": 4,
+              "percentile": 51.493,
+              "poolN": 67,
+              "source": "pbp",
+              "unit": "pct",
+              "value": 0.058,
+              "weight": 0.15
+            },
+            {
+              "direction": "higher",
+              "key": "te.yacOverExpected",
+              "label": "YAC over expected",
+              "n": 3,
+              "percentile": 54.31,
+              "poolN": 58,
+              "source": "ngs",
+              "unit": "yds",
+              "value": 0.031,
+              "weight": 0.1
+            },
+            {
+              "direction": "lower",
+              "key": "te.dropRate",
+              "label": "Drop rate",
+              "n": 4,
+              "percentile": 59.677,
+              "poolN": 62,
+              "source": "ftn",
+              "unit": "pct",
+              "value": 0,
+              "weight": 0.1
+            },
+            {
+              "direction": "higher",
+              "key": "te.contestedCatchRate",
+              "label": "Contested catch rate",
+              "n": 2,
+              "percentile": 52,
+              "poolN": 25,
+              "source": "ftn",
+              "unit": "pct",
+              "value": 0.5,
+              "weight": 0.05
+            }
+          ],
+          "grade": {
+            "bin": "neutral",
+            "k": 5,
+            "n": 4,
+            "qualified": true,
+            "rawComposite": 59.081,
+            "reason": null,
+            "value": 54.036
+          },
+          "gsisId": "00-0039065",
+          "jersey": 87,
+          "name": "Sam LaPorta",
+          "penalties": [],
+          "pool": "TE",
+          "position": "TE",
+          "snapPct": 0.92,
+          "snaps": 60
+        },
+        {
+          "components": [
+            {
+              "direction": "higher",
+              "key": "te.recEpaPerTarget",
+              "label": "Receiving EPA per target",
+              "n": 2,
+              "percentile": 55.97,
+              "poolN": 67,
+              "source": "stats_player",
+              "unit": "epa",
+              "value": 0.262,
+              "weight": 0.25
+            },
+            {
+              "direction": "higher",
+              "key": "te.yardsPerEstRoute",
+              "label": "Yards per estimated route",
+              "n": 22,
+              "percentile": 28.873,
+              "poolN": 71,
+              "source": "snap_counts",
+              "unit": "yds",
+              "value": 0.317,
+              "weight": 0.2
+            },
+            {
+              "direction": "higher",
+              "key": "te.targetShare",
+              "label": "Target share",
+              "n": 2,
+              "percentile": 41.549,
+              "poolN": 71,
+              "source": "stats_player",
+              "unit": "pct",
+              "value": 0.065,
+              "weight": 0.15
+            },
+            {
+              "direction": "higher",
+              "key": "te.catchRateOverExpected",
+              "label": "Catch rate over expected",
+              "n": 2,
+              "percentile": 60.448,
+              "poolN": 67,
+              "source": "pbp",
+              "unit": "pct",
+              "value": 0.17,
+              "weight": 0.15
+            },
+            {
+              "direction": "higher",
+              "key": "te.yacOverExpected",
+              "label": "YAC over expected",
+              "n": 2,
+              "percentile": 25,
+              "poolN": 58,
+              "source": "ngs",
+              "unit": "yds",
+              "value": -0.472,
+              "weight": 0.1
+            },
+            {
+              "direction": "lower",
+              "key": "te.dropRate",
+              "label": "Drop rate",
+              "n": 2,
+              "percentile": 59.677,
+              "poolN": 62,
+              "source": "ftn",
+              "unit": "pct",
+              "value": 0,
+              "weight": 0.1
+            },
+            {
+              "direction": "higher",
+              "key": "te.contestedCatchRate",
+              "label": "Contested catch rate",
+              "n": 0,
+              "percentile": null,
+              "poolN": 25,
+              "source": "ftn",
+              "unit": "pct",
+              "value": null,
+              "weight": 0.05
+            }
+          ],
+          "grade": {
+            "bin": "neutral",
+            "k": 5,
+            "n": 2,
+            "qualified": true,
+            "rawComposite": 45.826,
+            "reason": null,
+            "value": 48.807
+          },
+          "gsisId": "00-0036754",
+          "jersey": 89,
+          "name": "Brock Wright",
+          "penalties": [],
+          "pool": "TE",
+          "position": "TE",
+          "snapPct": 0.58,
+          "snaps": 38
+        },
+        {
+          "components": [
+            {
+              "direction": "higher",
+              "key": "te.recEpaPerTarget",
+              "label": "Receiving EPA per target",
+              "n": 1,
+              "percentile": 64.179,
+              "poolN": 67,
+              "source": "stats_player",
+              "unit": "epa",
+              "value": 0.58,
+              "weight": 0.25
+            },
+            {
+              "direction": "higher",
+              "key": "te.yardsPerEstRoute",
+              "label": "Yards per estimated route",
+              "n": 6,
+              "percentile": 66.197,
+              "poolN": 71,
+              "source": "snap_counts",
+              "unit": "yds",
+              "value": 1.378,
+              "weight": 0.2
+            },
+            {
+              "direction": "higher",
+              "key": "te.targetShare",
+              "label": "Target share",
+              "n": 1,
+              "percentile": 18.31,
+              "poolN": 71,
+              "source": "stats_player",
+              "unit": "pct",
+              "value": 0.032,
+              "weight": 0.15
+            },
+            {
+              "direction": "higher",
+              "key": "te.catchRateOverExpected",
+              "label": "Catch rate over expected",
+              "n": 1,
+              "percentile": 59.701,
+              "poolN": 67,
+              "source": "pbp",
+              "unit": "pct",
+              "value": 0.169,
+              "weight": 0.15
+            },
+            {
+              "direction": "higher",
+              "key": "te.yacOverExpected",
+              "label": "YAC over expected",
+              "n": 1,
+              "percentile": 46.552,
+              "poolN": 58,
+              "source": "ngs",
+              "unit": "yds",
+              "value": -0.035,
+              "weight": 0.1
+            },
+            {
+              "direction": "lower",
+              "key": "te.dropRate",
+              "label": "Drop rate",
+              "n": 1,
+              "percentile": 59.677,
+              "poolN": 62,
+              "source": "ftn",
+              "unit": "pct",
+              "value": 0,
+              "weight": 0.1
+            },
+            {
+              "direction": "higher",
+              "key": "te.contestedCatchRate",
+              "label": "Contested catch rate",
+              "n": 0,
+              "percentile": null,
+              "poolN": 25,
+              "source": "ftn",
+              "unit": "pct",
+              "value": null,
+              "weight": 0.05
+            }
+          ],
+          "grade": {
+            "bin": "na",
+            "k": 5,
+            "n": 1,
+            "qualified": false,
+            "rawComposite": 54.325,
+            "reason": "below 3 targets or 15 offensive snaps",
+            "value": null
+          },
+          "gsisId": "00-0040390",
+          "jersey": 13,
+          "name": "Jackson Meeks",
+          "penalties": [],
+          "pool": "TE",
+          "position": "TE",
+          "snapPct": 0.15,
+          "snaps": 10
+        }
+      ],
+      "slot": "TE",
+      "tileGrade": 52.009,
+      "unit": "offense",
+      "unitOnly": false
+    },
+    {
+      "bin": "hot",
+      "label": "Left tackle",
+      "players": [
+        {
+          "components": [],
+          "grade": {
+            "bin": "na",
+            "k": 0,
+            "n": 65,
+            "qualified": false,
+            "rawComposite": null,
+            "reason": "unit grade only",
+            "value": null
+          },
+          "gsisId": "00-0036880",
+          "jersey": 58,
+          "name": "Penei Sewell",
+          "penalties": [
+            {
+              "type": "Offensive Holding",
+              "yards": 10
+            }
+          ],
+          "pool": "OL",
+          "position": "LT",
+          "snapPct": 1,
+          "snaps": 65
+        }
+      ],
+      "slot": "LT",
+      "tileGrade": 76.229,
+      "unit": "offense",
+      "unitOnly": true
+    },
+    {
+      "bin": "hot",
+      "label": "Left guard",
+      "players": [
+        {
+          "components": [],
+          "grade": {
+            "bin": "na",
+            "k": 0,
+            "n": 65,
+            "qualified": false,
+            "rawComposite": null,
+            "reason": "unit grade only",
+            "value": null
+          },
+          "gsisId": "00-0039408",
+          "jersey": 73,
+          "name": "Christian Mahogany",
+          "penalties": [],
+          "pool": "OL",
+          "position": "LG",
+          "snapPct": 1,
+          "snaps": 65
+        }
+      ],
+      "slot": "LG",
+      "tileGrade": 76.229,
+      "unit": "offense",
+      "unitOnly": true
+    },
+    {
+      "bin": "hot",
+      "label": "Center",
+      "players": [
+        {
+          "components": [],
+          "grade": {
+            "bin": "na",
+            "k": 0,
+            "n": 65,
+            "qualified": false,
+            "rawComposite": null,
+            "reason": "unit grade only",
+            "value": null
+          },
+          "gsisId": "00-0038936",
+          "jersey": 70,
+          "name": "Juice Scruggs",
+          "penalties": [],
+          "pool": "OL",
+          "position": "C",
+          "snapPct": 1,
+          "snaps": 65
+        }
+      ],
+      "slot": "C",
+      "tileGrade": 76.229,
+      "unit": "offense",
+      "unitOnly": true
+    },
+    {
+      "bin": "hot",
+      "label": "Right guard",
+      "players": [
+        {
+          "components": [],
+          "grade": {
+            "bin": "na",
+            "k": 0,
+            "n": 65,
+            "qualified": false,
+            "rawComposite": null,
+            "reason": "unit grade only",
+            "value": null
+          },
+          "gsisId": "00-0040728",
+          "jersey": 69,
+          "name": "Tate Ratledge",
+          "penalties": [],
+          "pool": "OL",
+          "position": "RG",
+          "snapPct": 1,
+          "snaps": 65
+        }
+      ],
+      "slot": "RG",
+      "tileGrade": 76.229,
+      "unit": "offense",
+      "unitOnly": true
+    },
+    {
+      "bin": "hot",
+      "label": "Right tackle",
+      "players": [
+        {
+          "components": [],
+          "grade": {
+            "bin": "na",
+            "k": 0,
+            "n": 65,
+            "qualified": false,
+            "rawComposite": null,
+            "reason": "unit grade only",
+            "value": null
+          },
+          "gsisId": "00-0041439",
+          "jersey": 76,
+          "name": "Blake Miller",
+          "penalties": [
+            {
+              "type": "False Start",
+              "yards": 5
+            }
+          ],
+          "pool": "OL",
+          "position": "OT",
+          "snapPct": 1,
+          "snaps": 65
+        },
+        {
+          "components": [],
+          "grade": {
+            "bin": "na",
+            "k": 0,
+            "n": 15,
+            "qualified": false,
+            "rawComposite": null,
+            "reason": "unit grade only",
+            "value": null
+          },
+          "gsisId": "00-0036905",
+          "jersey": 79,
+          "name": "Larry Borom",
+          "penalties": [],
+          "pool": "OL",
+          "position": "RT",
+          "snapPct": 0.23,
+          "snaps": 15
+        }
+      ],
+      "slot": "RT",
+      "tileGrade": 76.229,
+      "unit": "offense",
+      "unitOnly": true
+    },
+    {
+      "bin": "neutral",
+      "label": "Left edge",
+      "players": [
+        {
+          "components": [
+            {
+              "direction": "higher",
+              "key": "edge.pressureRate",
+              "label": "Pressure rate",
+              "n": 47,
+              "percentile": 54.487,
+              "poolN": 78,
+              "source": "pfr",
+              "unit": "pct",
+              "value": 0.064,
+              "weight": 0.35
+            },
+            {
+              "direction": "higher",
+              "key": "edge.sacks",
+              "label": "Sacks",
+              "n": 64,
+              "percentile": 77.232,
+              "poolN": 112,
+              "source": "stats_player",
+              "unit": "count",
+              "value": 0.5,
+              "weight": 0.2
+            },
+            {
+              "direction": "higher",
+              "key": "edge.qbHits",
+              "label": "QB hits",
+              "n": 64,
+              "percentile": 64.286,
+              "poolN": 112,
+              "source": "stats_player",
+              "unit": "count",
+              "value": 1,
+              "weight": 0.1
+            },
+            {
+              "direction": "higher",
+              "key": "edge.tfl",
+              "label": "Tackles for loss",
+              "n": 64,
+              "percentile": 37.054,
+              "poolN": 112,
+              "source": "stats_player",
+              "unit": "count",
+              "value": 0,
+              "weight": 0.15
+            },
+            {
+              "direction": "higher",
+              "key": "edge.runStopRate",
+              "label": "Run stop rate",
+              "n": 17,
+              "percentile": 45.089,
+              "poolN": 112,
+              "source": "pbp",
+              "unit": "pct",
+              "value": 0.058,
+              "weight": 0.15
+            },
+            {
+              "direction": "lower",
+              "key": "edge.missedTacklePct",
+              "label": "Missed tackle %",
+              "n": 64,
+              "percentile": 61.111,
+              "poolN": 72,
+              "source": "pfr",
+              "unit": "pct",
+              "value": 0,
+              "weight": 0.05
+            }
+          ],
+          "grade": {
+            "bin": "neutral",
+            "k": 25,
+            "n": 64,
+            "qualified": true,
+            "rawComposite": 56.322,
+            "reason": null,
+            "value": 54.547
+          },
+          "gsisId": "00-0037236",
+          "jersey": 97,
+          "name": "Aidan Hutchinson",
+          "penalties": [],
+          "pool": "EDGE",
+          "position": "LDE",
+          "snapPct": 0.97,
+          "snaps": 64
+        },
+        {
+          "components": [
+            {
+              "direction": "higher",
+              "key": "edge.pressureRate",
+              "label": "Pressure rate",
+              "n": 7,
+              "percentile": null,
+              "poolN": 78,
+              "source": "pfr",
+              "unit": "pct",
+              "value": null,
+              "weight": 0.35
+            },
+            {
+              "direction": "higher",
+              "key": "edge.sacks",
+              "label": "Sacks",
+              "n": 9,
+              "percentile": 37.054,
+              "poolN": 112,
+              "source": "stats_player",
+              "unit": "count",
+              "value": 0,
+              "weight": 0.2
+            },
+            {
+              "direction": "higher",
+              "key": "edge.qbHits",
+              "label": "QB hits",
+              "n": 9,
+              "percentile": 25,
+              "poolN": 112,
+              "source": "stats_player",
+              "unit": "count",
+              "value": 0,
+              "weight": 0.1
+            },
+            {
+              "direction": "higher",
+              "key": "edge.tfl",
+              "label": "Tackles for loss",
+              "n": 9,
+              "percentile": 37.054,
+              "poolN": 112,
+              "source": "stats_player",
+              "unit": "count",
+              "value": 0,
+              "weight": 0.15
+            },
+            {
+              "direction": "higher",
+              "key": "edge.runStopRate",
+              "label": "Run stop rate",
+              "n": 2,
+              "percentile": 16.518,
+              "poolN": 112,
+              "source": "pbp",
+              "unit": "pct",
+              "value": 0,
+              "weight": 0.15
+            },
+            {
+              "direction": "lower",
+              "key": "edge.missedTacklePct",
+              "label": "Missed tackle %",
+              "n": 9,
+              "percentile": null,
+              "poolN": 72,
+              "source": "pfr",
+              "unit": "pct",
+              "value": null,
+              "weight": 0.05
+            }
+          ],
+          "grade": {
+            "bin": "na",
+            "k": 25,
+            "n": 9,
+            "qualified": false,
+            "rawComposite": 29.911,
+            "reason": "below 15 defensive snaps",
+            "value": null
+          },
+          "gsisId": "00-0041441",
+          "jersey": 8,
+          "name": "Derrick Moore",
+          "penalties": [],
+          "pool": "EDGE",
+          "position": "LDE",
+          "snapPct": 0.14,
+          "snaps": 9
+        },
+        {
+          "components": [
+            {
+              "direction": "higher",
+              "key": "edge.pressureRate",
+              "label": "Pressure rate",
+              "n": 1,
+              "percentile": null,
+              "poolN": 78,
+              "source": "pfr",
+              "unit": "pct",
+              "value": null,
+              "weight": 0.35
+            },
+            {
+              "direction": "higher",
+              "key": "edge.sacks",
+              "label": "Sacks",
+              "n": 1,
+              "percentile": 37.054,
+              "poolN": 112,
+              "source": "stats_player",
+              "unit": "count",
+              "value": 0,
+              "weight": 0.2
+            },
+            {
+              "direction": "higher",
+              "key": "edge.qbHits",
+              "label": "QB hits",
+              "n": 1,
+              "percentile": 25,
+              "poolN": 112,
+              "source": "stats_player",
+              "unit": "count",
+              "value": 0,
+              "weight": 0.1
+            },
+            {
+              "direction": "higher",
+              "key": "edge.tfl",
+              "label": "Tackles for loss",
+              "n": 1,
+              "percentile": 37.054,
+              "poolN": 112,
+              "source": "stats_player",
+              "unit": "count",
+              "value": 0,
+              "weight": 0.15
+            },
+            {
+              "direction": "higher",
+              "key": "edge.runStopRate",
+              "label": "Run stop rate",
+              "n": 0,
+              "percentile": 16.518,
+              "poolN": 112,
+              "source": "pbp",
+              "unit": "pct",
+              "value": 0,
+              "weight": 0.15
+            },
+            {
+              "direction": "lower",
+              "key": "edge.missedTacklePct",
+              "label": "Missed tackle %",
+              "n": 1,
+              "percentile": null,
+              "poolN": 72,
+              "source": "pfr",
+              "unit": "pct",
+              "value": null,
+              "weight": 0.05
+            }
+          ],
+          "grade": {
+            "bin": "na",
+            "k": 25,
+            "n": 1,
+            "qualified": false,
+            "rawComposite": 29.911,
+            "reason": "below 15 defensive snaps",
+            "value": null
+          },
+          "gsisId": "00-0041459",
+          "jersey": 66,
+          "name": "Eric O'Neill",
+          "penalties": [],
+          "pool": "EDGE",
+          "position": "LDE",
+          "snapPct": 0.02,
+          "snaps": 1
+        }
+      ],
+      "slot": "EDGE_L",
+      "tileGrade": 54.547,
+      "unit": "defense",
+      "unitOnly": false
+    },
+    {
+      "bin": "neutral",
+      "label": "Left interior",
+      "players": [
+        {
+          "components": [
+            {
+              "direction": "higher",
+              "key": "idl.pressureRate",
+              "label": "Pressure rate",
+              "n": 35,
+              "percentile": 49.219,
+              "poolN": 64,
+              "source": "pfr",
+              "unit": "pct",
+              "value": 0.057,
+              "weight": 0.35
+            },
+            {
+              "direction": "higher",
+              "key": "idl.sacks",
+              "label": "Sacks",
+              "n": 48,
+              "percentile": 93.511,
+              "poolN": 131,
+              "source": "stats_player",
+              "unit": "count",
+              "value": 1,
+              "weight": 0.2
+            },
+            {
+              "direction": "higher",
+              "key": "idl.qbHits",
+              "label": "QB hits",
+              "n": 48,
+              "percentile": 91.603,
+              "poolN": 131,
+              "source": "stats_player",
+              "unit": "count",
+              "value": 2,
+              "weight": 0.1
+            },
+            {
+              "direction": "higher",
+              "key": "idl.tfl",
+              "label": "Tackles for loss",
+              "n": 48,
+              "percentile": 89.313,
+              "poolN": 131,
+              "source": "stats_player",
+              "unit": "count",
+              "value": 1,
+              "weight": 0.15
+            },
+            {
+              "direction": "higher",
+              "key": "idl.runStopRate",
+              "label": "Run stop rate",
+              "n": 13,
+              "percentile": 14.885,
+              "poolN": 131,
+              "source": "pbp",
+              "unit": "pct",
+              "value": 0,
+              "weight": 0.15
+            },
+            {
+              "direction": "lower",
+              "key": "idl.missedTacklePct",
+              "label": "Missed tackle %",
+              "n": 48,
+              "percentile": 58.621,
+              "poolN": 58,
+              "source": "pfr",
+              "unit": "pct",
+              "value": 0,
+              "weight": 0.05
+            }
+          ],
+          "grade": {
+            "bin": "neutral",
+            "k": 25,
+            "n": 48,
+            "qualified": true,
+            "rawComposite": 63.65,
+            "reason": null,
+            "value": 58.975
+          },
+          "gsisId": "00-0036624",
+          "jersey": 54,
+          "name": "Alim McNeill",
+          "penalties": [],
+          "pool": "IDL",
+          "position": "LDT",
+          "snapPct": 0.73,
+          "snaps": 48
+        }
+      ],
+      "slot": "IDL_L",
+      "tileGrade": 58.975,
+      "unit": "defense",
+      "unitOnly": false
+    },
+    {
+      "bin": "neutral",
+      "label": "Right interior",
+      "players": [
+        {
+          "components": [
+            {
+              "direction": "higher",
+              "key": "idl.pressureRate",
+              "label": "Pressure rate",
+              "n": 24,
+              "percentile": 30.469,
+              "poolN": 64,
+              "source": "pfr",
+              "unit": "pct",
+              "value": 0.042,
+              "weight": 0.35
+            },
+            {
+              "direction": "higher",
+              "key": "idl.sacks",
+              "label": "Sacks",
+              "n": 33,
+              "percentile": 88.931,
+              "poolN": 131,
+              "source": "stats_player",
+              "unit": "count",
+              "value": 0.5,
+              "weight": 0.2
+            },
+            {
+              "direction": "higher",
+              "key": "idl.qbHits",
+              "label": "QB hits",
+              "n": 33,
+              "percentile": 76.336,
+              "poolN": 131,
+              "source": "stats_player",
+              "unit": "count",
+              "value": 1,
+              "weight": 0.1
+            },
+            {
+              "direction": "higher",
+              "key": "idl.tfl",
+              "label": "Tackles for loss",
+              "n": 33,
+              "percentile": 41.603,
+              "poolN": 131,
+              "source": "stats_player",
+              "unit": "count",
+              "value": 0,
+              "weight": 0.15
+            },
+            {
+              "direction": "higher",
+              "key": "idl.runStopRate",
+              "label": "Run stop rate",
+              "n": 9,
+              "percentile": 14.885,
+              "poolN": 131,
+              "source": "pbp",
+              "unit": "pct",
+              "value": 0,
+              "weight": 0.15
+            },
+            {
+              "direction": "lower",
+              "key": "idl.missedTacklePct",
+              "label": "Missed tackle %",
+              "n": 33,
+              "percentile": 58.621,
+              "poolN": 58,
+              "source": "pfr",
+              "unit": "pct",
+              "value": 0,
+              "weight": 0.05
+            }
+          ],
+          "grade": {
+            "bin": "neutral",
+            "k": 25,
+            "n": 33,
+            "qualified": true,
+            "rawComposite": 47.488,
+            "reason": null,
+            "value": 48.571
+          },
+          "gsisId": "00-0041447",
+          "jersey": 50,
+          "name": "Skyler Gill-Howard",
+          "penalties": [],
+          "pool": "IDL",
+          "position": "RDT",
+          "snapPct": 0.5,
+          "snaps": 33
+        },
+        {
+          "components": [
+            {
+              "direction": "higher",
+              "key": "idl.pressureRate",
+              "label": "Pressure rate",
+              "n": 22,
+              "percentile": null,
+              "poolN": 64,
+              "source": "pfr",
+              "unit": "pct",
+              "value": null,
+              "weight": 0.35
+            },
+            {
+              "direction": "higher",
+              "key": "idl.sacks",
+              "label": "Sacks",
+              "n": 30,
+              "percentile": 43.893,
+              "poolN": 131,
+              "source": "stats_player",
+              "unit": "count",
+              "value": 0,
+              "weight": 0.2
+            },
+            {
+              "direction": "higher",
+              "key": "idl.qbHits",
+              "label": "QB hits",
+              "n": 30,
+              "percentile": 32.443,
+              "poolN": 131,
+              "source": "stats_player",
+              "unit": "count",
+              "value": 0,
+              "weight": 0.1
+            },
+            {
+              "direction": "higher",
+              "key": "idl.tfl",
+              "label": "Tackles for loss",
+              "n": 30,
+              "percentile": 41.603,
+              "poolN": 131,
+              "source": "stats_player",
+              "unit": "count",
+              "value": 0,
+              "weight": 0.15
+            },
+            {
+              "direction": "higher",
+              "key": "idl.runStopRate",
+              "label": "Run stop rate",
+              "n": 8,
+              "percentile": 14.885,
+              "poolN": 131,
+              "source": "pbp",
+              "unit": "pct",
+              "value": 0,
+              "weight": 0.15
+            },
+            {
+              "direction": "lower",
+              "key": "idl.missedTacklePct",
+              "label": "Missed tackle %",
+              "n": 30,
+              "percentile": null,
+              "poolN": 58,
+              "source": "pfr",
+              "unit": "pct",
+              "value": null,
+              "weight": 0.05
+            }
+          ],
+          "grade": {
+            "bin": "neutral",
+            "k": 25,
+            "n": 30,
+            "qualified": true,
+            "rawComposite": 34.16,
+            "reason": null,
+            "value": 41.36
+          },
+          "gsisId": "00-0040672",
+          "jersey": 91,
+          "name": "Tyleik Williams",
+          "penalties": [],
+          "pool": "IDL",
+          "position": "RDT",
+          "snapPct": 0.45,
+          "snaps": 30
+        },
+        {
+          "components": [
+            {
+              "direction": "higher",
+              "key": "idl.pressureRate",
+              "label": "Pressure rate",
+              "n": 8,
+              "percentile": null,
+              "poolN": 64,
+              "source": "pfr",
+              "unit": "pct",
+              "value": null,
+              "weight": 0.35
+            },
+            {
+              "direction": "higher",
+              "key": "idl.sacks",
+              "label": "Sacks",
+              "n": 11,
+              "percentile": 43.893,
+              "poolN": 131,
+              "source": "stats_player",
+              "unit": "count",
+              "value": 0,
+              "weight": 0.2
+            },
+            {
+              "direction": "higher",
+              "key": "idl.qbHits",
+              "label": "QB hits",
+              "n": 11,
+              "percentile": 32.443,
+              "poolN": 131,
+              "source": "stats_player",
+              "unit": "count",
+              "value": 0,
+              "weight": 0.1
+            },
+            {
+              "direction": "higher",
+              "key": "idl.tfl",
+              "label": "Tackles for loss",
+              "n": 11,
+              "percentile": 41.603,
+              "poolN": 131,
+              "source": "stats_player",
+              "unit": "count",
+              "value": 0,
+              "weight": 0.15
+            },
+            {
+              "direction": "higher",
+              "key": "idl.runStopRate",
+              "label": "Run stop rate",
+              "n": 3,
+              "percentile": 14.885,
+              "poolN": 131,
+              "source": "pbp",
+              "unit": "pct",
+              "value": 0,
+              "weight": 0.15
+            },
+            {
+              "direction": "lower",
+              "key": "idl.missedTacklePct",
+              "label": "Missed tackle %",
+              "n": 11,
+              "percentile": null,
+              "poolN": 58,
+              "source": "pfr",
+              "unit": "pct",
+              "value": null,
+              "weight": 0.05
+            }
+          ],
+          "grade": {
+            "bin": "na",
+            "k": 25,
+            "n": 11,
+            "qualified": false,
+            "rawComposite": 34.16,
+            "reason": "below 15 defensive snaps",
+            "value": null
+          },
+          "gsisId": "00-0036954",
+          "jersey": null,
+          "name": "Levi Onwuzurike",
+          "penalties": [],
+          "pool": "IDL",
+          "position": "RDT",
+          "snapPct": 0.17,
+          "snaps": 11
+        }
+      ],
+      "slot": "IDL_R",
+      "tileGrade": 45.137,
+      "unit": "defense",
+      "unitOnly": false
+    },
+    {
+      "bin": "neutral",
+      "label": "Right edge",
+      "players": [
+        {
+          "components": [
+            {
+              "direction": "higher",
+              "key": "edge.pressureRate",
+              "label": "Pressure rate",
+              "n": 32,
+              "percentile": 51.923,
+              "poolN": 78,
+              "source": "pfr",
+              "unit": "pct",
+              "value": 0.062,
+              "weight": 0.35
+            },
+            {
+              "direction": "higher",
+              "key": "edge.sacks",
+              "label": "Sacks",
+              "n": 44,
+              "percentile": 97.768,
+              "poolN": 112,
+              "source": "stats_player",
+              "unit": "count",
+              "value": 2,
+              "weight": 0.2
+            },
+            {
+              "direction": "higher",
+              "key": "edge.qbHits",
+              "label": "QB hits",
+              "n": 44,
+              "percentile": 87.054,
+              "poolN": 112,
+              "source": "stats_player",
+              "unit": "count",
+              "value": 2,
+              "weight": 0.1
+            },
+            {
+              "direction": "higher",
+              "key": "edge.tfl",
+              "label": "Tackles for loss",
+              "n": 44,
+              "percentile": 95.089,
+              "poolN": 112,
+              "source": "stats_player",
+              "unit": "count",
+              "value": 2,
+              "weight": 0.15
+            },
+            {
+              "direction": "higher",
+              "key": "edge.runStopRate",
+              "label": "Run stop rate",
+              "n": 12,
+              "percentile": 16.518,
+              "poolN": 112,
+              "source": "pbp",
+              "unit": "pct",
+              "value": 0,
+              "weight": 0.15
+            },
+            {
+              "direction": "lower",
+              "key": "edge.missedTacklePct",
+              "label": "Missed tackle %",
+              "n": 44,
+              "percentile": 4.861,
+              "poolN": 72,
+              "source": "pfr",
+              "unit": "pct",
+              "value": 0.333,
+              "weight": 0.05
+            }
+          ],
+          "grade": {
+            "bin": "neutral",
+            "k": 25,
+            "n": 44,
+            "qualified": true,
+            "rawComposite": 63.416,
+            "reason": null,
+            "value": 58.555
+          },
+          "gsisId": "00-0036335",
+          "jersey": 98,
+          "name": "D.J. Wonnum",
+          "penalties": [],
+          "pool": "EDGE",
+          "position": "RDE",
+          "snapPct": 0.67,
+          "snaps": 44
+        },
+        {
+          "components": [
+            {
+              "direction": "higher",
+              "key": "edge.pressureRate",
+              "label": "Pressure rate",
+              "n": 24,
+              "percentile": 8.333,
+              "poolN": 78,
+              "source": "pfr",
+              "unit": "pct",
+              "value": 0,
+              "weight": 0.35
+            },
+            {
+              "direction": "higher",
+              "key": "edge.sacks",
+              "label": "Sacks",
+              "n": 33,
+              "percentile": 37.054,
+              "poolN": 112,
+              "source": "stats_player",
+              "unit": "count",
+              "value": 0,
+              "weight": 0.2
+            },
+            {
+              "direction": "higher",
+              "key": "edge.qbHits",
+              "label": "QB hits",
+              "n": 33,
+              "percentile": 25,
+              "poolN": 112,
+              "source": "stats_player",
+              "unit": "count",
+              "value": 0,
+              "weight": 0.1
+            },
+            {
+              "direction": "higher",
+              "key": "edge.tfl",
+              "label": "Tackles for loss",
+              "n": 33,
+              "percentile": 37.054,
+              "poolN": 112,
+              "source": "stats_player",
+              "unit": "count",
+              "value": 0,
+              "weight": 0.15
+            },
+            {
+              "direction": "higher",
+              "key": "edge.runStopRate",
+              "label": "Run stop rate",
+              "n": 9,
+              "percentile": 93.304,
+              "poolN": 112,
+              "source": "pbp",
+              "unit": "pct",
+              "value": 0.225,
+              "weight": 0.15
+            },
+            {
+              "direction": "lower",
+              "key": "edge.missedTacklePct",
+              "label": "Missed tackle %",
+              "n": 33,
+              "percentile": 61.111,
+              "poolN": 72,
+              "source": "pfr",
+              "unit": "pct",
+              "value": 0,
+              "weight": 0.05
+            }
+          ],
+          "grade": {
+            "bin": "neutral",
+            "k": 25,
+            "n": 33,
+            "qualified": true,
+            "rawComposite": 35.437,
+            "reason": null,
+            "value": 41.714
+          },
+          "gsisId": "00-0038660",
+          "jersey": 53,
+          "name": "Trevor Nowaske",
+          "penalties": [
+            {
+              "type": "Offensive Holding",
+              "yards": 10
+            }
+          ],
+          "pool": "EDGE",
+          "position": "RDE",
+          "snapPct": 0.5,
+          "snaps": 33
+        },
+        {
+          "components": [
+            {
+              "direction": "higher",
+              "key": "edge.pressureRate",
+              "label": "Pressure rate",
+              "n": 14,
+              "percentile": null,
+              "poolN": 78,
+              "source": "pfr",
+              "unit": "pct",
+              "value": null,
+              "weight": 0.35
+            },
+            {
+              "direction": "higher",
+              "key": "edge.sacks",
+              "label": "Sacks",
+              "n": 19,
+              "percentile": 37.054,
+              "poolN": 112,
+              "source": "stats_player",
+              "unit": "count",
+              "value": 0,
+              "weight": 0.2
+            },
+            {
+              "direction": "higher",
+              "key": "edge.qbHits",
+              "label": "QB hits",
+              "n": 19,
+              "percentile": 25,
+              "poolN": 112,
+              "source": "stats_player",
+              "unit": "count",
+              "value": 0,
+              "weight": 0.1
+            },
+            {
+              "direction": "higher",
+              "key": "edge.tfl",
+              "label": "Tackles for loss",
+              "n": 19,
+              "percentile": 37.054,
+              "poolN": 112,
+              "source": "stats_player",
+              "unit": "count",
+              "value": 0,
+              "weight": 0.15
+            },
+            {
+              "direction": "higher",
+              "key": "edge.runStopRate",
+              "label": "Run stop rate",
+              "n": 5,
+              "percentile": 16.518,
+              "poolN": 112,
+              "source": "pbp",
+              "unit": "pct",
+              "value": 0,
+              "weight": 0.15
+            },
+            {
+              "direction": "lower",
+              "key": "edge.missedTacklePct",
+              "label": "Missed tackle %",
+              "n": 19,
+              "percentile": null,
+              "poolN": 72,
+              "source": "pfr",
+              "unit": "pct",
+              "value": null,
+              "weight": 0.05
+            }
+          ],
+          "grade": {
+            "bin": "neutral",
+            "k": 25,
+            "n": 19,
+            "qualified": true,
+            "rawComposite": 29.911,
+            "reason": null,
+            "value": 41.325
+          },
+          "gsisId": "00-0038940",
+          "jersey": 93,
+          "name": "Tyler Lacy",
+          "penalties": [],
+          "pool": "EDGE",
+          "position": "RDE",
+          "snapPct": 0.29,
+          "snaps": 19
+        }
+      ],
+      "slot": "EDGE_R",
+      "tileGrade": 49.356,
+      "unit": "defense",
+      "unitOnly": false
+    },
+    {
+      "bin": "cool",
+      "label": "Linebacker 1",
+      "players": [
+        {
+          "components": [
+            {
+              "direction": "higher",
+              "key": "lb.runStopRate",
+              "label": "Run stop rate",
+              "n": 18,
+              "percentile": 23.026,
+              "poolN": 76,
+              "source": "pbp",
+              "unit": "pct",
+              "value": 0.056,
+              "weight": 0.25
+            },
+            {
+              "direction": "higher",
+              "key": "lb.tacklesPerSnap",
+              "label": "Tackles per snap",
+              "n": 66,
+              "percentile": 36.842,
+              "poolN": 76,
+              "source": "stats_player",
+              "unit": "rate",
+              "value": 0.076,
+              "weight": 0.15
+            },
+            {
+              "direction": "higher",
+              "key": "lb.tflPlusSacks",
+              "label": "TFL + sacks",
+              "n": 66,
+              "percentile": 30.263,
+              "poolN": 76,
+              "source": "stats_player",
+              "unit": "count",
+              "value": 0,
+              "weight": 0.15
+            },
+            {
+              "direction": "lower",
+              "key": "lb.missedTacklePct",
+              "label": "Missed tackle %",
+              "n": 66,
+              "percentile": 69.118,
+              "poolN": 68,
+              "source": "pfr",
+              "unit": "pct",
+              "value": 0,
+              "weight": 0.15
+            },
+            {
+              "direction": "lower",
+              "key": "lb.coverage",
+              "label": "Coverage",
+              "n": 4,
+              "percentile": 11.607,
+              "poolN": 56,
+              "source": "pfr",
+              "unit": "score",
+              "value": 129.4,
+              "weight": 0.2
+            },
+            {
+              "direction": "higher",
+              "key": "lb.blitzPressureRate",
+              "label": "Blitz pressure rate",
+              "n": 8,
+              "percentile": 28.571,
+              "poolN": 49,
+              "source": "pfr",
+              "unit": "pct",
+              "value": 0,
+              "weight": 0.1
+            }
+          ],
+          "grade": {
+            "bin": "cool",
+            "k": 25,
+            "n": 66,
+            "qualified": true,
+            "rawComposite": 31.369,
+            "reason": null,
+            "value": 36.487
+          },
+          "gsisId": "00-0039018",
+          "jersey": 46,
+          "name": "Jack Campbell",
+          "penalties": [],
+          "pool": "LB",
+          "position": "MLB",
+          "snapPct": 1,
+          "snaps": 66
+        }
+      ],
+      "slot": "LB1",
+      "tileGrade": 36.487,
+      "unit": "defense",
+      "unitOnly": false
+    },
+    {
+      "bin": "neutral",
+      "label": "Linebacker 2",
+      "players": [
+        {
+          "components": [
+            {
+              "direction": "higher",
+              "key": "lb.runStopRate",
+              "label": "Run stop rate",
+              "n": 15,
+              "percentile": 84.868,
+              "poolN": 76,
+              "source": "pbp",
+              "unit": "pct",
+              "value": 0.195,
+              "weight": 0.25
+            },
+            {
+              "direction": "higher",
+              "key": "lb.tacklesPerSnap",
+              "label": "Tackles per snap",
+              "n": 57,
+              "percentile": 69.079,
+              "poolN": 76,
+              "source": "stats_player",
+              "unit": "rate",
+              "value": 0.114,
+              "weight": 0.15
+            },
+            {
+              "direction": "higher",
+              "key": "lb.tflPlusSacks",
+              "label": "TFL + sacks",
+              "n": 57,
+              "percentile": 73.684,
+              "poolN": 76,
+              "source": "stats_player",
+              "unit": "count",
+              "value": 1,
+              "weight": 0.15
+            },
+            {
+              "direction": "lower",
+              "key": "lb.missedTacklePct",
+              "label": "Missed tackle %",
+              "n": 57,
+              "percentile": 69.118,
+              "poolN": 68,
+              "source": "pfr",
+              "unit": "pct",
+              "value": 0,
+              "weight": 0.15
+            },
+            {
+              "direction": "lower",
+              "key": "lb.coverage",
+              "label": "Coverage",
+              "n": 6,
+              "percentile": 13.393,
+              "poolN": 56,
+              "source": "pfr",
+              "unit": "score",
+              "value": 125.85,
+              "weight": 0.2
+            },
+            {
+              "direction": "higher",
+              "key": "lb.blitzPressureRate",
+              "label": "Blitz pressure rate",
+              "n": 2,
+              "percentile": 28.571,
+              "poolN": 49,
+              "source": "pfr",
+              "unit": "pct",
+              "value": 0,
+              "weight": 0.1
+            }
+          ],
+          "grade": {
+            "bin": "neutral",
+            "k": 25,
+            "n": 57,
+            "qualified": true,
+            "rawComposite": 58.535,
+            "reason": null,
+            "value": 55.933
+          },
+          "gsisId": "00-0036964",
+          "jersey": 55,
+          "name": "Derrick Barnes",
+          "penalties": [],
+          "pool": "LB",
+          "position": "WLB",
+          "snapPct": 0.86,
+          "snaps": 57
+        },
+        {
+          "components": [
+            {
+              "direction": "higher",
+              "key": "lb.runStopRate",
+              "label": "Run stop rate",
+              "n": 5,
+              "percentile": 84.868,
+              "poolN": 76,
+              "source": "pbp",
+              "unit": "pct",
+              "value": 0.195,
+              "weight": 0.25
+            },
+            {
+              "direction": "higher",
+              "key": "lb.tacklesPerSnap",
+              "label": "Tackles per snap",
+              "n": 19,
+              "percentile": 14.474,
+              "poolN": 76,
+              "source": "stats_player",
+              "unit": "rate",
+              "value": 0.053,
+              "weight": 0.15
+            },
+            {
+              "direction": "higher",
+              "key": "lb.tflPlusSacks",
+              "label": "TFL + sacks",
+              "n": 19,
+              "percentile": 30.263,
+              "poolN": 76,
+              "source": "stats_player",
+              "unit": "count",
+              "value": 0,
+              "weight": 0.15
+            },
+            {
+              "direction": "lower",
+              "key": "lb.missedTacklePct",
+              "label": "Missed tackle %",
+              "n": 19,
+              "percentile": 69.118,
+              "poolN": 68,
+              "source": "pfr",
+              "unit": "pct",
+              "value": 0,
+              "weight": 0.15
+            },
+            {
+              "direction": "lower",
+              "key": "lb.coverage",
+              "label": "Coverage",
+              "n": 1,
+              "percentile": null,
+              "poolN": 56,
+              "source": "pfr",
+              "unit": "score",
+              "value": null,
+              "weight": 0.2
+            },
+            {
+              "direction": "higher",
+              "key": "lb.blitzPressureRate",
+              "label": "Blitz pressure rate",
+              "n": 0,
+              "percentile": null,
+              "poolN": 49,
+              "source": "pfr",
+              "unit": "pct",
+              "value": null,
+              "weight": 0.1
+            }
+          ],
+          "grade": {
+            "bin": "na",
+            "k": 25,
+            "n": 19,
+            "qualified": false,
+            "rawComposite": 54.708,
+            "reason": "below 20 defensive snaps",
+            "value": null
+          },
+          "gsisId": "00-0037289",
+          "jersey": 44,
+          "name": "Malcolm Rodriguez",
+          "penalties": [],
+          "pool": "LB",
+          "position": "SLB",
+          "snapPct": 0.29,
+          "snaps": 19
+        }
+      ],
+      "slot": "LB2",
+      "tileGrade": 55.933,
+      "unit": "defense",
+      "unitOnly": false
+    },
+    {
+      "bin": "neutral",
+      "label": "Left cornerback",
+      "players": [
+        {
+          "components": [
+            {
+              "direction": "lower",
+              "key": "cb.yardsPerCoverageSnap",
+              "label": "Yards allowed per coverage snap",
+              "n": 3,
+              "percentile": 73.125,
+              "poolN": 80,
+              "source": "pfr",
+              "unit": "yds",
+              "value": 0.641,
+              "weight": 0.3
+            },
+            {
+              "direction": "lower",
+              "key": "cb.passerRatingAllowed",
+              "label": "Passer rating allowed",
+              "n": 3,
+              "percentile": 10.366,
+              "poolN": 82,
+              "source": "pfr",
+              "unit": "score",
+              "value": 137.5,
+              "weight": 0.2
+            },
+            {
+              "direction": "lower",
+              "key": "cb.completionPctAllowed",
+              "label": "Completion % allowed",
+              "n": 3,
+              "percentile": 31.707,
+              "poolN": 82,
+              "source": "pfr",
+              "unit": "pct",
+              "value": 0.667,
+              "weight": 0.15
+            },
+            {
+              "direction": "higher",
+              "key": "cb.ballProduction",
+              "label": "Ball production",
+              "n": 45,
+              "percentile": 53.883,
+              "poolN": 103,
+              "source": "pbp",
+              "unit": "rate",
+              "value": 0.022,
+              "weight": 0.15
+            },
+            {
+              "direction": "lower",
+              "key": "cb.missedTacklePct",
+              "label": "Missed tackle %",
+              "n": 62,
+              "percentile": 69.681,
+              "poolN": 94,
+              "source": "pfr",
+              "unit": "pct",
+              "value": 0,
+              "weight": 0.1
+            },
+            {
+              "direction": "lower",
+              "key": "cb.tdAllowed",
+              "label": "TDs allowed",
+              "n": 3,
+              "percentile": 15.244,
+              "poolN": 82,
+              "source": "pfr",
+              "unit": "count",
+              "value": 1,
+              "weight": 0.1
+            }
+          ],
+          "grade": {
+            "bin": "neutral",
+            "k": 25,
+            "n": 62,
+            "qualified": true,
+            "rawComposite": 45.342,
+            "reason": null,
+            "value": 46.68
+          },
+          "gsisId": "00-0034384",
+          "jersey": 4,
+          "name": "D.J. Reed",
+          "penalties": [
+            {
+              "type": "Defensive Pass Interference",
+              "yards": 16
+            }
+          ],
+          "pool": "CB",
+          "position": "LCB",
+          "snapPct": 0.94,
+          "snaps": 62
+        }
+      ],
+      "slot": "CB_L",
+      "tileGrade": 46.68,
+      "unit": "defense",
+      "unitOnly": false
+    },
+    {
+      "bin": "na",
+      "label": "Right cornerback",
+      "players": [
+        {
+          "components": [
+            {
+              "direction": "lower",
+              "key": "cb.yardsPerCoverageSnap",
+              "label": "Yards allowed per coverage snap",
+              "n": 3,
+              "percentile": 27.5,
+              "poolN": 80,
+              "source": "pfr",
+              "unit": "yds",
+              "value": 1.58,
+              "weight": 0.3
+            },
+            {
+              "direction": "lower",
+              "key": "cb.passerRatingAllowed",
+              "label": "Passer rating allowed",
+              "n": 3,
+              "percentile": 51.22,
+              "poolN": 82,
+              "source": "pfr",
+              "unit": "score",
+              "value": 78.5,
+              "weight": 0.2
+            },
+            {
+              "direction": "lower",
+              "key": "cb.completionPctAllowed",
+              "label": "Completion % allowed",
+              "n": 3,
+              "percentile": 31.707,
+              "poolN": 82,
+              "source": "pfr",
+              "unit": "pct",
+              "value": 0.667,
+              "weight": 0.15
+            },
+            {
+              "direction": "higher",
+              "key": "cb.ballProduction",
+              "label": "Ball production",
+              "n": 9,
+              "percentile": 24.272,
+              "poolN": 103,
+              "source": "pbp",
+              "unit": "rate",
+              "value": 0,
+              "weight": 0.15
+            },
+            {
+              "direction": "lower",
+              "key": "cb.missedTacklePct",
+              "label": "Missed tackle %",
+              "n": 13,
+              "percentile": 69.681,
+              "poolN": 94,
+              "source": "pfr",
+              "unit": "pct",
+              "value": 0,
+              "weight": 0.1
+            },
+            {
+              "direction": "lower",
+              "key": "cb.tdAllowed",
+              "label": "TDs allowed",
+              "n": 3,
+              "percentile": 62.195,
+              "poolN": 82,
+              "source": "pfr",
+              "unit": "count",
+              "value": 0,
+              "weight": 0.1
+            }
+          ],
+          "grade": {
+            "bin": "na",
+            "k": 25,
+            "n": 13,
+            "qualified": false,
+            "rawComposite": 40.078,
+            "reason": "below 20 defensive snaps",
+            "value": null
+          },
+          "gsisId": "00-0035637",
+          "jersey": 23,
+          "name": "Rock Ya-Sin",
+          "penalties": [],
+          "pool": "CB",
+          "position": "RCB",
+          "snapPct": 0.2,
+          "snaps": 13
+        }
+      ],
+      "slot": "CB_R",
+      "tileGrade": null,
+      "unit": "defense",
+      "unitOnly": false
+    },
+    {
+      "bin": "cool",
+      "label": "Nickel",
+      "players": [
+        {
+          "components": [
+            {
+              "direction": "lower",
+              "key": "cb.yardsPerCoverageSnap",
+              "label": "Yards allowed per coverage snap",
+              "n": 7,
+              "percentile": 14.375,
+              "poolN": 80,
+              "source": "pfr",
+              "unit": "yds",
+              "value": 2.097,
+              "weight": 0.3
+            },
+            {
+              "direction": "lower",
+              "key": "cb.passerRatingAllowed",
+              "label": "Passer rating allowed",
+              "n": 7,
+              "percentile": 0.61,
+              "poolN": 82,
+              "source": "pfr",
+              "unit": "score",
+              "value": 158.3,
+              "weight": 0.2
+            },
+            {
+              "direction": "lower",
+              "key": "cb.completionPctAllowed",
+              "label": "Completion % allowed",
+              "n": 7,
+              "percentile": 2.439,
+              "poolN": 82,
+              "source": "pfr",
+              "unit": "pct",
+              "value": 1,
+              "weight": 0.15
+            },
+            {
+              "direction": "higher",
+              "key": "cb.ballProduction",
+              "label": "Ball production",
+              "n": 47,
+              "percentile": 24.272,
+              "poolN": 103,
+              "source": "pbp",
+              "unit": "rate",
+              "value": 0,
+              "weight": 0.15
+            },
+            {
+              "direction": "lower",
+              "key": "cb.missedTacklePct",
+              "label": "Missed tackle %",
+              "n": 64,
+              "percentile": 69.681,
+              "poolN": 94,
+              "source": "pfr",
+              "unit": "pct",
+              "value": 0,
+              "weight": 0.1
+            },
+            {
+              "direction": "lower",
+              "key": "cb.tdAllowed",
+              "label": "TDs allowed",
+              "n": 7,
+              "percentile": 15.244,
+              "poolN": 82,
+              "source": "pfr",
+              "unit": "count",
+              "value": 1,
+              "weight": 0.1
+            }
+          ],
+          "grade": {
+            "bin": "cool",
+            "k": 25,
+            "n": 64,
+            "qualified": true,
+            "rawComposite": 16.934,
+            "reason": null,
+            "value": 26.222
+          },
+          "gsisId": "00-0038125",
+          "jersey": 21,
+          "name": "Roger McCreary",
+          "penalties": [],
+          "pool": "CB",
+          "position": "NB",
+          "snapPct": 0.97,
+          "snaps": 64
+        },
+        {
+          "components": [
+            {
+              "direction": "lower",
+              "key": "cb.yardsPerCoverageSnap",
+              "label": "Yards allowed per coverage snap",
+              "n": 3,
+              "percentile": 89.375,
+              "poolN": 80,
+              "source": "pfr",
+              "unit": "yds",
+              "value": 0.357,
+              "weight": 0.3
+            },
+            {
+              "direction": "lower",
+              "key": "cb.passerRatingAllowed",
+              "label": "Passer rating allowed",
+              "n": 3,
+              "percentile": 89.024,
+              "poolN": 82,
+              "source": "pfr",
+              "unit": "score",
+              "value": 42.4,
+              "weight": 0.2
+            },
+            {
+              "direction": "lower",
+              "key": "cb.completionPctAllowed",
+              "label": "Completion % allowed",
+              "n": 3,
+              "percentile": 87.805,
+              "poolN": 82,
+              "source": "pfr",
+              "unit": "pct",
+              "value": 0.333,
+              "weight": 0.15
+            },
+            {
+              "direction": "higher",
+              "key": "cb.ballProduction",
+              "label": "Ball production",
+              "n": 17,
+              "percentile": 90.777,
+              "poolN": 103,
+              "source": "pbp",
+              "unit": "rate",
+              "value": 0.06,
+              "weight": 0.15
+            },
+            {
+              "direction": "lower",
+              "key": "cb.missedTacklePct",
+              "label": "Missed tackle %",
+              "n": 23,
+              "percentile": 69.681,
+              "poolN": 94,
+              "source": "pfr",
+              "unit": "pct",
+              "value": 0,
+              "weight": 0.1
+            },
+            {
+              "direction": "lower",
+              "key": "cb.tdAllowed",
+              "label": "TDs allowed",
+              "n": 3,
+              "percentile": 62.195,
+              "poolN": 82,
+              "source": "pfr",
+              "unit": "count",
+              "value": 0,
+              "weight": 0.1
+            }
+          ],
+          "grade": {
+            "bin": "warm",
+            "k": 25,
+            "n": 23,
+            "qualified": true,
+            "rawComposite": 84.592,
+            "reason": null,
+            "value": 66.575
+          },
+          "gsisId": "00-0039862",
+          "jersey": 2,
+          "name": "Ennis Rakestraw Jr.",
+          "penalties": [],
+          "pool": "CB",
+          "position": "NB",
+          "snapPct": 0.35,
+          "snaps": 23
+        }
+      ],
+      "slot": "NB",
+      "tileGrade": 36.89,
+      "unit": "defense",
+      "unitOnly": false
+    },
+    {
+      "bin": "neutral",
+      "label": "Safety 1",
+      "players": [
+        {
+          "components": [
+            {
+              "direction": "lower",
+              "key": "s.yardsPerCoverageSnap",
+              "label": "Yards allowed per coverage snap",
+              "n": 8,
+              "percentile": 56.977,
+              "poolN": 43,
+              "source": "pfr",
+              "unit": "yds",
+              "value": 0.706,
+              "weight": 0.3
+            },
+            {
+              "direction": "lower",
+              "key": "s.passerRatingAllowed",
+              "label": "Passer rating allowed",
+              "n": 8,
+              "percentile": 61.628,
+              "poolN": 43,
+              "source": "pfr",
+              "unit": "score",
+              "value": 83.9,
+              "weight": 0.2
+            },
+            {
+              "direction": "lower",
+              "key": "s.completionPctAllowed",
+              "label": "Completion % allowed",
+              "n": 8,
+              "percentile": 12.791,
+              "poolN": 43,
+              "source": "pfr",
+              "unit": "pct",
+              "value": 0.875,
+              "weight": 0.15
+            },
+            {
+              "direction": "higher",
+              "key": "s.ballProduction",
+              "label": "Ball production",
+              "n": 47,
+              "percentile": 69.178,
+              "poolN": 73,
+              "source": "pbp",
+              "unit": "rate",
+              "value": 0.021,
+              "weight": 0.15
+            },
+            {
+              "direction": "lower",
+              "key": "s.missedTacklePct",
+              "label": "Missed tackle %",
+              "n": 64,
+              "percentile": 68.75,
+              "poolN": 64,
+              "source": "pfr",
+              "unit": "pct",
+              "value": 0,
+              "weight": 0.1
+            },
+            {
+              "direction": "lower",
+              "key": "s.tdAllowed",
+              "label": "TDs allowed",
+              "n": 8,
+              "percentile": 62.791,
+              "poolN": 43,
+              "source": "pfr",
+              "unit": "count",
+              "value": 0,
+              "weight": 0.1
+            }
+          ],
+          "grade": {
+            "bin": "neutral",
+            "k": 25,
+            "n": 64,
+            "qualified": true,
+            "rawComposite": 54.868,
+            "reason": null,
+            "value": 53.501
+          },
+          "gsisId": "00-0038820",
+          "jersey": 5,
+          "name": "Christian Izien",
+          "penalties": [],
+          "pool": "S",
+          "position": "NB",
+          "snapPct": 0.97,
+          "snaps": 64
+        }
+      ],
+      "slot": "S1",
+      "tileGrade": 53.501,
+      "unit": "defense",
+      "unitOnly": false
+    },
+    {
+      "bin": "warm",
+      "label": "Safety 2",
+      "players": [
+        {
+          "components": [
+            {
+              "direction": "lower",
+              "key": "s.yardsPerCoverageSnap",
+              "label": "Yards allowed per coverage snap",
+              "n": 4,
+              "percentile": 82.558,
+              "poolN": 43,
+              "source": "pfr",
+              "unit": "yds",
+              "value": 0.519,
+              "weight": 0.3
+            },
+            {
+              "direction": "lower",
+              "key": "s.passerRatingAllowed",
+              "label": "Passer rating allowed",
+              "n": 4,
+              "percentile": 77.907,
+              "poolN": 43,
+              "source": "pfr",
+              "unit": "score",
+              "value": 53.1,
+              "weight": 0.2
+            },
+            {
+              "direction": "lower",
+              "key": "s.completionPctAllowed",
+              "label": "Completion % allowed",
+              "n": 4,
+              "percentile": 86.047,
+              "poolN": 43,
+              "source": "pfr",
+              "unit": "pct",
+              "value": 0.25,
+              "weight": 0.15
+            },
+            {
+              "direction": "higher",
+              "key": "s.ballProduction",
+              "label": "Ball production",
+              "n": 48,
+              "percentile": 31.507,
+              "poolN": 73,
+              "source": "pbp",
+              "unit": "rate",
+              "value": 0,
+              "weight": 0.15
+            },
+            {
+              "direction": "lower",
+              "key": "s.missedTacklePct",
+              "label": "Missed tackle %",
+              "n": 66,
+              "percentile": 32.031,
+              "poolN": 64,
+              "source": "pfr",
+              "unit": "pct",
+              "value": 0.125,
+              "weight": 0.1
+            },
+            {
+              "direction": "lower",
+              "key": "s.tdAllowed",
+              "label": "TDs allowed",
+              "n": 4,
+              "percentile": 62.791,
+              "poolN": 43,
+              "source": "pfr",
+              "unit": "count",
+              "value": 0,
+              "weight": 0.1
+            }
+          ],
+          "grade": {
+            "bin": "warm",
+            "k": 25,
+            "n": 66,
+            "qualified": true,
+            "rawComposite": 67.464,
+            "reason": null,
+            "value": 62.666
+          },
+          "gsisId": "00-0033294",
+          "jersey": 36,
+          "name": "Chuck Clark",
+          "penalties": [],
+          "pool": "S",
+          "position": "FS",
+          "snapPct": 1,
+          "snaps": 66
+        }
+      ],
+      "slot": "S2",
+      "tileGrade": 62.666,
+      "unit": "defense",
+      "unitOnly": false
+    },
+    {
+      "bin": "neutral",
+      "label": "Kicker",
+      "players": [
+        {
+          "components": [
+            {
+              "direction": "higher",
+              "key": "k.fgPointsOverExpected",
+              "label": "FG points over expected",
+              "n": 1,
+              "percentile": 35,
+              "poolN": 30,
+              "source": "pbp",
+              "unit": "score",
+              "value": 0.105,
+              "weight": 0.7
+            },
+            {
+              "direction": "higher",
+              "key": "k.xpRate",
+              "label": "Extra point rate",
+              "n": 4,
+              "percentile": 55.172,
+              "poolN": 29,
+              "source": "pbp",
+              "unit": "pct",
+              "value": 1,
+              "weight": 0.2
+            },
+            {
+              "direction": "higher",
+              "key": "k.kickoffTouchbackRate",
+              "label": "Kickoff touchback rate",
+              "n": 6,
+              "percentile": 50,
+              "poolN": 31,
+              "source": "pbp",
+              "unit": "pct",
+              "value": 0.167,
+              "weight": 0.1
+            }
+          ],
+          "grade": {
+            "bin": "neutral",
+            "k": 3,
+            "n": 5,
+            "qualified": true,
+            "rawComposite": 40.534,
+            "reason": null,
+            "value": 44.084
+          },
+          "gsisId": "00-0039172",
+          "jersey": 39,
+          "name": "Jake Bates",
+          "penalties": [],
+          "pool": "K",
+          "position": "PK",
+          "snapPct": 0.48,
+          "snaps": 11
+        }
+      ],
+      "slot": "K",
+      "tileGrade": 44.084,
+      "unit": "st",
+      "unitOnly": false
+    },
+    {
+      "bin": "neutral",
+      "label": "Punter",
+      "players": [
+        {
+          "components": [
+            {
+              "direction": "higher",
+              "key": "p.netAvg",
+              "label": "Net punt average",
+              "n": 2,
+              "percentile": 64.063,
+              "poolN": 32,
+              "source": "stats_player",
+              "unit": "yds",
+              "value": 42.5,
+              "weight": 0.4
+            },
+            {
+              "direction": "higher",
+              "key": "p.inside20Rate",
+              "label": "Inside-20 rate",
+              "n": 2,
+              "percentile": 65.625,
+              "poolN": 32,
+              "source": "stats_player",
+              "unit": "pct",
+              "value": 0.5,
+              "weight": 0.3
+            },
+            {
+              "direction": "higher",
+              "key": "p.puntEpa",
+              "label": "Punt EPA",
+              "n": 2,
+              "percentile": 70.313,
+              "poolN": 32,
+              "source": "pbp",
+              "unit": "epa",
+              "value": 0.235,
+              "weight": 0.3
+            }
+          ],
+          "grade": {
+            "bin": "neutral",
+            "k": 3,
+            "n": 2,
+            "qualified": true,
+            "rawComposite": 66.406,
+            "reason": null,
+            "value": 56.563
+          },
+          "gsisId": "00-0035156",
+          "jersey": 3,
+          "name": "Jack Fox",
+          "penalties": [],
+          "pool": "P",
+          "position": "P",
+          "snapPct": 0.3,
+          "snaps": 7
+        }
+      ],
+      "slot": "P",
+      "tileGrade": 56.563,
+      "unit": "st",
+      "unitOnly": false
+    },
+    {
+      "bin": "na",
+      "label": "Long snapper",
+      "players": [
+        {
+          "components": [],
+          "grade": {
+            "bin": "na",
+            "k": 0,
+            "n": 0,
+            "qualified": false,
+            "rawComposite": null,
+            "reason": "long snappers are not graded",
+            "value": null
+          },
+          "gsisId": "00-0039445",
+          "jersey": 49,
+          "name": "Hogan Hatten",
+          "penalties": [],
+          "pool": "P",
+          "position": "LS",
+          "snapPct": 0.3,
+          "snaps": 7
+        }
+      ],
+      "slot": "LS",
+      "tileGrade": null,
+      "unit": "st",
+      "unitOnly": false
+    },
+    {
+      "bin": "neutral",
+      "label": "Kick returner",
+      "players": [
+        {
+          "components": [
+            {
+              "direction": "higher",
+              "key": "ret.returnEpa",
+              "label": "Return EPA",
+              "n": 2,
+              "percentile": 87.5,
+              "poolN": 28,
+              "source": "pbp",
+              "unit": "epa",
+              "value": 2.2,
+              "weight": 0.6
+            },
+            {
+              "direction": "higher",
+              "key": "ret.yardsPerReturn",
+              "label": "Yards per return",
+              "n": 2,
+              "percentile": 98.214,
+              "poolN": 28,
+              "source": "pbp",
+              "unit": "yds",
+              "value": 40.5,
+              "weight": 0.4
+            }
+          ],
+          "grade": {
+            "bin": "warm",
+            "k": 3,
+            "n": 2,
+            "qualified": true,
+            "rawComposite": 91.786,
+            "reason": null,
+            "value": 66.714
+          },
+          "gsisId": "00-0038896",
+          "jersey": 25,
+          "name": "Jacob Saylors",
+          "penalties": [],
+          "pool": "RET",
+          "position": "RB",
+          "snapPct": 0.65,
+          "snaps": 15
+        },
+        {
+          "components": [
+            {
+              "direction": "higher",
+              "key": "ret.returnEpa",
+              "label": "Return EPA",
+              "n": 2,
+              "percentile": 19.643,
+              "poolN": 28,
+              "source": "pbp",
+              "unit": "epa",
+              "value": -0.641,
+              "weight": 0.6
+            },
+            {
+              "direction": "higher",
+              "key": "ret.yardsPerReturn",
+              "label": "Yards per return",
+              "n": 2,
+              "percentile": 21.429,
+              "poolN": 28,
+              "source": "pbp",
+              "unit": "yds",
+              "value": 17,
+              "weight": 0.4
+            }
+          ],
+          "grade": {
+            "bin": "cool",
+            "k": 3,
+            "n": 2,
+            "qualified": true,
+            "rawComposite": 20.357,
+            "reason": null,
+            "value": 38.143
+          },
+          "gsisId": "00-0035544",
+          "jersey": 85,
+          "name": "Tom Kennedy",
+          "penalties": [],
+          "pool": "RET",
+          "position": "PR",
+          "snapPct": 0.35,
+          "snaps": 8
+        }
+      ],
+      "slot": "KR",
+      "tileGrade": 56.776,
+      "unit": "st",
+      "unitOnly": false
+    },
+    {
+      "bin": "cool",
+      "label": "Punt returner",
+      "players": [
+        {
+          "components": [
+            {
+              "direction": "higher",
+              "key": "ret.returnEpa",
+              "label": "Return EPA",
+              "n": 2,
+              "percentile": 19.643,
+              "poolN": 28,
+              "source": "pbp",
+              "unit": "epa",
+              "value": -0.641,
+              "weight": 0.6
+            },
+            {
+              "direction": "higher",
+              "key": "ret.yardsPerReturn",
+              "label": "Yards per return",
+              "n": 2,
+              "percentile": 21.429,
+              "poolN": 28,
+              "source": "pbp",
+              "unit": "yds",
+              "value": 17,
+              "weight": 0.4
+            }
+          ],
+          "grade": {
+            "bin": "cool",
+            "k": 3,
+            "n": 2,
+            "qualified": true,
+            "rawComposite": 20.357,
+            "reason": null,
+            "value": 38.143
+          },
+          "gsisId": "00-0035544",
+          "jersey": 85,
+          "name": "Tom Kennedy",
+          "penalties": [],
+          "pool": "RET",
+          "position": "PR",
+          "snapPct": 0.35,
+          "snaps": 8
+        }
+      ],
+      "slot": "PR",
+      "tileGrade": 38.143,
+      "unit": "st",
+      "unitOnly": false
+    }
+  ],
+  "tier": "final",
+  "week": 3
+}

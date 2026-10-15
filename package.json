@@ -28,6 +28,7 @@
     "verify:quick": "pnpm secrets && pnpm lint && pnpm typecheck && pnpm test",
     "verify": "pnpm secrets && pnpm format:check && pnpm lint && pnpm typecheck && pnpm depcruise && pnpm knip && pnpm test:coverage && pnpm build && pnpm e2e && pnpm lhci",
     "pipeline": "tsx packages/pipeline/src/cli.ts",
+    "writer": "tsx packages/writer/src/cli.ts",
     "infra:preflight": "tsx infra/scripts/preflight.ts",
     "infra:synth": "pnpm --filter @huddle/infra synth",
     "infra:deploy": "pnpm infra:preflight && pnpm --filter @huddle/infra deploy",

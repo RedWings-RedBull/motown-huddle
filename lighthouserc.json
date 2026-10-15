@@ -11,7 +11,8 @@
         "/roster/",
         "/preview/",
         "/division/",
-        "/coach/"
+        "/coach/",
+        "/articles/"
       ],
       "numberOfRuns": 3
     },

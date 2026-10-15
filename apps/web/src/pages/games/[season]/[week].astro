@@ -2,6 +2,7 @@
 import { teamConfig } from "@huddle/shared";
 import { getCollection, getEntry } from "astro:content";
 
+import ArticleCard from "../../../components/ArticleCard.astro";
 import FieldHeatMap from "../../../components/field/FieldHeatMap";
 import KeyPlaysList from "../../../components/KeyPlaysList.astro";
 import GameHighlightsCard from "../../../components/GameHighlightsCard.astro";
@@ -10,6 +11,7 @@ import TeamPanel from "../../../components/TeamPanel.astro";
 import TierBadge from "../../../components/TierBadge.astro";
 import WinProbChart from "../../../components/WinProbChart.astro";
 import Base from "../../../layouts/Base.astro";
+import { findArticle } from "../../../lib/articles";
 import { resultWord, weekSlug } from "../../../lib/week";
 
 export async function getStaticPaths() {
@@ -39,6 +41,7 @@ if (!game || !teamMetrics || !grades || !keyPlays || !winProbability || !meta) {
 
 // Optional: older weeks and brand-new ones may not have a highlights file yet.
 const highlights = await getEntry("gameHighlights", id);
+const recap = await findArticle("recap", { season: game.data.season, week: game.data.week });
 const team = teamConfig.team;
 const opponent = game.data.team.opponent;
 const teamScore = game.data.team.side === "home" ? game.data.home.score : game.data.away.score;
@@ -77,6 +80,7 @@ const sources = Object.entries(meta.data.sources).sort(([a], [b]) => a.localeCom
   </div>
 
   {highlights && <GameHighlightsCard highlights={highlights.data} />}
+  {recap && <ArticleCard article={recap} />}
 
   <TeamPanel metrics={teamMetrics.data} opponent={opponent} />
 
