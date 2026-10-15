@@ -700,8 +700,8 @@
       },
       "injury": {
         "practiceStatus": "Limited Participation in Practice",
-        "primary": null,
-        "reportStatus": null
+        "primary": "Wrist",
+        "reportStatus": "Out"
       },
       "jersey": 64,
       "lastName": "Mays",
@@ -939,8 +939,8 @@
       },
       "injury": {
         "practiceStatus": "Did Not Participate In Practice",
-        "primary": null,
-        "reportStatus": null
+        "primary": "Foot",
+        "reportStatus": "Out"
       },
       "jersey": 78,
       "lastName": "Bartch",
@@ -1048,7 +1048,7 @@
       "injury": null,
       "jersey": 60,
       "lastName": "M'ba",
-      "position": "DL",
+      "position": "DT",
       "positionGroup": "DL",
       "rookieYear": 2026,
       "status": "DEV",
@@ -1097,8 +1097,8 @@
       },
       "injury": {
         "practiceStatus": "Limited Participation in Practice",
-        "primary": null,
-        "reportStatus": null
+        "primary": "Foot",
+        "reportStatus": "Questionable"
       },
       "jersey": 91,
       "lastName": "Williams",
@@ -1427,7 +1427,7 @@
         "pfr": "WonnDJ00"
       },
       "injury": {
-        "practiceStatus": "Limited Participation in Practice",
+        "practiceStatus": "Full Participation in Practice",
         "primary": null,
         "reportStatus": null
       },
@@ -1756,8 +1756,8 @@
       },
       "injury": {
         "practiceStatus": "Did Not Participate In Practice",
-        "primary": null,
-        "reportStatus": null
+        "primary": "Hamstring",
+        "reportStatus": "Out"
       },
       "jersey": 23,
       "lastName": "Ya-Sin",
@@ -1810,8 +1810,8 @@
       },
       "injury": {
         "practiceStatus": "Limited Participation in Practice",
-        "primary": null,
-        "reportStatus": null
+        "primary": "Achilles",
+        "reportStatus": "Out"
       },
       "jersey": 32,
       "lastName": "Branch",
