@@ -1,0 +1,193 @@
+{
+  "gameId": "2026_05_DET_ARI",
+  "plays": [
+    {
+      "clock": "13:39",
+      "desc": "(13:39) (Shotgun) 16-J.Goff sacked at DET 24 for -12 yards (3-B.Baker).",
+      "down": 3,
+      "epa": -2.653,
+      "playId": 106,
+      "posteam": "DET",
+      "qtr": 1,
+      "tags": [
+        "sack"
+      ],
+      "wpa": -0.075,
+      "yardline100": 64,
+      "ydstogo": 5
+    },
+    {
+      "clock": "10:18",
+      "desc": "(10:18) (Shotgun) 7-J.Brissett pass short middle to 17-K.Bourne to DET 30 for 22 yards (21-R.McCreary).",
+      "down": 3,
+      "epa": 3.106,
+      "playId": 288,
+      "posteam": "ARI",
+      "qtr": 1,
+      "tags": [
+        "explosive"
+      ],
+      "wpa": 0.095,
+      "yardline100": 52,
+      "ydstogo": 11
+    },
+    {
+      "clock": "05:56",
+      "desc": "(5:56) (Shotgun) 14-Mi.Wilson pass short right to 7-J.Brissett to DET 2 for 7 yards (46-J.Campbell; 2-E.Rakestraw).",
+      "down": 4,
+      "epa": 2.273,
+      "playId": 452,
+      "posteam": "ARI",
+      "qtr": 1,
+      "tags": [
+        "fourth-down"
+      ],
+      "wpa": 0.063,
+      "yardline100": 9,
+      "ydstogo": 1
+    },
+    {
+      "clock": "05:10",
+      "desc": "(5:10) 7-J.Brissett pass short right to 47-T.Quitoriano for 2 yards, TOUCHDOWN.",
+      "down": 1,
+      "epa": 0.589,
+      "playId": 484,
+      "posteam": "ARI",
+      "qtr": 1,
+      "tags": [
+        "td"
+      ],
+      "wpa": 0.011,
+      "yardline100": 2,
+      "ydstogo": 2
+    },
+    {
+      "clock": "13:37",
+      "desc": "(13:37) (Shotgun) 16-J.Goff pass short middle to 87-S.LaPorta to ARI 35 for 12 yards (29-D.Burke). PENALTY on ARI-1-Ma.Wilson, Unnecessary Roughness, 15 yards, enforced at ARI 35.",
+      "down": 4,
+      "epa": 4.459,
+      "playId": 1157,
+      "posteam": "DET",
+      "qtr": 2,
+      "tags": [
+        "fourth-down",
+        "penalty"
+      ],
+      "wpa": 0.102,
+      "yardline100": 47,
+      "ydstogo": 3
+    },
+    {
+      "clock": "12:25",
+      "desc": "(12:25) (No Huddle) 0-J.Gibbs up the middle for 1 yard, TOUCHDOWN.",
+      "down": 2,
+      "epa": 0.772,
+      "playId": 1237,
+      "posteam": "DET",
+      "qtr": 2,
+      "tags": [
+        "td"
+      ],
+      "wpa": 0.032,
+      "yardline100": 1,
+      "ydstogo": 1
+    },
+    {
+      "clock": "09:38",
+      "desc": "(9:38) 16-J.Goff pass short right to 87-S.LaPorta for 38 yards, TOUCHDOWN.",
+      "down": 4,
+      "epa": 5.574,
+      "playId": 1567,
+      "posteam": "DET",
+      "qtr": 2,
+      "tags": [
+        "td",
+        "fourth-down",
+        "explosive"
+      ],
+      "wpa": 0.172,
+      "yardline100": 38,
+      "ydstogo": 1
+    },
+    {
+      "clock": "08:29",
+      "desc": "(8:29) 16-J.Goff pass short left to 0-J.Gibbs to DET 48 for 23 yards (51-R.Lopez; 91-L.Collier). ARI-31-W.Williams was injured during the play.",
+      "down": 1,
+      "epa": 1.403,
+      "playId": 1729,
+      "posteam": "DET",
+      "qtr": 2,
+      "tags": [
+        "explosive"
+      ],
+      "wpa": 0.049,
+      "yardline100": 75,
+      "ydstogo": 10
+    },
+    {
+      "clock": "04:55",
+      "desc": "(4:55) (Shotgun) 16-J.Goff pass short left to 1-J.Williams for 8 yards, TOUCHDOWN.",
+      "down": 4,
+      "epa": 4.04,
+      "playId": 1946,
+      "posteam": "DET",
+      "qtr": 2,
+      "tags": [
+        "td",
+        "fourth-down"
+      ],
+      "wpa": 0.073,
+      "yardline100": 8,
+      "ydstogo": 4
+    },
+    {
+      "clock": "09:50",
+      "desc": "(9:50) (Shotgun) 16-J.Goff pass deep right to 1-J.Williams for 39 yards, TOUCHDOWN. ARI-97-W.Nolen was injured during the play.",
+      "down": 3,
+      "epa": 5.099,
+      "playId": 2833,
+      "posteam": "DET",
+      "qtr": 3,
+      "tags": [
+        "td",
+        "explosive"
+      ],
+      "wpa": 0.055,
+      "yardline100": 39,
+      "ydstogo": 10
+    },
+    {
+      "clock": "04:27",
+      "desc": "(4:27) 7-J.Brissett pass short right to 47-T.Quitoriano for 13 yards, TOUCHDOWN.",
+      "down": 1,
+      "epa": 1.646,
+      "playId": 3134,
+      "posteam": "ARI",
+      "qtr": 3,
+      "tags": [
+        "td"
+      ],
+      "wpa": 0.032,
+      "yardline100": 13,
+      "ydstogo": 10
+    },
+    {
+      "clock": "01:07",
+      "desc": "(1:07) 16-J.Goff up the middle for 1 yard, TOUCHDOWN.",
+      "down": 4,
+      "epa": 2.296,
+      "playId": 3374,
+      "posteam": "DET",
+      "qtr": 3,
+      "tags": [
+        "td",
+        "fourth-down"
+      ],
+      "wpa": 0.015,
+      "yardline100": 1,
+      "ydstogo": 1
+    }
+  ],
+  "season": 2026,
+  "week": 5
+}
