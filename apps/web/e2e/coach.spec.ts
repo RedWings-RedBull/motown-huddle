@@ -6,10 +6,12 @@ test.describe("coach's corner", () => {
     const errors: string[] = [];
     page.on("pageerror", (e) => errors.push(e.message));
     await page.goto("/coach/");
-    await expect(page.getByRole("heading", { name: "Fourth-Down Aggression Index" })).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: "Fourth-Down Aggression Index", exact: true }),
+    ).toBeVisible();
     await expect(page.locator("[data-league] li")).toHaveCount(32);
     await expect(page.locator("[data-log]").first()).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Era tracker" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Era tracker", exact: true })).toBeVisible();
     expect(errors).toEqual([]);
   });
 

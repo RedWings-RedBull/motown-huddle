@@ -19,7 +19,7 @@ test.describe("game breakdown", () => {
   test("renders the score, team panel, chart and 27 field tiles", async ({ page }) => {
     await openGame(page);
     await expect(page.getByRole("heading", { level: 1 })).toContainText("Win vs NYJ");
-    await expect(page.getByRole("heading", { name: "Team level" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Team level", exact: true })).toBeVisible();
     await expect(page.getByRole("img", { name: /win probability/i })).toBeVisible();
     await expect(tiles(page)).toHaveCount(27);
     await expect(page.getByTestId("slot-table").locator("tbody tr")).toHaveCount(27);
@@ -31,7 +31,7 @@ test.describe("game breakdown", () => {
   test("links the league's game-highlights video out to YouTube", async ({ page }) => {
     await page.goto(GAME);
     const card = page.locator("[data-game-highlights]");
-    await expect(card.getByRole("heading", { name: "Game highlights" })).toBeVisible();
+    await expect(card.getByRole("heading", { name: "Game highlights", exact: true })).toBeVisible();
     const watch = card.locator("a[data-watch]");
     await expect(watch).toHaveAttribute("href", "https://www.youtube.com/watch?v=xsJzYyK4mGE");
     await expect(watch).toHaveAttribute("target", "_blank");

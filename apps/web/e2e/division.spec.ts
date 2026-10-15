@@ -7,8 +7,10 @@ test.describe("division page", () => {
     await expect(page.getByRole("heading", { level: 1 })).toContainText(/North|South|East|West/);
     await expect(page.locator("table[data-standings] tbody tr")).toHaveCount(4);
     await expect(page.locator("[data-odds]")).toHaveCount(4);
-    await expect(page.getByRole("heading", { name: "Division and playoff odds" })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Efficiency" })).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: "Division and playoff odds", exact: true }),
+    ).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Efficiency", exact: true })).toBeVisible();
   });
 
   test("has no accessibility violations", async ({ page }) => {
