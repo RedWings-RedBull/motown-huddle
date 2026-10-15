@@ -5,7 +5,9 @@ test.describe("articles", () => {
   test("the index explains how articles are made and links every article", async ({ page }) => {
     await page.goto("/articles/");
     await expect(page.getByRole("heading", { level: 1, name: "Articles" })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "How these are made" })).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: "How these are made", exact: true }),
+    ).toBeVisible();
     const items = page.locator("[data-articles] li");
     const count = await items.count();
     if (count === 0) {

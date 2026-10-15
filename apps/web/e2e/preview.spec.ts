@@ -11,9 +11,9 @@ test.describe("next game preview", () => {
     await page.waitForTimeout(1500);
     expect(errors).toEqual([]);
     await expect(page.getByRole("heading", { level: 1 })).toContainText(/DET (vs|at) [A-Z]{2,3}/);
-    await expect(page.getByRole("heading", { name: "Key matchups" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Key matchups", exact: true })).toBeVisible();
     await expect(page.getByRole("heading", { name: /DET season to date/ })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Injury report" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Injury report", exact: true })).toBeVisible();
     await expect(page.getByRole("list", { name: "Game details" })).toContainText(/total/);
   });
 
