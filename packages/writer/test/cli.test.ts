@@ -51,6 +51,22 @@ describe("writer cli", () => {
     expect(log.lines.join("\n")).toContain("no CLAUDE_CODE_OAUTH_TOKEN");
   });
 
+  it("treats empty settings (unset GitHub variables) as the defaults", async () => {
+    const seen: string[] = [];
+    const client = (model: string, effort: string) => {
+      seen.push(`${model}/${effort}`);
+      const good: ModelClient = () => Promise.resolve({ output: groundedRecap(), costUsd: null });
+      return good;
+    };
+    const args = ["--season", "2026", "--week", "3", "--type", "recap"];
+    const env = { HUDDLE_WRITER_MODEL: "", HUDDLE_WRITER_EFFORT: "  " };
+    const contentDir = temp("writer-content-");
+    expect(await main(args, { log: memoryLog(), dataDir: DATA_DIR, contentDir, client, env })).toBe(
+      0,
+    );
+    expect(seen).toEqual(["sonnet/high"]);
+  });
+
   it("writes with the configured model and reports failures with exit code 1", async () => {
     const seen: string[] = [];
     const good: ModelClient = () => Promise.resolve({ output: groundedRecap(), costUsd: null });

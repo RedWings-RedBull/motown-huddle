@@ -32,6 +32,12 @@ const consoleLog: WriterLog = {
   },
 };
 
+/** An unset GitHub repository variable arrives as "", which must mean "use the default". */
+const setting = (value: string | undefined): string | undefined => {
+  const trimmed = value?.trim();
+  return trimmed === undefined || trimmed === "" ? undefined : trimmed;
+};
+
 export interface CliDeps {
   client?: (model: string, effort: string) => ModelClient;
   log?: WriterLog;
@@ -80,8 +86,8 @@ export async function main(argv: readonly string[], deps: CliDeps = {}): Promise
     log.warn("--season and --week go together (or leave both out for the newest week)");
     return 2;
   }
-  const model = values.model ?? env.HUDDLE_WRITER_MODEL ?? "sonnet";
-  const effort = values.effort ?? env.HUDDLE_WRITER_EFFORT ?? "high";
+  const model = setting(values.model) ?? setting(env.HUDDLE_WRITER_MODEL) ?? "sonnet";
+  const effort = setting(values.effort) ?? setting(env.HUDDLE_WRITER_EFFORT) ?? "high";
 
   if (values["dry-run"]) {
     const target =
