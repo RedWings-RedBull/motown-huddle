@@ -16,8 +16,12 @@ import {
   Manifest,
   MatchupPreview,
   TeamMetrics,
+  byWeekDesc,
+  formatKickoff,
+  recordText,
   teamConfig,
   teamName,
+  weekSlug,
 } from "@huddle/shared";
 import type { z } from "zod";
 
@@ -49,31 +53,18 @@ export interface Bundle {
 const readData = <S extends z.ZodType>(dataDir: string, path: string, schema: S): z.infer<S> =>
   schema.parse(JSON.parse(readFileSync(join(dataDir, path), "utf8")));
 
-const weekSlug = (week: number) => `week-${String(week).padStart(2, "0")}`;
-
 /** The newest built week in the manifest. */
 export function latestWeek(dataDir: string): { season: number; week: number } {
-  const weeks = readData(dataDir, "manifest.json", Manifest).weeks;
-  const newest = [...weeks].sort((a, b) => b.season - a.season || b.week - a.week)[0];
+  const newest = readData(dataDir, "manifest.json", Manifest).weeks.sort(byWeekDesc)[0];
   if (!newest) throw new Error("manifest.json lists no weeks; build a week first");
   return { season: newest.season, week: newest.week };
 }
 
 const pct = (x: number) => Math.round(x * 1000) / 10;
 
-const easternFormat = new Intl.DateTimeFormat("en-US", {
-  weekday: "short",
-  month: "short",
-  day: "numeric",
-  year: "numeric",
-  hour: "numeric",
-  minute: "2-digit",
-  timeZone: "America/New_York",
-  timeZoneName: "short",
-});
-
-/** Kickoff as readers see it, e.g. "Sun, Oct 11, 2026, 4:25 PM EDT"; the model never sees UTC. */
-const eastern = (iso: string) => easternFormat.format(new Date(iso));
+const hasGrade = <T extends { huddleGrade: number | null }>(
+  p: T,
+): p is T & { huddleGrade: number } => p.huddleGrade !== null;
 
 /**
  * The schedule's spread is from the home side (positive: home favoured). Spelled out so the model
@@ -99,7 +90,7 @@ function pregameLine(
 }
 
 function recapBundle(dataDir: string, season: number, week: number): Bundle {
-  const dir = `${String(season)}/${weekSlug(week)}`;
+  const dir = `${season}/${weekSlug(week)}`;
   const game = readData(dataDir, `${dir}/game.json`, GameSummary);
   const metrics = readData(dataDir, `${dir}/team-metrics.json`, TeamMetrics);
   const grades = readData(dataDir, `${dir}/grades.json`, Grades);
@@ -107,7 +98,7 @@ function recapBundle(dataDir: string, season: number, week: number): Bundle {
   const team = teamConfig.team;
   const opponent = game.team.opponent;
 
-  const players = grades.slots
+  const graded = grades.slots
     .flatMap((s) =>
       s.players.map((p) => ({
         name: p.name,
@@ -117,8 +108,8 @@ function recapBundle(dataDir: string, season: number, week: number): Bundle {
         huddleGrade: p.grade.value,
       })),
     )
-    .filter((p) => p.huddleGrade !== null);
-  const graded = [...players].sort((a, b) => (b.huddleGrade ?? 0) - (a.huddleGrade ?? 0));
+    .filter(hasGrade)
+    .sort((a, b) => b.huddleGrade - a.huddleGrade);
 
   const side = (m: (typeof metrics)["team"]) => ({
     epaPerPlay: m.epaPerPlay.value,
@@ -138,19 +129,19 @@ function recapBundle(dataDir: string, season: number, week: number): Bundle {
     season,
     week,
     gameId: game.gameId,
-    gamePath: `/games/${String(season)}/${weekSlug(week)}/`,
+    gamePath: `/games/${season}/${weekSlug(week)}/`,
     facts: {
       team: teamName(team),
       opponent: teamName(opponent),
       result: game.team.result,
-      venue: game.team.side === "home" ? "home" : "away",
+      venue: game.team.side,
       score: {
         [team]: game.team.side === "home" ? game.home.score : game.away.score,
         [opponent]: game.team.side === "home" ? game.away.score : game.home.score,
       },
       overtime: game.overtime,
       stadium: game.venue.stadium,
-      kickoff: eastern(game.kickoffUtc),
+      kickoff: formatKickoff(game.kickoffUtc),
       line: pregameLine(game.line, game.team.side, team, opponent),
       gradesTier: grades.tier,
       teamGrade: metrics.teamGrade,
@@ -186,8 +177,8 @@ function divisionBundle(dataDir: string, season: number, week: number): Bundle {
       standings: d.standings.map((s) => ({
         team: teamName(s.team),
         rank: s.rank,
-        record: `${String(s.w)}-${String(s.l)}${s.t ? `-${String(s.t)}` : ""}`,
-        divisionRecord: `${String(s.division.w)}-${String(s.division.l)}`,
+        record: recordText(s),
+        divisionRecord: recordText(s.division),
         pointsFor: s.pointsFor,
         pointsAgainst: s.pointsAgainst,
         pointDiff: s.pointsFor - s.pointsAgainst,
@@ -211,7 +202,7 @@ function divisionBundle(dataDir: string, season: number, week: number): Bundle {
       upcoming: d.upcoming.map((u) => ({
         away: teamName(u.away),
         home: teamName(u.home),
-        kickoff: eastern(u.kickoffUtc),
+        kickoff: formatKickoff(u.kickoffUtc),
         divisionGame: u.divGame,
         line: pregameLine({ spread: u.spread, total: null }, "home", u.home, u.away),
       })),
@@ -225,7 +216,7 @@ function previewBundle(dataDir: string, season: number): Bundle {
   const p = readData(dataDir, "preview/next.json", MatchupPreview);
   const team = teamConfig.team;
   const profile = (t: typeof p.team) => ({
-    record: `${String(t.record.w)}-${String(t.record.l)}${t.record.t ? `-${String(t.record.t)}` : ""}`,
+    record: recordText(t.record),
     offense: {
       epaPerPlay: t.offense.epaPerPlay.value,
       epaRank: t.offense.epaPerPlay.leagueRank,
@@ -257,7 +248,7 @@ function previewBundle(dataDir: string, season: number): Bundle {
       team: teamName(team),
       opponent: teamName(p.opponent),
       venue: p.isHome ? "home" : "away",
-      kickoff: eastern(p.kickoffUtc),
+      kickoff: formatKickoff(p.kickoffUtc),
       stadium: p.venue.stadium,
       roof: p.venue.roof,
       // The preview stores the spread from the team's side in betting notation (negative: team
@@ -305,7 +296,7 @@ export function buildBundle(
 }
 
 /** Bump when prompts or the checker change in a way that should rewrite existing articles. */
-const PROMPT_VERSION = "2";
+const PROMPT_VERSION = "3";
 
 export function bundleHash(bundle: Bundle): string {
   return createHash("sha256")

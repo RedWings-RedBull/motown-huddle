@@ -5,7 +5,7 @@ import { ArticleFrontmatter, type ArticleType } from "@huddle/shared";
 import { z } from "zod";
 
 import { type Bundle, buildBundle, bundleHash, latestWeek } from "./bundle.js";
-import { renderArticle, linkPlays, storedHash } from "./emit.js";
+import { articleStem, linkPlays, renderArticle, storedHash } from "./emit.js";
 import { checkArticle, type GroundingReport } from "./ground.js";
 import type { ModelClient } from "./model.js";
 import {
@@ -53,11 +53,7 @@ export interface WriterResult {
 const EDITOR_PASSES = 2;
 
 function articlePath(contentDir: string, bundle: Bundle): string {
-  return join(
-    contentDir,
-    String(bundle.season),
-    `w${String(bundle.week).padStart(2, "0")}-${bundle.type}.md`,
-  );
+  return join(contentDir, String(bundle.season), `${articleStem(bundle.week, bundle.type)}.md`);
 }
 
 async function ask(
@@ -112,7 +108,7 @@ export async function runWriter(options: WriterOptions): Promise<WriterResult> {
     const { draft, report, cost } = await writeOne(bundle, options);
     result.costUsd += cost;
     if (report.violations.length > 0) {
-      log.warn(`${type}: not written; ${String(report.violations.length)} violations remain`);
+      log.warn(`${type}: not written; ${report.violations.length} violations remain`);
       for (const v of report.violations) log.warn(`  - ${v}`);
       result.failed.push({ type, violations: report.violations });
       continue;
@@ -138,7 +134,7 @@ export async function runWriter(options: WriterOptions): Promise<WriterResult> {
     });
     mkdirSync(dirname(path), { recursive: true });
     writeFileSync(path, renderArticle(frontmatter, linkPlays(draft.body, bundle)));
-    log.info(`${type}: wrote ${path} (${String(report.counts.words)} words)`);
+    log.info(`${type}: wrote ${path} (${report.counts.words} words)`);
     result.written.push(path);
   }
   return result;

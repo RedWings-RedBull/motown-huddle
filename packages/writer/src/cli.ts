@@ -6,6 +6,7 @@ import { parseArgs } from "node:util";
 import { ArticleType } from "@huddle/shared";
 
 import { buildBundle, latestWeek } from "./bundle.js";
+import { articleStem } from "./emit.js";
 import { claudeCodeClient, type ModelClient } from "./model.js";
 import { analystPrompt, analystSystem } from "./prompts.js";
 import { ARTICLE_TYPES, runWriter, type WriterLog } from "./run.js";
@@ -15,13 +16,15 @@ const DATA_DIR = join(REPO, "apps/web/src/data");
 const CONTENT_DIR = join(REPO, "apps/web/src/content/articles");
 const OUT_DIR = join(REPO, "packages/writer/out");
 
-const USAGE = `usage: pnpm writer [--season <yyyy> --week <n>] [--type recap,division,preview] [--force] [--dry-run]
-  --season/--week  which week to write about (default: the newest week in the manifest)
+const USAGE = `usage: pnpm writer [--season <yyyy> --week <n>|auto] [--type recap,division,preview] [--force]
+                   [--dry-run] [--model <name>] [--effort <level>] [--help]
+  --season/--week  which week to write about; "--week auto" or leaving both out means the newest week in the manifest
   --type           which articles (default: all three)
   --force          rewrite even when the data has not changed
   --dry-run        write the data bundles and prompts to packages/writer/out/ without calling a model
   --model          Claude model alias or name (default: $HUDDLE_WRITER_MODEL or "sonnet")
-  --effort         low | medium | high | xhigh | max (default: $HUDDLE_WRITER_EFFORT or "high")`;
+  --effort         low | medium | high | xhigh | max (default: $HUDDLE_WRITER_EFFORT or "high")
+  --help           print this message`;
 
 const consoleLog: WriterLog = {
   info: (m) => {
@@ -79,9 +82,10 @@ export async function main(argv: readonly string[], deps: CliDeps = {}): Promise
   const types = (values.type ?? ARTICLE_TYPES.join(","))
     .split(",")
     .map((t) => ArticleType.parse(t.trim()));
-  const season = values.season === undefined ? undefined : Number(values.season);
-  const week =
-    values.week === undefined || values.week === "auto" ? undefined : Number(values.week);
+  // "--week auto" is the pipeline's spelling for the newest week, with or without a --season.
+  const auto = values.week === "auto";
+  const season = auto || values.season === undefined ? undefined : Number(values.season);
+  const week = auto || values.week === undefined ? undefined : Number(values.week);
   if ((season === undefined) !== (week === undefined)) {
     log.warn("--season and --week go together (or leave both out for the newest week)");
     return 2;
@@ -96,10 +100,7 @@ export async function main(argv: readonly string[], deps: CliDeps = {}): Promise
     mkdirSync(outDir, { recursive: true });
     for (const type of types) {
       const bundle = buildBundle(type, dataDir, target.season, target.week);
-      const file = join(
-        outDir,
-        `${String(bundle.season)}-w${String(bundle.week).padStart(2, "0")}-${type}.txt`,
-      );
+      const file = join(outDir, `${bundle.season}-${articleStem(bundle.week, type)}.txt`);
       writeFileSync(file, `SYSTEM:\n${analystSystem(type)}\n\nUSER:\n${analystPrompt(bundle)}\n`);
       log.info(`${type}: prompt written to ${file}`);
     }
@@ -125,7 +126,7 @@ export async function main(argv: readonly string[], deps: CliDeps = {}): Promise
       ...(season !== undefined && week !== undefined ? { season, week } : {}),
     });
     log.info(
-      `done: ${String(result.written.length)} written, ${String(result.skipped.length)} unchanged, ${String(result.failed.length)} not written`,
+      `done: ${result.written.length} written, ${result.skipped.length} unchanged, ${result.failed.length} not written, $${result.costUsd.toFixed(2)}`,
     );
     return result.failed.length > 0 ? 1 : 0;
   } catch (e) {
