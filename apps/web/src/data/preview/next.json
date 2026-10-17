@@ -5,13 +5,140 @@
   },
   "divGame": true,
   "gameId": "2026_07_GB_DET",
-  "injuries": [],
+  "injuries": [
+    {
+      "gsisId": "00-0036551",
+      "name": "Aaron Banks",
+      "position": "G",
+      "practiceStatus": "Limited Participation in Practice",
+      "primary": "Knee",
+      "reportStatus": "Questionable",
+      "team": "GB"
+    },
+    {
+      "gsisId": "00-0040689",
+      "name": "Anthony Campbell",
+      "position": "DT",
+      "practiceStatus": "Limited Participation in Practice",
+      "primary": "Ankle",
+      "reportStatus": "Questionable",
+      "team": "GB"
+    },
+    {
+      "gsisId": "00-0036625",
+      "name": "Benjamin St-Juste",
+      "position": "CB",
+      "practiceStatus": "Did Not Participate In Practice",
+      "primary": "Hamstring",
+      "reportStatus": "Out",
+      "team": "GB"
+    },
+    {
+      "gsisId": "00-0041470",
+      "name": "Brandon Cisse",
+      "position": "CB",
+      "practiceStatus": "Limited Participation in Practice",
+      "primary": "Hip",
+      "reportStatus": "Questionable",
+      "team": "GB"
+    },
+    {
+      "gsisId": "00-0037075",
+      "name": "Devonte Wyatt",
+      "position": "DT",
+      "practiceStatus": "Limited Participation in Practice",
+      "primary": null,
+      "reportStatus": null,
+      "team": "GB"
+    },
+    {
+      "gsisId": "00-0039813",
+      "name": "Evan Williams",
+      "position": "S",
+      "practiceStatus": "Full Participation in Practice",
+      "primary": null,
+      "reportStatus": null,
+      "team": "GB"
+    },
+    {
+      "gsisId": "00-0039817",
+      "name": "Jacob Monk",
+      "position": "C",
+      "practiceStatus": "Limited Participation in Practice",
+      "primary": "Quadricep",
+      "reportStatus": "Questionable",
+      "team": "GB"
+    },
+    {
+      "gsisId": "00-0033109",
+      "name": "Javon Hargrave",
+      "position": "DT",
+      "practiceStatus": "Did Not Participate In Practice",
+      "primary": "Achilles",
+      "reportStatus": "Out",
+      "team": "GB"
+    },
+    {
+      "gsisId": "00-0037094",
+      "name": "Jonathan Ford",
+      "position": "DT",
+      "practiceStatus": "Did Not Participate In Practice",
+      "primary": "Calf",
+      "reportStatus": "Out",
+      "team": "GB"
+    },
+    {
+      "gsisId": "00-0038506",
+      "name": "Jordon Riley",
+      "position": "DE",
+      "practiceStatus": "Limited Participation in Practice",
+      "primary": "Achilles",
+      "reportStatus": "Doubtful",
+      "team": "GB"
+    },
+    {
+      "gsisId": "00-0035133",
+      "name": "Keisean Nixon",
+      "position": "CB",
+      "practiceStatus": "Limited Participation in Practice",
+      "primary": null,
+      "reportStatus": null,
+      "team": "GB"
+    },
+    {
+      "gsisId": "00-0039112",
+      "name": "Lukas Van Ness",
+      "position": "LB",
+      "practiceStatus": "Full Participation in Practice",
+      "primary": null,
+      "reportStatus": null,
+      "team": "GB"
+    },
+    {
+      "gsisId": "00-0040009",
+      "name": "Savion Williams",
+      "position": "WR",
+      "practiceStatus": "Limited Participation in Practice",
+      "primary": "Ankle",
+      "reportStatus": "Questionable",
+      "team": "GB"
+    },
+    {
+      "gsisId": "00-0038090",
+      "name": "Skyy Moore",
+      "position": "WR",
+      "practiceStatus": "Did Not Participate In Practice",
+      "primary": "Ankle",
+      "reportStatus": "Out",
+      "team": "GB"
+    }
+  ],
   "isHome": true,
   "keyMatchups": [
     {
       "edge": "even",
       "label": "Pass offense vs pass defense",
-      "oppRank": 3,
+      "oppRank": 4,
       "teamRank": 3
     },
     {
@@ -116,8 +243,8 @@
         "conv": 4
       },
       "passEpaPerDropback": {
-        "leaguePercentile": 92.188,
-        "leagueRank": 3,
+        "leaguePercentile": 89.063,
+        "leagueRank": 4,
         "n": 188,
         "value": -0.049
       },
@@ -159,8 +286,8 @@
         "value": -0.021
       },
       "explosiveRate": {
-        "leaguePercentile": 50,
-        "leagueRank": 16,
+        "leaguePercentile": 53.125,
+        "leagueRank": 15,
         "n": 290,
         "value": 0.093
       },
@@ -213,8 +340,8 @@
   },
   "opponent": "GB",
   "quarterbacks": {
-    "opponent": null,
-    "team": null
+    "opponent": "Jordan Love",
+    "team": "Jared Goff"
   },
   "referee": null,
   "rest": {
@@ -336,7 +463,7 @@
     },
     "team": "DET"
   },
-  "throughWeek": 5,
+  "throughWeek": 6,
   "venue": {
     "roof": "dome",
     "stadium": "Ford Field",
