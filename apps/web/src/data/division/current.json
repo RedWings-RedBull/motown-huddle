@@ -3,9 +3,9 @@
   "division": "NFC North",
   "odds": [
     {
-      "division": 0.068,
-      "expectedWins": 9.665,
-      "playoffs": 0.62,
+      "division": 0.072,
+      "expectedWins": 9.663,
+      "playoffs": 0.639,
       "team": "CHI",
       "winDistribution": [
         0,
@@ -13,67 +13,67 @@
         0,
         0,
         0.001,
-        0.004,
-        0.024,
-        0.066,
-        0.143,
-        0.218,
-        0.235,
-        0.176,
-        0.093,
+        0.005,
+        0.022,
+        0.067,
+        0.149,
+        0.211,
+        0.234,
+        0.177,
+        0.094,
         0.032,
         0.007,
-        0,
+        0.001,
         0,
         0
       ]
     },
     {
-      "division": 0.105,
-      "expectedWins": 9.72,
-      "playoffs": 0.6,
+      "division": 0.104,
+      "expectedWins": 9.692,
+      "playoffs": 0.618,
       "team": "DET",
       "winDistribution": [
         0,
         0,
         0,
         0,
-        0.001,
-        0.004,
-        0.019,
-        0.064,
-        0.145,
-        0.216,
-        0.226,
-        0.178,
-        0.103,
-        0.036,
-        0.007,
+        0,
+        0.005,
+        0.023,
+        0.065,
+        0.142,
+        0.218,
+        0.233,
+        0.177,
+        0.097,
+        0.033,
+        0.006,
         0.001,
         0,
         0
       ]
     },
     {
-      "division": 0.029,
-      "expectedWins": 8.609,
-      "playoffs": 0.374,
+      "division": 0.033,
+      "expectedWins": 8.62,
+      "playoffs": 0.396,
       "team": "GB",
       "winDistribution": [
         0,
         0,
         0,
-        0,
-        0.004,
-        0.026,
-        0.071,
-        0.15,
+        0.001,
+        0.006,
+        0.022,
+        0.072,
+        0.154,
+        0.219,
         0.227,
-        0.223,
-        0.168,
-        0.09,
-        0.031,
-        0.008,
+        0.163,
+        0.091,
+        0.036,
+        0.007,
         0.001,
         0,
         0,
@@ -81,9 +81,9 @@
       ]
     },
     {
-      "division": 0.797,
-      "expectedWins": 12.617,
-      "playoffs": 0.981,
+      "division": 0.791,
+      "expectedWins": 12.559,
+      "playoffs": 0.979,
       "team": "MIN",
       "winDistribution": [
         0,
@@ -94,15 +94,15 @@
         0,
         0,
         0.001,
-        0.006,
-        0.021,
-        0.07,
+        0.007,
+        0.025,
+        0.075,
         0.146,
-        0.212,
-        0.244,
-        0.18,
-        0.089,
-        0.027,
+        0.223,
+        0.228,
+        0.179,
+        0.088,
+        0.023,
         0.004
       ]
     }
@@ -180,8 +180,8 @@
           "conv": 8
         },
         "passEpaPerDropback": {
-          "leaguePercentile": 45.313,
-          "leagueRank": 18,
+          "leaguePercentile": 48.438,
+          "leagueRank": 17,
           "n": 197,
           "value": 0.057
         },
@@ -355,8 +355,8 @@
           "conv": 4
         },
         "passEpaPerDropback": {
-          "leaguePercentile": 92.188,
-          "leagueRank": 3,
+          "leaguePercentile": 89.063,
+          "leagueRank": 4,
           "n": 188,
           "value": -0.049
         },
@@ -398,8 +398,8 @@
           "value": -0.021
         },
         "explosiveRate": {
-          "leaguePercentile": 50,
-          "leagueRank": 16,
+          "leaguePercentile": 53.125,
+          "leagueRank": 15,
           "n": 290,
           "value": 0.093
         },
@@ -567,7 +567,7 @@
   ],
   "season": 2026,
   "simulation": {
-    "gamesRemaining": 193,
+    "gamesRemaining": 192,
     "runs": 10000,
     "seed": 20260101
   },
@@ -689,7 +689,7 @@
       "w": 3
     }
   ],
-  "throughWeek": 5,
+  "throughWeek": 6,
   "upcoming": [
     {
       "away": "CHI",
