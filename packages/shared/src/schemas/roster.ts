@@ -72,7 +72,7 @@ export const SocialLink = z
     verified: z.boolean(),
     source: z.enum(["wikidata", "manual"]),
     /** YYYY-MM-DD the link was last checked by a human. */
-    checked: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+    checked: z.iso.date(),
   })
   .strict();
 export type SocialLink = z.infer<typeof SocialLink>;

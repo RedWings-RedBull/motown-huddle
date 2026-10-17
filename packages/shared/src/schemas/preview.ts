@@ -1,16 +1,13 @@
 import { z } from "zod";
 
 import { SideMetrics } from "./artifacts.js";
-
-export const Record_ = z
-  .object({ w: z.number().int(), l: z.number().int(), t: z.number().int() })
-  .strict();
+import { WinLossRecord } from "./common.js";
 
 /** Season-to-date profile of one team: its offense and what its defense allows. */
 export const TeamProfile = z
   .object({
     team: z.string(),
-    record: Record_,
+    record: WinLossRecord,
     offense: SideMetrics,
     /** Opponents' offense against this team; percentiles/ranks already inverted (1 = best). */
     defense: SideMetrics,

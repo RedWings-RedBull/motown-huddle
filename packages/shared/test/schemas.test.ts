@@ -1,10 +1,11 @@
 import { describe, expect, it } from "vitest";
 
-import { METRICS, METRIC_KEYS, Pool, metricDef, metricsForPool } from "../src/index.js";
+import { METRICS, Pool, metricDef, metricsForPool } from "../src/index.js";
 
 describe("metric definitions", () => {
   it("uses unique <pool>.<metric> keys", () => {
-    expect(new Set(METRIC_KEYS).size).toBe(METRIC_KEYS.length);
+    const keys = METRICS.map((d) => d.key);
+    expect(new Set(keys).size).toBe(keys.length);
     for (const d of METRICS) {
       expect(d.key.startsWith(`${d.pool.toLowerCase()}.`)).toBe(true);
     }

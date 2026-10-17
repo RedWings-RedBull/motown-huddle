@@ -14,6 +14,14 @@ export type Source = z.infer<typeof Source>;
 export const Unit = z.enum(["offense", "defense", "st"]);
 export type Unit = z.infer<typeof Unit>;
 
+export const Conference = z.enum(["AFC", "NFC"]);
+export type Conference = z.infer<typeof Conference>;
+
+export const WinLossRecord = z
+  .object({ w: z.number().int().min(0), l: z.number().int().min(0), t: z.number().int().min(0) })
+  .strict();
+export type WinLossRecord = z.infer<typeof WinLossRecord>;
+
 /** The 27 clickable slots on the drawn field: 11 personnel, 4-2-5 nickel, special teams. */
 export const Slot = z.enum([
   "QB",

@@ -1,6 +1,6 @@
 import type { PoolSpec } from "./types.js";
 
-/** `lb.coverage` only counts when the player was targeted at least twice (see engine MIN_SAMPLE). */
+/** `lb.coverage` only counts when the player was targeted at least twice (see SAMPLE_RULES in the engine). */
 export const LB: PoolSpec = {
   pool: "LB",
   label: "Linebacker",

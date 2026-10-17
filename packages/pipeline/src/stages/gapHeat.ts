@@ -1,4 +1,4 @@
-import type { GapHeatInput as GapHeatInputSchema } from "@huddle/shared";
+import type { GapHeat as GapHeatInputSchema } from "@huddle/shared";
 import type { z } from "zod";
 
 export type GapHeatInput = z.infer<typeof GapHeatInputSchema>;

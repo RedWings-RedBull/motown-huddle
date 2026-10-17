@@ -11,9 +11,6 @@ export type DistanceBucket = (typeof DISTANCE_BUCKETS)[number];
 export const FIELD_BINS = ["own", "41-60", "21-40", "red-zone"] as const;
 export type FieldBin = (typeof FIELD_BINS)[number];
 
-export const WP_BUCKETS = ["<20", "20-80", ">80"] as const;
-export type WpBucket = (typeof WP_BUCKETS)[number];
-
 export function distanceBucket(ydstogo: number): DistanceBucket {
   if (ydstogo <= 1) return "1";
   if (ydstogo === 2) return "2";
@@ -29,7 +26,7 @@ export function fieldBin(yardline100: number): FieldBin {
   return "red-zone";
 }
 
-export function wpBucket(wp: number): WpBucket {
+export function wpBucket(wp: number): "<20" | "20-80" | ">80" {
   if (wp < 0.2) return "<20";
   if (wp > 0.8) return ">80";
   return "20-80";
@@ -83,7 +80,7 @@ export function timeBucket(secondsInQuarter: number): number {
 }
 
 export function yardBucket(yardline100: number): number {
-  return clamp(Math.ceil(clamp(yardline100, 1, 99) / 10), 1, 10) - 1;
+  return Math.ceil(clamp(yardline100, 1, 99) / 10) - 1;
 }
 
 export function fgBinIndex(distance: number): number {
@@ -97,6 +94,22 @@ export function puntBinIndex(yardline100: number): number {
   for (let k = 0; k < PUNT_BINS.length; k += 1) if (yardline100 >= (PUNT_BINS[k] ?? 0)) i = k;
   return i;
 }
+
+/** Where the receiving team starts after a kickoff (its own 25). */
+const KICKOFF_YARDLINE = 75;
+/** Where the receiving team starts after a touchback or a missed kick from inside the 20. */
+const TOUCHBACK_YARDLINE = 80;
+/** Longest kick the calculator will evaluate. */
+const MAX_FG_DISTANCE = 68;
+/** The holder spots the ball seven yards behind the line; a miss hands it over there. */
+const HOLDER_DEPTH = 7;
+/** Field-goal distance = yards to the goal line + holder depth + ten yards of end zone. */
+const FG_DISTANCE_OFFSET = HOLDER_DEPTH + 10;
+/** Net punt assumed when the table has no entry for the bin. */
+const DEFAULT_PUNT_NET = 40;
+/** Linear prior used when the win-probability table has no neighbouring cell. */
+const WP_PRIOR_PER_POINT = 0.03;
+const WP_PRIOR_PER_YARD = 0.002;
 
 /**
  * Win probability for the offense at first down. Walks outward from the exact cell to nearby score
@@ -125,7 +138,11 @@ export function lookupWp(
       if (found.length > 0) return found.reduce((x, v) => x + v, 0) / found.length;
     }
   }
-  return clamp(0.5 + scoreDiff * 0.03 + (50 - yardline100) * 0.002, 0.01, 0.99);
+  return clamp(
+    0.5 + scoreDiff * WP_PRIOR_PER_POINT + (50 - yardline100) * WP_PRIOR_PER_YARD,
+    0.01,
+    0.99,
+  );
 }
 
 export type Decision = "go" | "punt" | "fg";
@@ -141,9 +158,6 @@ export interface Evaluation {
   fgDistance: number;
   puntNet: number;
 }
-
-const KICKOFF_YARDLINE = 75;
-const MAX_FG_DISTANCE = 68;
 
 /** Evaluates go, punt and field-goal win probabilities for a fourth-down situation. */
 export function evaluate(s: Situation, tables: CalculatorTables): Evaluation {
@@ -161,17 +175,17 @@ export function evaluate(s: Situation, tables: CalculatorTables): Evaluation {
   const failWp = opp(-s.scoreDiff, 100 - yl);
   const goWp = conversion * successWp + (1 - conversion) * failWp;
 
-  const puntNet = tables.punt[puntBinIndex(yl)]?.yards ?? 40;
+  const puntNet = tables.punt[puntBinIndex(yl)]?.yards ?? DEFAULT_PUNT_NET;
   const landing = yl - puntNet;
-  const puntWp = opp(-s.scoreDiff, landing <= 0 ? 80 : 100 - landing);
+  const puntWp = opp(-s.scoreDiff, landing <= 0 ? TOUCHBACK_YARDLINE : 100 - landing);
 
-  const fgDistance = yl + 17;
+  const fgDistance = yl + FG_DISTANCE_OFFSET;
   let fgWp: number | null = null;
   let fgMakeRate: number | null = null;
   if (fgDistance <= MAX_FG_DISTANCE) {
     fgMakeRate = tables.fieldGoal[fgBinIndex(fgDistance)]?.rate ?? 0;
-    const spot = yl + 7;
-    const missWp = opp(-s.scoreDiff, spot < 20 ? 80 : 100 - spot);
+    const spot = yl + HOLDER_DEPTH;
+    const missWp = opp(-s.scoreDiff, Math.min(100 - spot, TOUCHBACK_YARDLINE));
     fgWp = fgMakeRate * opp(-(s.scoreDiff + 3), KICKOFF_YARDLINE) + (1 - fgMakeRate) * missWp;
   }
 

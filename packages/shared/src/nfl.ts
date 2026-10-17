@@ -1,3 +1,5 @@
+import { type Conference } from "./schemas/common.js";
+
 /**
  * League structure. nflverse team codes; the schedule file carries no conference column, so this
  * is the one place that knows which division each club plays in.
@@ -14,7 +16,6 @@ export const DIVISIONS = {
 } as const satisfies Record<string, readonly string[]>;
 
 export type Division = keyof typeof DIVISIONS;
-export type Conference = "AFC" | "NFC";
 
 const DIVISION_OF = new Map<string, Division>();
 for (const [division, teams] of Object.entries(DIVISIONS) as [Division, readonly string[]][]) {

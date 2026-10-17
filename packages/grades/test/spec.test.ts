@@ -28,7 +28,7 @@ describe("SPECS", () => {
     },
   );
 
-  it("carries the plan's thresholds and shrinkage priors", () => {
+  it("pins each pool's qualification threshold and shrinkage prior", () => {
     const byPool = Object.fromEntries(SPECS.map((s) => [s.pool, [s.threshold.n, s.k]]));
     expect(byPool).toEqual({
       QB: [14, 15],

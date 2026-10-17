@@ -8,8 +8,10 @@ describe("teamConfig", () => {
   });
 
   it("never embeds a team mark in the brand", () => {
-    expect(teamConfig.siteName.toLowerCase()).not.toContain("lions");
-    expect(teamConfig.siteName.toLowerCase()).not.toContain("den");
+    const brand = teamConfig.siteName.toLowerCase();
+    for (const word of teamConfig.teamName.toLowerCase().split(" ")) {
+      expect(brand).not.toContain(word);
+    }
   });
 
   it("carries the non-affiliation disclaimer and data attribution", () => {
