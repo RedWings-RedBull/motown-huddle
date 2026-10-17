@@ -2,7 +2,7 @@
 import type { GameSummary } from "@huddle/shared";
 import { teamConfig } from "@huddle/shared";
 
-import { formatKickoff, resultWord } from "../lib/week";
+import { formatKickoff, gameChips, resultWord } from "../lib/week";
 import TierBadge from "./TierBadge.astro";
 
 interface Props {
@@ -11,17 +11,7 @@ interface Props {
 
 const { game } = Astro.props;
 const team = teamConfig.team;
-const spread =
-  game.line.spread === null
-    ? null
-    : game.line.spread < 0
-      ? `${team} ${game.line.spread}`
-      : `${team} +${game.line.spread}`;
-const chips = [game.venue.stadium, game.venue.roof, game.venue.surface];
-if (game.venue.temp !== null) chips.push(`${Math.round(game.venue.temp)}°F`);
-if (game.venue.wind !== null) chips.push(`wind ${Math.round(game.venue.wind)} mph`);
-if (spread !== null) chips.push(`line ${spread}`);
-if (game.line.total !== null) chips.push(`total ${game.line.total}`);
+const chips = gameChips(game);
 
 const sides = [game.away, game.home] as const;
 const won = game.team.result === "W";

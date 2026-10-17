@@ -1,4 +1,3 @@
-import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
@@ -9,6 +8,6 @@ export default defineConfig({
   output: "static",
   trailingSlash: "always",
   build: { format: "directory" },
-  integrations: [react(), mdx(), sitemap()],
+  integrations: [react(), sitemap()],
   vite: { plugins: [tailwindcss()] },
 });

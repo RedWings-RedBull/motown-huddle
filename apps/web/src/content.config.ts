@@ -37,6 +37,24 @@ function week<S extends ZodType>(name: string, schema: S) {
   });
 }
 
+type Json = Record<string, unknown>;
+
+/**
+ * One JSON file as a single-entry collection. The file loader wants an array or an id-keyed
+ * object, so the parsed document is wrapped under `id`.
+ */
+function single<S extends ZodType>(
+  path: string,
+  id: string,
+  schema: S,
+  wrap: (data: Json) => Json = (data) => data,
+) {
+  return defineCollection({
+    loader: file(path, { parser: (text) => ({ [id]: wrap(JSON.parse(text) as Json) }) }),
+    schema,
+  });
+}
+
 export const collections = {
   articles: defineCollection({
     loader: glob({ pattern: "**/*.md", base: "./src/content/articles" }),
@@ -50,47 +68,16 @@ export const collections = {
   winProbability: week("win-probability", WinProbability),
   meta: week("meta", WeekMeta),
   baselines: week("league-baselines", LeagueBaselines),
-  coach: defineCollection({
-    loader: file("./src/data/coach/current.json", {
-      parser: (text) => ({ current: JSON.parse(text) as Record<string, unknown> }),
-    }),
-    schema: CoachFile,
-  }),
-  quotes: defineCollection({
-    loader: file("./src/data/coach/quotes.json", {
-      parser: (text) => ({ quotes: JSON.parse(text) as Record<string, unknown> }),
-    }),
-    schema: QuotesFile,
-  }),
-  division: defineCollection({
-    loader: file("./src/data/division/current.json", {
-      parser: (text) => ({ current: JSON.parse(text) as Record<string, unknown> }),
-    }),
-    schema: DivisionFile,
-  }),
-  preview: defineCollection({
-    loader: file("./src/data/preview/next.json", {
-      parser: (text) => ({ next: JSON.parse(text) as Record<string, unknown> }),
-    }),
-    schema: MatchupPreview,
-  }),
-  roster: defineCollection({
-    loader: file("./src/data/roster/current.json", {
-      parser: (text) => ({ current: JSON.parse(text) as Record<string, unknown> }),
-    }),
-    schema: RosterFile,
-  }),
-  socials: defineCollection({
-    loader: file("./src/data/players_socials.json", {
-      parser: (text) => ({ socials: { entries: JSON.parse(text) as Record<string, unknown> } }),
-    }),
-    schema: z.object({ entries: SocialsFile }),
-  }),
-  manifest: defineCollection({
-    // The file loader wants an array or an id-keyed object; wrap the manifest under one id.
-    loader: file("./src/data/manifest.json", {
-      parser: (text) => ({ manifest: JSON.parse(text) as Record<string, unknown> }),
-    }),
-    schema: Manifest,
-  }),
+  coach: single("./src/data/coach/current.json", "current", CoachFile),
+  quotes: single("./src/data/coach/quotes.json", "quotes", QuotesFile),
+  division: single("./src/data/division/current.json", "current", DivisionFile),
+  preview: single("./src/data/preview/next.json", "next", MatchupPreview),
+  roster: single("./src/data/roster/current.json", "current", RosterFile),
+  socials: single(
+    "./src/data/players_socials.json",
+    "socials",
+    z.object({ entries: SocialsFile }),
+    (entries) => ({ entries }),
+  ),
+  manifest: single("./src/data/manifest.json", "manifest", Manifest),
 };

@@ -1,11 +1,11 @@
 ---
-import { teamConfig, teamName } from "@huddle/shared";
+import { type Decision, teamConfig, teamName } from "@huddle/shared";
 import { getEntry } from "astro:content";
 
 import GoForItCalculator from "../../components/coach/GoForItCalculator";
 import Base from "../../layouts/Base.astro";
-import { formatSigned, ordinal } from "../../lib/format";
-import { gameHref } from "../../lib/week";
+import { formatPct, formatSigned, ordinal } from "../../lib/format";
+import { gameHref, recordText } from "../../lib/week";
 
 const entry = await getEntry("coach", "current");
 if (!entry) throw new Error("Coach data is missing; run `pnpm pipeline --coach --season <year>`.");
@@ -13,16 +13,14 @@ const c = entry.data;
 const quotes = (await getEntry("quotes", "quotes"))?.data.quotes ?? [];
 const team = teamConfig.team;
 const current = c.index.find((i) => i.season === c.season);
-const rec = (r: { w: number; l: number; t: number }) =>
-  r.t ? `${r.w}-${r.l}-${r.t}` : `${r.w}-${r.l}`;
 const sum = (key: keyof Omit<(typeof c.era)[number], "season">) =>
   c.era.reduce((acc, e) => ({ w: acc.w + e[key].w, l: acc.l + e[key].l, t: acc.t + e[key].t }), {
     w: 0,
     l: 0,
     t: 0,
   });
-const pctText = (x: number) => `${Math.round(x * 100)}%`;
-const DECISION: Record<string, string> = { go: "Went for it", punt: "Punted", fg: "Field goal" };
+const pctText = (x: number) => formatPct(x, 0);
+const DECISION: Record<Decision, string> = { go: "Went for it", punt: "Punted", fg: "Field goal" };
 const byGame = new Map<string, typeof c.log>();
 for (const e of c.log) byGame.set(e.gameId, [...(byGame.get(e.gameId) ?? []), e]);
 const agreed = c.log.filter((e) => !e.forced && e.decision === e.calc.recommended).length;
@@ -55,25 +53,25 @@ const tableSeasons = c.tableSeasons.length ? c.tableSeasons : [c.season];
     {current && (
       <div class="mt-4 grid gap-3 sm:grid-cols-4">
         <div class="stat-tile">
-          <p class="eyebrow">{c.season} index</p>
-          <p class="display text-4xl text-white">{formatSigned(current.index, 1)}</p>
+          <p class="label">{c.season} index</p>
+          <p class="value text-white">{formatSigned(current.index, 1)}</p>
           <p class="muted text-xs">
             {ordinal(current.rank)} of {c.league.length}
           </p>
         </div>
         <div class="stat-tile">
-          <p class="eyebrow">Go rate</p>
-          <p class="display text-4xl text-white">{pctText(current.goRate)}</p>
+          <p class="label">Go rate</p>
+          <p class="value text-white">{pctText(current.goRate)}</p>
           <p class="muted text-xs">league {pctText(current.leagueGoRate)}</p>
         </div>
         <div class="stat-tile">
-          <p class="eyebrow">Attempts</p>
-          <p class="display text-4xl text-white">{current.goes}</p>
+          <p class="label">Attempts</p>
+          <p class="value text-white">{current.goes}</p>
           <p class="muted text-xs">of {current.decisions} decisions</p>
         </div>
         <div class="stat-tile">
-          <p class="eyebrow">Converted</p>
-          <p class="display text-4xl text-white">
+          <p class="label">Converted</p>
+          <p class="value text-white">
             {current.goes ? pctText(current.conversions / current.goes) : "—"}
           </p>
           <p class="muted text-xs">
@@ -170,7 +168,7 @@ const tableSeasons = c.tableSeasons.length ? c.tableSeasons : [c.season];
             </h3>
             <ol class="mt-2 divide-y divide-white/10" data-log={gameId}>
               {entries.map((e) => {
-                const agreed = e.decision === e.calc.recommended;
+                const matched = e.decision === e.calc.recommended;
                 return (
                   <li class="grid gap-x-4 gap-y-1 py-2 text-sm sm:grid-cols-[7rem_1fr_auto]">
                     <span class="muted tabular-nums">
@@ -202,11 +200,11 @@ const tableSeasons = c.tableSeasons.length ? c.tableSeasons : [c.season];
                     <span
                       class:list={[
                         "text-xs tabular-nums sm:text-right",
-                        agreed || e.forced ? "muted" : "text-amber-200",
+                        matched || e.forced ? "muted" : "text-amber-200",
                       ]}
                     >
-                      calc: {DECISION[e.calc.recommended]?.toLowerCase()} · go{" "}
-                      {pctText(e.calc.goWp)} / punt {pctText(e.calc.puntWp)}
+                      calc: {DECISION[e.calc.recommended].toLowerCase()} · go {pctText(e.calc.goWp)}{" "}
+                      / punt {pctText(e.calc.puntWp)}
                       {e.calc.fgWp !== null ? ` / fg ${pctText(e.calc.fgWp)}` : ""}
                       {e.wpa !== null ? ` · WPA ${formatSigned(e.wpa * 100, 1)}` : ""}
                     </span>
@@ -225,9 +223,10 @@ const tableSeasons = c.tableSeasons.length ? c.tableSeasons : [c.season];
       Era tracker
     </h2>
     <p class="muted mt-2 text-sm">
-      {c.coach}, head coach since {c.firstSeason}. Regular season {rec(sum("regular"))}, postseason{" "}
-      {rec(sum("postseason"))}; one-score games {rec(sum("oneScore"))}; as favorite{" "}
-      {rec(sum("favorite"))}, as underdog {rec(sum("underdog"))}; division {rec(sum("division"))}.
+      {c.coach}, head coach since {c.firstSeason}. Regular season {recordText(sum("regular"))},
+      postseason {recordText(sum("postseason"))}; one-score games {recordText(sum("oneScore"))}; as
+      favorite {recordText(sum("favorite"))}, as underdog {recordText(sum("underdog"))}; division{" "}
+      {recordText(sum("division"))}.
     </p>
     <table class="mt-4 w-full text-sm">
       <thead>
@@ -267,20 +266,24 @@ const tableSeasons = c.tableSeasons.length ? c.tableSeasons : [c.season];
             <th scope="row" class="py-2 pr-3 text-left font-medium">
               {e.season}
             </th>
-            <td class="py-2 pr-3 text-right tabular-nums text-white">{rec(e.regular)}</td>
+            <td class="py-2 pr-3 text-right tabular-nums text-white">{recordText(e.regular)}</td>
             <td class="py-2 pr-3 text-right tabular-nums">
-              {e.postseason.w + e.postseason.l + e.postseason.t ? rec(e.postseason) : "—"}
-            </td>
-            <td class="hidden py-2 pr-3 text-right tabular-nums sm:table-cell">{rec(e.home)}</td>
-            <td class="hidden py-2 pr-3 text-right tabular-nums sm:table-cell">{rec(e.away)}</td>
-            <td class="py-2 pr-3 text-right tabular-nums">{rec(e.oneScore)}</td>
-            <td class="hidden py-2 pr-3 text-right tabular-nums sm:table-cell">
-              {rec(e.favorite)}
+              {e.postseason.w + e.postseason.l + e.postseason.t ? recordText(e.postseason) : "—"}
             </td>
             <td class="hidden py-2 pr-3 text-right tabular-nums sm:table-cell">
-              {rec(e.underdog)}
+              {recordText(e.home)}
             </td>
-            <td class="py-2 text-right tabular-nums">{rec(e.division)}</td>
+            <td class="hidden py-2 pr-3 text-right tabular-nums sm:table-cell">
+              {recordText(e.away)}
+            </td>
+            <td class="py-2 pr-3 text-right tabular-nums">{recordText(e.oneScore)}</td>
+            <td class="hidden py-2 pr-3 text-right tabular-nums sm:table-cell">
+              {recordText(e.favorite)}
+            </td>
+            <td class="hidden py-2 pr-3 text-right tabular-nums sm:table-cell">
+              {recordText(e.underdog)}
+            </td>
+            <td class="py-2 text-right tabular-nums">{recordText(e.division)}</td>
           </tr>
         ))}
       </tbody>
@@ -294,7 +297,7 @@ const tableSeasons = c.tableSeasons.length ? c.tableSeasons : [c.season];
       </h2>
       <ul class="mt-4 grid gap-3 sm:grid-cols-2">
         {quotes.map((q) => (
-          <li class="rounded-xl border border-white/10 bg-white/5 p-4">
+          <li class="card">
             <blockquote class="text-white">“{q.quote}”</blockquote>
             <p class="muted mt-2 text-xs">
               {q.context} ·{" "}

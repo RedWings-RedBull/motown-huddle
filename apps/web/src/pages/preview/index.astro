@@ -8,7 +8,7 @@ import Countdown from "../../components/Countdown";
 import Base from "../../layouts/Base.astro";
 import { findArticle } from "../../lib/articles";
 import { type Formatter, formatPct, formatSigned, ordinal } from "../../lib/format";
-import { formatKickoff, resultWord } from "../../lib/week";
+import { formatKickoff, gameChips, recordText, resultWord, venueWord } from "../../lib/week";
 
 const entry = await getEntry("preview", "next");
 if (!entry)
@@ -16,26 +16,12 @@ if (!entry)
 const p = entry.data;
 const article = await findArticle("preview", { season: p.season, week: p.week });
 const team = teamConfig.team;
-const venue = p.isHome ? "vs" : "at";
-const rec = (r: { w: number; l: number; t: number }) =>
-  r.t ? `${r.w}-${r.l}-${r.t}` : `${r.w}-${r.l}`;
-const spread =
-  p.line.spread === null
-    ? null
-    : p.line.spread < 0
-      ? `${team} ${p.line.spread}`
-      : `${team} +${p.line.spread}`;
+const venue = venueWord(p.isHome ? "home" : "away");
 const chips = [
-  p.venue.stadium,
-  p.venue.roof,
-  p.venue.surface,
-  p.venue.temp !== null ? `${Math.round(p.venue.temp)}°F` : null,
-  p.venue.wind !== null ? `wind ${Math.round(p.venue.wind)} mph` : null,
-  spread !== null ? `line ${spread}` : null,
-  p.line.total !== null ? `total ${p.line.total}` : null,
-  p.divGame ? "division game" : null,
-  p.referee ? `referee ${p.referee}` : null,
-].filter((c): c is string => c !== null);
+  ...gameChips(p),
+  ...(p.divGame ? ["division game"] : []),
+  ...(p.referee ? [`referee ${p.referee}`] : []),
+];
 
 type MetricKey = keyof Pick<
   SideMetrics,
@@ -74,7 +60,7 @@ const EDGE_LABEL = { team: team, opponent: p.opponent, even: "Even" } as const;
       {team} <span class="text-silver">{venue}</span> {p.opponent}
     </h1>
     <p class="muted mt-2 text-sm">
-      {rec(p.team.record)} {venue} {rec(p.opp.record)} ·{" "}
+      {recordText(p.team.record)} {venue} {recordText(p.opp.record)} ·{" "}
       <time datetime={p.kickoffUtc}>{formatKickoff(p.kickoffUtc)}</time>
     </p>
     <div class="mt-5 min-h-24">
@@ -98,7 +84,7 @@ const EDGE_LABEL = { team: team, opponent: p.opponent, even: "Even" } as const;
     </p>
     <ul class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
       {p.keyMatchups.map((k) => (
-        <li class="rounded-xl border border-white/10 bg-white/5 p-4">
+        <li class="card">
           <p class="eyebrow">{k.label}</p>
           <p class="mt-2 flex items-baseline justify-between font-display text-2xl text-white">
             <span>
@@ -127,8 +113,8 @@ const EDGE_LABEL = { team: team, opponent: p.opponent, even: "Even" } as const;
         {s.label} season to date
       </h2>
       <p class="muted mt-2 text-sm">
-        {rec(s.profile.record)}. Ranks among all 32 teams through week {p.throughWeek}; defense
-        ranks are what the unit allows (1 = stingiest).
+        {recordText(s.profile.record)}. Ranks among all 32 teams through week {p.throughWeek};
+        defense ranks are what the unit allows (1 = stingiest).
       </p>
       <div class="mt-4 grid gap-4 md:grid-cols-2">
         {(["offense", "defense"] as const).map((unit) => (
@@ -184,7 +170,7 @@ const EDGE_LABEL = { team: team, opponent: p.opponent, even: "Even" } as const;
             <span class="font-semibold text-white">{i.name}</span>
             <span class="muted">{i.position}</span>
             {i.reportStatus && (
-              <span class="badge border-amber-400/50 bg-amber-400/15 text-amber-200">
+              <span class="badge badge-warning">
                 {i.reportStatus}
                 {i.primary ? ` · ${i.primary}` : ""}
               </span>

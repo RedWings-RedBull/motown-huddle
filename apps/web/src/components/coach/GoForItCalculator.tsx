@@ -1,6 +1,8 @@
 import { type CalculatorTables, type Decision, evaluate } from "@huddle/shared";
 import { useId, useState } from "react";
 
+import { formatPct } from "../../lib/format";
+
 interface Props {
   tables: CalculatorTables;
   /** Seasons behind the tables, for the caption. */
@@ -8,7 +10,6 @@ interface Props {
 }
 
 const LABEL: Record<Decision, string> = { go: "Go for it", punt: "Punt", fg: "Field goal" };
-const pct = (x: number) => `${(x * 100).toFixed(1)}%`;
 
 /** Interactive fourth-down calculator driven by the empirical tables in the coach data file. */
 export default function GoForItCalculator({ tables, seasons }: Props) {
@@ -24,7 +25,7 @@ export default function GoForItCalculator({ tables, seasons }: Props) {
     tables,
   );
   const rows: { key: Decision; wp: number | null; note: string }[] = [
-    { key: "go", wp: result.goWp, note: `${pct(result.conversionRate)} conversion rate` },
+    { key: "go", wp: result.goWp, note: `${formatPct(result.conversionRate)} conversion rate` },
     { key: "punt", wp: result.puntWp, note: `${result.puntNet.toFixed(0)} yd net punt` },
     {
       key: "fg",
@@ -32,7 +33,7 @@ export default function GoForItCalculator({ tables, seasons }: Props) {
       note:
         result.fgMakeRate === null
           ? `${result.fgDistance} yd attempt is beyond the tables`
-          : `${result.fgDistance} yd kick, ${pct(result.fgMakeRate)} make rate`,
+          : `${result.fgDistance} yd kick, ${formatPct(result.fgMakeRate)} make rate`,
     },
   ];
   const best = Math.max(...rows.map((r) => r.wp ?? 0));
@@ -108,7 +109,7 @@ export default function GoForItCalculator({ tables, seasons }: Props) {
                 <span className="muted ml-2 text-xs">{r.note}</span>
               </span>
               <span className="display text-3xl text-white tabular-nums">
-                {r.wp === null ? "—" : pct(r.wp)}
+                {r.wp === null ? "—" : formatPct(r.wp)}
               </span>
             </li>
           ))}

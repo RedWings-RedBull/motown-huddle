@@ -4,6 +4,7 @@ import { getCollection, render } from "astro:content";
 
 import Base from "../../layouts/Base.astro";
 import { ARTICLE_LABEL, publishedDate } from "../../lib/articles";
+import { gameHref } from "../../lib/week";
 
 export async function getStaticPaths() {
   const articles = await getCollection("articles");
@@ -13,10 +14,9 @@ export async function getStaticPaths() {
 const { article } = Astro.props;
 const a = article.data;
 const { Content } = await render(article);
-const weekSlug = `week-${String(a.week).padStart(2, "0")}`;
 const related =
   a.type === "recap"
-    ? { href: `/games/${String(a.season)}/${weekSlug}/`, label: "Full game breakdown" }
+    ? { href: gameHref(a.season, a.week), label: "Full game breakdown" }
     : a.type === "division"
       ? { href: "/division/", label: `${teamConfig.division} standings and odds` }
       : { href: "/preview/", label: "Next-game numbers" };
@@ -33,7 +33,7 @@ const related =
     </span>
   </nav>
 
-  <article class="mt-4" data-article={a.type}>
+  <article class="mt-4">
     <header class="bare">
       <p class="eyebrow">
         {ARTICLE_LABEL[a.type]} · {a.season} week {a.week}
@@ -41,9 +41,9 @@ const related =
       <h1 class="display mt-2 text-4xl text-white sm:text-6xl">{a.title}</h1>
       <p class="mt-4 max-w-3xl text-lg text-silver">{a.description}</p>
       <p class="muted mt-3 text-xs" data-byline>
-        <time datetime={a.publishedAt}>{publishedDate(a)}</time> · Drafted from the week's data by
-        Claude with AI assistance; every number, name and play was checked against that data, and
-        the site owner approved it before publishing.
+        <time datetime={a.publishedAt}>{publishedDate(a)}</time> · Drafted by Claude from the week's
+        data; every number, name and play was checked against that data, and the site owner approved
+        it before publishing.
         <a href="/articles/#how" class="underline hover:text-honolulu-bright">
           How this works
         </a>

@@ -12,7 +12,7 @@ import TierBadge from "../../../components/TierBadge.astro";
 import WinProbChart from "../../../components/WinProbChart.astro";
 import Base from "../../../layouts/Base.astro";
 import { findArticle } from "../../../lib/articles";
-import { resultWord, weekSlug } from "../../../lib/week";
+import { resultWord, teamScores, venueWord, weekSlug } from "../../../lib/week";
 
 export async function getStaticPaths() {
   const games = await getCollection("games");
@@ -44,8 +44,7 @@ const highlights = await getEntry("gameHighlights", id);
 const recap = await findArticle("recap", { season: game.data.season, week: game.data.week });
 const team = teamConfig.team;
 const opponent = game.data.team.opponent;
-const teamScore = game.data.team.side === "home" ? game.data.home.score : game.data.away.score;
-const oppScore = game.data.team.side === "home" ? game.data.away.score : game.data.home.score;
+const { teamScore, oppScore } = teamScores(game.data);
 const title = `Week ${game.data.week}: ${team} ${teamScore}, ${opponent} ${oppScore}`;
 const description = `${resultWord(game.data.team.result)} over ${opponent}, ${teamScore}-${oppScore}. Huddle Grades for every position slot, team metrics, win probability and key plays.`;
 const sources = Object.entries(meta.data.sources).sort(([a], [b]) => a.localeCompare(b));
@@ -65,15 +64,17 @@ const sources = Object.entries(meta.data.sources).sort(([a], [b]) => a.localeCom
       {game.data.season} week {game.data.week}
     </span>
   </nav>
-  <p class="eyebrow mt-4">
-    {game.data.season} season · week {game.data.week}
-  </p>
-  <h1 class="bare display mt-2 text-5xl text-white sm:text-7xl">
-    <span class={game.data.team.result === "W" ? "text-honolulu-bright" : "text-silver"}>
-      {resultWord(game.data.team.result)}
-    </span>
-    {` ${game.data.team.side === "home" ? "vs" : "at"} ${opponent}`}
-  </h1>
+  <section class="bare mt-4">
+    <p class="eyebrow">
+      {game.data.season} season · week {game.data.week}
+    </p>
+    <h1 class="display mt-2 text-5xl text-white sm:text-7xl">
+      <span class={game.data.team.result === "W" ? "text-honolulu-bright" : "text-silver"}>
+        {resultWord(game.data.team.result)}
+      </span>
+      {` ${venueWord(game.data.team.side)} ${opponent}`}
+    </h1>
+  </section>
 
   <div class="mt-6">
     <ScoreStrip game={game.data} />

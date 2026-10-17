@@ -1,10 +1,9 @@
 import AxeBuilder from "@axe-core/playwright";
-import { expect, test } from "@playwright/test";
+
+import { expect, test } from "./fixtures";
 
 test.describe("coach's corner", () => {
   test("shows the index, league ranking, decision log and era record", async ({ page }) => {
-    const errors: string[] = [];
-    page.on("pageerror", (e) => errors.push(e.message));
     await page.goto("/coach/");
     await expect(
       page.getByRole("heading", { name: "Fourth-Down Aggression Index", exact: true }),
@@ -12,13 +11,14 @@ test.describe("coach's corner", () => {
     await expect(page.locator("[data-league] li")).toHaveCount(32);
     await expect(page.locator("[data-log]").first()).toBeVisible();
     await expect(page.getByRole("heading", { name: "Era tracker", exact: true })).toBeVisible();
-    expect(errors).toEqual([]);
   });
 
   test("calculator responds to the sliders with the keyboard", async ({ page }) => {
     await page.goto("/coach/");
     const calc = page.locator("[data-calculator]");
     await calc.scrollIntoViewIfNeeded();
+    // A key pressed before the island hydrates is lost; wait for Astro to drop the `ssr` marker.
+    await expect(page.locator("astro-island[ssr]")).toHaveCount(0);
     const go = calc.locator("[data-choice=go] .display");
     await expect(go).not.toHaveText("—");
     const before = await go.textContent();

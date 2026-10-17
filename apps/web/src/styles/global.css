@@ -1,8 +1,5 @@
 @import "tailwindcss";
 
-/* The site is dark by design (stadium at night); `dark:` utilities are always on. */
-@custom-variant dark (&:where(.dark, .dark *));
-
 @theme {
   --color-night: #06111f;
   --color-ink: #0b1f33;
@@ -108,6 +105,10 @@ a {
 @utility panel {
   @apply rounded-xl border border-white/10 bg-ink/85 shadow-[0_1px_0_rgb(255_255_255/0.06)_inset,0_20px_40px_-24px_rgb(0_0_0/0.8)] backdrop-blur-md;
 }
+/* A lighter card for lists inside a panel: odds per club, matchups, roster entries, quotes. */
+.card {
+  @apply rounded-xl border border-white/10 bg-white/5 p-4;
+}
 .stat-tile {
   @apply panel flex flex-col gap-1 p-4;
 }
@@ -131,6 +132,9 @@ a {
 }
 .badge-provisional {
   @apply border-silver/50 bg-silver/15 text-silver;
+}
+.badge-warning {
+  @apply border-amber-400/50 bg-amber-400/15 text-amber-200;
 }
 
 /* Percentile bars */

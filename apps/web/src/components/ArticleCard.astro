@@ -12,7 +12,7 @@ const { article } = Astro.props;
 const a = article.data;
 ---
 
-<section aria-labelledby={`article-${article.id}`} class="mt-6" data-article-card>
+<section aria-labelledby={`article-${article.id}`} class="mt-6">
   <p class="eyebrow">{ARTICLE_LABEL[a.type]}</p>
   <h2 id={`article-${article.id}`} class="mt-2 font-display text-2xl font-bold text-white">
     <a href={articleHref(article)} class="no-underline hover:text-honolulu-bright">
