@@ -1,7 +1,7 @@
 import type { KeyPlay, KeyPlays } from "@huddle/shared";
 
 import type { PbpRow } from "../columns.js";
-import { is1, isExplosive } from "./context.js";
+import { is1, isExplosive, quarterOf } from "./context.js";
 
 const KEY_PLAYS_TOP_WPA = 8;
 const KEY_PLAYS_CAP = 12;
@@ -30,7 +30,7 @@ function isTeamFourthDownGo(p: PbpRow, team: string): boolean {
 function toKeyPlay(p: PbpRow): KeyPlay {
   return {
     playId: p.play_id,
-    qtr: Math.max(1, Math.min(6, Math.trunc(p.qtr ?? 1))),
+    qtr: quarterOf(p),
     clock: p.time ?? "",
     down: p.down === null ? null : Math.trunc(p.down),
     ydstogo: p.ydstogo === null ? null : Math.trunc(p.ydstogo),

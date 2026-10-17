@@ -33,6 +33,23 @@ signs in as a small GitHub App instead.
 
 To rotate, generate a new private key on the app page, update the secret, and delete the old key.
 
+## Game breakdown and Huddle Grades
+
+```bash
+pnpm pipeline --season 2026 --week auto           # newest completed game, provisional grades
+pnpm pipeline --season 2026 --week auto --final   # same game, final grades
+pnpm pipeline --season 2026 --weeks 1-18          # backfill a range (byes are skipped)
+```
+
+`--season` is required; `--week` defaults to `auto`, the newest completed game. Writes the game
+breakdown and grades under `apps/web/src/data/<season>/week-<nn>/` and adds the week to
+`manifest.json`. Provisional grades use the nflverse files that publish within a day or two of the
+game; `--final` also requires the Pro-Football-Reference advanced stats, which lag by three or more
+days.
+
+Exit codes: `0` ok, `2` a validation failure (nothing is written), `3` the data is not published yet.
+The weekly workflow treats `3` as "try again on the next scheduled run", not as a failure.
+
 ## Articles
 
 ```bash
@@ -58,7 +75,7 @@ The command runs the pinned `@anthropic-ai/claude-code` CLI from an empty tempor
 tools off. It signs in with `CLAUDE_CODE_OAUTH_TOKEN`, a long-lived token from a Pro or Max
 subscription. To create one, run `pnpm --filter @huddle/writer exec claude setup-token`. Put the token
 in `.env` for local runs and in the `CLAUDE_CODE_OAUTH_TOKEN` repository secret for the weekly
-workflow, which skips the step when the secret is missing. Model and effort default to `sonnet` and
+workflow. Without a token, `pnpm writer` in CI logs a skip and exits 0. Model and effort default to `sonnet` and
 `high`. Override them with `--model` and `--effort`, the `HUDDLE_WRITER_MODEL` and
 `HUDDLE_WRITER_EFFORT` variables in `.env`, or the repository variables of the same names.
 

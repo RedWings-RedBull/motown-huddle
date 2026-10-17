@@ -1,5 +1,6 @@
 import AxeBuilder from "@axe-core/playwright";
-import { expect, test } from "@playwright/test";
+
+import { expect, test } from "./fixtures";
 
 test.describe("division page", () => {
   test("shows four clubs in the standings with odds and upcoming games", async ({ page }) => {

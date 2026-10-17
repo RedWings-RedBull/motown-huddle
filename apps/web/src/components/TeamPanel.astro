@@ -2,7 +2,7 @@
 import type { Metric, SideMetrics, TeamMetrics } from "@huddle/shared";
 import { teamConfig } from "@huddle/shared";
 
-import { formatPct, formatSigned, ordinal } from "../lib/format";
+import { type Formatter, formatPct, formatSigned, ordinal } from "../lib/format";
 
 interface Props {
   metrics: TeamMetrics;
@@ -22,9 +22,6 @@ type Key = keyof Pick<
   | "sackRate"
   | "thirdDownRate"
 >;
-
-/** (value: number) => string; typeof avoids a type-position param the core lint rule misreads. */
-type Formatter = typeof formatPct;
 
 const ROWS: { key: Key; label: string; format: Formatter; unit: string }[] = [
   { key: "epaPerPlay", label: "EPA per play", format: (v) => formatSigned(v, 2), unit: "plays" },

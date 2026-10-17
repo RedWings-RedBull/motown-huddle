@@ -1,12 +1,14 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 
+import { teamConfig } from "@huddle/shared";
+
 import { InjuryRow, PlayersRow, WeeklyRosterRow } from "../columns.js";
 import { readCsv } from "../csv.js";
 import { type DownloadOptions, fetchAsset } from "../download.js";
 import { type Logger, silentLogger } from "../log.js";
 import { stableJson } from "../stages/write.js";
-import { buildRoster, type PlayerInfo } from "./build.js";
+import { buildRoster, type PositionInfo } from "./build.js";
 
 export interface RosterRunOptions extends DownloadOptions {
   season: number;
@@ -21,7 +23,7 @@ export async function runRoster(
   options: RosterRunOptions,
 ): Promise<{ week: number; players: number; path: string }> {
   const log = options.log ?? silentLogger;
-  const team = options.team ?? "DET";
+  const team = options.team ?? teamConfig.team;
   const { season } = options;
   const forTeam = (row: Record<string, string>) =>
     row.team === team && row.season === String(season);
@@ -45,7 +47,7 @@ export async function runRoster(
     keep: (row) => row.latest_team === team,
     label: playersAsset.file,
   });
-  const info = new Map<string, PlayerInfo>();
+  const info = new Map<string, PositionInfo>();
   for (const p of players) {
     if (p.gsis_id) info.set(p.gsis_id, { position: p.position, ngsPosition: p.ngs_position });
   }

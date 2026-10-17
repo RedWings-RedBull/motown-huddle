@@ -13,7 +13,6 @@
     ".astro/types.d.ts",
     "src/**/*",
     "e2e/**/*",
-    "scripts/**/*",
     "astro.config.ts",
     "playwright.config.ts"
   ],

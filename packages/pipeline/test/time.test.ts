@@ -1,7 +1,7 @@
 import { afterAll, describe, expect, it } from "vitest";
 
 import { ValidationError } from "../src/errors.js";
-import { kickoffUtc, toUtcIso } from "../src/time.js";
+import { kickoffUtc } from "../src/time.js";
 
 const PAIRS: [string, string, string][] = [
   ["2026-10-04", "20:20", "2026-10-05T00:20:00Z"],
@@ -30,9 +30,5 @@ describe("kickoffUtc validation", () => {
 
   it("throws on a malformed gameday", () => {
     expect(() => kickoffUtc("10/04/2026", "20:20")).toThrow(/gameday/);
-  });
-
-  it("formats instants without milliseconds", () => {
-    expect(toUtcIso(Date.UTC(2026, 8, 27, 17))).toBe("2026-09-27T17:00:00Z");
   });
 });

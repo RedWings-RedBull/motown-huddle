@@ -14,7 +14,7 @@ export function groundedRecap(extra = ""): { title: string; description: string;
     "Jared Goff found Gibbs for 11 yards and the go-ahead touchdown [p:3817].",
     "The strip-sack by Clark ended it [p:4086].",
     extra,
-    ...Array.from({ length: 16 }, () => FILLER),
+    ...Array.from({ length: 20 }, () => FILLER),
   ].filter(Boolean);
   return {
     title: "Lions hold off the Jets in a late swing at Ford Field",

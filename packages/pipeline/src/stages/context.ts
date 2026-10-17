@@ -3,7 +3,7 @@ import type { DepthChartRow, FtnRow, PbpRow } from "../columns.js";
 /** FTN charting keyed by nflverse game and play id. */
 export type FtnIndex = Map<string, FtnRow>;
 
-function ftnKey(gameId: string, playId: number): string {
+export function ftnKey(gameId: string, playId: number): string {
   return `${gameId}:${playId}`;
 }
 
@@ -37,10 +37,14 @@ export function dropbackQb(p: PbpRow): string | null {
   return p.passer_player_id ?? (is1(p.qb_scramble) ? p.rusher_player_id : null);
 }
 
+/** Yards gained that make a pass or a run explosive. */
+const EXPLOSIVE_PASS_YARDS = 20;
+export const EXPLOSIVE_RUSH_YARDS = 10;
+
 export function isExplosive(p: PbpRow): boolean {
   const y = p.yards_gained ?? 0;
-  if (is1(p.pass_attempt) && !is1(p.sack)) return y >= 20;
-  if (is1(p.rush_attempt)) return y >= 10;
+  if (is1(p.pass_attempt) && !is1(p.sack)) return y >= EXPLOSIVE_PASS_YARDS;
+  if (is1(p.rush_attempt)) return y >= EXPLOSIVE_RUSH_YARDS;
   return false;
 }
 
@@ -65,7 +69,6 @@ export interface TeamContext {
   plays: number;
   dropbacks: number;
   designedRushes: number;
-  sacks: number;
   /** Share of offensive plays that were dropbacks (route / pass-rush snap estimates). */
   dropbackShare: number;
   rushShare: number;
@@ -84,17 +87,13 @@ export function buildTeamContexts(pbp: readonly PbpRow[]): Map<string, TeamConte
         plays: 0,
         dropbacks: 0,
         designedRushes: 0,
-        sacks: 0,
         dropbackShare: 0,
         rushShare: 0,
       };
       acc.set(p.posteam, ctx);
     }
     if (isScrimmage(p)) ctx.plays += 1;
-    if (isDropback(p)) {
-      ctx.dropbacks += 1;
-      if (is1(p.sack)) ctx.sacks += 1;
-    }
+    if (isDropback(p)) ctx.dropbacks += 1;
     if (isDesignedRush(p)) ctx.designedRushes += 1;
   }
   for (const ctx of acc.values()) {
@@ -123,8 +122,11 @@ export function ratio(numerator: number, denominator: number): number | null {
   return denominator === 0 ? null : numerator / denominator;
 }
 
-export function sum(values: readonly (number | null)[]): number {
-  let s = 0;
-  for (const v of values) s += v ?? 0;
-  return s;
+export function clamp01(v: number | null): number {
+  return Math.min(1, Math.max(0, v ?? 0));
+}
+
+/** nflverse `qtr` runs 1-5 (5 = overtime); the artifact contract allows up to 6. */
+export function quarterOf(p: PbpRow): number {
+  return Math.max(1, Math.min(6, Math.trunc(p.qtr ?? 1)));
 }

@@ -33,12 +33,18 @@ export interface ClaudeCodeOptions {
   timeoutMs?: number;
 }
 
+const DEFAULT_TIMEOUT_MS = 600_000;
+
 /** The binary shipped by the pinned @anthropic-ai/claude-code dev dependency. */
 export function claudeBinary(): string {
   const require = createRequire(import.meta.url);
   const pkgPath = require.resolve("@anthropic-ai/claude-code/package.json");
-  const pkg = JSON.parse(readFileSync(pkgPath, "utf8")) as { bin: Record<string, string> };
-  return join(dirname(pkgPath), pkg.bin.claude ?? "bin/claude.exe");
+  const pkg = JSON.parse(readFileSync(pkgPath, "utf8")) as { bin?: Record<string, string> };
+  const bin = pkg.bin?.claude;
+  if (bin === undefined) {
+    throw new Error(`@anthropic-ai/claude-code at ${dirname(pkgPath)} declares no "claude" binary`);
+  }
+  return join(dirname(pkgPath), bin);
 }
 
 const CliResult = z.object({
@@ -102,19 +108,24 @@ export function claudeCodeClient(options: ClaudeCodeOptions): ModelClient {
       const child = spawn(command.file, args, { cwd, env: cliEnv(process.env), windowsHide: true });
       let stdout = "";
       let stderr = "";
+      const timeoutMs = options.timeoutMs ?? DEFAULT_TIMEOUT_MS;
       const timer = setTimeout(() => {
         child.kill();
-        reject(new Error(`Claude Code timed out after ${String(options.timeoutMs ?? 600_000)} ms`));
-      }, options.timeoutMs ?? 600_000);
+        reject(new Error(`Claude Code timed out after ${timeoutMs} ms`));
+      }, timeoutMs);
+      /** Safe to run more than once: a failed spawn can report both "error" and "close". */
+      const finish = () => {
+        clearTimeout(timer);
+        rmSync(cwd, { recursive: true, force: true });
+      };
       child.stdout.on("data", (d: Buffer) => (stdout += d.toString("utf8")));
       child.stderr.on("data", (d: Buffer) => (stderr += d.toString("utf8")));
       child.on("error", (e) => {
-        clearTimeout(timer);
+        finish();
         reject(e);
       });
       child.on("close", (code) => {
-        clearTimeout(timer);
-        rmSync(cwd, { recursive: true, force: true });
+        finish();
         if (code !== 0 && stdout.trim() === "") {
           reject(new Error(`Claude Code exited ${String(code)}: ${stderr.slice(0, 300)}`));
           return;

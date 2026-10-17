@@ -11,7 +11,6 @@ import {
   PlayersRow,
   SnapCountRow,
   StatsPlayerRow,
-  bool,
   forSeason,
   forWeek,
   na,
@@ -33,14 +32,14 @@ describe("na / bool / str helpers", () => {
   });
 
   it("parses R-style booleans", () => {
-    const schema = z.object({ v: bool() });
-    expect(schema.parse({ v: "TRUE" }).v).toBe(true);
-    expect(schema.parse({ v: "FALSE" }).v).toBe(false);
-    expect(schema.parse({ v: "1" }).v).toBe(true);
-    expect(schema.parse({ v: "0" }).v).toBe(false);
-    expect(schema.parse({ v: "NA" }).v).toBeNull();
-    expect(schema.parse({}).v).toBeNull();
-    expect(schema.safeParse({ v: "maybe" }).success).toBe(false);
+    const schema = FtnRow.pick({ is_drop: true });
+    expect(schema.parse({ is_drop: "TRUE" }).is_drop).toBe(true);
+    expect(schema.parse({ is_drop: "FALSE" }).is_drop).toBe(false);
+    expect(schema.parse({ is_drop: "1" }).is_drop).toBe(true);
+    expect(schema.parse({ is_drop: "0" }).is_drop).toBe(false);
+    expect(schema.parse({ is_drop: "NA" }).is_drop).toBeNull();
+    expect(schema.parse({}).is_drop).toBeNull();
+    expect(schema.safeParse({ is_drop: "maybe" }).success).toBe(false);
   });
 
   it("keeps text but nulls NA", () => {
@@ -77,8 +76,9 @@ describe("readCsv on fixture slices", () => {
     const stats = await readCsv(fixture("stats_player_week.csv"), { schema: StatsPlayerRow });
     expect(stats.length).toBe(287);
     const goff = stats.find((s) => s.player_id === "00-0033106");
-    expect(goff?.attempts).toBe(32);
-    expect(goff?.passing_cpoe).not.toBeNull();
+    expect(goff?.position).toBe("QB");
+    expect(goff?.carries).toBe(4);
+    expect(goff?.receiving_epa).toBeNull();
     const snaps = await readCsv(fixture("snap_counts.csv"), { schema: SnapCountRow });
     expect(snaps.length).toBe(368);
     const ftn = await readCsv(fixture("ftn_charting.csv"), { schema: FtnRow });

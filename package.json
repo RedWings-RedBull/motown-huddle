@@ -31,8 +31,8 @@
     "writer": "tsx packages/writer/src/cli.ts",
     "infra:preflight": "tsx infra/scripts/preflight.ts",
     "infra:synth": "pnpm --filter @huddle/infra synth",
-    "infra:deploy": "pnpm infra:preflight && pnpm --filter @huddle/infra deploy",
-    "infra:bootstrap": "pnpm infra:preflight && pnpm --filter @huddle/infra bootstrap",
+    "infra:deploy": "pnpm --filter @huddle/infra deploy",
+    "infra:bootstrap": "pnpm --filter @huddle/infra bootstrap",
     "prepare": "simple-git-hooks"
   },
   "simple-git-hooks": {

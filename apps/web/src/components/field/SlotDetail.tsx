@@ -45,7 +45,7 @@ function ComponentBars({ components }: { components: readonly Component[] }) {
             >
               <div className="h-full rounded bg-honolulu" style={{ width: `${pct}%` }} />
             </div>
-            <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-ink/80 dark:text-silver/80">
+            <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-silver/80">
               <span>
                 {c.percentile === null ? "no percentile" : `${ordinal(pct)} percentile`} of{" "}
                 {c.poolN}
@@ -72,7 +72,7 @@ function PlayerHeader({ player }: { player: PlayerGrade }) {
     <div className="flex flex-wrap items-baseline justify-between gap-2">
       <h4 className="text-base font-bold">
         {player.name}
-        <span className="ml-2 text-sm font-medium text-ink/70 dark:text-silver/70">
+        <span className="ml-2 text-sm font-medium text-silver/70">
           {player.jersey === null ? "" : `#${player.jersey} · `}
           {player.position}
         </span>
@@ -105,7 +105,7 @@ function PlayerBody({ player }: { player: PlayerGrade }) {
         {g.value === null ? (
           <span>{g.reason ?? "not graded"}</span>
         ) : (
-          <span className="text-ink/80 dark:text-silver/80">
+          <span className="text-silver/80">
             raw {g.rawComposite === null ? "–" : Math.round(g.rawComposite)} · n {g.n} · k {g.k}
           </span>
         )}
@@ -153,7 +153,7 @@ export interface SlotDetailProps {
 /** Shared body of the desktop aside and the mobile bottom sheet. */
 export function SlotDetail({ slot, olUnit, titleId, onClose }: SlotDetailProps) {
   return (
-    <div className="text-ink dark:text-silver">
+    <div className="text-silver">
       <div className="flex items-start justify-between gap-3">
         <h3 id={titleId} className="text-lg font-extrabold">
           {slot.label}

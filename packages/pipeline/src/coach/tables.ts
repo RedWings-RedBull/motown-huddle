@@ -15,15 +15,25 @@ import {
 } from "@huddle/shared";
 
 import type { PbpRow } from "../columns.js";
+import { laplaceRate } from "../models/fgTable.js";
 
 const MIN_WP_CELL = 20;
+const QUARTER_SECONDS = 900;
+const REGULATION_QUARTERS = 4;
+/** yardBucket() splits the field into ten-yard bins. */
+const YARD_BUCKETS = 10;
+/** A touchback spots the ball at the 20, so net punt yards give that back. */
+const TOUCHBACK_YARDS = 20;
+/** Net punt assumed for a bin with no attempts. */
+const DEFAULT_PUNT_NET = 40;
 
 const clamp = (x: number, lo: number, hi: number): number => Math.min(hi, Math.max(lo, x));
 
 /** Seconds left in the current quarter from the game clock. */
 export function secondsInQuarter(qtr: number, gameSecondsRemaining: number): number {
-  if (qtr >= 5) return clamp(gameSecondsRemaining, 0, 900);
-  return clamp(gameSecondsRemaining - (4 - qtr) * 900, 0, 900);
+  if (qtr > REGULATION_QUARTERS) return clamp(gameSecondsRemaining, 0, QUARTER_SECONDS);
+  const laterQuarters = (REGULATION_QUARTERS - qtr) * QUARTER_SECONDS;
+  return clamp(gameSecondsRemaining - laterQuarters, 0, QUARTER_SECONDS);
 }
 
 /** Empirical calculator tables from regular-season play-by-play (several seasons recommended). */
@@ -35,9 +45,9 @@ export function buildTables(pbp: readonly PbpRow[]): CalculatorTables {
   }
   const fg = FG_BINS.map(() => ({ made: 0, att: 0 }));
   const punt = PUNT_BINS.map(() => ({ yards: 0, n: 0 }));
-  const wpSum: number[][][][] = Array.from({ length: 4 }, () =>
+  const wpSum: number[][][][] = Array.from({ length: REGULATION_QUARTERS }, () =>
     Array.from({ length: WP_TIME_BUCKETS }, () =>
-      Array.from({ length: 2 * WP_DIFF_CLAMP + 1 }, () => new Array<number>(10).fill(0)),
+      Array.from({ length: 2 * WP_DIFF_CLAMP + 1 }, () => new Array<number>(YARD_BUCKETS).fill(0)),
     ),
   );
   const wpN: number[][][][] = wpSum.map((q) => q.map((t) => t.map((d) => d.map(() => 0))));
@@ -66,16 +76,21 @@ export function buildTables(pbp: readonly PbpRow[]): CalculatorTables {
         if (row.field_goal_result === "made") cell.made += 1;
       }
     }
-    if (row.play_type === "punt" && row.kick_distance !== null && row.yardline_100 >= 30) {
+    if (
+      row.play_type === "punt" &&
+      row.kick_distance !== null &&
+      row.yardline_100 >= PUNT_BINS[0]
+    ) {
       const cell = punt[puntBinIndex(row.yardline_100)];
       if (cell) {
-        const net = row.kick_distance - (row.return_yards ?? 0) - (row.touchback === 1 ? 20 : 0);
+        const touchback = row.touchback === 1 ? TOUCHBACK_YARDS : 0;
+        const net = row.kick_distance - (row.return_yards ?? 0) - touchback;
         cell.yards += net;
         cell.n += 1;
       }
     }
     if (row.down === 1 && row.wp !== null && row.score_differential !== null && row.qtr <= 5) {
-      const q = clamp(row.qtr, 1, 4) - 1;
+      const q = clamp(row.qtr, 1, REGULATION_QUARTERS) - 1;
       const t = timeBucket(secondsInQuarter(row.qtr, row.game_seconds_remaining ?? 0));
       const d =
         clamp(Math.round(row.score_differential), -WP_DIFF_CLAMP, WP_DIFF_CLAMP) + WP_DIFF_CLAMP;
@@ -95,7 +110,7 @@ export function buildTables(pbp: readonly PbpRow[]): CalculatorTables {
       Object.fromEntries(
         FIELD_BINS.map((f) => {
           const c = conv[d]?.[f] ?? { made: 0, att: 0 };
-          return [f, { rate: (c.made + 1) / (c.att + 2), n: c.att }];
+          return [f, { rate: laplaceRate(c.made, c.att), n: c.att }];
         }),
       ),
     ]),
@@ -103,8 +118,8 @@ export function buildTables(pbp: readonly PbpRow[]): CalculatorTables {
 
   return {
     conversion,
-    fieldGoal: fg.map((c) => ({ rate: (c.made + 1) / (c.att + 2), n: c.att })),
-    punt: punt.map((c) => ({ yards: c.n === 0 ? 40 : c.yards / c.n, n: c.n })),
+    fieldGoal: fg.map((c) => ({ rate: laplaceRate(c.made, c.att), n: c.att })),
+    punt: punt.map((c) => ({ yards: c.n === 0 ? DEFAULT_PUNT_NET : c.yards / c.n, n: c.n })),
     winProbability: wpSum.map((q, qi) =>
       q.map((t, ti) =>
         t.map((d, di) =>

@@ -47,7 +47,11 @@ export default function Countdown({ kickoffUtc, label }: Props) {
     [s, "sec"],
   ];
   return (
-    <p className="flex flex-wrap gap-3" aria-label={`Kickoff in ${d} days ${h} hours ${m} minutes`}>
+    <p
+      role="timer"
+      className="flex flex-wrap gap-3"
+      aria-label={`Kickoff in ${d} days ${h} hours ${m} minutes`}
+    >
       {cells.map(([value, unit]) => (
         <span
           key={unit}

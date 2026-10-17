@@ -6,9 +6,10 @@
  * a step separates the group, the leaders and the rest each restart from step 1 (the league's
  * "revert to step 1" rule), which is what the recursion below does.
  */
+import type { WinLossRecord } from "@huddle/shared";
 import { conferenceOf, conferenceTeams } from "@huddle/shared";
 
-import { pct, type Tally, type TeamRecord } from "./standings.js";
+import { pct, type TeamRecord } from "./standings.js";
 
 export interface Ranked {
   team: string;
@@ -26,7 +27,7 @@ interface Step {
   ) => number | null;
 }
 
-const tallyOf = (games: readonly TeamRecord["games"][number][]): Tally => {
+const tallyOf = (games: readonly TeamRecord["games"][number][]): WinLossRecord => {
   const t = { w: 0, l: 0, t: 0 };
   for (const g of games) {
     if (g.result === "W") t.w += 1;

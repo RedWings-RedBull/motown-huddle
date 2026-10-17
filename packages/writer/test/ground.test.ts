@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import { buildBundle } from "../src/bundle.js";
 import { allowedNumbers, checkArticle, properPhrases } from "../src/ground.js";
+import { ARTICLE_LIMITS } from "../src/prompts.js";
 import { DATA_DIR, groundedRecap } from "./helpers.js";
 
 const recap = buildBundle("recap", DATA_DIR, 2026, 3);
@@ -11,7 +12,7 @@ describe("grounding check", () => {
     const report = checkArticle(groundedRecap(), recap);
     expect(report.violations).toEqual([]);
     expect(report.counts.plays).toBe(3);
-    expect(report.counts.words).toBeGreaterThanOrEqual(350);
+    expect(report.counts.words).toBeGreaterThanOrEqual(ARTICLE_LIMITS.bodyMinWords);
   });
 
   it("knows the numbers the data allows, including percentages of rates", () => {
@@ -63,6 +64,16 @@ describe("grounding check", () => {
     expect(checkArticle(short, recap).violations.some((v) => v.startsWith("too short"))).toBe(true);
     const long = { ...groundedRecap(), body: "word ".repeat(1200) };
     expect(checkArticle(long, recap).violations.some((v) => v.startsWith("too long"))).toBe(true);
+    const title = { ...groundedRecap(), title: "Lions ".repeat(20) };
+    expect(checkArticle(title, recap).violations).toContain(
+      "title length out of bounds: 119 characters",
+    );
+    const nearMiss = { ...groundedRecap(), title: "x".repeat(ARTICLE_LIMITS.titleMaxChars + 5) };
+    expect(checkArticle(nearMiss, recap).violations).toEqual([]);
+    const terse = { ...groundedRecap(), description: "Detroit won." };
+    expect(checkArticle(terse, recap).violations).toContain(
+      "description length out of bounds: 12 characters",
+    );
   });
 
   it("does not require play tags in articles that have no plays", () => {

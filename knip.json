@@ -8,8 +8,7 @@
     "packages/*": {},
     "infra": {
       "entry": ["bin/app.ts"],
-      "ignore": ["functions/**"],
-      "ignoreDependencies": ["tsx"]
+      "ignore": ["functions/**"]
     }
   }
 }

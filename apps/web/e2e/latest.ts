@@ -4,6 +4,8 @@
  */
 import { readFileSync } from "node:fs";
 
+import { gameHref, resultWord, teamScores, venueWord, weekId } from "../src/lib/week";
+
 interface ManifestWeek {
   season: number;
   week: number;
@@ -21,18 +23,12 @@ const weeks = (readJson("manifest.json") as { weeks: ManifestWeek[] }).weeks;
 const newest = [...weeks].sort((a, b) => b.season - a.season || b.week - a.week)[0];
 if (!newest) throw new Error("manifest.json lists no weeks");
 
-const slug = `week-${String(newest.week).padStart(2, "0")}`;
-const game = readJson(`${String(newest.season)}/${slug}/game.json`) as GameFile;
-const home = game.team.side === "home";
-const teamScore = home ? game.home.score : game.away.score;
-const oppScore = home ? game.away.score : game.home.score;
-const word = { W: "Win", L: "Loss", T: "Tie" }[game.team.result];
+const game = readJson(`${weekId(newest.season, newest.week)}/game.json`) as GameFile;
 
 export const latest = {
   /** e.g. "Win vs NYJ" or "Loss at CAR". */
-  headline: `${word} ${home ? "vs" : "at"} ${game.team.opponent}`,
-  teamScore,
-  oppScore,
+  headline: `${resultWord(game.team.result)} ${venueWord(game.team.side)} ${game.team.opponent}`,
+  ...teamScores(game),
   /** Path of the game breakdown, e.g. /games/2026/week-04/. */
-  path: `/games/${String(newest.season)}/${slug}/`,
+  path: gameHref(newest.season, newest.week),
 };

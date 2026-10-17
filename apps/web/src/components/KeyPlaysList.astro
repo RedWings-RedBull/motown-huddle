@@ -1,7 +1,7 @@
 ---
 import type { KeyPlay, KeyPlays } from "@huddle/shared";
 
-import { formatSigned } from "../lib/format";
+import { formatSigned, ordinal } from "../lib/format";
 
 interface Props {
   plays: KeyPlays;
@@ -23,8 +23,7 @@ const TAG_LABEL: Record<KeyPlay["tags"][number], string> = {
 function situation(p: KeyPlay): string {
   const parts: string[] = [];
   if (p.down !== null && p.ydstogo !== null) {
-    const down = ["1st", "2nd", "3rd", "4th"][p.down - 1] ?? `${p.down}th`;
-    parts.push(`${down} & ${p.ydstogo}`);
+    parts.push(`${ordinal(p.down)} & ${p.ydstogo}`);
   }
   if (p.yardline100 !== null) {
     parts.push(p.yardline100 > 50 ? `own ${100 - p.yardline100}` : `opp ${p.yardline100}`);

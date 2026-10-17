@@ -1,4 +1,5 @@
 import type { Metric, SideMetrics, TeamMetrics, Tier } from "@huddle/shared";
+import { ALL_TEAMS } from "@huddle/shared";
 
 import type { PbpRow } from "../columns.js";
 import { is1, isDesignedRush, isDropback, isExplosive, isScrimmage, ratio } from "./context.js";
@@ -111,7 +112,16 @@ interface Rated {
   n: number;
 }
 
-function rate(t: OffenseTotals, key: keyof SideMetrics): Rated {
+type RateKey =
+  | "epaPerPlay"
+  | "successRate"
+  | "passEpaPerDropback"
+  | "rushEpaPerAtt"
+  | "explosiveRate"
+  | "sackRate"
+  | "thirdDownRate";
+
+function rate(t: OffenseTotals, key: RateKey): Rated {
   switch (key) {
     case "epaPerPlay":
       return { value: ratio(t.epa, t.plays), n: t.plays };
@@ -127,21 +137,13 @@ function rate(t: OffenseTotals, key: keyof SideMetrics): Rated {
       return { value: ratio(t.sacks, t.dropbacks), n: t.dropbacks };
     case "thirdDownRate":
       return { value: ratio(t.thirdConv, t.thirdAtt), n: t.thirdAtt };
-    default:
-      return { value: null, n: 0 };
   }
 }
 
-type RateKey =
-  | "epaPerPlay"
-  | "successRate"
-  | "passEpaPerDropback"
-  | "rushEpaPerAtt"
-  | "explosiveRate"
-  | "sackRate"
-  | "thirdDownRate";
+const LOWER_IS_BETTER: ReadonlySet<RateKey> = new Set<RateKey>(["sackRate"]);
 
-const LOWER_IS_BETTER: ReadonlySet<string> = new Set(["sackRate"]);
+/** Game grade blend: offense, defense and special-teams percentiles. */
+export const TEAM_GRADE_WEIGHTS = { offense: 0.45, defense: 0.45, specialTeams: 0.1 } as const;
 
 /** Mid-rank percentile (0-100) and dense rank (1 = best) of a team among the league that week. */
 export function leaguePercentile(
@@ -170,7 +172,12 @@ export function sideMetrics(team: string, totals: Map<string, OffenseTotals>): S
       .filter((v): v is number => v !== null);
     const value = own.value ?? 0;
     const { percentile, rank } = leaguePercentile(league, value, LOWER_IS_BETTER.has(key));
-    return { value, leaguePercentile: percentile, leagueRank: Math.min(32, rank), n: own.n };
+    return {
+      value,
+      leaguePercentile: percentile,
+      leagueRank: Math.min(ALL_TEAMS.length, rank),
+      n: own.n,
+    };
   };
   return {
     epaPerPlay: metric("epaPerPlay"),
@@ -197,8 +204,8 @@ export interface TeamMetricsArgs {
 
 /**
  * Team and opponent offensive profiles with league percentiles among the teams that played that
- * week, plus the game grade: offense EPA/play percentile 45 %, defense (opponent's offense
- * percentile inverted) 45 %, special-teams EPA percentile 10 %.
+ * week, plus the game grade: offense EPA/play percentile, defense (opponent's offense percentile
+ * inverted) and special-teams EPA percentile blended by TEAM_GRADE_WEIGHTS.
  */
 export function teamMetrics(pbp: readonly PbpRow[], args: TeamMetricsArgs): TeamMetrics {
   const totals = offenseTotals(pbp);
@@ -220,7 +227,10 @@ export function teamMetrics(pbp: readonly PbpRow[], args: TeamMetricsArgs): Team
       offense,
       defense,
       specialTeams,
-      overall: 0.45 * offense + 0.45 * defense + 0.1 * specialTeams,
+      overall:
+        TEAM_GRADE_WEIGHTS.offense * offense +
+        TEAM_GRADE_WEIGHTS.defense * defense +
+        TEAM_GRADE_WEIGHTS.specialTeams * specialTeams,
     },
   };
 }

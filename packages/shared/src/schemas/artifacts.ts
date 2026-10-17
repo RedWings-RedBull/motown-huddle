@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 import { Bin, Pool, Slot, Source, Tier, Unit, WeekId } from "./common.js";
+import { MetricDirection, MetricUnit } from "./metrics.js";
 
 const finite = () => z.number();
 const nullableFinite = () => z.number().nullable();
@@ -12,8 +13,8 @@ export const Component = z
     label: z.string(),
     source: Source,
     value: nullableFinite(),
-    unit: z.enum(["rate", "pct", "epa", "yds", "count", "score"]),
-    direction: z.enum(["higher", "lower"]),
+    unit: MetricUnit,
+    direction: MetricDirection,
     weight: finite().min(0).max(1),
     percentile: finite().min(0).max(100).nullable(),
     /** Player sample size for this component (attempts, targets, snaps ...). */

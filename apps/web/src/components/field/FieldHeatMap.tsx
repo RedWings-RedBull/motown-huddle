@@ -30,7 +30,8 @@ function subscribeDesktop(onChange: () => void): () => void {
 const getDesktop = (): boolean => window.matchMedia(DESKTOP_QUERY).matches;
 const getServerDesktop = (): boolean => true;
 
-const INK = "#0b1f33";
+const INK = "var(--color-ink)";
+const HONOLULU = "var(--color-honolulu)";
 
 function initials(name: string): string {
   return name
@@ -102,13 +103,7 @@ function FieldBackground({ layout }: { layout: FieldLayout }) {
     : [field.x + hashInset, field.x + field.w - hashInset];
   return (
     <g aria-hidden="true">
-      <rect
-        x={field.x}
-        y={field.y}
-        width={field.w}
-        height={field.h}
-        className="fill-honolulu/10 dark:fill-honolulu/20"
-      />
+      <rect x={field.x} y={field.y} width={field.w} height={field.h} className="fill-honolulu/20" />
       {landscape ? (
         <>
           <rect
@@ -343,7 +338,7 @@ export default function FieldHeatMap({ grades }: FieldHeatMapProps) {
   const { tileW, tileH, pad } = layout;
 
   return (
-    <div className="field-heat-map">
+    <div>
       <div className="flex flex-wrap items-center gap-2" role="group" aria-label="Show unit">
         {FILTERS.map((f) => (
           <button
@@ -392,7 +387,6 @@ export default function FieldHeatMap({ grades }: FieldHeatMapProps) {
                   aria-label={describe(slot)}
                   aria-pressed={isSelected}
                   data-slot={pos.slot}
-                  data-bin={slot.bin}
                   className="field-tile cursor-pointer outline-none"
                   onClick={() => {
                     open(pos.slot);
@@ -411,7 +405,7 @@ export default function FieldHeatMap({ grades }: FieldHeatMapProps) {
                     height={tileH}
                     rx="8"
                     fill={BIN_FILL[slot.bin]}
-                    stroke={isSelected ? "#0076b6" : INK}
+                    stroke={isSelected ? HONOLULU : INK}
                     strokeWidth={isSelected ? 4 : 1}
                     strokeOpacity={isSelected ? 1 : 0.5}
                     className="tile-bg"
@@ -459,7 +453,7 @@ export default function FieldHeatMap({ grades }: FieldHeatMapProps) {
         {isDesktop && panel && (
           <aside
             aria-labelledby={panelTitleId}
-            className="mt-4 rounded-lg border border-silver/50 bg-white p-4 shadow-sm md:mt-0 dark:bg-ink"
+            className="mt-4 rounded-lg border border-silver/50 bg-ink p-4 shadow-sm md:mt-0"
           >
             {panel}
           </aside>
@@ -470,7 +464,7 @@ export default function FieldHeatMap({ grades }: FieldHeatMapProps) {
         ref={dialogRef}
         aria-labelledby={panelTitleId}
         onClose={close}
-        className="sheet bg-white p-4 text-ink dark:bg-ink dark:text-silver"
+        className="sheet bg-ink p-4 text-silver"
       >
         {!isDesktop && panel}
       </dialog>

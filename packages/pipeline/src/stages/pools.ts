@@ -134,7 +134,6 @@ export function poolForPosition(position: string | null): Pool | null {
     case "PK":
       return "K";
     case "P":
-      return "P";
     case "LS":
       return "P";
     default:

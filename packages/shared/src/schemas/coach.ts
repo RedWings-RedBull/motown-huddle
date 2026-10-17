@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 import { DISTANCE_BUCKETS, FIELD_BINS } from "../fourthDown.js";
+import { WinLossRecord } from "./common.js";
 
 const rateCell = z.object({ rate: z.number().min(0).max(1), n: z.number().int().min(0) }).strict();
 const byField = z.record(z.enum(FIELD_BINS), rateCell);
@@ -64,19 +65,17 @@ export const DecisionEntry = z
   })
   .strict();
 
-const tally = z.object({ w: z.number().int(), l: z.number().int(), t: z.number().int() }).strict();
-
 export const EraSeason = z
   .object({
     season: z.number().int(),
-    regular: tally,
-    postseason: tally,
-    home: tally,
-    away: tally,
-    oneScore: tally,
-    favorite: tally,
-    underdog: tally,
-    division: tally,
+    regular: WinLossRecord,
+    postseason: WinLossRecord,
+    home: WinLossRecord,
+    away: WinLossRecord,
+    oneScore: WinLossRecord,
+    favorite: WinLossRecord,
+    underdog: WinLossRecord,
+    division: WinLossRecord,
   })
   .strict();
 

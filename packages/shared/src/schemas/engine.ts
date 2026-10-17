@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+import { GapHeat, Penalty } from "./artifacts.js";
 import { Pool, Slot, Tier, Unit } from "./common.js";
 
 /**
@@ -34,7 +35,7 @@ export const PlayerRow = z
     n: z.number().int().min(0),
     values: MetricValues,
     samples: MetricSamples,
-    penalties: z.array(z.object({ type: z.string(), yards: z.number() }).strict()).default([]),
+    penalties: z.array(Penalty).default([]),
   })
   .strict();
 export type PlayerRow = z.infer<typeof PlayerRow>;
@@ -61,16 +62,6 @@ export const SlotAssignment = z
   .strict();
 export type SlotAssignment = z.infer<typeof SlotAssignment>;
 
-export const GapHeatInput = z
-  .object({
-    zone: z.enum(["LT", "LG", "C", "RG", "RT"]),
-    epaPerRush: z.number(),
-    successRate: z.number().min(0).max(1),
-    n: z.number().int().min(0),
-  })
-  .strict();
-export type GapHeatInput = z.infer<typeof GapHeatInput>;
-
 export const GradeRequest = z
   .object({
     season: z.number().int(),
@@ -83,7 +74,7 @@ export const GradeRequest = z
     /** OL unit values for all 32 teams. */
     units: z.array(UnitRow),
     assignments: z.array(SlotAssignment),
-    gapHeat: z.array(GapHeatInput),
+    gapHeat: z.array(GapHeat),
   })
   .strict();
 export type GradeRequest = z.infer<typeof GradeRequest>;

@@ -37,7 +37,7 @@ const BEST_OF_32 = 98.4375;
 
 describe("gradeWeek", () => {
   it("exports a semver GRADES_VERSION", () => {
-    expect(GRADES_VERSION).toBe("1.1.0");
+    expect(GRADES_VERSION).toMatch(/^\d+\.\d+\.\d+$/);
   });
 
   it("produces artifacts that satisfy the shared schemas in both tiers", () => {

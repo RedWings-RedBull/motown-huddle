@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+import { Conference, WinLossRecord } from "./common.js";
 import { TeamProfile } from "./preview.js";
 
 const count = () => z.number().int().min(0);
@@ -14,8 +15,8 @@ export const Standing = z
     l: count(),
     t: count(),
     pct: z.number().min(0).max(1),
-    division: z.object({ w: count(), l: count(), t: count() }).strict(),
-    conference: z.object({ w: count(), l: count(), t: count() }).strict(),
+    division: WinLossRecord,
+    conference: WinLossRecord,
     pointsFor: count(),
     pointsAgainst: count(),
     /** "W3", "L1", or "T1"; empty before the first game. */
@@ -56,7 +57,7 @@ export const DivisionFile = z
   .object({
     season: z.number().int(),
     division: z.string(),
-    conference: z.enum(["AFC", "NFC"]),
+    conference: Conference,
     /** Last league week with a final result. */
     throughWeek: z.number().int().min(0),
     standings: z.array(Standing).length(4),

@@ -6,8 +6,8 @@
   "scripts": {
     "typecheck": "tsc -p tsconfig.json",
     "synth": "cdk synth --quiet",
-    "deploy": "cdk deploy --profile huddle --require-approval broadening",
-    "bootstrap": "cdk bootstrap --profile huddle"
+    "deploy": "tsx scripts/preflight.ts && cdk deploy --profile huddle --require-approval broadening",
+    "bootstrap": "tsx scripts/preflight.ts && cdk bootstrap --profile huddle"
   },
   "dependencies": {
     "aws-cdk-lib": "^2.273.0",

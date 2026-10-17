@@ -4,7 +4,7 @@
 
 ## Why
 
-<!-- Link the issue or the plan milestone. -->
+<!-- Link the issue, or the roadmap milestone in the README. -->
 
 ## Checklist
 

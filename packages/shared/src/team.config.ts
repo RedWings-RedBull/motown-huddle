@@ -6,24 +6,14 @@ export const teamConfig = {
   /** nflverse / NFL three-letter team code. */
   team: "DET",
   teamName: "Detroit Lions",
-  city: "Detroit",
-  conference: "NFC",
   division: "NFC North",
   /** Brand. Never a team mark. Overridable at build time with PUBLIC_SITE_NAME. */
   siteName: "Motown Huddle",
   tagline: "Detroit Lions analytics, built in the open.",
-  /** Theme tokens. Honolulu blue and silver are colour names, not marks. */
-  colors: {
-    primary: "#0076B6",
-    secondary: "#B0B7BC",
-    ink: "#0B1F33",
-  },
-  /** Bumping this re-prompts every picks-game user to accept the terms. */
-  playTermsVersion: "v1",
   /** Disclaimer rendered in every footer. */
   disclaimer:
     "Unofficial fan site. Not affiliated with or endorsed by the Detroit Lions, the NFL, or the NFLPA. Team names and marks belong to their owners.",
-  /** Background photograph credit (CC licence requires it); null for a plain background. */
+  /** Background photograph credit, rendered in the footer (the CC licence requires it). */
   backgroundCredit: {
     text: "Background: Ford Field by Michael Barera, CC BY-SA 4.0, via Wikimedia Commons",
     url: "https://commons.wikimedia.org/wiki/File:Detroit_December_2015_06_(Ford_Field).jpg",

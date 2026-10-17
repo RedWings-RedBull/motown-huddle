@@ -2,7 +2,7 @@ import type { Slot, SlotAssignment, Unit } from "@huddle/shared";
 
 import type { DepthChartRow, PbpRow, SnapCountRow } from "../columns.js";
 import type { Crosswalk } from "../crosswalk.js";
-import { depthChartSnapshot, is1 } from "./context.js";
+import { clamp01, depthChartSnapshot, is1 } from "./context.js";
 
 const SLOT_UNIT: Record<Slot, Unit> = {
   QB: "offense",
@@ -175,10 +175,6 @@ export function participants(
   return out;
 }
 
-function clamp01(v: number | null): number {
-  return Math.min(1, Math.max(0, v ?? 0));
-}
-
 /** Who actually returned kicks in the game (returns per gsis_id), by tile. */
 export interface Returners {
   KR: ReadonlyMap<string, number>;
@@ -223,6 +219,12 @@ interface Pending {
   chartRank: number;
 }
 
+/** Chart rank for a player placed without a listing: behind every listed player. */
+const UNLISTED_RANK = 99;
+
+/** Chart rank for a live returner: ahead of every chart listing (pos_rank starts at 1). */
+const LIVE_RETURNER_RANK = 0;
+
 /**
  * Places every participant on the 27 field slots: depth-chart listing first (latest snapshot at
  * or before kickoff), snap_counts position as fallback. A player fills at most one slot per unit,
@@ -251,16 +253,16 @@ export function assignSlots(
       const placement = placementFor(row.pos_abb, row.pos_grp, row.pos_rank);
       if (!placement) continue;
       const unit = unitOf(placement);
-      const returner = row.pos_abb === "KR" || row.pos_abb === "PR";
-      if ((row.pos_abb === "KR" || row.pos_abb === "PR") && live(row.pos_abb)) continue;
-      if (seenUnits.has(unit) && !returner) continue;
+      const returner = row.pos_abb === "KR" || row.pos_abb === "PR" ? row.pos_abb : null;
+      if (returner !== null && live(returner)) continue;
+      if (seenUnits.has(unit) && returner === null) continue;
       if (unitSnaps(p, unit).snaps === 0) continue;
       seenUnits.add(unit);
       pending.push({ participant: p, placement, chartRank: row.pos_rank });
     }
     if (seenUnits.size === 0) {
       const placement = fallbackPlacement(p.position);
-      if (placement) pending.push({ participant: p, placement, chartRank: 99 });
+      if (placement) pending.push({ participant: p, placement, chartRank: UNLISTED_RANK });
     }
   }
 
@@ -280,9 +282,9 @@ export function assignSlots(
     if ("slot" in item.placement) add(item.placement.slot, item.participant, item.chartRank);
   for (const slot of ["KR", "PR"] as const) {
     if (!live(slot) || returners === undefined) continue;
-    for (const [gsisId, returns] of returners[slot]) {
+    for (const gsisId of returners[slot].keys()) {
       const p = byId.get(gsisId);
-      if (p) add(slot, p, 1 - Math.min(returns, 1));
+      if (p) add(slot, p, LIVE_RETURNER_RANK);
     }
   }
   const picks = pending
@@ -349,7 +351,7 @@ function rebalanceSecondary(
     assignments.splice(assignments.indexOf(a), 1);
     assignments.push({ ...a, slot });
   };
-  const rank = (a: SlotAssignment) => chartRanks.get(`${a.slot}:${a.gsisId}`) ?? 99;
+  const rank = (a: SlotAssignment) => chartRanks.get(`${a.slot}:${a.gsisId}`) ?? UNLISTED_RANK;
 
   for (const [left, right] of SECONDARY_PAIRS) {
     for (const [empty, donor] of [

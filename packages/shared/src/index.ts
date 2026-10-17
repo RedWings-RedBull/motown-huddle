@@ -1,13 +1,16 @@
 export { teamConfig, type TeamConfig } from "./team.config.js";
+
+export * from "./nfl.js";
+export * from "./week.js";
+export * from "./fourthDown.js";
+
 export * from "./schemas/common.js";
 export * from "./schemas/metrics.js";
 export * from "./schemas/artifacts.js";
 export * from "./schemas/engine.js";
 export * from "./schemas/roster.js";
 export * from "./schemas/preview.js";
-export * from "./nfl.js";
 export * from "./schemas/division.js";
-export * from "./fourthDown.js";
 export * from "./schemas/coach.js";
 export * from "./schemas/highlights.js";
 export * from "./schemas/article.js";

@@ -10,7 +10,7 @@ ready; credit is given in the release notes unless you prefer otherwise.
 
 ## Scope
 
-- The static site, the data pipeline, the Firestore security rules and the GitHub Actions workflows in
-  this repository.
-- Secrets never live in the repo: production deploys use GitHub OIDC, and a `gitleaks` scan runs in CI
-  and in the pre-push hook.
+- The static site, the data pipeline, the article writer, the infrastructure code and the GitHub
+  Actions workflows in this repository.
+- Secrets never live in the repo: production deploys use GitHub OIDC, `gitleaks` scans every CI run,
+  and a lighter secret scan runs in the pre-push hook.

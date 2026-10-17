@@ -4,17 +4,18 @@
  * term), every play tag points at a real play, and every sentence that claims a scoring play or a
  * turnover carries a play tag. No model is involved here.
  */
-import { DIVISIONS, TEAM_NAMES } from "@huddle/shared";
+import { ArticleFrontmatter, DIVISIONS, TEAM_NAMES } from "@huddle/shared";
 
 import type { Bundle } from "./bundle.js";
+import { ARTICLE_LIMITS } from "./prompts.js";
+
+/** Words the body may run over or under the length the prompt asks for. */
+const WORD_SLACK = 150;
 
 export interface GroundingReport {
   violations: string[];
   counts: { numbers: number; names: number; plays: number; words: number };
 }
-
-const MIN_WORDS = 350;
-const MAX_WORDS = 1100;
 
 /** Every string and number leaf of a value. */
 function leaves(value: unknown, strings: string[], numbers: number[]): void {
@@ -50,9 +51,16 @@ export function allowedNumbers(bundle: Bundle): number[] {
 /** Tokens like 31, -24, 50.8%, +0.13, 1,234, 3rd. */
 const NUMBER_TOKEN = /(?<![\w.])[-+]?\d{1,3}(?:,\d{3})+(?:\.\d+)?|(?<![\w.])[-+]?\d+(?:\.\d+)?/g;
 
+/** A figure rounded to one decimal place sits within 0.05 of its source, plus float slack. */
+const ROUNDING_TOLERANCE = 0.051;
+/** Larger figures may be rounded more coarsely, e.g. 1,234 written as 1,230 or 412 as 410. */
+const RELATIVE_TOLERANCE = 0.006;
+
 function numberIsGrounded(value: number, allowed: readonly number[]): boolean {
   if (Number.isInteger(value) && value >= 0 && value <= 4) return true; // downs, quarters
-  return allowed.some((a) => Math.abs(value - a) <= Math.max(0.051, 0.006 * a));
+  return allowed.some(
+    (a) => Math.abs(value - a) <= Math.max(ROUNDING_TOLERANCE, RELATIVE_TOLERANCE * a),
+  );
 }
 
 /** Club names, nicknames, cities and league terms are always fine to name. */
@@ -113,12 +121,16 @@ const PLAY_TAG = /\[p:(\d+)\]/g;
 const PLAY_CLAIM =
   /\b(touchdown|touchdowns|intercepted|interception|picked off|fumble|fumbled|strip-sack|(?:for|recorded|conceded|took) a safety)\b/i;
 
-/** Splits markdown prose into sentences, skipping headings. */
-function sentences(markdown: string): string[] {
-  return markdown
+/** Markdown minus its heading lines. */
+const withoutHeadings = (markdown: string): string =>
+  markdown
     .split("\n")
     .filter((l) => !/^\s*#/.test(l))
-    .join(" ")
+    .join("\n");
+
+/** Splits markdown prose into sentences, skipping headings. */
+function sentences(markdown: string): string[] {
+  return withoutHeadings(markdown)
     .split(/(?<=[.!?])\s+(?=[A-Z"“(])/)
     .map((s) => s.trim())
     .filter(Boolean);
@@ -142,11 +154,7 @@ export function checkArticle(
 
   const corpus = nameCorpus(bundle);
   let names = 0;
-  const bodyWithoutHeadings = withoutTags
-    .split("\n")
-    .filter((l) => !/^\s*#/.test(l))
-    .join("\n");
-  for (const phrase of new Set(properPhrases(bodyWithoutHeadings))) {
+  for (const phrase of new Set(properPhrases(withoutHeadings(withoutTags)))) {
     names += 1;
     if (!corpus.includes(phrase.toLowerCase())) {
       violations.push(`name or term not in the data: "${phrase}"`);
@@ -167,11 +175,20 @@ export function checkArticle(
     }
   }
 
+  // The prompt asks for ARTICLE_LIMITS; the checker enforces only the frontmatter schema's hard
+  // bounds and a looser word band, so a near miss is published instead of costing an editor pass.
+  const { title, description } = ArticleFrontmatter.shape;
+  if (!title.safeParse(article.title.trim()).success)
+    violations.push(`title length out of bounds: ${article.title.trim().length} characters`);
+  if (!description.safeParse(article.description.trim()).success)
+    violations.push(
+      `description length out of bounds: ${article.description.trim().length} characters`,
+    );
+  const minWords = ARTICLE_LIMITS.bodyMinWords - WORD_SLACK;
+  const maxWords = ARTICLE_LIMITS.bodyMaxWords + WORD_SLACK;
   const words = article.body.replace(PLAY_TAG, "").split(/\s+/).filter(Boolean).length;
-  if (words < MIN_WORDS)
-    violations.push(`too short: ${String(words)} words (minimum ${String(MIN_WORDS)})`);
-  if (words > MAX_WORDS)
-    violations.push(`too long: ${String(words)} words (maximum ${String(MAX_WORDS)})`);
+  if (words < minWords) violations.push(`too short: ${words} words (minimum ${minWords})`);
+  if (words > maxWords) violations.push(`too long: ${words} words (maximum ${maxWords})`);
 
   return { violations, counts: { numbers, names, plays, words } };
 }

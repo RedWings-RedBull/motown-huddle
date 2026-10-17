@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { DepthChartRow, SnapCountRow } from "../src/columns.js";
+import { DepthChartRow, PbpRow, PlayersRow, SnapCountRow, forWeek } from "../src/columns.js";
 import { buildCrosswalk } from "../src/crosswalk.js";
 import { readCsv } from "../src/csv.js";
 import { depthChartSnapshot } from "../src/stages/context.js";
@@ -19,8 +19,6 @@ import {
   slotOrder,
   type Participant,
 } from "../src/stages/slots.js";
-import { PbpRow, PlayersRow } from "../src/columns.js";
-import { forWeek } from "../src/columns.js";
 import { fixture } from "./helpers.js";
 
 const KICKOFF = "2026-09-27T17:00:00Z";
@@ -46,7 +44,6 @@ function chartRow(
   return {
     dt,
     team,
-    player_name: gsisId,
     gsis_id: gsisId,
     pos_grp: posGrp,
     pos_abb: posAbb,
@@ -126,9 +123,7 @@ describe("pool classification", () => {
       name: "S",
       jersey: 5,
       position: "SAF",
-      positionGroup: "DB",
       ngsPosition: "SAFETY",
-      latestTeam: "DET",
     };
     expect(classifyPool({ depthChart: nb, info: safety, statsPosition: "SAF" })).toBe("S");
     expect(classifyPool({ depthChart: nb, info: safety })).toBe("S");

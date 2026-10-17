@@ -1,13 +1,19 @@
-import type { GapHeatInput as GapHeatInputSchema } from "@huddle/shared";
+import type { GapHeat as GapHeatInputSchema } from "@huddle/shared";
 import type { z } from "zod";
-
-export type GapHeatInput = z.infer<typeof GapHeatInputSchema>;
 
 import type { PbpRow } from "../columns.js";
 import { isDesignedRush } from "./context.js";
 
+export type GapHeatInput = z.infer<typeof GapHeatInputSchema>;
 export type Zone = GapHeatInput["zone"];
 const ZONES: readonly Zone[] = ["LT", "LG", "C", "RG", "RT"];
+
+interface Cell {
+  epa: number;
+  success: number;
+  n: number;
+}
+const emptyCell = (): Cell => ({ epa: 0, success: 0, n: 0 });
 
 /** run_location x run_gap -> line zone. Middle runs (no gap) go to C. */
 export function zoneFor(location: string | null, gap: string | null): Zone | null {
@@ -27,21 +33,24 @@ export function zoneFor(location: string | null, gap: string | null): Zone | nul
 
 /** Rush EPA and success rate of the team's designed runs per line zone (all five zones present). */
 export function gapHeat(pbp: readonly PbpRow[], gameId: string, team: string): GapHeatInput[] {
-  const acc = new Map<Zone, { epa: number; success: number; n: number }>(
-    ZONES.map((z) => [z, { epa: 0, success: 0, n: 0 }]),
-  );
+  const acc: Record<Zone, Cell> = {
+    LT: emptyCell(),
+    LG: emptyCell(),
+    C: emptyCell(),
+    RG: emptyCell(),
+    RT: emptyCell(),
+  };
   for (const p of pbp) {
     if (p.game_id !== gameId || p.posteam !== team || !isDesignedRush(p)) continue;
     const zone = zoneFor(p.run_location, p.run_gap);
     if (zone === null || p.epa === null) continue;
-    const cell = acc.get(zone);
-    if (!cell) continue;
+    const cell = acc[zone];
     cell.n += 1;
     cell.epa += p.epa;
     cell.success += p.success ?? 0;
   }
   return ZONES.map((zone) => {
-    const cell = acc.get(zone) ?? { epa: 0, success: 0, n: 0 };
+    const cell = acc[zone];
     return {
       zone,
       epaPerRush: cell.n === 0 ? 0 : cell.epa / cell.n,

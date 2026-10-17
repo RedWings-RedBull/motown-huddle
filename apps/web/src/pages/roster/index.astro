@@ -1,5 +1,5 @@
 ---
-import type { PositionGroup, RosterPlayer, SocialPlatform } from "@huddle/shared";
+import type { Bin, PositionGroup, RosterPlayer, SocialLink, SocialPlatform } from "@huddle/shared";
 import { teamConfig } from "@huddle/shared";
 import { getCollection, getEntry } from "astro:content";
 
@@ -17,10 +17,7 @@ if (!roster)
 // Latest Huddle Grade per player, from the most recent week's field data.
 const weeks = (await getCollection("grades")).map((e) => e.data).sort(byWeekDesc);
 const latestGrades = weeks[0];
-const gradeById = new Map<
-  string,
-  { value: number | null; bin: RosterPlayer["positionGroup"] | string }
->();
+const gradeById = new Map<string, { value: number | null; bin: Bin }>();
 for (const slot of latestGrades?.slots ?? []) {
   for (const p of slot.players) {
     if (!gradeById.has(p.gsisId))
@@ -69,15 +66,13 @@ function height(inches: number | null): string | null {
 function verifiedLinks(id: string) {
   const entry = socials[id];
   if (!entry) return [];
-  return (
-    Object.entries(entry.socials) as [SocialPlatform, (typeof entry.socials)[SocialPlatform]][]
-  )
-    .filter(([, link]) => link?.verified)
+  return (Object.entries(entry.socials) as [SocialPlatform, SocialLink | null | undefined][])
+    .filter((pair): pair is [SocialPlatform, SocialLink] => pair[1]?.verified === true)
     .map(([platform, link]) => ({
       platform,
       label: PLATFORM_LABEL[platform],
-      url: link!.url,
-      handle: link!.handle,
+      url: link.url,
+      handle: link.handle,
     }));
 }
 
@@ -127,10 +122,7 @@ const active = roster.data.players.filter((p) => p.status === "ACT").length;
             const exp =
               p.yearsExp === null ? null : p.yearsExp === 0 ? "Rookie" : `Year ${p.yearsExp + 1}`;
             return (
-              <li
-                class="flex gap-4 rounded-xl border border-white/10 bg-white/5 p-4"
-                data-player={p.gsisId}
-              >
+              <li class="card flex gap-4" data-player={p.gsisId}>
                 <AvatarTile fullName={p.fullName} jersey={p.jersey} group={p.positionGroup} />
                 <div class="min-w-0 flex-1">
                   <div class="flex flex-wrap items-center gap-2">
@@ -138,7 +130,7 @@ const active = roster.data.players.filter((p) => p.status === "ACT").length;
                     {grade && grade.value !== null && (
                       <span
                         class="rounded-md px-1.5 py-0.5 font-display text-sm font-bold tabular-nums"
-                        style={`background:${BIN_FILL[grade.bin as keyof typeof BIN_FILL]};color:${BIN_TEXT[grade.bin as keyof typeof BIN_TEXT]}`}
+                        style={`background:${BIN_FILL[grade.bin]};color:${BIN_TEXT[grade.bin]}`}
                         title={`Huddle Grade, week ${latestGrades?.week ?? ""}`}
                       >
                         {Math.round(grade.value)}
@@ -158,10 +150,10 @@ const active = roster.data.players.filter((p) => p.status === "ACT").length;
                   </p>
                   <ul class="mt-2 flex flex-wrap gap-1.5" aria-label="Status">
                     {p.status !== "ACT" && (
-                      <li class="badge badge-provisional">{STATUS_LABEL[p.status] ?? p.status}</li>
+                      <li class="badge">{STATUS_LABEL[p.status] ?? p.status}</li>
                     )}
                     {p.injury?.reportStatus && (
-                      <li class="badge border-amber-400/50 bg-amber-400/15 text-amber-200">
+                      <li class="badge badge-warning">
                         {p.injury.reportStatus}
                         {p.injury.primary ? ` · ${p.injury.primary}` : ""}
                       </li>

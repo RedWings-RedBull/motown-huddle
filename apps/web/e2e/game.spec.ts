@@ -1,7 +1,7 @@
 import AxeBuilder from "@axe-core/playwright";
-import { expect, type Page, test } from "@playwright/test";
+import type { Page } from "@playwright/test";
 
-import { latest } from "./latest";
+import { expect, test } from "./fixtures";
 
 const GAME = "/games/2026/week-03/";
 
@@ -152,35 +152,6 @@ test.describe("game breakdown", () => {
   test("has no accessibility violations with the panel open", async ({ page }) => {
     await openGame(page);
     await page.getByRole("button", { name: /^Quarterback/ }).click();
-    const results = await new AxeBuilder({ page }).analyze();
-    expect(results.violations).toEqual([]);
-  });
-});
-
-test.describe("games index", () => {
-  test("lists the week newest first with a tier badge", async ({ page }) => {
-    await page.goto("/games/");
-    const first = page.getByRole("main").getByRole("list").first().getByRole("listitem").first();
-    await expect(first).toContainText(
-      `${latest.headline}, ${String(latest.teamScore)}-${String(latest.oppScore)}`,
-    );
-    // The committed week is whichever tier the last pipeline run produced.
-    await expect(first).toContainText(/Provisional|Final/);
-    await first.getByRole("link").click();
-    await expect(page).toHaveURL(new RegExp(`${latest.path}$`));
-  });
-});
-
-test.describe("methodology", () => {
-  test("renders every pool from the engine spec", async ({ page }) => {
-    await page.goto("/methodology/");
-    await expect(page.getByRole("heading", { name: /^Quarterback/ })).toBeVisible();
-    await expect(page.getByRole("heading", { name: /^Punt returner|^Returner/ })).toBeVisible();
-    await expect(page.getByText("EPA per dropback").first()).toBeVisible();
-  });
-
-  test("has no accessibility violations", async ({ page }) => {
-    await page.goto("/methodology/");
     const results = await new AxeBuilder({ page }).analyze();
     expect(results.violations).toEqual([]);
   });

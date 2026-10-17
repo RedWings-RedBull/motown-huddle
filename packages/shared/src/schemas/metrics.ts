@@ -10,14 +10,20 @@ import { Pool, Source, Tier } from "./common.js";
  * `direction: "lower"` means a lower raw value is better (sack rate, drops, missed tackles).
  * `tier: "final"` metrics come from PFR advanced stats and are absent in provisional grades.
  */
+export const MetricUnit = z.enum(["rate", "pct", "epa", "yds", "count", "score"]);
+export type MetricUnit = z.infer<typeof MetricUnit>;
+
+export const MetricDirection = z.enum(["higher", "lower"]);
+export type MetricDirection = z.infer<typeof MetricDirection>;
+
 export const MetricDef = z.object({
   key: z.string(),
   label: z.string(),
   pool: Pool,
   source: Source,
-  direction: z.enum(["higher", "lower"]),
+  direction: MetricDirection,
   tier: Tier,
-  unit: z.enum(["rate", "pct", "epa", "yds", "count", "score"]),
+  unit: MetricUnit,
   /** Shown in the UI so every grade is explainable. */
   description: z.string(),
 });
@@ -28,15 +34,15 @@ const m = (
   label: string,
   pool: Pool,
   source: Source,
-  direction: "higher" | "lower",
+  direction: MetricDirection,
   tier: Tier,
-  unit: MetricDef["unit"],
+  unit: MetricUnit,
   description: string,
 ): MetricDef => ({ key, label, pool, source, direction, tier, unit, description });
 
 /** Every graded metric, grouped by pool. Weights live in @huddle/grades. */
 export const METRICS: readonly MetricDef[] = [
-  // QB (qualifies at >= 14 dropbacks)
+  // QB
   m(
     "qb.epaPerDropback",
     "EPA per dropback",
@@ -107,7 +113,7 @@ export const METRICS: readonly MetricDef[] = [
     "pct",
     "NGS completion_percentage_above_expectation (qualifying QBs only).",
   ),
-  // RB (qualifies at >= 6 carries or >= 8 touches)
+  // RB
   m(
     "rb.rushEpaPerAtt",
     "Rush EPA per attempt",
@@ -158,7 +164,7 @@ export const METRICS: readonly MetricDef[] = [
     "epa",
     "receiving_epa divided by targets.",
   ),
-  // WR / TE (qualifies at >= 15 offensive snaps or >= 3 targets)
+  // WR / TE
   m(
     "wr.recEpaPerTarget",
     "Receiving EPA per target",
@@ -360,7 +366,7 @@ export const METRICS: readonly MetricDef[] = [
     "yds",
     "Line-credited rushing yards (0-4 full, 5-10 half, negatives 1.2×).",
   ),
-  // EDGE and IDL (qualify at >= 15 defensive snaps)
+  // EDGE and IDL
   m(
     "edge.pressureRate",
     "Pressure rate",
@@ -472,7 +478,7 @@ export const METRICS: readonly MetricDef[] = [
     "pct",
     "PFR def_missed_tackle_pct.",
   ),
-  // LB (qualifies at >= 20 defensive snaps)
+  // LB
   m(
     "lb.runStopRate",
     "Run stop rate",
@@ -533,7 +539,7 @@ export const METRICS: readonly MetricDef[] = [
     "pct",
     "PFR def_pressures per def_times_blitzed.",
   ),
-  // CB and S (qualify at >= 20 defensive snaps; the four coverage metrics score neutral below 3 targets)
+  // CB and S
   m(
     "cb.yardsPerCoverageSnap",
     "Yards allowed per coverage snap",
@@ -736,8 +742,6 @@ export const METRICS: readonly MetricDef[] = [
     "Return yards per return.",
   ),
 ];
-
-export const METRIC_KEYS = METRICS.map((d) => d.key);
 
 export function metricsForPool(pool: Pool): readonly MetricDef[] {
   return METRICS.filter((d) => d.pool === pool);

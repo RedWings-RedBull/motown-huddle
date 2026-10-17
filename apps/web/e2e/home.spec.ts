@@ -1,6 +1,6 @@
 import AxeBuilder from "@axe-core/playwright";
-import { expect, test } from "@playwright/test";
 
+import { expect, test } from "./fixtures";
 import { latest } from "./latest";
 
 test.describe("home", () => {
@@ -33,5 +33,11 @@ test.describe("404", () => {
     const response = await page.goto("/definitely-not-a-page/");
     expect(response?.status()).toBe(404);
     await expect(page.getByRole("heading", { level: 1 })).toContainText("Fourth and long");
+  });
+
+  test("has no accessibility violations", async ({ page }) => {
+    await page.goto("/definitely-not-a-page/");
+    const results = await new AxeBuilder({ page }).analyze();
+    expect(results.violations).toEqual([]);
   });
 });

@@ -1,5 +1,6 @@
 import AxeBuilder from "@axe-core/playwright";
-import { expect, test } from "@playwright/test";
+
+import { expect, test } from "./fixtures";
 
 test.describe("articles", () => {
   test("the index explains how articles are made and links every article", async ({ page }) => {

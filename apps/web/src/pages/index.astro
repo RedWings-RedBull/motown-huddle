@@ -4,23 +4,21 @@ import { getEntry } from "astro:content";
 
 import TierBadge from "../components/TierBadge.astro";
 import Base from "../layouts/Base.astro";
-import { byWeekDesc, formatKickoff, gameHref, resultWord, weekId } from "../lib/week";
+import {
+  byWeekDesc,
+  formatKickoff,
+  gameHref,
+  resultWord,
+  teamScores,
+  venueWord,
+  weekId,
+} from "../lib/week";
 
 const siteName = import.meta.env.PUBLIC_SITE_NAME ?? teamConfig.siteName;
 const manifest = await getEntry("manifest", "manifest");
-const latest = [...(manifest?.data.weeks ?? [])].sort(byWeekDesc)[0];
-const game = latest ? await getEntry("games", weekId(latest.season, latest.week)) : undefined;
-const teamScore = game
-  ? game.data.team.side === "home"
-    ? game.data.home.score
-    : game.data.away.score
-  : null;
-const oppScore = game
-  ? game.data.team.side === "home"
-    ? game.data.away.score
-    : game.data.home.score
-  : null;
-const venue = game ? (game.data.team.side === "home" ? "vs" : "at") : "";
+const week = [...(manifest?.data.weeks ?? [])].sort(byWeekDesc)[0];
+const game = week ? await getEntry("games", weekId(week.season, week.week)) : undefined;
+const latest = week && game ? { ...week, game: game.data, ...teamScores(game.data) } : undefined;
 
 const features: { title: string; body: string; href?: string }[] = [
   {
@@ -62,7 +60,7 @@ const features: { title: string; body: string; href?: string }[] = [
     <p class="mt-5 max-w-2xl text-lg text-silver sm:text-xl">{teamConfig.tagline}</p>
   </section>
 
-  {latest && game && teamScore !== null && oppScore !== null && (
+  {latest && (
     <section aria-labelledby="latest-heading" class="panel overflow-hidden">
       <div class="flex flex-wrap items-center justify-between gap-3 px-5 pt-4">
         <h2 id="latest-heading" class="eyebrow">
@@ -76,17 +74,17 @@ const features: { title: string; body: string; href?: string }[] = [
             <span class={latest.result === "W" ? "text-honolulu-bright" : "text-silver"}>
               {resultWord(latest.result)}
             </span>
-            {` ${venue} ${latest.opponent}`}
+            {` ${venueWord(latest.game.team.side)} ${latest.opponent}`}
           </p>
           <p class="display mt-1 text-4xl tabular-nums text-silver sm:text-5xl">
-            <span class="text-white">{teamScore}</span>
+            <span class="text-white">{latest.teamScore}</span>
             <span class="text-white/40"> – </span>
-            {oppScore}
+            {latest.oppScore}
           </p>
           <p class="mt-2 text-sm text-silver/80">
-            <time datetime={game.data.kickoffUtc}>{formatKickoff(game.data.kickoffUtc)}</time>
+            <time datetime={latest.game.kickoffUtc}>{formatKickoff(latest.game.kickoffUtc)}</time>
             {" · "}
-            {game.data.venue.stadium}
+            {latest.game.venue.stadium}
           </p>
         </div>
         <a

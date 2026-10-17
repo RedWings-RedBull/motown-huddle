@@ -1,6 +1,10 @@
-import type { ArticleFrontmatter } from "@huddle/shared";
+import type { ArticleFrontmatter, ArticleType } from "@huddle/shared";
 
 import type { Bundle } from "./bundle.js";
+
+/** The file stem an article and its dry-run prompt share, e.g. "w03-recap". */
+export const articleStem = (week: number, type: ArticleType): string =>
+  `w${String(week).padStart(2, "0")}-${type}`;
 
 /** Replaces [p:ID] tags with a link to the play on the game page, labelled by quarter and clock. */
 export function linkPlays(body: string, bundle: Bundle): string {
@@ -9,7 +13,7 @@ export function linkPlays(body: string, bundle: Bundle): string {
     const play = byId.get(Number(id));
     if (!play || bundle.gamePath === null) return "";
     const clock = play.clock.replace(/^0(\d:)/, "$1");
-    return ` ([Q${String(play.qtr)} ${clock}](${bundle.gamePath}#play-${id}))`;
+    return ` ([Q${play.qtr} ${clock}](${bundle.gamePath}#play-${id}))`;
   });
 }
 
@@ -23,17 +27,17 @@ export function renderArticle(frontmatter: ArticleFrontmatter, body: string): st
     `title: ${yamlString(f.title)}`,
     `description: ${yamlString(f.description)}`,
     `type: ${f.type}`,
-    `season: ${String(f.season)}`,
-    `week: ${String(f.week)}`,
+    `season: ${f.season}`,
+    `week: ${f.week}`,
     `gameId: ${f.gameId === null ? "null" : yamlString(f.gameId)}`,
     `publishedAt: ${yamlString(f.publishedAt)}`,
     `model: ${yamlString(f.model)}`,
     `effort: ${yamlString(f.effort)}`,
     `dataHash: ${yamlString(f.dataHash)}`,
     "grounding:",
-    `  numbers: ${String(f.grounding.numbers)}`,
-    `  names: ${String(f.grounding.names)}`,
-    `  plays: ${String(f.grounding.plays)}`,
+    `  numbers: ${f.grounding.numbers}`,
+    `  names: ${f.grounding.names}`,
+    `  plays: ${f.grounding.plays}`,
     "  passed: true",
     "---",
     "",

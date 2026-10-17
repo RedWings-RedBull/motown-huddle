@@ -1,4 +1,4 @@
-# ADR 0005: Articles are drafted by Claude and must pass a deterministic fact check
+# ADR 0004: Articles are drafted by Claude and must pass a deterministic fact check
 
 - Status: accepted (2026-10-12)
 
