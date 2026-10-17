@@ -172,3 +172,33 @@ account to a player.
 3. A `null` link means "confirmed none"; a missing key means "not researched yet".
 
 Never scrape team or league sites for handles; their terms forbid systematic retrieval.
+
+## Deploying the site
+
+The site is a static build in a private S3 bucket behind CloudFront, defined in `infra/` (ADR 0002).
+Infra changes are deployed from a local machine; site content is deployed by
+`.github/workflows/deploy.yml` on every push to `main`.
+
+Infra deploy (first time, and whenever `infra/` changes):
+
+1. Fill the AWS block of `.env` (see `.env.example`): account id, and for a custom domain the apex
+   name and its Route 53 hosted zone id. If IAM → Identity providers already lists
+   `token.actions.githubusercontent.com`, put its ARN in `HUDDLE_GITHUB_OIDC_PROVIDER_ARN`.
+2. `pnpm infra:deploy`. It checks the `huddle` profile against the pinned account first, then shows
+   any IAM or security-group change for approval. The first deploy takes 5 to 15 minutes, most of
+   it waiting for the certificate to validate and the distribution to spread to every edge.
+3. From the stack outputs, set the repository variables the deploy workflow reads:
+
+   ```powershell
+   gh variable set HUDDLE_AWS_ACCOUNT_ID --body "<account id>"
+   gh variable set SITE_BUCKET --body "<BucketName>"
+   gh variable set CF_DISTRIBUTION_ID --body "<DistributionId>"
+   gh variable set PUBLIC_SITE_URL --body "<SiteUrl>"
+   gh variable set AWS_DEPLOY_ROLE_ARN --body "<DeployRoleArn>"
+   ```
+
+   `AWS_DEPLOY_ROLE_ARN` goes last: the workflow skips itself until it is set.
+
+Site deploy: automatic on every merge to `main`. To redeploy without a change, run **Deploy** from
+the Actions tab.
+

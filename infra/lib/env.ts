@@ -43,3 +43,30 @@ export function requireAccountId(env: NodeJS.ProcessEnv = process.env): string {
   }
   return account;
 }
+
+export interface SiteDomain {
+  /** Apex domain, e.g. "example.com"; www.<name> redirects to it. */
+  readonly name: string;
+  /** Route 53 public hosted zone for the apex domain. */
+  readonly hostedZoneId: string;
+}
+
+/**
+ * The custom domain from HUDDLE_DOMAIN_NAME and HUDDLE_HOSTED_ZONE_ID, or undefined when neither is
+ * set (the site is then served on the CloudFront URL only). Setting just one is a mistake.
+ */
+export function readDomain(env: NodeJS.ProcessEnv = process.env): SiteDomain | undefined {
+  const name = env.HUDDLE_DOMAIN_NAME?.toLowerCase().replace(/\.$/, "");
+  const hostedZoneId = env.HUDDLE_HOSTED_ZONE_ID?.replace(/^\/hostedzone\//, "");
+  if (!name && !hostedZoneId) return undefined;
+  if (!name || !hostedZoneId) {
+    throw new Error("Set HUDDLE_DOMAIN_NAME and HUDDLE_HOSTED_ZONE_ID together, or neither.");
+  }
+  if (!/^(?!www\.)([a-z0-9-]+\.)+[a-z]{2,}$/.test(name)) {
+    throw new Error(`HUDDLE_DOMAIN_NAME must be an apex domain like example.com (got "${name}").`);
+  }
+  if (!/^Z[A-Z0-9]{5,}$/.test(hostedZoneId)) {
+    throw new Error(`HUDDLE_HOSTED_ZONE_ID must look like Z0123456789ABC (got "${hostedZoneId}").`);
+  }
+  return { name, hostedZoneId };
+}
