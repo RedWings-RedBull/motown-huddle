@@ -1,18 +1,11 @@
-import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 
 import { fetchAsset } from "../src/download.js";
 import { memoryLogger } from "../src/log.js";
-import {
-  ASSETS,
-  assetFileName,
-  assetSpec,
-  assetUrl,
-  tagsForTier,
-  timestampUrl,
-} from "../src/sources.js";
+import { ASSETS, assetFileName, assetSpec, assetUrl, timestampUrl } from "../src/sources.js";
 import { fixtureFetch } from "./helpers.js";
 
 let cacheDir: string;
@@ -34,12 +27,6 @@ describe("sources", () => {
     expect(assetSpec("ftn").license).toBe("CC-BY-SA-4.0");
     expect(() => assetSpec("nope" as "pbp")).toThrow(/unknown asset/);
     expect(ASSETS.some((a) => a.tag === "player_stats")).toBe(false);
-  });
-
-  it("lists PFR only for the final tier", () => {
-    expect(tagsForTier("provisional")).not.toContain("pfr_advstats");
-    expect(tagsForTier("final")).toContain("pfr_advstats");
-    expect(tagsForTier("final")).toEqual([...tagsForTier("final")].sort());
   });
 });
 
@@ -96,8 +83,6 @@ describe("fetchAsset", () => {
   it("re-downloads when the file is missing even if the stamp matches", async () => {
     const fetchImpl = fixtureFetch({ players: "same" });
     const spec = assetSpec("players");
-    await writeFile(join(cacheDir, spec.tag, "x"), "").catch(() => undefined);
-    const { mkdir } = await import("node:fs/promises");
     await mkdir(join(cacheDir, spec.tag), { recursive: true });
     await writeFile(join(cacheDir, spec.tag, "players.csv.stamp"), "same");
     const asset = await fetchAsset("players", 2026, { cacheDir, fetchImpl });

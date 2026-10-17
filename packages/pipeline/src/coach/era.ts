@@ -1,17 +1,14 @@
-import type { EraSeason } from "@huddle/shared";
+import type { EraSeason, WinLossRecord } from "@huddle/shared";
 import { divisionOf } from "@huddle/shared";
 
 import type { GamesRow } from "../columns.js";
 import { isFinal } from "../stages/resolveGame.js";
 
-interface Tally {
-  w: number;
-  l: number;
-  t: number;
-}
+/** A game decided by this many points or fewer counts as a one-score game. */
+const ONE_SCORE_MARGIN = 8;
 
-const tally = (): Tally => ({ w: 0, l: 0, t: 0 });
-const add = (t: Tally, mine: number, theirs: number): void => {
+const tally = (): WinLossRecord => ({ w: 0, l: 0, t: 0 });
+const add = (t: WinLossRecord, mine: number, theirs: number): void => {
   if (mine > theirs) t.w += 1;
   else if (mine < theirs) t.l += 1;
   else t.t += 1;
@@ -31,6 +28,13 @@ export function currentCoach(games: readonly GamesRow[], team: string, now: Date
   const latest = rows[0];
   if (!latest) return null;
   return latest.home_team === team ? latest.home_coach : latest.away_coach;
+}
+
+/** currentCoach, failing loudly when the schedule has no completed game to read it from. */
+export function requireCoach(games: readonly GamesRow[], team: string, now: Date): string {
+  const coach = currentCoach(games, team, now);
+  if (coach === null) throw new Error(`No completed ${team} game found to identify the head coach`);
+  return coach;
 }
 
 /** Per-season splits for every game the coach led for the team. */
@@ -64,7 +68,7 @@ export function eraRecord(games: readonly GamesRow[], team: string, coach: strin
     const s = get(g.season);
     add(g.game_type === "REG" ? s.regular : s.postseason, mine, theirs);
     add(home ? s.home : s.away, mine, theirs);
-    if (Math.abs(mine - theirs) <= 8) add(s.oneScore, mine, theirs);
+    if (Math.abs(mine - theirs) <= ONE_SCORE_MARGIN) add(s.oneScore, mine, theirs);
     if (g.spread_line !== null && g.spread_line !== 0) {
       const favored = home ? g.spread_line > 0 : g.spread_line < 0;
       add(favored ? s.favorite : s.underdog, mine, theirs);

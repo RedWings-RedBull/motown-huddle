@@ -3,24 +3,23 @@ import { CoachFile as CoachFileSchema, evaluate } from "@huddle/shared";
 
 import type { GamesRow, PbpRow } from "../columns.js";
 import { isFinal } from "../stages/resolveGame.js";
-import { currentCoach, eraRecord } from "./era.js";
+import { eraRecord } from "./era.js";
 import { aggressionIndex, fourthDownPlays, leagueRows } from "./fourthDown.js";
 import { buildTables, secondsInQuarter } from "./tables.js";
 
 export interface CoachInputs {
   games: readonly GamesRow[];
-  /** Regular-season plays for every season in `seasons` (all 32 teams). */
+  /** Regular-season plays for every season the tables cover (all 32 teams). */
   pbp: readonly PbpRow[];
   team: string;
   season: number;
-  now: Date;
+  /** Head coach as named in the schedule file (see requireCoach). */
+  coach: string;
 }
 
 /** Pure: Fourth-Down Aggression Index, decision log, calculator tables and the coach's era record. */
 export function buildCoach(inputs: CoachInputs): CoachFile {
-  const { games, pbp, team, season, now } = inputs;
-  const coach = currentCoach(games, team, now);
-  if (coach === null) throw new Error(`No completed ${team} game found to identify the head coach`);
+  const { games, pbp, team, season, coach } = inputs;
 
   const plays = fourthDownPlays(pbp);
   const seasons = [...new Set(plays.map((p) => p.season))].sort((a, b) => a - b);

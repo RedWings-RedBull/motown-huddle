@@ -188,10 +188,3 @@ export function assetUrl(tag: string, file: string): string {
 export function timestampUrl(tag: string): string {
   return assetUrl(tag, "timestamp.txt");
 }
-
-/** Tags needed for a tier, in a stable order (used for meta.json `sources`). */
-export function tagsForTier(tier: "provisional" | "final"): string[] {
-  const tags = new Set<string>();
-  for (const a of ASSETS) if (!a.finalOnly || tier === "final") tags.add(a.tag);
-  return [...tags].sort();
-}

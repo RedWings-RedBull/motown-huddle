@@ -34,10 +34,9 @@ describe("crosswalk", () => {
     const snaps = await readCsv(fixture("snap_counts.csv"), { schema: SnapCountRow });
     const cw = buildCrosswalk(players);
     const det = snaps.filter((s) => s.team === "DET");
-    const check = checkCrosswalk(cw, det);
-    expect(check.total).toBe(45);
-    expect(check.unmatched).toEqual([]);
-    expect(checkCrosswalk(cw, [])).toEqual({ total: 0, unmatched: [], share: 0 });
+    expect(det).toHaveLength(45);
+    expect(checkCrosswalk(cw, det)).toEqual({ unmatched: [], share: 0 });
+    expect(checkCrosswalk(cw, [])).toEqual({ unmatched: [], share: 0 });
   });
 
   it("fails with exit code 2 semantics when more than 2 % of team rows are unmatched", async () => {
@@ -68,13 +67,10 @@ function row(overrides: Partial<PlayersRow>): PlayersRow {
     gsis_id: "g",
     display_name: "Some One",
     pfr_id: "p",
-    espn_id: null,
     position: "QB",
-    position_group: "QB",
     ngs_position: null,
     jersey_number: 1,
     latest_team: "DET",
-    status: "ACT",
     ...overrides,
   };
 }

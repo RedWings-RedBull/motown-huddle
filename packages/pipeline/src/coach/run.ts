@@ -1,13 +1,15 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 
+import { teamConfig } from "@huddle/shared";
+
 import { GamesRow, PbpRow } from "../columns.js";
 import { readCsv } from "../csv.js";
 import { type DownloadOptions, fetchAsset } from "../download.js";
 import { type Logger, silentLogger } from "../log.js";
 import { stableJson } from "../stages/write.js";
 import { buildCoach } from "./build.js";
-import { currentCoach } from "./era.js";
+import { requireCoach } from "./era.js";
 
 export interface CoachRunOptions extends DownloadOptions {
   season: number;
@@ -24,14 +26,13 @@ const KEEP_TYPES = new Set(["pass", "run", "punt", "field_goal"]);
 
 export async function runCoach(options: CoachRunOptions): Promise<{ coach: string; path: string }> {
   const log = options.log ?? silentLogger;
-  const team = options.team ?? "DET";
+  const team = options.team ?? teamConfig.team;
   const { season } = options;
   const now = options.now ?? new Date();
 
   const gamesAsset = await fetchAsset("games", season, { ...options, log });
   const games = await readCsv(gamesAsset.path, { schema: GamesRow, label: gamesAsset.file });
-  const coach = currentCoach(games, team, now);
-  if (coach === null) throw new Error(`No completed ${team} game found to identify the head coach`);
+  const coach = requireCoach(games, team, now);
   const coached = games.filter(
     (g) =>
       (g.home_team === team && g.home_coach === coach) ||
@@ -58,7 +59,7 @@ export async function runCoach(options: CoachRunOptions): Promise<{ coach: strin
     pbp.push(...rows);
   }
 
-  const file = buildCoach({ games, pbp, team, season, now });
+  const file = buildCoach({ games, pbp, team, season, coach });
   const dir = join(options.dataDir, "coach");
   await mkdir(dir, { recursive: true });
   const path = join(dir, "current.json");

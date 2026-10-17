@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
 
-import { GamesRow, PbpRow } from "../src/columns.js";
+import { GamesRow } from "../src/columns.js";
 import { buildCoach } from "../src/coach/build.js";
-import { currentCoach, eraRecord } from "../src/coach/era.js";
+import { currentCoach, eraRecord, requireCoach } from "../src/coach/era.js";
 import { aggressionIndex, fourthDownPlays } from "../src/coach/fourthDown.js";
 import { buildTables, secondsInQuarter } from "../src/coach/tables.js";
 import { parseCsvText } from "../src/csv.js";
@@ -23,6 +23,7 @@ describe("era", () => {
     const games = await parseCsvText(GAMES_CSV, { schema: GamesRow, label: "games" });
     expect(currentCoach(games, "DET", NOW)).toBe("Dan Campbell");
     expect(currentCoach(games, "DET", new Date("2020-01-01"))).toBeNull();
+    expect(() => requireCoach(games, "DET", new Date("2019-01-01"))).toThrow(/head coach/);
     const era = eraRecord(games, "DET", "Dan Campbell");
     expect(era.map((e) => e.season)).toEqual([2025, 2026]);
     expect(era[0]).toMatchObject({
@@ -80,7 +81,8 @@ describe("buildCoach", () => {
   it("assembles the coach file for the current season", async () => {
     const games = await parseCsvText(GAMES_CSV, { schema: GamesRow, label: "games" });
     const { pbp } = await loadFixtureInputs();
-    const file = buildCoach({ games, pbp, team: "DET", season: 2026, now: NOW });
+    const coach = requireCoach(games, "DET", NOW);
+    const file = buildCoach({ games, pbp, team: "DET", season: 2026, coach });
     expect(file.coach).toBe("Dan Campbell");
     expect(file.firstSeason).toBe(2025);
     expect(file.throughWeek).toBe(3);
@@ -89,13 +91,5 @@ describe("buildCoach", () => {
     expect(file.log.length).toBeGreaterThan(0);
     expect(file.log.every((e) => e.gameId === "2026_03_NYJ_DET")).toBe(true);
     expect(file.log.every((e) => ["go", "punt", "fg"].includes(e.calc.recommended))).toBe(true);
-  });
-
-  it("fails loudly without a completed game", async () => {
-    const games = await parseCsvText(GAMES_CSV, { schema: GamesRow, label: "games" });
-    const rows = await parseCsvText("", { schema: PbpRow, label: "pbp" }).catch(() => []);
-    expect(() =>
-      buildCoach({ games, pbp: rows, team: "DET", season: 2026, now: new Date("2019-01-01") }),
-    ).toThrow(/head coach/);
   });
 });

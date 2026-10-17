@@ -6,7 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { main } from "../src/cli.js";
 import { memoryLogger } from "../src/log.js";
 import { fgMakeProbability } from "../src/models/fgTable.js";
-import { DEFAULT_FIT_SEASONS, fitFgTable } from "../src/models/fitFgTable.js";
+import { fitFgTable } from "../src/models/fitFgTable.js";
 import { fixtureFetch } from "./helpers.js";
 
 let dir: string;
@@ -43,7 +43,6 @@ describe("fitFgTable", () => {
     expect(written).toEqual(table);
     expect(fgMakeProbability(30, written)).toBeGreaterThan(0.5);
     expect(log.lines.some((l) => l.includes("field-goal attempts"))).toBe(true);
-    expect(DEFAULT_FIT_SEASONS).toEqual([2021, 2022, 2023, 2024, 2025]);
   });
 
   it("is reachable from the CLI", async () => {

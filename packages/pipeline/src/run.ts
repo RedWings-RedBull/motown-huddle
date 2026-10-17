@@ -2,7 +2,7 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { GradeRequest, teamConfig, type Tier, type WeekMeta } from "@huddle/shared";
+import { GradeRequest, teamConfig, type WeekMeta } from "@huddle/shared";
 
 import { checkCrosswalk } from "./crosswalk.js";
 import type { Engine } from "./engine.js";
@@ -66,7 +66,7 @@ export function buildWeek(
   const check = checkCrosswalk(inputs.crosswalk, [...teamSnaps, ...teamPfr]);
   if (check.unmatched.length > 0) {
     log.warn(
-      `crosswalk: ${check.unmatched.length} team rows unmatched: ${check.unmatched.join(", ")}`,
+      `crosswalk: ${check.unmatched.length} team rows (${(check.share * 100).toFixed(1)} %) unmatched: ${check.unmatched.join(", ")}`,
     );
   }
   if (inputs.ftn.length === 0)
@@ -135,17 +135,10 @@ export function buildWeek(
 }
 
 export interface RunOptions extends LoadOptions {
-  season: number;
-  /** Explicit week, or "auto" for the latest completed team game. */
-  week: number | "auto";
-  tier: Tier;
   dataDir?: string;
   /** Writes the GradeRequest and engine output under packages/pipeline/out/fixtures. */
   dumpFixture?: boolean;
   engine: Engine;
-  log?: Logger;
-  now?: Date;
-  team?: string;
 }
 
 export interface RunOutcome {

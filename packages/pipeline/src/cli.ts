@@ -12,11 +12,11 @@ import {
 } from "./errors.js";
 import { consoleLogger, type Logger } from "./log.js";
 import { fitFgTable, type FitOptions } from "./models/fitFgTable.js";
-import { type CoachRunOptions, runCoach } from "./coach/run.js";
-import { type DivisionRunOptions, runDivision } from "./division/run.js";
+import { runCoach } from "./coach/run.js";
+import { runDivision } from "./division/run.js";
 import { type HighlightsRunOptions, runHighlights } from "./highlights/run.js";
-import { type PreviewRunOptions, runPreview } from "./preview/run.js";
-import { type RosterRunOptions, runRoster } from "./roster/run.js";
+import { runPreview } from "./preview/run.js";
+import { runRoster } from "./roster/run.js";
 import { DEFAULT_DATA_DIR, parseWeeks, runWeek, type RunOptions } from "./run.js";
 import { PIPELINE_VERSION } from "./version.js";
 
@@ -40,13 +40,14 @@ usage: pnpm pipeline --season <yyyy> (--week <n>|auto | --weeks <a-b>) [--final]
 
 exit codes: 0 ok, 2 validation failure, 3 data not ready yet`;
 
+/** Season-level builders: one flag each, same options, first match wins. */
+const SEASON_COMMANDS = ["coach", "division", "preview", "roster"] as const;
+export type SeasonCommand = (typeof SEASON_COMMANDS)[number];
+
 export type CliArgs =
   | { command: "help" }
   | { command: "fit-fg-table"; refresh: boolean }
-  | { command: "roster"; season: number; refresh: boolean; dataDir: string | undefined }
-  | { command: "preview"; season: number; refresh: boolean; dataDir: string | undefined }
-  | { command: "division"; season: number; refresh: boolean; dataDir: string | undefined }
-  | { command: "coach"; season: number; refresh: boolean; dataDir: string | undefined }
+  | { command: SeasonCommand; season: number; refresh: boolean; dataDir: string | undefined }
   | {
       command: "highlights";
       season: number;
@@ -92,17 +93,10 @@ export function parseCli(argv: readonly string[]): CliArgs {
   if (!Number.isInteger(season) || season < 1999) {
     throw new ValidationError(`--season is required (got "${values.season ?? ""}")\n${USAGE}`);
   }
-  if (values.coach) {
-    return { command: "coach", season, refresh: values.refresh, dataDir: values["data-dir"] };
-  }
-  if (values.division) {
-    return { command: "division", season, refresh: values.refresh, dataDir: values["data-dir"] };
-  }
-  if (values.preview) {
-    return { command: "preview", season, refresh: values.refresh, dataDir: values["data-dir"] };
-  }
-  if (values.roster) {
-    return { command: "roster", season, refresh: values.refresh, dataDir: values["data-dir"] };
+  for (const command of SEASON_COMMANDS) {
+    if (values[command]) {
+      return { command, season, refresh: values.refresh, dataDir: values["data-dir"] };
+    }
   }
   let week: number | "auto" = "auto";
   if (values.week !== "auto") {
@@ -134,19 +128,19 @@ export function parseCli(argv: readonly string[]): CliArgs {
 
 export type Runner = (options: RunOptions) => Promise<{ status: "written" | "bye" }>;
 export type Fitter = (options: FitOptions) => Promise<unknown>;
-export type RosterRunner = (options: RosterRunOptions) => Promise<unknown>;
-export type PreviewRunner = (options: PreviewRunOptions) => Promise<unknown>;
-export type DivisionRunner = (options: DivisionRunOptions) => Promise<unknown>;
-export type CoachRunner = (options: CoachRunOptions) => Promise<unknown>;
 export type HighlightsRunner = (options: HighlightsRunOptions) => Promise<unknown>;
 
-export interface CliDeps {
+export interface SeasonRunOptions {
+  season: number;
+  refresh: boolean;
+  dataDir: string;
+  log: Logger;
+}
+export type SeasonRunner = (options: SeasonRunOptions) => Promise<unknown>;
+
+export interface CliDeps extends Partial<Record<SeasonCommand, SeasonRunner>> {
   run?: Runner;
   fit?: Fitter;
-  roster?: RosterRunner;
-  preview?: PreviewRunner;
-  division?: DivisionRunner;
-  coach?: CoachRunner;
   highlights?: HighlightsRunner;
   log?: Logger;
   engine?: RunOptions["engine"];
@@ -157,15 +151,21 @@ export async function main(argv: readonly string[], deps: CliDeps = {}): Promise
   const log = deps.log ?? consoleLogger;
   const run = deps.run ?? runWeek;
   const fit = deps.fit ?? fitFgTable;
-  const roster = deps.roster ?? runRoster;
-  const preview = deps.preview ?? runPreview;
-  const division = deps.division ?? runDivision;
-  const coach = deps.coach ?? runCoach;
   const highlights = deps.highlights ?? runHighlights;
+  const seasonRunners: Record<SeasonCommand, SeasonRunner> = {
+    coach: deps.coach ?? runCoach,
+    division: deps.division ?? runDivision,
+    preview: deps.preview ?? runPreview,
+    roster: deps.roster ?? runRoster,
+  };
   try {
     const args = parseCli(argv);
     if (args.command === "help") {
       log.info(USAGE);
+      return EXIT_OK;
+    }
+    if (args.command === "fit-fg-table") {
+      await fit({ refresh: args.refresh, log });
       return EXIT_OK;
     }
     if (args.command === "highlights") {
@@ -177,46 +177,15 @@ export async function main(argv: readonly string[], deps: CliDeps = {}): Promise
         apiKey: process.env.HUDDLE_YOUTUBE_API_KEY,
         log,
       });
-      return 0;
+      return EXIT_OK;
     }
-    if (args.command === "coach") {
-      await coach({
+    if (args.command !== "week") {
+      await seasonRunners[args.command]({
         season: args.season,
         refresh: args.refresh,
         dataDir: args.dataDir ?? DEFAULT_DATA_DIR,
         log,
       });
-      return 0;
-    }
-    if (args.command === "division") {
-      await division({
-        season: args.season,
-        refresh: args.refresh,
-        dataDir: args.dataDir ?? DEFAULT_DATA_DIR,
-        log,
-      });
-      return 0;
-    }
-    if (args.command === "preview") {
-      await preview({
-        season: args.season,
-        refresh: args.refresh,
-        dataDir: args.dataDir ?? DEFAULT_DATA_DIR,
-        log,
-      });
-      return 0;
-    }
-    if (args.command === "roster") {
-      await roster({
-        season: args.season,
-        refresh: args.refresh,
-        dataDir: args.dataDir ?? DEFAULT_DATA_DIR,
-        log,
-      });
-      return 0;
-    }
-    if (args.command === "fit-fg-table") {
-      await fit({ refresh: args.refresh, log });
       return EXIT_OK;
     }
     const base = {

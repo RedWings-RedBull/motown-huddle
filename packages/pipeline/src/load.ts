@@ -1,6 +1,6 @@
 import { subDays } from "date-fns";
 
-import type { Tier } from "@huddle/shared";
+import { teamConfig, type Tier } from "@huddle/shared";
 
 import {
   DepthChartRow,
@@ -36,6 +36,7 @@ import {
 
 export interface LoadOptions extends DownloadOptions {
   season: number;
+  /** Explicit week, or "auto" for the latest completed team game. */
   week: number | "auto";
   tier: Tier;
   team?: string;
@@ -52,7 +53,7 @@ const DEPTH_CHART_WINDOW_DAYS = 8;
  */
 export async function loadWeekInputs(options: LoadOptions): Promise<WeekInputs | null> {
   const log = options.log ?? silentLogger;
-  const team = options.team ?? "DET";
+  const team = options.team ?? teamConfig.team;
   const { season, tier } = options;
   const sources: Record<string, string> = {};
   const get = async (key: AssetKey): Promise<CachedAsset> => {
@@ -117,24 +118,23 @@ export async function loadWeekInputs(options: LoadOptions): Promise<WeekInputs |
     label: depthAsset.file,
   });
 
-  const ngsKeep = (r: Record<string, string>) => weekOnly(r);
   const ngsPassAsset = await get("ngsPassing");
   const ngsRushAsset = await get("ngsRushing");
   const ngsRecAsset = await get("ngsReceiving");
   const ngs = {
     passing: await readCsv(ngsPassAsset.path, {
       schema: NgsPassingRow,
-      keep: ngsKeep,
+      keep: weekOnly,
       label: ngsPassAsset.file,
     }),
     rushing: await readCsv(ngsRushAsset.path, {
       schema: NgsRushingRow,
-      keep: ngsKeep,
+      keep: weekOnly,
       label: ngsRushAsset.file,
     }),
     receiving: await readCsv(ngsRecAsset.path, {
       schema: NgsReceivingRow,
-      keep: ngsKeep,
+      keep: weekOnly,
       label: ngsRecAsset.file,
     }),
   };

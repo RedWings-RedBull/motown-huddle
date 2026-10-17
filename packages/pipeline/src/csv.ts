@@ -66,7 +66,7 @@ async function collect<T>(
       }
       if (out.length >= limit) {
         done();
-        source(stages).destroy();
+        stages[0]?.destroy();
         return;
       }
       if (!keep(row)) {
@@ -91,12 +91,6 @@ async function collect<T>(
     throw error;
   }
   return out;
-}
-
-function source(stages: (Readable | Transform)[]): Readable | Transform {
-  const first = stages[0];
-  if (!first) throw new Error("no source stream");
-  return first;
 }
 
 function isPrematureClose(error: unknown): boolean {

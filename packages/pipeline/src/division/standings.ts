@@ -1,3 +1,4 @@
+import type { WinLossRecord } from "@huddle/shared";
 import { conferenceOf, divisionOf } from "@huddle/shared";
 
 /** A game with a known result. Scores are final. */
@@ -9,12 +10,6 @@ export interface PlayedGame {
   awayScore: number;
 }
 
-export interface Tally {
-  w: number;
-  l: number;
-  t: number;
-}
-
 interface GameLine {
   week: number;
   opponent: string;
@@ -23,22 +18,22 @@ interface GameLine {
   pointsAgainst: number;
 }
 
-export interface TeamRecord extends Tally {
+export interface TeamRecord extends WinLossRecord {
   team: string;
   pointsFor: number;
   pointsAgainst: number;
-  division: Tally;
-  conference: Tally;
+  division: WinLossRecord;
+  conference: WinLossRecord;
   /** Chronological. */
   games: GameLine[];
 }
 
-export const pct = (tally: Tally): number => {
+export const pct = (tally: WinLossRecord): number => {
   const games = tally.w + tally.l + tally.t;
   return games === 0 ? 0 : (tally.w + 0.5 * tally.t) / games;
 };
 
-const add = (tally: Tally, result: "W" | "L" | "T"): void => {
+const add = (tally: WinLossRecord, result: "W" | "L" | "T"): void => {
   if (result === "W") tally.w += 1;
   else if (result === "L") tally.l += 1;
   else tally.t += 1;

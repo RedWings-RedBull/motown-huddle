@@ -4,12 +4,12 @@ import type { PbpRow } from "../src/columns.js";
 import { ValidationError } from "../src/errors.js";
 import { bucketFor, fgMakeProbability } from "../src/models/fgTable.js";
 import {
+  buildTeamContexts,
   indexFtn,
   isDesignedRush,
   isExplosive,
   isKneel,
   ratio,
-  sum,
 } from "../src/stages/context.js";
 import {
   accumulatePlays,
@@ -20,7 +20,12 @@ import {
 import { gameSummary } from "../src/stages/gameSummary.js";
 import { gapHeat, zoneFor } from "../src/stages/gapHeat.js";
 import { keyPlays, tagsFor } from "../src/stages/keyPlays.js";
-import { leaguePercentile, offenseTotals, teamMetrics } from "../src/stages/teamMetrics.js";
+import {
+  TEAM_GRADE_WEIGHTS,
+  leaguePercentile,
+  offenseTotals,
+  teamMetrics,
+} from "../src/stages/teamMetrics.js";
 import { winProbability } from "../src/stages/winProbability.js";
 import { GAME_ID, loadFixtureInputs } from "./helpers.js";
 
@@ -91,10 +96,9 @@ describe("context helpers", () => {
     expect(acc.get("qb")).toBeUndefined();
   });
 
-  it("computes ratios, sums and explosive plays", () => {
+  it("computes ratios and explosive plays", () => {
     expect(ratio(1, 0)).toBeNull();
     expect(ratio(1, 4)).toBe(0.25);
-    expect(sum([1, null, 2])).toBe(3);
     expect(isExplosive(play({ pass_attempt: 1, yards_gained: 20 }))).toBe(true);
     expect(isExplosive(play({ pass_attempt: 1, sack: 1, yards_gained: 20 }))).toBe(false);
     expect(isExplosive(play({ rush_attempt: 1, yards_gained: 9 }))).toBe(false);
@@ -276,9 +280,7 @@ describe("accumulatePlays specialists", () => {
         is_drop: null,
         is_catchable_ball: null,
         is_contested_ball: null,
-        is_created_reception: null,
         n_pass_rushers: 4,
-        n_blitzers: 0,
       },
       {
         nflverse_game_id: "g",
@@ -290,9 +292,7 @@ describe("accumulatePlays specialists", () => {
         is_drop: true,
         is_catchable_ball: true,
         is_contested_ball: true,
-        is_created_reception: false,
         n_pass_rushers: 5,
-        n_blitzers: 1,
       },
       {
         nflverse_game_id: "g",
@@ -304,9 +304,7 @@ describe("accumulatePlays specialists", () => {
         is_drop: false,
         is_catchable_ball: true,
         is_contested_ball: true,
-        is_created_reception: true,
         n_pass_rushers: 4,
-        n_blitzers: 0,
       },
     ]);
     const acc = accumulatePlays(plays, ftn);
@@ -375,9 +373,8 @@ describe("extract on the fixture week", () => {
     const kneels = game.filter((p) => p.play_type === "qb_kneel");
     expect(kneels).toHaveLength(2);
     expect(kneels.every((p) => p.rush_attempt === 1 && p.qb_kneel === 1)).toBe(true);
-    const { units, contexts } = extract(inputs);
-    const det = units.find((u) => u.team === "DET");
-    expect(contexts.get("DET")?.designedRushes).toBe(26);
+    const det = extract(inputs).units.find((u) => u.team === "DET");
+    expect(buildTeamContexts(inputs.pbp).get("DET")?.designedRushes).toBe(26);
     expect(det?.samples["ol.stuffRate"]).toBe(26);
     expect(det?.values["ol.stuffRate"]).toBeCloseTo(3 / 26, 9);
     expect(det?.values["ol.adjustedLineYards"]).toBeCloseTo(3.7077, 3);
@@ -623,9 +620,9 @@ describe("teamMetrics", () => {
     expect(out.opponent.epaPerPlay.leagueRank).toBeGreaterThanOrEqual(1);
     expect(out.team.penalties.count).toBeGreaterThan(0);
     expect(out.teamGrade.overall).toBeCloseTo(
-      0.45 * out.teamGrade.offense +
-        0.45 * out.teamGrade.defense +
-        0.1 * out.teamGrade.specialTeams,
+      TEAM_GRADE_WEIGHTS.offense * out.teamGrade.offense +
+        TEAM_GRADE_WEIGHTS.defense * out.teamGrade.defense +
+        TEAM_GRADE_WEIGHTS.specialTeams * out.teamGrade.specialTeams,
       6,
     );
     expect(out.teamGrade.defense).toBeCloseTo(100 - out.opponent.epaPerPlay.leaguePercentile, 6);

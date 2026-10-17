@@ -11,6 +11,7 @@ import {
   TeamMetrics,
   WeekMeta,
   WinProbability,
+  weekSlug,
 } from "@huddle/shared";
 
 import { ValidationError } from "../errors.js";
@@ -38,10 +39,6 @@ export function roundValue(value: unknown): unknown {
 /** Deterministic JSON: sorted keys at every level, 3-dp rounding, trailing newline, no timestamps. */
 export function stableJson(value: unknown): string {
   return `${JSON.stringify(roundValue(value), null, 2)}\n`;
-}
-
-export function weekDirName(week: number): string {
-  return `week-${String(week).padStart(2, "0")}`;
 }
 
 export interface WeekArtifacts {
@@ -89,7 +86,7 @@ export async function writeWeek(
   artifacts: WeekArtifacts,
 ): Promise<string[]> {
   const files = validateArtifacts(artifacts);
-  const dir = join(dataDir, String(season), weekDirName(week));
+  const dir = join(dataDir, String(season), weekSlug(week));
   await mkdir(dir, { recursive: true });
   const written: string[] = [];
   for (const [file, text] of Object.entries(files)) {

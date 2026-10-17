@@ -14,9 +14,12 @@ import type { PlayerInfo } from "../crosswalk.js";
 import type { WeekInputs } from "../inputs.js";
 import { fgMakeProbability } from "../models/fgTable.js";
 import {
+  EXPLOSIVE_RUSH_YARDS,
   buildTeamContexts,
+  clamp01,
   depthChartSnapshot,
   dropbackQb,
+  ftnKey,
   indexFtn,
   is1,
   isDesignedRush,
@@ -119,6 +122,16 @@ const RB_TOUCH_RULE = 8;
 /** Returns that move a scrimmage player who did not qualify in his own pool into RET. */
 const RET_RETURNS = specFor("RET").threshold.n;
 
+/** An assisted tackle is half a tackle in lb.tacklesPerSnap. */
+const ASSIST_TACKLE_WEIGHT = 0.5;
+
+/**
+ * lb.coverage averages yards per target with passer rating allowed; yards per target is scaled by
+ * ten so both halves sit on a passer-rating-like scale before they are averaged.
+ */
+const COVERAGE_YARDS_SCALE = 10;
+const COVERAGE_MIN_TARGETS = 2;
+
 /** Walks every play of the week once and credits players. Exported for the K/P/RET unit tests. */
 export function accumulatePlays(pbp: readonly PbpRow[], ftn: FtnIndex): Map<string, Acc> {
   const acc = new Map<string, Acc>();
@@ -131,7 +144,7 @@ export function accumulatePlays(pbp: readonly PbpRow[], ftn: FtnIndex): Map<stri
     return a;
   };
   for (const p of pbp) {
-    const chart = ftn.get(`${p.game_id}:${p.play_id}`);
+    const chart = ftn.get(ftnKey(p.game_id, p.play_id));
     if (isDropback(p)) {
       const qb = dropbackQb(p);
       if (qb !== null) {
@@ -159,7 +172,7 @@ export function accumulatePlays(pbp: readonly PbpRow[], ftn: FtnIndex): Map<stri
         a.rushSuccess += p.success;
         a.rushSuccessN += 1;
       }
-      if ((p.yards_gained ?? 0) >= 10) a.explosiveRuns += 1;
+      if ((p.yards_gained ?? 0) >= EXPLOSIVE_RUSH_YARDS) a.explosiveRuns += 1;
     }
     if (is1(p.pass_attempt) && !is1(p.sack) && p.receiver_player_id !== null) {
       const a = get(p.receiver_player_id);
@@ -272,7 +285,6 @@ function chartRowFor(
 export interface Extracted {
   players: PlayerRow[];
   units: UnitRow[];
-  contexts: Map<string, TeamContext>;
 }
 
 /**
@@ -382,7 +394,7 @@ export function extract(inputs: WeekInputs): Extracted {
   const units = [...contexts.values()]
     .sort((x, y) => x.team.localeCompare(y.team))
     .map((ctx) => olUnit(ctx, inputs, ftn, pfrPass, pfrRush, qbIds));
-  return { players, units, contexts };
+  return { players, units };
 }
 
 function listedReturner(rows: readonly DepthChartRow[], gsisId: string): boolean {
@@ -400,7 +412,7 @@ function unitSnaps(
   if (!snap) return { snaps: 0, pct: 0 };
   const pick = (n: number | null, pct: number | null) => ({
     snaps: Math.trunc(n ?? 0),
-    pct: Math.min(1, Math.max(0, pct ?? 0)),
+    pct: clamp01(pct),
   });
   if (unit === "offense") return pick(snap.offense_snaps, snap.offense_pct);
   if (unit === "defense") return pick(snap.defense_snaps, snap.defense_pct);
@@ -523,7 +535,8 @@ function computeValues(pool: Pool, v: ValueInputs): Computed {
     case "LB": {
       const runSnaps = snaps * (opp?.rushShare ?? 0);
       set("lb.runStopRate", ratio(a.runStops, runSnaps), runSnaps);
-      const tackles = (stats?.def_tackles_solo ?? 0) + 0.5 * (stats?.def_tackle_assists ?? 0);
+      const tackles =
+        (stats?.def_tackles_solo ?? 0) + ASSIST_TACKLE_WEIGHT * (stats?.def_tackle_assists ?? 0);
       set("lb.tacklesPerSnap", ratio(tackles, snaps), snaps);
       set("lb.tflPlusSacks", (stats?.def_tackles_for_loss ?? 0) + (stats?.def_sacks ?? 0), snaps);
       set("lb.missedTacklePct", v.pfrDef?.def_missed_tackle_pct ?? null, snaps);
@@ -531,10 +544,10 @@ function computeValues(pool: Pool, v: ValueInputs): Computed {
       const tgts = d?.def_targets ?? 0;
       const coverage =
         d &&
-        tgts >= 2 &&
+        tgts >= COVERAGE_MIN_TARGETS &&
         d.def_yards_allowed_per_tgt !== null &&
         d.def_passer_rating_allowed !== null
-          ? (d.def_yards_allowed_per_tgt * 10 + d.def_passer_rating_allowed) / 2
+          ? (d.def_yards_allowed_per_tgt * COVERAGE_YARDS_SCALE + d.def_passer_rating_allowed) / 2
           : null;
       set("lb.coverage", coverage, tgts);
       const blitzes = d?.def_times_blitzed ?? 0;
@@ -626,7 +639,7 @@ function olUnit(
   let aly = 0;
   for (const p of inputs.pbp) {
     if (p.posteam !== ctx.team) continue;
-    const chart = ftn.get(`${p.game_id}:${p.play_id}`);
+    const chart = ftn.get(ftnKey(p.game_id, p.play_id));
     if (isDropback(p)) {
       if (is1(p.sack) && chart?.is_qb_fault_sack !== true) sacksNotQbFault += 1;
       const rushers = chart?.n_pass_rushers ?? 0;

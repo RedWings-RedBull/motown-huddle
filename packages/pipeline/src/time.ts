@@ -29,6 +29,6 @@ export function kickoffUtc(gameday: string, gametime: string): string {
   return toUtcIso(local.getTime());
 }
 
-export function toUtcIso(epochMs: number): string {
+function toUtcIso(epochMs: number): string {
   return new Date(epochMs).toISOString().replace(".000Z", "Z");
 }

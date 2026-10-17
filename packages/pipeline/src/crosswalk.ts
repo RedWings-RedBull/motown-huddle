@@ -7,9 +7,7 @@ export interface PlayerInfo {
   name: string;
   jersey: number | null;
   position: string | null;
-  positionGroup: string | null;
   ngsPosition: string | null;
-  latestTeam: string | null;
 }
 
 export interface Crosswalk {
@@ -28,9 +26,7 @@ export function buildCrosswalk(rows: readonly PlayersRow[]): Crosswalk {
       name: row.display_name,
       jersey: row.jersey_number === null ? null : Math.trunc(row.jersey_number),
       position: row.position,
-      positionGroup: row.position_group,
       ngsPosition: row.ngs_position,
-      latestTeam: row.latest_team,
     };
     byGsis.set(row.gsis_id, info);
     if (row.pfr_id !== null && !byPfr.has(row.pfr_id)) byPfr.set(row.pfr_id, info);
@@ -43,8 +39,8 @@ export function buildCrosswalk(rows: readonly PlayersRow[]): Crosswalk {
 }
 
 export interface CrosswalkCheck {
-  total: number;
   unmatched: string[];
+  /** Unmatched rows as a fraction of the rows checked. */
   share: number;
 }
 
@@ -67,5 +63,5 @@ export function checkCrosswalk(
       `crosswalk: ${unmatched.length} of ${rows.length} team rows have no gsis_id: ${unmatched.join(", ")}`,
     );
   }
-  return { total: rows.length, unmatched, share };
+  return { unmatched, share };
 }

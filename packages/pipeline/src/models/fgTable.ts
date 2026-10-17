@@ -1,6 +1,12 @@
 import table from "./fg-make.json" with { type: "json" };
 
-const BUCKET_SIZE = 5;
+/** Width in yards of each make-probability bucket (shared with the fitter). */
+export const BUCKET_SIZE = 5;
+
+/** Laplace-smoothed success rate: (made + 1) / (att + 2), so an empty cell is 0.5 rather than NaN. */
+export function laplaceRate(made: number, att: number): number {
+  return (made + 1) / (att + 2);
+}
 
 interface FgBucket {
   from: number;

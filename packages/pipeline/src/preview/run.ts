@@ -1,6 +1,8 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 
+import { teamConfig } from "@huddle/shared";
+
 import { GamesRow, InjuryRow, PbpRow } from "../columns.js";
 import { readCsv } from "../csv.js";
 import { type DownloadOptions, fetchAsset } from "../download.js";
@@ -22,7 +24,7 @@ export async function runPreview(
   options: PreviewRunOptions,
 ): Promise<{ gameId: string; path: string } | { gameId: null }> {
   const log = options.log ?? silentLogger;
-  const team = options.team ?? "DET";
+  const team = options.team ?? teamConfig.team;
   const { season } = options;
   const now = options.now ?? new Date();
 

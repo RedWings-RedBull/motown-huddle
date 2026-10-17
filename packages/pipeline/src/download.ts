@@ -20,7 +20,6 @@ export interface DownloadOptions {
 }
 
 export interface CachedAsset {
-  key: AssetKey;
   tag: string;
   file: string;
   path: string;
@@ -63,7 +62,7 @@ export async function fetchAsset(
   if (!options.refresh && present && localStamp === remoteStamp) {
     const stamp = (await readOptional(contentStampPath)) ?? remoteStamp;
     log.info(`cache hit ${spec.tag}/${file} (${remoteStamp})`);
-    return { key, tag: spec.tag, file, path, stamp, fromCache: true };
+    return { tag: spec.tag, file, path, stamp, fromCache: true };
   }
 
   log.info(`downloading ${spec.tag}/${file} (${remoteStamp})`);
@@ -80,7 +79,7 @@ export async function fetchAsset(
   await rename(tmp, path);
   await writeFile(stampPath, remoteStamp);
   await writeFile(contentStampPath, stamp);
-  return { key, tag: spec.tag, file, path, stamp, fromCache: false };
+  return { tag: spec.tag, file, path, stamp, fromCache: false };
 }
 
 async function fetchText(fetchImpl: FetchLike, url: string): Promise<string> {

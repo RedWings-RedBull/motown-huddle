@@ -7,7 +7,7 @@ import { na, str } from "../columns.js";
 import { readCsv } from "../csv.js";
 import { fetchAsset, type DownloadOptions } from "../download.js";
 import { silentLogger, type Logger } from "../log.js";
-import { bucketFor, type FgMakeTable } from "./fgTable.js";
+import { BUCKET_SIZE, bucketFor, laplaceRate, type FgMakeTable } from "./fgTable.js";
 
 /**
  * Fits the field-goal make table shipped as fg-make.json: every field-goal attempt from the
@@ -18,10 +18,7 @@ import { bucketFor, type FgMakeTable } from "./fgTable.js";
  *
  *   pnpm pipeline --fit-fg-table
  */
-export const DEFAULT_FIT_SEASONS = [2021, 2022, 2023, 2024, 2025];
-
-/** Must match the bucket width bucketFor() uses. */
-const BUCKET_SIZE = 5;
+const DEFAULT_FIT_SEASONS = [2021, 2022, 2023, 2024, 2025];
 
 /**
  * Attempts shorter than this pool into the first bucket: a dozen chip shots a season is too few
@@ -71,7 +68,7 @@ export async function fitFgTable(options: FitOptions = {}): Promise<FgMakeTable>
       to: from + BUCKET_SIZE - 1,
       att: cell.att,
       made: cell.made,
-      p: Number(((cell.made + 1) / (cell.att + 2)).toFixed(4)),
+      p: Number(laplaceRate(cell.made, cell.att).toFixed(4)),
     }));
   const table: FgMakeTable = {
     version: 1,

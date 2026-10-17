@@ -34,19 +34,23 @@ const POOL_GROUP: Record<Pool, PositionGroup> = {
   RET: "ST",
 };
 
-/** Roster grouping from the same evidence the grading pipeline uses (NGS role first). */
+/**
+ * Roster grouping from the same evidence the grading pipeline uses (NGS role first). Anything
+ * without a graded pool (long snappers, unknown codes) files under special teams.
+ */
 export function positionGroupFor(position: string, ngsPosition: string | null): PositionGroup {
   const pool = poolForNgsPosition(ngsPosition) ?? poolForPosition(position);
-  if (pool !== null) return POOL_GROUP[pool];
-  if (position === "LS" || position === "K" || position === "P") return "ST";
-  return "ST";
+  return pool === null ? "ST" : POOL_GROUP[pool];
 }
 
 const toInt = (v: number | null): number | null =>
   v === null || !Number.isFinite(v) ? null : Math.round(v);
 
+/** Players without a number sort after every numbered teammate in their group. */
+const NO_JERSEY_SORT_KEY = 999;
+
 /** Specific position and NGS role from players.csv; weekly rosters only carry generic DL/DB. */
-export interface PlayerInfo {
+export interface PositionInfo {
   position: string | null;
   ngsPosition: string | null;
 }
@@ -61,7 +65,7 @@ export function buildRoster(
   injuries: readonly InjuryRow[],
   team: string,
   season: number,
-  info: ReadonlyMap<string, PlayerInfo> = new Map(),
+  info: ReadonlyMap<string, PositionInfo> = new Map(),
 ): RosterFile {
   const mine = rows.filter((r) => r.team === team && r.season === season && r.game_type === "REG");
   const week = Math.max(0, ...mine.map((r) => r.week));
@@ -125,7 +129,7 @@ export function buildRoster(
   players.sort((a, b) => {
     const g = GROUP_ORDER.indexOf(a.positionGroup) - GROUP_ORDER.indexOf(b.positionGroup);
     if (g !== 0) return g;
-    const j = (a.jersey ?? 999) - (b.jersey ?? 999);
+    const j = (a.jersey ?? NO_JERSEY_SORT_KEY) - (b.jersey ?? NO_JERSEY_SORT_KEY);
     if (j !== 0) return j;
     return a.fullName.localeCompare(b.fullName);
   });

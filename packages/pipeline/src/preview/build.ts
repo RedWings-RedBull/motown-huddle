@@ -6,7 +6,7 @@ import type {
   SideMetrics,
   TeamProfile,
 } from "@huddle/shared";
-import { MatchupPreview as MatchupPreviewSchema } from "@huddle/shared";
+import { ALL_TEAMS, MatchupPreview as MatchupPreviewSchema } from "@huddle/shared";
 
 import type { GamesRow, InjuryRow, PbpRow } from "../columns.js";
 import { isFinal, toResolvedGame } from "../stages/resolveGame.js";
@@ -57,7 +57,7 @@ function invert(m: SideMetrics): SideMetrics {
   const flip = (x: SideMetrics["epaPerPlay"]) => ({
     ...x,
     leaguePercentile: 100 - x.leaguePercentile,
-    leagueRank: 33 - x.leagueRank,
+    leagueRank: ALL_TEAMS.length + 1 - x.leagueRank,
   });
   return {
     ...m,

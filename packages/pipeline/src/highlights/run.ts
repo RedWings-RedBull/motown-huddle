@@ -2,7 +2,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 
 import type { GameHighlights, HighlightVideo } from "@huddle/shared";
-import { GameHighlights as GameHighlightsSchema } from "@huddle/shared";
+import { GameHighlights as GameHighlightsSchema, teamConfig, weekSlug } from "@huddle/shared";
 
 import { GamesRow } from "../columns.js";
 import { readCsv } from "../csv.js";
@@ -10,7 +10,7 @@ import { type DownloadOptions, type FetchLike, fetchAsset } from "../download.js
 import { NotReadyError } from "../errors.js";
 import { type Logger, silentLogger } from "../log.js";
 import { resolveLatest, resolveWeek } from "../stages/resolveGame.js";
-import { stableJson, weekDirName } from "../stages/write.js";
+import { stableJson } from "../stages/write.js";
 import { NFL_CHANNEL_ID, pickGameHighlights, searchQuery, searchUrl } from "./match.js";
 import { searchVideos } from "./youtube.js";
 
@@ -48,7 +48,7 @@ async function readJson(path: string): Promise<unknown> {
 /** Finds the official game-highlights video for one built week and writes game-highlights.json. */
 export async function runHighlights(options: HighlightsRunOptions): Promise<HighlightsRunResult> {
   const log = options.log ?? silentLogger;
-  const team = options.team ?? "DET";
+  const team = options.team ?? teamConfig.team;
   const { season } = options;
   const now = options.now ?? new Date();
 
@@ -63,7 +63,7 @@ export async function runHighlights(options: HighlightsRunOptions): Promise<High
     return { gameId: null, path: null, found: false };
   }
 
-  const dir = join(options.dataDir, String(season), weekDirName(game.week));
+  const dir = join(options.dataDir, String(season), weekSlug(game.week));
   if ((await readJson(join(dir, "game.json"))) === null) {
     throw new NotReadyError(
       `highlights: ${dir}/game.json is missing; build the week first (--season ${season} --week ${game.week})`,

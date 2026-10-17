@@ -1,9 +1,8 @@
 import { z } from "zod";
 
 /**
- * One row schema per nflverse file, listing only the columns the pipeline reads. Column names were
- * verified against the live 2026 headers on 2026-09-30; a rename upstream fails at parse time with
- * the missing column named, instead of silently producing zeros.
+ * One row schema per nflverse file, listing only the columns the pipeline reads. A rename upstream
+ * fails at parse time with the missing column named, instead of silently producing zeros.
  *
  * Every numeric column goes through `na()`: nflverse writes "NA" (R) or "" for missing values.
  */
@@ -19,7 +18,7 @@ export const na = () =>
 const num = () => z.coerce.number();
 
 /** "TRUE"/"FALSE"/"1"/"0" -> boolean, "NA"/"" -> null. */
-export const bool = () =>
+const bool = () =>
   z.preprocess((v) => {
     if (v === "NA" || v === "" || v === undefined) return null;
     if (v === "TRUE" || v === "true" || v === "1") return true;
@@ -127,17 +126,10 @@ export const StatsPlayerRow = z.object({
   player_id: text(),
   player_display_name: text(),
   position: str(),
-  position_group: str(),
   team: text(),
-  opponent_team: str(),
   season: num(),
   week: num(),
   game_id: str(),
-  completions: na(),
-  attempts: na(),
-  passing_epa: na(),
-  passing_cpoe: na(),
-  sacks_suffered: na(),
   carries: na(),
   rushing_epa: na(),
   targets: na(),
@@ -150,12 +142,6 @@ export const StatsPlayerRow = z.object({
   def_tackles_for_loss: na(),
   def_sacks: na(),
   def_qb_hits: na(),
-  def_interceptions: na(),
-  def_pass_defended: na(),
-  fg_made: na(),
-  fg_att: na(),
-  pat_made: na(),
-  pat_att: na(),
   pt_att: na(),
   pt_net_yards: na(),
   pt_inside_20: na(),
@@ -172,7 +158,6 @@ export const SnapCountRow = z.object({
   pfr_player_id: text(),
   position: text(),
   team: text(),
-  opponent: text(),
   offense_snaps: na(),
   offense_pct: na(),
   defense_snaps: na(),
@@ -192,9 +177,7 @@ export const FtnRow = z.object({
   is_drop: bool(),
   is_catchable_ball: bool(),
   is_contested_ball: bool(),
-  is_created_reception: bool(),
   n_pass_rushers: na(),
-  n_blitzers: na(),
 });
 export type FtnRow = z.infer<typeof FtnRow>;
 
@@ -211,10 +194,6 @@ const pfrKeys = {
 export const PfrPassRow = z.object({
   ...pfrKeys,
   times_pressured: na(),
-  times_pressured_pct: na(),
-  times_blitzed: na(),
-  times_hurried: na(),
-  times_hit: na(),
   passing_bad_throw_pct: na(),
 });
 export type PfrPassRow = z.infer<typeof PfrPassRow>;
@@ -228,19 +207,13 @@ export const PfrRushRow = z.object({
 });
 export type PfrRushRow = z.infer<typeof PfrRushRow>;
 
-export const PfrRecRow = z.object({
-  ...pfrKeys,
-  receiving_drop: na(),
-  receiving_drop_pct: na(),
-  receiving_broken_tackles: na(),
-});
+/** Loaded for the crosswalk check; no metric reads a PFR receiving column. */
+export const PfrRecRow = z.object(pfrKeys);
 export type PfrRecRow = z.infer<typeof PfrRecRow>;
 
 export const PfrDefRow = z.object({
   ...pfrKeys,
-  def_ints: na(),
   def_targets: na(),
-  def_completions_allowed: na(),
   def_completion_pct: na(),
   def_yards_allowed: na(),
   def_yards_allowed_per_tgt: na(),
@@ -248,7 +221,6 @@ export const PfrDefRow = z.object({
   def_passer_rating_allowed: na(),
   def_times_blitzed: na(),
   def_pressures: na(),
-  def_missed_tackles: na(),
   def_missed_tackle_pct: na(),
 });
 export type PfrDefRow = z.infer<typeof PfrDefRow>;
@@ -257,7 +229,6 @@ export type PfrDefRow = z.infer<typeof PfrDefRow>;
 export const DepthChartRow = z.object({
   dt: text(),
   team: text(),
-  player_name: text(),
   gsis_id: str(),
   pos_grp: text(),
   pos_abb: text(),
@@ -269,13 +240,11 @@ export const PlayersRow = z.object({
   gsis_id: str(),
   display_name: text(),
   pfr_id: str(),
-  espn_id: str(),
   position: str(),
-  position_group: str(),
   ngs_position: str(),
   jersey_number: na(),
+  /** Filtered on in-stream by the roster stage (see roster/run.ts). */
   latest_team: str(),
-  status: str(),
 });
 export type PlayersRow = z.infer<typeof PlayersRow>;
 
@@ -313,29 +282,24 @@ export type GamesRow = z.infer<typeof GamesRow>;
 
 const ngsKeys = {
   season: num(),
-  season_type: text(),
   week: num(),
   player_gsis_id: text(),
-  team_abbr: text(),
 };
 
 export const NgsPassingRow = z.object({
   ...ngsKeys,
-  attempts: na(),
   completion_percentage_above_expectation: na(),
 });
 export type NgsPassingRow = z.infer<typeof NgsPassingRow>;
 
 export const NgsRushingRow = z.object({
   ...ngsKeys,
-  rush_attempts: na(),
   rush_yards_over_expected_per_att: na(),
 });
 export type NgsRushingRow = z.infer<typeof NgsRushingRow>;
 
 export const NgsReceivingRow = z.object({
   ...ngsKeys,
-  targets: na(),
   avg_yac_above_expectation: na(),
 });
 export type NgsReceivingRow = z.infer<typeof NgsReceivingRow>;
@@ -351,7 +315,7 @@ export const forSeason =
   (row: Record<string, string>): boolean =>
     row.season === String(season);
 
-/** weekly_rosters/roster_weekly_<season>.csv (header verified 2026-10-01). */
+/** weekly_rosters/roster_weekly_<season>.csv. */
 export const WeeklyRosterRow = z.object({
   season: num(),
   team: text(),
@@ -379,7 +343,7 @@ export const WeeklyRosterRow = z.object({
 });
 export type WeeklyRosterRow = z.infer<typeof WeeklyRosterRow>;
 
-/** injuries/injuries_<season>.csv (header verified 2026-10-01). */
+/** injuries/injuries_<season>.csv. */
 export const InjuryRow = z.object({
   season: num(),
   team: text(),

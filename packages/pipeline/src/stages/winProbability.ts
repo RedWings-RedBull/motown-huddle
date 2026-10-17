@@ -1,6 +1,7 @@
 import type { WinProbability } from "@huddle/shared";
 
 import type { PbpRow } from "../columns.js";
+import { clamp01, quarterOf } from "./context.js";
 
 export interface WinProbabilityArgs {
   season: number;
@@ -25,7 +26,7 @@ export function winProbability(pbp: readonly PbpRow[], args: WinProbabilityArgs)
     points.push({
       playId: p.play_id,
       secondsRemaining: Math.max(0, Math.trunc(p.game_seconds_remaining ?? 0)),
-      qtr: Math.max(1, Math.min(6, Math.trunc(p.qtr ?? 1))),
+      qtr: quarterOf(p),
       teamWp: clamp01(own ? p.wp : 1 - p.wp),
       vegasTeamWp: p.vegas_wp === null ? null : clamp01(own ? p.vegas_wp : 1 - p.vegas_wp),
       teamScore: Math.trunc(args.side === "home" ? home : away),
@@ -34,8 +35,4 @@ export function winProbability(pbp: readonly PbpRow[], args: WinProbabilityArgs)
   }
   points.sort((a, b) => a.playId - b.playId);
   return { season: args.season, week: args.week, gameId: args.gameId, points };
-}
-
-function clamp01(v: number): number {
-  return Math.min(1, Math.max(0, v));
 }

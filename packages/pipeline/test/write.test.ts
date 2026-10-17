@@ -1,4 +1,4 @@
-import { mkdtemp, readFile, readdir, rm, writeFile } from "node:fs/promises";
+import { mkdir, mkdtemp, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
@@ -10,7 +10,6 @@ import {
   roundValue,
   stableJson,
   validateArtifacts,
-  weekDirName,
   writeWeek,
 } from "../src/stages/write.js";
 import { loadFixtureInputs, stubEngine } from "./helpers.js";
@@ -45,11 +44,6 @@ describe("stableJson", () => {
     expect(roundValue(true)).toBe(true);
     expect(Object.is(roundValue(-0.0001), 0)).toBe(true);
     expect(roundValue(1.23456)).toBe(1.235);
-  });
-
-  it("zero-pads the week directory", () => {
-    expect(weekDirName(3)).toBe("week-03");
-    expect(weekDirName(18)).toBe("week-18");
   });
 });
 
@@ -98,7 +92,6 @@ describe("writeWeek + rebuildManifest", () => {
       },
     });
     await writeFile(join(dir, "notes.txt"), "x");
-    const { mkdir } = await import("node:fs/promises");
     await mkdir(join(dir, "2024", "week-01"), { recursive: true });
     await mkdir(join(dir, "2026", "scratch"), { recursive: true });
     const manifest = await rebuildManifest(dir);
