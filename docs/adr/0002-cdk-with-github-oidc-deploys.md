@@ -16,13 +16,13 @@ $1/month budget alarm. Production deploys run only from GitHub Actions via OIDC.
 
 1. `bin/app.ts` throws unless `HUDDLE_AWS_ACCOUNT_ID` is set and pins `env.account`, so CDK itself
    refuses mismatched credentials.
-2. Every infra npm script hard-codes `--profile huddle`, and `infra/scripts/preflight.ts` checks STS
-   before `deploy`/`bootstrap` and rejects ambient `AWS_PROFILE`/access keys.
+2. The infra `deploy` and `bootstrap` scripts hard-code `--profile huddle` and run
+   `infra/scripts/preflight.ts` first, which checks STS and rejects ambient `AWS_PROFILE`/access keys.
 3. A Claude Code pre-tool hook (`scripts/claude-guard-aws.mjs`) blocks any `aws`/`cdk` shell command
    that is not pinned to the profile.
 
-Until the Launch milestone, infra is exercised only by `cdk synth` and `aws-cdk-lib/assertions`
-tests; nothing is deployed.
+Until the Launch milestone, infra is exercised only by `aws-cdk-lib/assertions` tests, which
+synthesize the stack in memory; nothing is deployed.
 
 ## Consequences
 

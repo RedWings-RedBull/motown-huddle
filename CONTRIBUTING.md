@@ -7,6 +7,7 @@ Thanks for looking. This is a solo portfolio project that happens to be open, so
 
 ```bash
 pnpm install
+pnpm --filter web exec playwright install --with-deps chromium   # once, for the browser tests
 pnpm dev              # Astro dev server
 pnpm test:watch       # unit tests in watch mode
 pnpm verify           # the full CI gate: secrets, format, lint, typecheck, depcruise, knip, coverage, build, e2e, lighthouse
@@ -25,12 +26,10 @@ hook installed by `simple-git-hooks`.
 - Never commit secrets, private notes or league-wide raw data. `.gitignore` and the secret scan help,
   but the rule is on you.
 
-## Architecture rules (enforced by `dependency-cruiser`)
+## Architecture rules
 
-- `apps/web` imports only `@huddle/shared` from the workspace.
-- `packages/grades` is pure: no I/O, no Node built-ins.
-- Packages never import from apps.
+`dependency-cruiser` enforces them; each rule in `.dependency-cruiser.cjs` explains itself. In short:
+the web app imports only `@huddle/shared` and `@huddle/grades`, the grading engine is pure, and
+packages never import from apps.
 
-## Fork it for your team
-
-Change `packages/shared/src/team.config.ts`. Everything else reads from it.
+To run the kit for another team, see "Use this for your team" in the README.

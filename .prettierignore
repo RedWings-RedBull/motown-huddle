@@ -11,6 +11,4 @@ pnpm-lock.yaml
 apps/web/src/data
 # Written by the weekly bot (packages/writer), reviewed in its pull request.
 apps/web/src/content/articles
-apps/web/public/data
-CHANGELOG.md
 *.sarif

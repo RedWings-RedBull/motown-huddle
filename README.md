@@ -1,34 +1,37 @@
 # Motown Huddle
 
+[![CI](https://github.com/RedWings-RedBull/motown-huddle/actions/workflows/ci.yml/badge.svg)](https://github.com/RedWings-RedBull/motown-huddle/actions/workflows/ci.yml)
+[![CodeQL](https://github.com/RedWings-RedBull/motown-huddle/actions/workflows/codeql.yml/badge.svg)](https://github.com/RedWings-RedBull/motown-huddle/actions/workflows/codeql.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 **An open-source, data-driven NFL fan-site kit. Detroit Lions edition.**
 
 Weekly game breakdowns, a clickable football-field heat map of every position group, a transparent
-per-player grading method built entirely from open data, division and matchup pages, and a free
-virtual-token picks game. Static site, free tiers only, everything reproducible from a clean clone.
+per-player grading method built entirely from open data, division, roster and next-game pages, and
+fact-checked weekly articles. Static site, free tiers only, everything reproducible from a clean
+clone.
 
-> Status: milestone 1 (core showpiece) in review. See [Roadmap](#roadmap).
-
-<!-- hero GIF of the field heat map lands with milestone 1 -->
+> Status: milestones 0 to 3 are done; M4 is next. See [Roadmap](#roadmap).
 
 ## Why this exists
 
 A portfolio project that is also a real site: typed end to end, tested at every layer, deployed by
-infrastructure as code, and cheap enough to run forever. Everything team-specific lives in one config
+infrastructure as code, and costs nothing to run. Everything team-specific lives in one config
 file, so the kit can be forked for any team.
 
 ## Architecture
 
 ```mermaid
 flowchart LR
-  NV[(nflverse releases)] -->|weekly cron| P[packages/pipeline]
+  NV[(nflverse releases)] -->|weekly workflow| P[packages/pipeline]
   P --> G[packages/grades<br/>pure Huddle Grade engine]
   G --> D[apps/web/src/data/*.json]
+  D --> A[packages/writer<br/>Claude draft + fact check]
+  A --> M[apps/web/src/content/articles]
   D --> W[apps/web<br/>Astro static + React islands]
+  M --> W
   W -->|CI on PR| T[Vitest · Playwright + axe · Lighthouse CI]
-  W -->|main| CF[S3 + CloudFront<br/>via CDK + GitHub OIDC]
-  FS[(Firestore Spark)] <-->|picks| W
-  J[packages/jobs<br/>GitHub Actions cron] --> FS
-  J -->|leaderboard.json| CF
+  W -->|main, at Launch| CF[S3 + CloudFront<br/>via CDK + GitHub OIDC]
 ```
 
 ## Quickstart
@@ -37,6 +40,7 @@ flowchart LR
 git clone https://github.com/RedWings-RedBull/motown-huddle.git
 cd motown-huddle
 pnpm install
+pnpm --filter web exec playwright install --with-deps chromium   # once, for the browser tests
 pnpm dev            # http://localhost:4321
 pnpm verify         # everything CI runs, locally
 ```
@@ -64,8 +68,10 @@ pnpm writer                               # recap, division and preview articles
 | `packages/shared`   | `team.config.ts` (the single fork point) and zod contracts for every JSON artifact            |
 | `packages/grades`   | Pure Huddle Grade engine, golden-fixture tested                                               |
 | `packages/pipeline` | Weekly ETL: nflverse → normalise → grade → committed JSON                                     |
+| `packages/writer`   | Weekly articles: Claude drafts from the data, a deterministic checker verifies every claim    |
 | `infra`             | AWS CDK: S3 + CloudFront, clean-URL function, least-privilege GitHub OIDC roles, budget alarm |
-| `docs/adr`          | Architecture decision records                                                                 |
+| `scripts`           | Repository guards: secret scan, PR-title check, the AWS-profile hook                          |
+| `docs`              | [Runbook](docs/runbook.md) and [architecture decision records](docs/adr)                      |
 
 ## Guardrails worth copying
 
@@ -78,20 +84,24 @@ pnpm writer                               # recap, division and preview articles
 
 ## Use this for your team
 
-Change `packages/shared/src/team.config.ts` (team code, division, brand, colours). The pipeline,
-pages and theme read everything from it. This repository is a GitHub template; fork or "Use this
+Change `packages/shared/src/team.config.ts` (team code, division, brand, disclaimer, credits). The
+pipeline and pages read everything from it; colours live in `apps/web/src/styles/global.css`. This repository is a GitHub template; fork or "Use this
 template" and go.
 
 ## Roadmap
 
-- **M0** foundation: monorepo, tooling, tests, CI, infra as code (synth-only) ✅
-- **M1** core showpiece: pipeline, grading engine, game breakdown page, field heat map ✅
-- **M2** roster with verified socials, next-game preview, division page, Coach's Corner ✅
-- **M3** grounded article generation with human approval
+- **M0** (done) foundation: monorepo, tooling, tests, CI, infra as code (tested, not deployed)
+- **M1** (done) core showpiece: pipeline, grading engine, game breakdown page, field heat map
+- **M2** (done) roster with verified socials, next-game preview, division page, Coach's Corner
+- **M3** (done) grounded article generation with human approval
 - **M4** compliance pages and ads
 - **M5** picks game on Firebase (emulator-first)
 - **M6** engagement extras
 - **Launch** deploy, domain, production Firebase
+
+## Contributing and security
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) and [SECURITY.md](SECURITY.md).
 
 ## Data and licensing
 

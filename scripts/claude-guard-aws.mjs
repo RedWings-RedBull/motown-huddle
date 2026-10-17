@@ -11,7 +11,7 @@
  */
 import { readFileSync } from "node:fs";
 
-const REQUIRED_PROFILE = process.env.HUDDLE_AWS_PROFILE ?? "huddle";
+const REQUIRED_PROFILE = "huddle";
 const GUARDED = new Set(["aws", "cdk"]);
 const RUNNERS = new Set([
   "npx",

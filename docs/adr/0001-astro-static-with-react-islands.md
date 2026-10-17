@@ -12,7 +12,7 @@ search and AdSense review, and score well on Lighthouse.
 
 Astro 7 with `output: "static"`, `trailingSlash: "always"` and directory-style builds. Interactive
 components are React islands hydrated only where needed (`client:visible` / `client:only`). Content
-collections load the pipeline's committed JSON and the MDX articles through zod schemas shared with
+collections load the pipeline's committed JSON and the Markdown articles through zod schemas shared with
 the pipeline, so a bad artifact fails the build instead of rendering wrong.
 
 ## Consequences
