@@ -4,15 +4,15 @@
   "pipelineVersion": "1.0.0",
   "season": 2026,
   "sources": {
-    "depth_charts": "2026-10-17 07:33:54 EDT",
-    "ftn_charting": "2026-10-17 06:08:01 EDT",
-    "nextgen_stats": "2026-10-16 08:02:17 EDT",
-    "pbp": "2026-10-17 08:57:07 EDT",
-    "pfr_advstats": "2026-10-16 13:04:44 EDT",
-    "players": "2026-10-17 07:55:19 EDT",
-    "schedules": "2026-10-17 12:16:17 EDT",
-    "snap_counts": "2026-10-16 07:03:59 EDT",
-    "stats_player": "2026-10-16 10:00:05 EDT"
+    "depth_charts": "2026-10-24 07:58:03 EDT",
+    "ftn_charting": "2026-10-24 11:22:31 EDT",
+    "nextgen_stats": "2026-10-23 08:54:25 EDT",
+    "pbp": "2026-10-24 09:18:53 EDT",
+    "pfr_advstats": "2026-10-23 12:36:01 EDT",
+    "players": "2026-10-23 10:17:10 EDT",
+    "schedules": "2026-10-24 12:06:36 EDT",
+    "snap_counts": "2026-10-23 07:32:00 EDT",
+    "stats_player": "2026-10-23 10:36:38 EDT"
   },
   "tier": "final",
   "week": 5
