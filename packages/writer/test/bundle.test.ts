@@ -23,8 +23,8 @@ describe("bundles", () => {
     });
     expect(b.plays).toHaveLength(12);
     expect(b.people).toContain("Jahmyr Gibbs");
-    const facts = b.facts as { topGraded: { huddleGrade: number }[] };
-    const grades = facts.topGraded.map((p) => p.huddleGrade);
+    const facts = b.facts as { topGraded: { denGrade: number }[] };
+    const grades = facts.topGraded.map((p) => p.denGrade);
     expect(grades).toEqual([...grades].sort((x, y) => y - x));
   });
 

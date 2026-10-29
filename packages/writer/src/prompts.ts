@@ -58,7 +58,7 @@ const rules = (type: ArticleType): string =>
 
 const BRIEF: Record<ArticleType, string> = {
   recap:
-    "Write the game recap for the configured team: how the game was won or lost, the turning points (use the key plays and their win-probability swings), how the offense and defense performed against the other side's numbers, and which players graded best and worst by Huddle Grade (0 to 100, league-relative).",
+    "Write the game recap for the configured team: how the game was won or lost, the turning points (use the key plays and their win-probability swings), how the offense and defense performed against the other side's numbers, and which players graded best and worst by Den Grade (0 to 100, league-relative).",
   division:
     "Write the division roundup: where each club stands, what the standings and tiebreakers say, how the simulated division and playoff odds look, which clubs' efficiency backs up or undercuts their record, and the games to watch this week.",
   preview:

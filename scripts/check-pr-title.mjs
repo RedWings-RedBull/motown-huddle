@@ -6,7 +6,7 @@ const re =
 if (!re.test(title)) {
   console.error(`PR title does not follow Conventional Commits: "${title}"`);
   console.error(
-    "Expected e.g. `feat(web): field heat map island` or `data(2026-w04): provisional Huddle Grades`.",
+    "Expected e.g. `feat(web): field heat map island` or `data(2026-w04): provisional Den Grades`.",
   );
   process.exit(1);
 }

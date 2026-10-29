@@ -4,7 +4,7 @@ import { beforeAll, describe, expect, it } from "vitest";
 
 import { HuddleSiteStack } from "../lib/site-stack.js";
 
-const REPO = "RedWings-RedBull/motown-huddle";
+const REPO = "RedWings-RedBull/the-den-report";
 
 interface RoleResource {
   Properties: { AssumeRolePolicyDocument: { Statement: unknown[] } };
@@ -126,10 +126,80 @@ describe("HuddleSiteStack", () => {
       "BucketName",
       "DistributionId",
       "DistributionDomain",
+      "SiteUrl",
       "DeployRoleArn",
       "JobsRoleArn",
     ]) {
       template.hasOutput(name, {});
     }
+  });
+});
+
+describe("HuddleSiteStack with a custom domain", () => {
+  let template: Template;
+
+  beforeAll(() => {
+    const app = new cdk.App();
+    const stack = new HuddleSiteStack(app, "TestDomain", {
+      env: { account: "123456789012", region: "us-east-1" },
+      repo: REPO,
+      domain: { name: "example.com", hostedZoneId: "Z0123456789ABC" },
+    });
+    template = Template.fromStack(stack);
+  });
+
+  it("issues one DNS-validated certificate for the apex and www", () => {
+    template.resourceCountIs("AWS::CertificateManager::Certificate", 1);
+    template.hasResourceProperties("AWS::CertificateManager::Certificate", {
+      DomainName: "example.com",
+      SubjectAlternativeNames: ["www.example.com"],
+      ValidationMethod: "DNS",
+    });
+  });
+
+  it("serves both hostnames from the distribution", () => {
+    template.hasResourceProperties("AWS::CloudFront::Distribution", {
+      DistributionConfig: Match.objectLike({
+        Aliases: ["example.com", "www.example.com"],
+        ViewerCertificate: Match.objectLike({ SslSupportMethod: "sni-only" }),
+      }),
+    });
+  });
+
+  it("points IPv4 and IPv6 alias records for both names at CloudFront", () => {
+    template.resourceCountIs("AWS::Route53::RecordSet", 4);
+    for (const type of ["A", "AAAA"]) {
+      for (const name of ["example.com.", "www.example.com."]) {
+        template.hasResourceProperties("AWS::Route53::RecordSet", {
+          Name: name,
+          Type: type,
+          HostedZoneId: "Z0123456789ABC",
+          AliasTarget: Match.objectLike({ HostedZoneId: Match.anyValue() }),
+        });
+      }
+    }
+  });
+
+  it("reports the custom domain as the site URL", () => {
+    template.hasOutput("SiteUrl", { Value: "https://example.com" });
+  });
+});
+
+describe("HuddleSiteStack reusing an existing GitHub OIDC provider", () => {
+  it("creates no provider and trusts the given one", () => {
+    const app = new cdk.App();
+    const arn = "arn:aws:iam::123456789012:oidc-provider/token.actions.githubusercontent.com";
+    const stack = new HuddleSiteStack(app, "TestSharedOidc", {
+      env: { account: "123456789012", region: "us-east-1" },
+      repo: REPO,
+      githubOidcProviderArn: arn,
+    });
+    const template = Template.fromStack(stack);
+    template.resourceCountIs("AWS::IAM::OIDCProvider", 0);
+    template.hasResourceProperties("AWS::IAM::Role", {
+      AssumeRolePolicyDocument: Match.objectLike({
+        Statement: [Match.objectLike({ Principal: { Federated: arn } })],
+      }),
+    });
   });
 });

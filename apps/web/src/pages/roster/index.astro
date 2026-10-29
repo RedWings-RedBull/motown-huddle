@@ -14,7 +14,7 @@ const socials = socialsEntry?.data.entries ?? {};
 if (!roster)
   throw new Error("Roster data is missing; run `pnpm pipeline --roster --season <year>`.");
 
-// Latest Huddle Grade per player, from the most recent week's field data.
+// Latest Den Grade per player, from the most recent week's field data.
 const weeks = (await getCollection("grades")).map((e) => e.data).sort(byWeekDesc);
 const latestGrades = weeks[0];
 const gradeById = new Map<string, { value: number | null; bin: Bin }>();
@@ -84,7 +84,7 @@ const active = roster.data.players.filter((p) => p.status === "ACT").length;
 
 <Base
   title="Roster"
-  description={`The ${roster.data.season} ${teamConfig.teamName} roster with bios, injury status, verified social links and the latest Huddle Grade.`}
+  description={`The ${roster.data.season} ${teamConfig.teamName} roster with bios, injury status, verified social links and the latest Den Grade.`}
 >
   <section class="bare">
     <p class="eyebrow">
@@ -93,7 +93,7 @@ const active = roster.data.players.filter((p) => p.status === "ACT").length;
     <h1 class="display mt-2 text-5xl text-white sm:text-6xl">Roster</h1>
     <p class="muted mt-3 max-w-2xl">
       {roster.data.players.length} players on the latest weekly roster, {active} active. Social
-      links are shown only after a human has verified them; the Huddle Grade chip is from week{" "}
+      links are shown only after a human has verified them; the Den Grade chip is from week{" "}
       {latestGrades?.week ?? "–"}.
     </p>
   </section>
@@ -131,7 +131,7 @@ const active = roster.data.players.filter((p) => p.status === "ACT").length;
                       <span
                         class="rounded-md px-1.5 py-0.5 font-display text-sm font-bold tabular-nums"
                         style={`background:${BIN_FILL[grade.bin]};color:${BIN_TEXT[grade.bin]}`}
-                        title={`Huddle Grade, week ${latestGrades?.week ?? ""}`}
+                        title={`Den Grade, week ${latestGrades?.week ?? ""}`}
                       >
                         {Math.round(grade.value)}
                       </span>

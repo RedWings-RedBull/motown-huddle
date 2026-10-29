@@ -2,18 +2,27 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import * as cdk from "aws-cdk-lib";
+import * as acm from "aws-cdk-lib/aws-certificatemanager";
 import * as budgets from "aws-cdk-lib/aws-budgets";
 import * as cloudfront from "aws-cdk-lib/aws-cloudfront";
 import * as origins from "aws-cdk-lib/aws-cloudfront-origins";
 import * as iam from "aws-cdk-lib/aws-iam";
+import * as route53 from "aws-cdk-lib/aws-route53";
+import * as targets from "aws-cdk-lib/aws-route53-targets";
 import * as s3 from "aws-cdk-lib/aws-s3";
 import type { Construct } from "constructs";
+
+import type { SiteDomain } from "./env.js";
 
 export interface HuddleSiteStackProps extends cdk.StackProps {
   /** GitHub repository (owner/name) allowed to assume the deploy roles from main. */
   readonly repo: string;
   /** Optional email for the monthly budget alarm. */
   readonly budgetEmail?: string;
+  /** Optional custom domain; without it the site is served on the CloudFront URL. */
+  readonly domain?: SiteDomain;
+  /** ARN of an existing token.actions.githubusercontent.com provider; created when absent. */
+  readonly githubOidcProviderArn?: string;
 }
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -67,6 +76,25 @@ export class HuddleSiteStack extends cdk.Stack {
 
     const origin = origins.S3BucketOrigin.withOriginAccessControl(this.bucket);
 
+    const domain = props.domain;
+    const zone = domain
+      ? route53.HostedZone.fromHostedZoneAttributes(this, "Zone", {
+          hostedZoneId: domain.hostedZoneId,
+          zoneName: domain.name,
+        })
+      : undefined;
+    const hostnames = domain ? [domain.name, `www.${domain.name}`] : [];
+    // DNS validation writes its own records into the zone; the stack is pinned to us-east-1,
+    // which is where CloudFront requires the certificate to live.
+    const certificate =
+      domain && zone
+        ? new acm.Certificate(this, "Certificate", {
+            domainName: domain.name,
+            subjectAlternativeNames: [`www.${domain.name}`],
+            validation: acm.CertificateValidation.fromDns(zone),
+          })
+        : undefined;
+
     const dataCache = new cloudfront.CachePolicy(this, "DataCache", {
       comment: "Job-written JSON under data/*: short TTLs so settlements show quickly",
       minTtl: cdk.Duration.seconds(0),
@@ -77,7 +105,8 @@ export class HuddleSiteStack extends cdk.Stack {
     });
 
     this.distribution = new cloudfront.Distribution(this, "Distribution", {
-      comment: "Motown Huddle static site",
+      comment: "The Den Report static site",
+      ...(certificate ? { domainNames: hostnames, certificate } : {}),
       defaultRootObject: "index.html",
       priceClass: cloudfront.PriceClass.PRICE_CLASS_100,
       httpVersion: cloudfront.HttpVersion.HTTP2_AND_3,
@@ -114,10 +143,26 @@ export class HuddleSiteStack extends cdk.Stack {
       ],
     });
 
-    const oidc = new iam.OidcProviderNative(this, "GithubOidc", {
-      url: "https://token.actions.githubusercontent.com",
-      clientIds: ["sts.amazonaws.com"],
-    });
+    if (zone) {
+      const target = route53.RecordTarget.fromAlias(
+        new targets.CloudFrontTarget(this.distribution),
+      );
+      for (const [id, recordName] of [
+        ["Apex", undefined],
+        ["Www", "www"],
+      ] as const) {
+        new route53.ARecord(this, `${id}A`, { zone, recordName, target });
+        new route53.AaaaRecord(this, `${id}Aaaa`, { zone, recordName, target });
+      }
+    }
+
+    // An account holds one provider per issuer URL, so reuse one another project already created.
+    const oidc = props.githubOidcProviderArn
+      ? iam.OidcProviderNative.fromOidcProviderArn(this, "GithubOidc", props.githubOidcProviderArn)
+      : new iam.OidcProviderNative(this, "GithubOidc", {
+          url: "https://token.actions.githubusercontent.com",
+          clientIds: ["sts.amazonaws.com"],
+        });
 
     const mainBranchOnly = new iam.WebIdentityPrincipal(oidc.oidcProviderArn, {
       StringEquals: { "token.actions.githubusercontent.com:aud": "sts.amazonaws.com" },
@@ -192,6 +237,9 @@ export class HuddleSiteStack extends cdk.Stack {
     new cdk.CfnOutput(this, "DistributionId", { value: this.distribution.distributionId });
     new cdk.CfnOutput(this, "DistributionDomain", {
       value: this.distribution.distributionDomainName,
+    });
+    new cdk.CfnOutput(this, "SiteUrl", {
+      value: `https://${domain?.name ?? this.distribution.distributionDomainName}`,
     });
     new cdk.CfnOutput(this, "DeployRoleArn", { value: this.deployRole.roleArn });
     new cdk.CfnOutput(this, "JobsRoleArn", { value: this.jobsRole.roleArn });

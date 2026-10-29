@@ -20,7 +20,7 @@ const games = new Map((await getCollection("games")).map((g) => [g.id, g.data] a
 const team = teamConfig.team;
 ---
 
-<Base title="Games" description={`Every ${teamConfig.teamName} game breakdown with Huddle Grades.`}>
+<Base title="Games" description={`Every ${teamConfig.teamName} game breakdown with Den Grades.`}>
   <section class="bare">
     <p class="eyebrow">{teamConfig.teamName}</p>
     <h1 class="display mt-2 text-5xl text-white sm:text-6xl">Game breakdowns</h1>

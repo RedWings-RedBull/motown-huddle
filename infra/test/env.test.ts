@@ -4,7 +4,7 @@ import path from "node:path";
 
 import { describe, expect, it } from "vitest";
 
-import { loadDotEnv, parseDotEnv, requireAccountId } from "../lib/env.js";
+import { loadDotEnv, parseDotEnv, readDomain, requireAccountId } from "../lib/env.js";
 
 describe("parseDotEnv", () => {
   it("parses KEY=VALUE lines and strips quotes, comments and blanks", () => {
@@ -41,5 +41,31 @@ describe("requireAccountId", () => {
     expect(() => requireAccountId({})).toThrow(/12-digit/);
     expect(() => requireAccountId({ HUDDLE_AWS_ACCOUNT_ID: "12345" })).toThrow(/12-digit/);
     expect(() => requireAccountId({ HUDDLE_AWS_ACCOUNT_ID: "abcdefghijkl" })).toThrow(/12-digit/);
+  });
+});
+
+describe("readDomain", () => {
+  it("is optional, but both values come together", () => {
+    expect(readDomain({})).toBeUndefined();
+    expect(() => readDomain({ HUDDLE_DOMAIN_NAME: "example.com" })).toThrow(/together/);
+    expect(() => readDomain({ HUDDLE_HOSTED_ZONE_ID: "Z0123456789ABC" })).toThrow(/together/);
+  });
+
+  it("normalises the console's spellings and rejects non-apex names", () => {
+    expect(
+      readDomain({
+        HUDDLE_DOMAIN_NAME: "Example.com.",
+        HUDDLE_HOSTED_ZONE_ID: "/hostedzone/Z0123456789ABC",
+      }),
+    ).toEqual({ name: "example.com", hostedZoneId: "Z0123456789ABC" });
+    expect(() =>
+      readDomain({
+        HUDDLE_DOMAIN_NAME: "www.example.com",
+        HUDDLE_HOSTED_ZONE_ID: "Z0123456789ABC",
+      }),
+    ).toThrow(/apex/);
+    expect(() =>
+      readDomain({ HUDDLE_DOMAIN_NAME: "example.com", HUDDLE_HOSTED_ZONE_ID: "abc" }),
+    ).toThrow(/Z0123456789ABC/);
   });
 });

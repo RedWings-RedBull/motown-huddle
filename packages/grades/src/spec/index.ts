@@ -50,7 +50,7 @@ export function assertSpecs(specs: readonly PoolSpec[]): void {
   }
 }
 
-/** Every pool's Huddle Grade formula, in field order. Rendered verbatim on /methodology/. */
+/** Every pool's Den Grade formula, in field order. Rendered verbatim on /methodology/. */
 export const SPECS: readonly PoolSpec[] = [QB, RB, WR, TE, OL, EDGE, IDL, LB, CB, S, K, P, RET];
 
 assertSpecs(SPECS);

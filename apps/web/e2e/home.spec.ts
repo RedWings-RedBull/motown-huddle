@@ -6,7 +6,7 @@ import { latest } from "./latest";
 test.describe("home", () => {
   test("renders the brand, landmarks and disclaimer", async ({ page }) => {
     await page.goto("/");
-    await expect(page).toHaveTitle(/Motown Huddle/);
+    await expect(page).toHaveTitle(/The Den Report/);
     await expect(page.getByRole("main")).toBeVisible();
     await expect(page.getByRole("contentinfo")).toContainText("Unofficial fan site");
     await expect(page.getByRole("link", { name: "Skip to content" })).toHaveCount(1);

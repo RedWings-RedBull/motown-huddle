@@ -65,7 +65,7 @@ function numberIsGrounded(value: number, allowed: readonly number[]): boolean {
 
 /** Club names, nicknames, cities and league terms are always fine to name. */
 function fixedNames(): string[] {
-  const names = new Set<string>(["nfc north", "nfc", "afc", "nfl", "huddle grade", "super bowl"]);
+  const names = new Set<string>(["nfc north", "nfc", "afc", "nfl", "den grade", "super bowl"]);
   for (const full of Object.values(TEAM_NAMES)) {
     names.add(full.toLowerCase());
     const parts = full.split(" ");
