@@ -53,12 +53,12 @@ function playerNames(slot: SlotGrade): string {
   return slot.players.length === 0 ? "nobody" : slot.players.map((p) => p.name).join(", ");
 }
 
-/** "Left tackle, Penei Sewell, Huddle Grade 92, on fire" */
+/** "Left tackle, Penei Sewell, Den Grade 92, on fire" */
 function describe(slot: SlotGrade): string {
   const grade =
     slot.tileGrade === null
       ? "not graded"
-      : `Huddle Grade ${formatGrade(slot.tileGrade)}, ${BIN_LABEL[slot.bin].toLowerCase()}`;
+      : `Den Grade ${formatGrade(slot.tileGrade)}, ${BIN_LABEL[slot.bin].toLowerCase()}`;
   return `${slot.label}, ${playerNames(slot)}, ${grade}`;
 }
 
@@ -363,7 +363,7 @@ export default function FieldHeatMap({ grades }: FieldHeatMapProps) {
           data-testid="field"
           data-orientation={layout.orientation}
         >
-          <title id={titleId}>Field heat map: Huddle Grade by position slot</title>
+          <title id={titleId}>Field heat map: Den Grade by position slot</title>
           <CuePatterns />
           <FieldBackground layout={layout} />
 
@@ -493,13 +493,13 @@ export default function FieldHeatMap({ grades }: FieldHeatMapProps) {
       {/* Tables ignore width:1px, so the sr-only clip must live on a wrapper div. */}
       <div className="sr-only">
         <table data-testid="slot-table">
-          <caption>Every slot, its players, snap share, Huddle Grade and bin</caption>
+          <caption>Every slot, its players, snap share, Den Grade and bin</caption>
           <thead>
             <tr>
               <th scope="col">Slot</th>
               <th scope="col">Unit</th>
               <th scope="col">Players</th>
-              <th scope="col">Huddle Grade</th>
+              <th scope="col">Den Grade</th>
               <th scope="col">Bin</th>
             </tr>
           </thead>

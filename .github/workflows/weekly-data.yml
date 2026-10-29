@@ -1,6 +1,6 @@
 name: Weekly data
 
-# Tuesday 13:17 UTC: provisional Huddle Grades from pbp + stats + snaps + FTN + NGS.
+# Tuesday 13:17 UTC: provisional Den Grades from pbp + stats + snaps + FTN + NGS.
 # Friday and Saturday 13:17 UTC: final grades once PFR advanced stats have landed (Saturday is
 # the retry when PFR lags). Every run opens a pull request; nothing merges without a human.
 on:
@@ -208,8 +208,8 @@ jobs:
           add-paths: |
             apps/web/src/data
             apps/web/src/content/articles
-          commit-message: "data(${{ steps.changes.outputs.season }}-w${{ steps.changes.outputs.week }}): ${{ steps.decide.outputs.tier }} Huddle Grades"
-          title: "data(${{ steps.changes.outputs.season }}-w${{ steps.changes.outputs.week }}): ${{ steps.decide.outputs.tier }} Huddle Grades"
+          commit-message: "data(${{ steps.changes.outputs.season }}-w${{ steps.changes.outputs.week }}): ${{ steps.decide.outputs.tier }} Den Grades"
+          title: "data(${{ steps.changes.outputs.season }}-w${{ steps.changes.outputs.week }}): ${{ steps.decide.outputs.tier }} Den Grades"
           labels: weekly-data
           body: |
             Automated weekly data build (${{ steps.decide.outputs.tier }} tier) for season ${{ steps.changes.outputs.season }}, week ${{ steps.changes.outputs.week }}.

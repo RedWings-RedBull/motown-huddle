@@ -1,7 +1,7 @@
-# Motown Huddle
+# The Den Report
 
-[![CI](https://github.com/RedWings-RedBull/motown-huddle/actions/workflows/ci.yml/badge.svg)](https://github.com/RedWings-RedBull/motown-huddle/actions/workflows/ci.yml)
-[![CodeQL](https://github.com/RedWings-RedBull/motown-huddle/actions/workflows/codeql.yml/badge.svg)](https://github.com/RedWings-RedBull/motown-huddle/actions/workflows/codeql.yml)
+[![CI](https://github.com/RedWings-RedBull/the-den-report/actions/workflows/ci.yml/badge.svg)](https://github.com/RedWings-RedBull/the-den-report/actions/workflows/ci.yml)
+[![CodeQL](https://github.com/RedWings-RedBull/the-den-report/actions/workflows/codeql.yml/badge.svg)](https://github.com/RedWings-RedBull/the-den-report/actions/workflows/codeql.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 **An open-source, data-driven NFL fan-site kit. Detroit Lions edition.**
@@ -24,7 +24,7 @@ file, so the kit can be forked for any team.
 ```mermaid
 flowchart LR
   NV[(nflverse releases)] -->|weekly workflow| P[packages/pipeline]
-  P --> G[packages/grades<br/>pure Huddle Grade engine]
+  P --> G[packages/grades<br/>pure Den Grade engine]
   G --> D[apps/web/src/data/*.json]
   D --> A[packages/writer<br/>Claude draft + fact check]
   A --> M[apps/web/src/content/articles]
@@ -37,8 +37,8 @@ flowchart LR
 ## Quickstart
 
 ```bash
-git clone https://github.com/RedWings-RedBull/motown-huddle.git
-cd motown-huddle
+git clone https://github.com/RedWings-RedBull/the-den-report.git
+cd the-den-report
 pnpm install
 pnpm --filter web exec playwright install --with-deps chromium   # once, for the browser tests
 pnpm dev            # http://localhost:4321
@@ -51,7 +51,7 @@ to build, test or run the site locally.
 The committed data under `apps/web/src/data` is rebuilt by the pipeline from public nflverse files:
 
 ```bash
-pnpm pipeline --season 2026 --week auto   # game breakdown and Huddle Grades
+pnpm pipeline --season 2026 --week auto   # game breakdown and Den Grades
 pnpm pipeline --roster --season 2026      # roster and injuries
 pnpm pipeline --preview --season 2026     # next-game preview
 pnpm pipeline --division --season 2026    # standings, tiebreakers, playoff odds
@@ -66,7 +66,7 @@ pnpm writer                               # recap, division and preview articles
 | ------------------- | --------------------------------------------------------------------------------------------- |
 | `apps/web`          | Astro site: pages, layouts, content collections, React islands, Tailwind                      |
 | `packages/shared`   | `team.config.ts` (the single fork point) and zod contracts for every JSON artifact            |
-| `packages/grades`   | Pure Huddle Grade engine, golden-fixture tested                                               |
+| `packages/grades`   | Pure Den Grade engine, golden-fixture tested                                                  |
 | `packages/pipeline` | Weekly ETL: nflverse → normalise → grade → committed JSON                                     |
 | `packages/writer`   | Weekly articles: Claude drafts from the data, a deterministic checker verifies every claim    |
 | `infra`             | AWS CDK: S3 + CloudFront, clean-URL function, least-privilege GitHub OIDC roles, budget alarm |

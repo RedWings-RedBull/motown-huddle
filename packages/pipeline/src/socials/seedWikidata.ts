@@ -12,7 +12,7 @@ import { resolve } from "node:path";
 import { RosterFile, SocialsFile, type PlayerSocials } from "@huddle/shared";
 
 const ENDPOINT = "https://query.wikidata.org/sparql";
-const USER_AGENT = "motown-huddle/1.0 (https://github.com/RedWings-RedBull/motown-huddle)";
+const USER_AGENT = "the-den-report/1.0 (https://github.com/RedWings-RedBull/the-den-report)";
 const dataDir = resolve(process.argv[2] ?? "apps/web/src/data");
 
 interface Binding {

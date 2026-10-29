@@ -4,7 +4,7 @@ import { beforeAll, describe, expect, it } from "vitest";
 
 import { HuddleSiteStack } from "../lib/site-stack.js";
 
-const REPO = "RedWings-RedBull/motown-huddle";
+const REPO = "RedWings-RedBull/the-den-report";
 
 interface RoleResource {
   Properties: { AssumeRolePolicyDocument: { Statement: unknown[] } };

@@ -33,7 +33,7 @@ signs in as a small GitHub App instead.
 
 To rotate, generate a new private key on the app page, update the secret, and delete the old key.
 
-## Game breakdown and Huddle Grades
+## Game breakdown and Den Grades
 
 ```bash
 pnpm pipeline --season 2026 --week auto           # newest completed game, provisional grades

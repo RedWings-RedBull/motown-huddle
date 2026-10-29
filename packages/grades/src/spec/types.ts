@@ -1,7 +1,7 @@
 import type { Pool } from "@huddle/shared";
 
 /**
- * One weighted sub-metric of a pool's Huddle Grade. `key` must be a MetricDef key from
+ * One weighted sub-metric of a pool's Den Grade. `key` must be a MetricDef key from
  * `@huddle/shared` METRICS for the same pool; label, source, direction, tier and unit come from
  * `metricDef(key)` so the methodology page and the engine can never disagree.
  */

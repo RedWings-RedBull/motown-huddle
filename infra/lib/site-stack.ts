@@ -105,7 +105,7 @@ export class HuddleSiteStack extends cdk.Stack {
     });
 
     this.distribution = new cloudfront.Distribution(this, "Distribution", {
-      comment: "Motown Huddle static site",
+      comment: "The Den Report static site",
       ...(certificate ? { domainNames: hostnames, certificate } : {}),
       defaultRootObject: "index.html",
       priceClass: cloudfront.PriceClass.PRICE_CLASS_100,

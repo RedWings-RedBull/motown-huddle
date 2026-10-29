@@ -1,8 +1,8 @@
 {
-  "name": "motown-huddle",
+  "name": "the-den-report",
   "version": "0.0.0",
   "private": true,
-  "description": "Motown Huddle: an open-source, data-driven NFL fan-site kit. Detroit Lions edition.",
+  "description": "The Den Report: an open-source, data-driven NFL fan-site kit. Detroit Lions edition.",
   "license": "MIT",
   "type": "module",
   "packageManager": "pnpm@10.34.6",

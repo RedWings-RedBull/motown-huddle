@@ -17,7 +17,7 @@ grounding:
 ---
 ## How the game was won
 
-The Detroit Lions beat the Arizona Cardinals 45-21 at State Farm Stadium, a result well beyond the 5.5-point spread they carried into the game. The offense earned a Huddle Grade of 95 and special teams also graded 95. The defense came in at 45, which left the team at 72.5 overall.
+The Detroit Lions beat the Arizona Cardinals 45-21 at State Farm Stadium, a result well beyond the 5.5-point spread they carried into the game. The offense earned a Den Grade of 95 and special teams also graded 95. The defense came in at 45, which left the team at 72.5 overall.
 
 The per-play numbers show the gap. Detroit averaged 0.326 EPA per play with a 47.7% success rate. Arizona managed 0.022 EPA per play and a 44.3% success rate. The explosive-play split was wider: Detroit hit on 15.4% of its plays, Arizona on 5.7%. Detroit finished with no turnovers, while Arizona's offense gave it away once.
 
@@ -37,7 +37,7 @@ Detroit's offense was efficient but not clean. It converted just 30.8% of its th
 
 The defense had a more mixed day. Arizona converted 44.4% of its third downs, well ahead of Detroit's 30.8%, which fits the 45 defensive grade. Against that, Arizona's rushing EPA of -0.294 per attempt, its 5.7% explosive rate and its one turnover show where the defense did its work. Arizona's offense was sacked on 9.4% of its dropbacks. The Cardinals also committed five penalties for 45 yards, compared with Detroit's four for 31.
 
-## Huddle Grade standouts
+## Den Grade standouts
 
 Left cornerback Keith Abney II led all Detroit players at 72.728 over 59 snaps. Gibbs was next at 70.446 on 46 snaps, followed by LaPorta at 68.111 on 59 snaps. Right edge D.J. Wonnum graded 66.521 in 36 snaps, and punter Jack Fox earned 64.571. Goff graded 63.306 across 63 snaps. Jake Bates (58.69 in 15 snaps) and Jameson Williams (58.641) rounded out the top eight.
 

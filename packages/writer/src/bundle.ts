@@ -62,9 +62,8 @@ export function latestWeek(dataDir: string): { season: number; week: number } {
 
 const pct = (x: number) => Math.round(x * 1000) / 10;
 
-const hasGrade = <T extends { huddleGrade: number | null }>(
-  p: T,
-): p is T & { huddleGrade: number } => p.huddleGrade !== null;
+const hasGrade = <T extends { denGrade: number | null }>(p: T): p is T & { denGrade: number } =>
+  p.denGrade !== null;
 
 /**
  * The schedule's spread is from the home side (positive: home favoured). Spelled out so the model
@@ -105,11 +104,11 @@ function recapBundle(dataDir: string, season: number, week: number): Bundle {
         position: p.position,
         slot: s.label,
         snaps: p.snaps,
-        huddleGrade: p.grade.value,
+        denGrade: p.grade.value,
       })),
     )
     .filter(hasGrade)
-    .sort((a, b) => b.huddleGrade - a.huddleGrade);
+    .sort((a, b) => b.denGrade - a.denGrade);
 
   const side = (m: (typeof metrics)["team"]) => ({
     epaPerPlay: m.epaPerPlay.value,
@@ -296,7 +295,7 @@ export function buildBundle(
 }
 
 /** Bump when prompts or the checker change in a way that should rewrite existing articles. */
-const PROMPT_VERSION = "3";
+const PROMPT_VERSION = "4";
 
 export function bundleHash(bundle: Bundle): string {
   return createHash("sha256")

@@ -8,7 +8,7 @@ export const teamConfig = {
   teamName: "Detroit Lions",
   division: "NFC North",
   /** Brand. Never a team mark. Overridable at build time with PUBLIC_SITE_NAME. */
-  siteName: "Motown Huddle",
+  siteName: "The Den Report",
   tagline: "Detroit Lions analytics, built in the open.",
   /** Disclaimer rendered in every footer. */
   disclaimer:
