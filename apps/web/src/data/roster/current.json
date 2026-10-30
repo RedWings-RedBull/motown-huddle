@@ -121,7 +121,11 @@
         "espn": "4429795",
         "pfr": "GibbJa01"
       },
-      "injury": null,
+      "injury": {
+        "practiceStatus": "Full Participation in Practice",
+        "primary": null,
+        "reportStatus": null
+      },
       "jersey": 0,
       "lastName": "Gibbs",
       "position": "RB",
@@ -171,7 +175,11 @@
         "espn": "4383429",
         "pfr": "SaylJa00"
       },
-      "injury": null,
+      "injury": {
+        "practiceStatus": "Full Participation in Practice",
+        "primary": null,
+        "reportStatus": null
+      },
       "jersey": 25,
       "lastName": "Saylors",
       "position": "RB",
@@ -298,7 +306,11 @@
         "espn": "4374302",
         "pfr": "StxxAm00"
       },
-      "injury": null,
+      "injury": {
+        "practiceStatus": "Full Participation in Practice",
+        "primary": null,
+        "reportStatus": null
+      },
       "jersey": 14,
       "lastName": "St. Brown",
       "position": "WR",
@@ -404,7 +416,7 @@
       "position": "WR",
       "positionGroup": "WR",
       "rookieYear": 2024,
-      "status": "DEV",
+      "status": "CUT",
       "weightLb": 170,
       "yearsExp": 2
     },
@@ -427,9 +439,32 @@
       "position": "WR",
       "positionGroup": "WR",
       "rookieYear": 2019,
-      "status": "ACT",
+      "status": "RES",
       "weightLb": 194,
       "yearsExp": 7
+    },
+    {
+      "birthDate": "1993-04-10",
+      "college": "Sacramento State",
+      "depthChartPosition": "WR",
+      "draft": null,
+      "firstName": "DeAndre",
+      "fullName": "DeAndre Carter",
+      "gsisId": "00-0031763",
+      "heightIn": 68,
+      "ids": {
+        "espn": "2580216",
+        "pfr": "CartDe02"
+      },
+      "injury": null,
+      "jersey": 86,
+      "lastName": "Carter",
+      "position": "WR",
+      "positionGroup": "WR",
+      "rookieYear": 2015,
+      "status": "ACT",
+      "weightLb": 190,
+      "yearsExp": 11
     },
     {
       "birthDate": "2004-06-13",
@@ -474,10 +509,10 @@
       "injury": null,
       "jersey": 13,
       "lastName": "Meeks",
-      "position": "WR",
+      "position": "TE",
       "positionGroup": "TE",
       "rookieYear": 2025,
-      "status": "INA",
+      "status": "ACT",
       "weightLb": 235,
       "yearsExp": 1
     },
@@ -621,7 +656,11 @@
         "espn": null,
         "pfr": null
       },
-      "injury": null,
+      "injury": {
+        "practiceStatus": "Full Participation in Practice",
+        "primary": null,
+        "reportStatus": null
+      },
       "jersey": 58,
       "lastName": "Sewell",
       "position": "OT",
@@ -698,17 +737,13 @@
         "espn": null,
         "pfr": null
       },
-      "injury": {
-        "practiceStatus": "Limited Participation in Practice",
-        "primary": "Wrist",
-        "reportStatus": "Out"
-      },
+      "injury": null,
       "jersey": 64,
       "lastName": "Mays",
       "position": "C",
       "positionGroup": "OL",
       "rookieYear": 2022,
-      "status": "RES",
+      "status": "ACT",
       "weightLb": 325,
       "yearsExp": 4
     },
@@ -937,17 +972,13 @@
         "espn": null,
         "pfr": null
       },
-      "injury": {
-        "practiceStatus": "Did Not Participate In Practice",
-        "primary": "Foot",
-        "reportStatus": "Out"
-      },
+      "injury": null,
       "jersey": 78,
       "lastName": "Bartch",
       "position": "OT",
       "positionGroup": "OL",
       "rookieYear": 2020,
-      "status": "INA",
+      "status": "RES",
       "weightLb": 315,
       "yearsExp": 6
     },
@@ -1022,7 +1053,11 @@
         "espn": "4361662",
         "pfr": "McNeAl00"
       },
-      "injury": null,
+      "injury": {
+        "practiceStatus": "Full Participation in Practice",
+        "primary": null,
+        "reportStatus": null
+      },
       "jersey": 54,
       "lastName": "McNeill",
       "position": "DT",
@@ -1056,27 +1091,50 @@
       "yearsExp": 0
     },
     {
-      "birthDate": "1999-12-15",
-      "college": "Notre Dame; Harvard",
+      "birthDate": "2002-02-13",
+      "college": "California; Notre Dame",
       "depthChartPosition": "DT",
       "draft": null,
-      "firstName": "Chris",
-      "fullName": "Chris Smith",
-      "gsisId": "00-0038661",
-      "heightIn": 73,
+      "firstName": "Aidan",
+      "fullName": "Aidan Keanaaina",
+      "gsisId": "00-0041456",
+      "heightIn": 75,
       "ids": {
-        "espn": "4367835",
+        "espn": null,
         "pfr": null
       },
       "injury": null,
-      "jersey": 90,
-      "lastName": "Smith",
+      "jersey": 72,
+      "lastName": "Keanaaina",
       "position": "DT",
       "positionGroup": "DL",
-      "rookieYear": 2023,
+      "rookieYear": 2026,
       "status": "DEV",
       "weightLb": 320,
-      "yearsExp": 3
+      "yearsExp": 0
+    },
+    {
+      "birthDate": "1999-10-06",
+      "college": "Oregon; Washington",
+      "depthChartPosition": "NT",
+      "draft": null,
+      "firstName": "Sam",
+      "fullName": "Taki Taimani",
+      "gsisId": "00-0039720",
+      "heightIn": 73,
+      "ids": {
+        "espn": "4361114",
+        "pfr": "TaimTa00"
+      },
+      "injury": null,
+      "jersey": 74,
+      "lastName": "Taimani",
+      "position": "DT",
+      "positionGroup": "DL",
+      "rookieYear": 2024,
+      "status": "DEV",
+      "weightLb": 324,
+      "yearsExp": 2
     },
     {
       "birthDate": "2003-02-24",
@@ -1096,9 +1154,9 @@
         "pfr": "WillTy02"
       },
       "injury": {
-        "practiceStatus": "Limited Participation in Practice",
-        "primary": "Foot",
-        "reportStatus": "Questionable"
+        "practiceStatus": "Full Participation in Practice",
+        "primary": null,
+        "reportStatus": null
       },
       "jersey": 91,
       "lastName": "Williams",
@@ -1159,7 +1217,7 @@
       "position": "DT",
       "positionGroup": "DL",
       "rookieYear": 2024,
-      "status": "INA",
+      "status": "ACT",
       "weightLb": 282,
       "yearsExp": 2
     },
@@ -1264,31 +1322,27 @@
       "yearsExp": 6
     },
     {
-      "birthDate": "1999-05-29",
-      "college": "Purdue",
+      "birthDate": "1998-11-07",
+      "college": "Saginaw Valley State",
       "depthChartPosition": "OLB",
-      "draft": {
-        "club": "DET",
-        "overall": 113,
-        "year": 2021
-      },
-      "firstName": "Derrick",
-      "fullName": "Derrick Barnes",
-      "gsisId": "00-0036964",
-      "heightIn": 72,
+      "draft": null,
+      "firstName": "Trevor",
+      "fullName": "Trevor Nowaske",
+      "gsisId": "00-0038660",
+      "heightIn": 75,
       "ids": {
-        "espn": "4260409",
-        "pfr": "BarnDe02"
+        "espn": "5144894",
+        "pfr": "NowaTr00"
       },
       "injury": null,
-      "jersey": 55,
-      "lastName": "Barnes",
+      "jersey": 53,
+      "lastName": "Nowaske",
       "position": "LB",
       "positionGroup": "EDGE",
-      "rookieYear": 2021,
+      "rookieYear": 2023,
       "status": "ACT",
-      "weightLb": 240,
-      "yearsExp": 5
+      "weightLb": 235,
+      "yearsExp": 3
     },
     {
       "birthDate": "2004-10-08",
@@ -1380,7 +1434,11 @@
         "espn": "4372099",
         "pfr": "HutcAi00"
       },
-      "injury": null,
+      "injury": {
+        "practiceStatus": "Full Participation in Practice",
+        "primary": null,
+        "reportStatus": null
+      },
       "jersey": 97,
       "lastName": "Hutchinson",
       "position": "DE",
@@ -1400,7 +1458,7 @@
         "year": 2020
       },
       "firstName": "Dennis",
-      "fullName": "D.J. Wonnum",
+      "fullName": "DJ Wonnum",
       "gsisId": "00-0036335",
       "heightIn": 77,
       "ids": {
@@ -1444,7 +1502,7 @@
       "position": "DE",
       "positionGroup": "EDGE",
       "rookieYear": 2025,
-      "status": "INA",
+      "status": "ACT",
       "weightLb": 275,
       "yearsExp": 1
     },
@@ -1552,7 +1610,7 @@
       "position": "LB",
       "positionGroup": "LB",
       "rookieYear": 2019,
-      "status": "ACT",
+      "status": "RES",
       "weightLb": 252,
       "yearsExp": 7
     },
@@ -1584,27 +1642,31 @@
       "yearsExp": 3
     },
     {
-      "birthDate": "1998-11-07",
-      "college": "Saginaw Valley State",
+      "birthDate": "1999-05-29",
+      "college": "Purdue",
       "depthChartPosition": "OLB",
-      "draft": null,
-      "firstName": "Trevor",
-      "fullName": "Trevor Nowaske",
-      "gsisId": "00-0038660",
-      "heightIn": 75,
+      "draft": {
+        "club": "DET",
+        "overall": 113,
+        "year": 2021
+      },
+      "firstName": "Derrick",
+      "fullName": "Derrick Barnes",
+      "gsisId": "00-0036964",
+      "heightIn": 72,
       "ids": {
-        "espn": "5144894",
-        "pfr": "NowaTr00"
+        "espn": "4260409",
+        "pfr": "BarnDe02"
       },
       "injury": null,
-      "jersey": 53,
-      "lastName": "Nowaske",
+      "jersey": 55,
+      "lastName": "Barnes",
       "position": "LB",
       "positionGroup": "LB",
-      "rookieYear": 2023,
+      "rookieYear": 2021,
       "status": "ACT",
-      "weightLb": 235,
-      "yearsExp": 3
+      "weightLb": 240,
+      "yearsExp": 5
     },
     {
       "birthDate": "1998-09-04",
@@ -1646,7 +1708,11 @@
         "espn": "4566092",
         "pfr": "RakeEn00"
       },
-      "injury": null,
+      "injury": {
+        "practiceStatus": "Limited Participation in Practice",
+        "primary": null,
+        "reportStatus": null
+      },
       "jersey": 2,
       "lastName": "Rakestraw",
       "position": "CB",
@@ -1727,46 +1793,38 @@
         "espn": "3910229",
         "pfr": "Ya-SRo00"
       },
-      "injury": {
-        "practiceStatus": "Did Not Participate In Practice",
-        "primary": "Hamstring",
-        "reportStatus": "Out"
-      },
+      "injury": null,
       "jersey": 23,
       "lastName": "Ya-Sin",
       "position": "CB",
       "positionGroup": "CB",
       "rookieYear": 2019,
-      "status": "INA",
+      "status": "ACT",
       "weightLb": 195,
       "yearsExp": 7
     },
     {
-      "birthDate": "1994-04-06",
-      "college": "LSU",
-      "depthChartPosition": "FS",
-      "draft": {
-        "club": "PHI",
-        "overall": 233,
-        "year": 2016
-      },
-      "firstName": "Jalen",
-      "fullName": "Jalen Mills",
-      "gsisId": "00-0032803",
-      "heightIn": 72,
+      "birthDate": "1998-01-02",
+      "college": "Washington",
+      "depthChartPosition": "CB",
+      "draft": null,
+      "firstName": "Myles",
+      "fullName": "Myles Bryant",
+      "gsisId": "00-0036087",
+      "heightIn": 69,
       "ids": {
-        "espn": "2976540",
-        "pfr": "MillJa02"
+        "espn": "4039010",
+        "pfr": "BryaMy01"
       },
       "injury": null,
       "jersey": 27,
-      "lastName": "Mills",
+      "lastName": "Bryant",
       "position": "CB",
       "positionGroup": "CB",
-      "rookieYear": 2016,
-      "status": "ACT",
-      "weightLb": 191,
-      "yearsExp": 10
+      "rookieYear": 2020,
+      "status": "DEV",
+      "weightLb": 192,
+      "yearsExp": 6
     },
     {
       "birthDate": "1998-03-31",
@@ -1790,37 +1848,6 @@
       "status": "ACT",
       "weightLb": 188,
       "yearsExp": 6
-    },
-    {
-      "birthDate": "2001-10-22",
-      "college": "Alabama",
-      "depthChartPosition": "SS",
-      "draft": {
-        "club": "DET",
-        "overall": 45,
-        "year": 2023
-      },
-      "firstName": "Brian",
-      "fullName": "Brian Branch",
-      "gsisId": "00-0039141",
-      "heightIn": 72,
-      "ids": {
-        "espn": "4692025",
-        "pfr": "BranBr00"
-      },
-      "injury": {
-        "practiceStatus": "Limited Participation in Practice",
-        "primary": "Achilles",
-        "reportStatus": "Out"
-      },
-      "jersey": 32,
-      "lastName": "Branch",
-      "position": "CB",
-      "positionGroup": "CB",
-      "rookieYear": 2023,
-      "status": "RES",
-      "weightLb": 203,
-      "yearsExp": 3
     },
     {
       "birthDate": "2000-05-01",
@@ -1985,7 +2012,11 @@
         "espn": "4360383",
         "pfr": "JoseKe03"
       },
-      "injury": null,
+      "injury": {
+        "practiceStatus": "Limited Participation in Practice",
+        "primary": null,
+        "reportStatus": null
+      },
       "jersey": 31,
       "lastName": "Joseph",
       "position": "SAF",
@@ -1994,6 +2025,33 @@
       "status": "RES",
       "weightLb": 210,
       "yearsExp": 4
+    },
+    {
+      "birthDate": "2001-10-22",
+      "college": "Alabama",
+      "depthChartPosition": "SS",
+      "draft": {
+        "club": "DET",
+        "overall": 45,
+        "year": 2023
+      },
+      "firstName": "Brian",
+      "fullName": "Brian Branch",
+      "gsisId": "00-0039141",
+      "heightIn": 72,
+      "ids": {
+        "espn": "4692025",
+        "pfr": "BranBr00"
+      },
+      "injury": null,
+      "jersey": 32,
+      "lastName": "Branch",
+      "position": "CB",
+      "positionGroup": "S",
+      "rookieYear": 2023,
+      "status": "ACT",
+      "weightLb": 203,
+      "yearsExp": 3
     },
     {
       "birthDate": "2003-07-14",
@@ -2014,7 +2072,7 @@
       "position": "SAF",
       "positionGroup": "S",
       "rookieYear": 2026,
-      "status": "INA",
+      "status": "ACT",
       "weightLb": 201,
       "yearsExp": 0
     },
@@ -2117,5 +2175,5 @@
   ],
   "season": 2026,
   "team": "DET",
-  "week": 5
+  "week": 8
 }

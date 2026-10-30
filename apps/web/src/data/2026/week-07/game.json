@@ -1,0 +1,32 @@
+{
+  "away": {
+    "score": 17,
+    "team": "GB"
+  },
+  "gameId": "2026_07_GB_DET",
+  "home": {
+    "score": 20,
+    "team": "DET"
+  },
+  "kickoffUtc": "2026-10-25T20:25:00Z",
+  "line": {
+    "spread": 3.5,
+    "total": 55.5
+  },
+  "overtime": false,
+  "season": 2026,
+  "team": {
+    "opponent": "GB",
+    "result": "W",
+    "side": "home"
+  },
+  "tier": "final",
+  "venue": {
+    "roof": "dome",
+    "stadium": "Ford Field",
+    "surface": "",
+    "temp": null,
+    "wind": null
+  },
+  "week": 7
+}
