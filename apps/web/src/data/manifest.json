@@ -23,6 +23,14 @@
       "season": 2026,
       "tier": "final",
       "week": 5
+    },
+    {
+      "gameId": "2026_07_GB_DET",
+      "opponent": "GB",
+      "result": "W",
+      "season": 2026,
+      "tier": "provisional",
+      "week": 7
     }
   ]
 }
