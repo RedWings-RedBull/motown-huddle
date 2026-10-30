@@ -1,0 +1,190 @@
+{
+  "gameId": "2026_07_GB_DET",
+  "plays": [
+    {
+      "clock": "12:35",
+      "desc": "(12:35) (Shotgun) 10-J.Love pass deep right to 83-S.Williams pushed ob at DET 6 for 27 yards (2-E.Rakestraw) [97-A.Hutchinson].",
+      "down": 4,
+      "epa": 4.389,
+      "playId": 204,
+      "posteam": "GB",
+      "qtr": 1,
+      "tags": [
+        "fourth-down",
+        "explosive"
+      ],
+      "wpa": 0.156,
+      "yardline100": 33,
+      "ydstogo": 5
+    },
+    {
+      "clock": "07:08",
+      "desc": "(7:08) (Shotgun) 16-J.Goff pass short left to 1-J.Williams for 16 yards, TOUCHDOWN.",
+      "down": 1,
+      "epa": 1.776,
+      "playId": 482,
+      "posteam": "DET",
+      "qtr": 1,
+      "tags": [
+        "td"
+      ],
+      "wpa": 0.036,
+      "yardline100": 16,
+      "ydstogo": 10
+    },
+    {
+      "clock": "01:04",
+      "desc": "(1:04) (Shotgun) 10-J.Love pass short right to 85-T.Kraft for 14 yards, TOUCHDOWN.",
+      "down": 3,
+      "epa": 3.235,
+      "playId": 837,
+      "posteam": "GB",
+      "qtr": 1,
+      "tags": [
+        "td"
+      ],
+      "wpa": 0.104,
+      "yardline100": 14,
+      "ydstogo": 9
+    },
+    {
+      "clock": "05:56",
+      "desc": "(5:56) (Shotgun) 10-J.Love pass deep middle to 9-C.Watson to DET 13 for 28 yards (6-K.Abney). ** Injury Update: GB-0-M.Golden has returned to the game.",
+      "down": 4,
+      "epa": 4.419,
+      "playId": 1584,
+      "posteam": "GB",
+      "qtr": 2,
+      "tags": [
+        "fourth-down",
+        "explosive"
+      ],
+      "wpa": 0.126,
+      "yardline100": 41,
+      "ydstogo": 3
+    },
+    {
+      "clock": "04:20",
+      "desc": "(4:20) (Shotgun) 10-J.Love pass short right to 0-M.Golden to DET 7 for no gain (4-D.Reed).",
+      "down": 4,
+      "epa": -3.006,
+      "playId": 1680,
+      "posteam": "GB",
+      "qtr": 2,
+      "tags": [
+        "fourth-down"
+      ],
+      "wpa": -0.128,
+      "yardline100": 7,
+      "ydstogo": 4
+    },
+    {
+      "clock": "14:16",
+      "desc": "(14:16) 16-J.Goff FUMBLES (Aborted) at DET 41, touched at DET 41, RECOVERED by GB-58-I.McDuffie at DET 42.",
+      "down": 2,
+      "epa": -5.871,
+      "playId": 2136,
+      "posteam": "DET",
+      "qtr": 3,
+      "tags": [
+        "turnover"
+      ],
+      "wpa": -0.17,
+      "yardline100": 58,
+      "ydstogo": 3
+    },
+    {
+      "clock": "12:22",
+      "desc": "(12:22) (Shotgun) 10-J.Love pass short left to 8-J.Jacobs for 25 yards, TOUCHDOWN.",
+      "down": 3,
+      "epa": 3.572,
+      "playId": 2263,
+      "posteam": "GB",
+      "qtr": 3,
+      "tags": [
+        "td",
+        "explosive"
+      ],
+      "wpa": 0.138,
+      "yardline100": 25,
+      "ydstogo": 6
+    },
+    {
+      "clock": "06:40",
+      "desc": "(6:40) (Shotgun) 16-J.Goff pass short middle to 1-J.Williams for 10 yards, TOUCHDOWN [90-L.Van Ness].",
+      "down": 2,
+      "epa": 2.073,
+      "playId": 2576,
+      "posteam": "DET",
+      "qtr": 3,
+      "tags": [
+        "td"
+      ],
+      "wpa": 0.075,
+      "yardline100": 10,
+      "ydstogo": 9
+    },
+    {
+      "clock": "01:09",
+      "desc": "(1:09) (Shotgun) 16-J.Goff pass incomplete short middle to 1-J.Williams (2-B.Cisse).",
+      "down": 4,
+      "epa": -2.974,
+      "playId": 3025,
+      "posteam": "DET",
+      "qtr": 3,
+      "tags": [
+        "fourth-down"
+      ],
+      "wpa": -0.112,
+      "yardline100": 6,
+      "ydstogo": 5
+    },
+    {
+      "clock": "04:53",
+      "desc": "(4:53) 0-J.Gibbs up the middle to DET 22 for -2 yards (25-K.Nixon).",
+      "down": 4,
+      "epa": -3.578,
+      "playId": 3808,
+      "posteam": "DET",
+      "qtr": 4,
+      "tags": [
+        "fourth-down"
+      ],
+      "wpa": -0.126,
+      "yardline100": 76,
+      "ydstogo": 1
+    },
+    {
+      "clock": "02:45",
+      "desc": "(2:45) (Shotgun) 16-J.Goff pass short middle to 87-S.LaPorta to DET 45 for 18 yards (29-X.McKinney; 58-I.McDuffie). PENALTY on GB-94-K.Brooks, Roughing the Passer, 15 yards, enforced at DET 45.",
+      "down": 2,
+      "epa": 2.382,
+      "playId": 3950,
+      "posteam": "DET",
+      "qtr": 4,
+      "tags": [
+        "penalty"
+      ],
+      "wpa": 0.141,
+      "yardline100": 73,
+      "ydstogo": 8
+    },
+    {
+      "clock": "00:01",
+      "desc": "(:01) 79-L.Borom and 76-B.Miller reported in as eligible. 39-J.Bates 22 yard field goal is GOOD, Center-49-H.Hatten, Holder-3-J.Fox.",
+      "down": 2,
+      "epa": 0.017,
+      "playId": 4224,
+      "posteam": "DET",
+      "qtr": 4,
+      "tags": [
+        "fg"
+      ],
+      "wpa": 0.129,
+      "yardline100": 4,
+      "ydstogo": 4
+    }
+  ],
+  "season": 2026,
+  "week": 7
+}
