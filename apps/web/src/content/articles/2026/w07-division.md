@@ -1,54 +1,54 @@
 ---
-title: "NFC North roundup: Vikings lead at 6-0 on defense, and Minnesota-Detroit is the key game"
-description: "Minnesota is 6-0 with a 72.5% division chance, but its offense ranks 29th, and the Sunday game in Detroit tests that gap."
+title: "NFC North roundup: Vikings lead on defense, with the Bears and Lions chasing"
+description: "Minnesota is 6-0 on the league's top-ranked defense, but its offense ranks 29th. Our simulations, efficiency numbers and this week's games explain the NFC North."
 type: division
 season: 2026
 week: 7
 gameId: null
-publishedAt: "2026-10-30T18:42:37.074Z"
+publishedAt: "2026-10-31T17:47:47.936Z"
 model: "sonnet"
 effort: "high"
-dataHash: "024ffc2c6ab9e7ae"
+dataHash: "37e1bc7bbd574a5c"
 grounding:
-  numbers: 103
-  names: 10
+  numbers: 86
+  names: 4
   plays: 0
   passed: true
 ---
 ## Where the division stands
 
-In the Week 8 standings, the Minnesota Vikings lead the NFC North at 6-0 and are 2-0 in the division. They have won six straight, with 125 points scored, 74 allowed and a point differential of +51. The Chicago Bears are second at 5-2 on a two-game winning streak. Their +37 differential is the second best in the division, but they are 0-2 against division opponents.
+Minnesota is the only unbeaten team in the NFC North. The Vikings are 6-0 on a six-game win streak, with a 2-0 division record and a +51 point differential (125 points for, 74 against). Their lead is built on points prevented: their 125 points scored are the fewest in the division.
 
-The Detroit Lions are 4-2 and 1-0 in the division. They have scored 184 points, the most of the four clubs, but have allowed 165, which leaves them at +19. The Green Bay Packers are 5-3 with a one-game streak, 171 points for, 164 against and a +7 differential. They are 1-2 in the division.
+Chicago is second at 5-2 with a +37 differential and two straight wins. The Bears are 0-2 in the division, and that record would matter in any tiebreaker. Detroit is third at 4-2 and 1-0 in division play. The Lions have the division's most points scored (184) and most points allowed (165), which leaves them at +19. Green Bay is fourth at 5-3, 1-2 in the division, with a +7 differential (171 for, 164 against) and one straight win.
 
-The standings list no tiebreaker in play, and no two clubs share a record. Division record is where tiebreakers would start to matter if records converge. Minnesota's 2-0 is the cleanest mark. Chicago's 0-2 would count against it in a tie with a rival.
+The standings list no tiebreaker as deciding any ranking, so the order comes from record alone. The clubs have played different numbers of games: Minnesota and Detroit have played six, Chicago seven and Green Bay eight. The records are not like for like yet.
 
 ## What the simulations say
 
-The model ran 10,000 simulations. Minnesota wins the division in 72.5% of them and makes the playoffs in 97.5%, with 12.6 expected wins. No other club is close.
+We ran the rest of the season 10,000 times. Minnesota wins the division in 72.5% of runs and makes the playoffs in 97.5%, with 12.6 expected wins. Nothing else in the division comes close.
 
-Behind the Vikings:
+The race for second is tight:
 
-- **Chicago Bears:** 12.3% to win the division, 77.4% to make the playoffs, 10.6 expected wins.
-- **Detroit Lions:** 11.4% division, 65% playoffs, 10 expected wins.
-- **Green Bay Packers:** 3.9% division, 52.9% playoffs, 9.5 expected wins.
+- **Chicago:** 12.3% to win the division, 77.4% to make the playoffs, 10.6 expected wins.
+- **Detroit:** 11.4% to win the division, 65% to make the playoffs, 10 expected wins.
+- **Green Bay:** 3.8% to win the division, 52.6% to make the playoffs, 9.5 expected wins.
 
-Chicago and Detroit are nearly level for the division title, but Chicago's playoff number is 77.4% against Detroit's 65%. Green Bay's division chance is small. At 52.9%, its playoff odds are only slightly better than a coin flip.
+Chicago has the better record, but its division odds are only about a point better than Detroit's. Green Bay's playoff chances are close to a coin flip, while its division chances are small.
 
-## Does efficiency back the records?
+## Does efficiency back up the records?
 
-**Minnesota:** The record is built on defense. The Vikings' defense ranks first at -0.193 EPA per play, while the offense ranks 29th at -0.096. The +51 differential shows the defense is delivering, but the 6-0 mark rests on one side of the ball. The simulation still gives them 12.6 expected wins.
+**Minnesota** is the most interesting case. The Vikings' defense ranks first, at -0.193 EPA per play. Their offense ranks 29th, at -0.096. The simulations still project 12.6 wins, so the record leans heavily on the defense holding up. If it slips, nothing on offense covers for it.
 
-**Detroit:** The Lions are the most lopsided team here. The offense is fourth at 0.14 EPA per play, but the defense is 31st at 0.134 allowed per play. That fits the scoring: they score plenty and give up plenty. A 4-2 record and +19 differential look about right for that profile.
+**Chicago** looks solid rather than dominant. The offense is 11th (0.047 EPA per play) and the defense is 16th (-0.002). Those are middle-of-the-league numbers, so the +37 differential and 5-2 record run a little ahead of the underlying efficiency. The 77.4% playoff chance still makes the Bears the division's second-best bet to get in.
 
-**Chicago:** The Bears are middle of the pack on both sides. The offense is 11th at 0.047 EPA per play and the defense is 16th at -0.002. The 5-2 record and +37 differential are better than that profile alone would suggest, so the underlying numbers are less dominant than the record. The simulation still has them second in the division race at 10.6 expected wins.
+**Detroit** has the most lopsided profile. The Lions' offense is fourth at 0.14 EPA per play, but their defense ranks 31st, allowing 0.134 per play. That matches the points data: they score and give up the most in the division. The 4-2 record is credible, and so is the thin +19 margin.
 
-**Green Bay:** The Packers' defense is fourth at -0.069 EPA per play, and the offense is 16th at 0.005. That is a sturdier base than the +7 differential implies for a 5-3 team. Even so, the simulation puts their division odds at 3.9%.
+**Green Bay** is near the middle on offense (16th, 0.005) and has the division's second-best defense, ranked fourth at -0.069. The Packers' 5-3 record rests on the defense, not the offense. Their +7 differential is the smallest in the division, and their 9.5 expected wins are the fewest.
 
 ## Games to watch
 
-**Carolina Panthers at Green Bay Packers, Thursday, Oct. 29, 8:15 PM EDT.** Green Bay was favored by 3.5 in this non-division game. The data includes no result, and the standings above do not reflect it. The Packers have the lowest playoff probability of the four clubs at 52.9%, so this result matters most to them.
+**Minnesota at Detroit, Sunday, Nov. 1, 1:00 PM EST.** This is the division game of the week. Detroit is a 3-point home favorite, which we cite only as context. Each unit meets an extreme: the Lions' fourth-ranked offense faces the league's top defense, and the Vikings' 29th-ranked offense faces the Lions' 31st-ranked defense. A Detroit win would hand the Vikings their first loss and tighten the race.
 
-**Minnesota Vikings at Detroit Lions, Sunday, Nov. 1, 1:00 PM EST.** This is the division game that matters most. The Lions are favored by 3, a figure that is context only. Minnesota's first-ranked defense meets Detroit's fourth-ranked offense, and Detroit's 31st-ranked defense meets Minnesota's 29th-ranked offense. A Vikings win would move them to 3-0 in the division. A Detroit win would hand Minnesota its first loss and give Detroit a 2-0 division record.
+**Carolina at Green Bay, Thursday, Oct. 29, 8:15 PM EDT.** Green Bay is a 3.5-point home favorite in a non-division game. The Packers need wins to protect their 52.6% playoff chance, and their fourth-ranked defense is the unit most likely to deliver one.
 
-**Chicago Bears at Seattle Seahawks, Monday, Nov. 2, 8:15 PM EST.** This is a non-division game, and Seattle is favored by 3. The Bears are 0-2 in the division, so a win would help their overall record without changing their division tiebreaker position. With a 77.4% playoff chance, they are in good shape, and this game is about holding that position.
+**Chicago at Seattle, Monday, Nov. 2, 8:15 PM EST.** Seattle is a 3-point home favorite. Chicago's 77.4% playoff odds are the second-best in the division, and this is a road test against a non-division opponent. A loss would leave the Bears at 5-3, matching Green Bay's current record.

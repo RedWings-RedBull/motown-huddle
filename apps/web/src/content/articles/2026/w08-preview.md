@@ -1,67 +1,61 @@
 ---
-title: "Lions host unbeaten Vikings and the league's top-ranked defense at Ford Field"
-description: "Detroit (4-2) is a 3-point home favorite over 6-0 Minnesota, pairing the No. 4 offense by EPA against the No. 1 defense."
+title: "Lions host unbeaten Vikings in a clash of the top defense and a top-four offense"
+description: "Detroit, 4-2 and favored by 3, hosts 6-0 Minnesota at Ford Field. We break down the rankings, matchups, injuries and recent history."
 type: preview
 season: 2026
 week: 8
 gameId: "2026_08_MIN_DET"
-publishedAt: "2026-10-30T18:43:34.196Z"
+publishedAt: "2026-10-31T17:48:32.978Z"
 model: "sonnet"
 effort: "high"
-dataHash: "06b9c56bfb8e5efc"
+dataHash: "7fc36575a19d31b6"
 grounding:
-  numbers: 75
-  names: 22
+  numbers: 60
+  names: 26
   plays: 0
   passed: true
 ---
 ## Kickoff and setting
 
-The Detroit Lions host the Minnesota Vikings on Sunday, Nov. 1, at 1:00 PM EST at Ford Field, a dome. Both teams have had 7 days of rest. Detroit is 4-2 and Minnesota is 6-0. The Lions are favored by 3 points with a total of 46.5, which is context only.
+The Detroit Lions (4-2) host the Minnesota Vikings (6-0) on Sunday, Nov. 1, at 1:00 PM EST at Ford Field. The roof is a dome, so weather is not a factor. Both teams come in with seven days of rest. Detroit is a 3-point favorite with a total of 46.5, which is context only.
 
-Jared Goff starts at quarterback for Detroit under Dan Campbell. Kyler Murray starts for Minnesota under Kevin O'Connell.
+Jared Goff starts at quarterback for Detroit and Kyler Murray for Minnesota. Dan Campbell coaches the Lions and Kevin O'Connell the Vikings.
 
 ## How the teams compare
 
-All figures are through Week 8.
+Each team has a clear strength and a clear weakness, and they sit on opposite sides of the ball.
 
-**Detroit's offense is its strength.** The Lions rank 4th in offensive EPA per play at 0.14, with a 49.6% success rate. The passing game drives that, ranking 3rd in pass EPA. The ground game is middling, ranking 16th in rush EPA.
+Detroit's offense ranks fourth in EPA per play at 0.14, with a 49.6% success rate. The passing game carries it, ranking third in pass EPA. The run game is middling at 16th in rush EPA.
 
-**Detroit's defense is the problem.** The Lions allow 0.134 EPA per play, which ranks 31st. They are 28th against the pass and 18th against the run.
+Detroit's defense is the problem. It allows 0.134 EPA per play, which ranks 31st. It is 28th against the pass and 18th against the run.
 
-**Minnesota is the mirror image.** The Vikings' defense leads the league in EPA allowed at -0.193 per play. It ranks 1st against the pass and 4th against the run. The offense sits near the bottom: 29th in EPA per play at -0.096, with a 36.1% success rate. It ranks 24th in pass EPA and 28th in rush EPA.
-
-Minnesota's 6-0 start rests on that defense. The offense does not grade out well on any measure above.
+Minnesota is the mirror image. Its defense ranks first in EPA per play allowed at -0.193, first against the pass and fourth against the run. Its offense is much weaker: 29th in EPA per play at -0.096, with a 36.1% success rate, 24th in pass EPA and 28th in rush EPA. The Vikings are 6-0 despite that offense, so the defense has done most of the work.
 
 ## Key matchups
 
-- **Detroit pass offense (3rd) vs. Minnesota pass defense (1st): even.** This is the main event. The Lions' best unit meets the league's best.
-- **Detroit run offense (16th) vs. Minnesota run defense (4th): Minnesota.** Yards on the ground look hard to come by, which puts more weight on Goff and the passing game.
-- **Detroit pass defense (28th) vs. Minnesota pass offense (24th): even.** Both units rank in the bottom third of the league.
-- **Detroit run defense (18th) vs. Minnesota run offense (28th): Detroit.** This is the Lions' clearest edge.
-- **Explosive plays: even.** Detroit ranks 7th and Minnesota 5th.
-- **Third downs: Minnesota.** The Vikings rank 3rd and Detroit 16th.
+- **Detroit pass offense vs. Minnesota pass defense (third vs. first):** No clear advantage. This is the central test of the game: the third-ranked pass EPA offense against the top pass defense.
+- **Detroit run offense vs. Minnesota run defense (16th vs. fourth):** Minnesota holds the advantage. Detroit should not expect much on the ground.
+- **Detroit pass defense vs. Minnesota pass offense (28th vs. 24th):** No clear advantage. Neither unit rates well.
+- **Detroit run defense vs. Minnesota run offense (18th vs. 28th):** Detroit holds the advantage. This is the Lions' clearest edge.
+- **Explosive plays (Detroit seventh, Minnesota fifth):** No clear advantage.
+- **Third downs (Detroit 16th, Minnesota third):** Minnesota holds the advantage.
 
-Detroit's best route to a win is to score through the air and keep Minnesota's 28th-ranked rushing offense in check. Minnesota's edges are against the run defensively and on third downs.
+Detroit holds one matchup and Minnesota two, with three even. The Lions' best route is to win the run-defense matchup and make Minnesota's 29th-ranked offense earn everything it gets.
 
 ## Injury report
 
-No player on either side has a listed game status or injury designation. The report shows practice participation only.
+**Detroit:** Kerby Joseph (S) is out with a knee injury. Roger McCreary (CB) is questionable with a foot injury and was limited in practice. With the pass defense already ranked 28th, the secondary is the area to watch. The other Detroit players on the report were full participants in practice and carry no game status: Aidan Hutchinson, Alim McNeill, Amon-Ra St. Brown, DJ Wonnum, Ennis Rakestraw Jr., Jacob Saylors, Jahmyr Gibbs, Penei Sewell and Tyleik Williams.
 
-**Detroit:** Ennis Rakestraw Jr. and Kerby Joseph were limited in practice. They are the only two Lions listed with a restriction. Aidan Hutchinson, Alim McNeill, Amon-Ra St. Brown, DJ Wonnum, Jacob Saylors, Jahmyr Gibbs, Penei Sewell and Tyleik Williams all practiced fully.
-
-**Minnesota:** Aaron Jones was limited. Gavin Bartholomew did not practice. Brian O'Neill and Joe Huber were full participants.
-
-Rakestraw and Joseph are the two to watch for Detroit, since the Lions' pass defense ranks 28th. Check their status before kickoff.
+**Minnesota:** Jay Ward (S) is questionable with a knee injury and was limited in practice. Harrison Smith (S) was also limited, with no game status listed. Christian Darrisaw (T) did not participate in practice, and no status or injury is listed for him. Aaron Jones, Brian O'Neill, Gavin Bartholomew and Joe Huber were full participants.
 
 ## Recent history
 
-Minnesota has won the two most recent meetings:
+Detroit has won three of the last five meetings, but Minnesota has won the two most recent.
 
-- **2025, Week 17:** Vikings 23, Lions 10, in Minnesota
-- **2025, Week 9:** Vikings 27, Lions 24, in Detroit
-- **2024, Week 18:** Lions 31, Vikings 9, in Detroit
-- **2024, Week 7:** Lions 31, Vikings 29, in Minnesota
-- **2023, Week 18:** Lions 30, Vikings 20, in Detroit
+- **2025, Week 17, at Minnesota:** Lost 23-10
+- **2025, Week 9, at Detroit:** Lost 27-24
+- **2024, Week 18, at Detroit:** Won 31-9
+- **2024, Week 7, at Minnesota:** Won 31-29
+- **2023, Week 18, at Detroit:** Won 30-20
 
-Detroit won the three games before that, scoring at least 30 each time. Minnesota took both 2025 games, and the Lions scored 24 and then 10. Detroit's offense produced in the wins and did not in the most recent loss.
+Detroit scored 30 or more in three of those games, and all three were wins. In the two most recent meetings, both losses, the Lions scored 24 and 10 points. They will need to restore that scoring against a defense that now leads the league in EPA per play allowed.

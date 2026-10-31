@@ -46,7 +46,7 @@
       "gsisId": "00-0039862",
       "name": "Ennis Rakestraw Jr.",
       "position": "CB",
-      "practiceStatus": "Limited Participation in Practice",
+      "practiceStatus": "Full Participation in Practice",
       "primary": null,
       "reportStatus": null,
       "team": "DET"
@@ -74,8 +74,8 @@
       "name": "Kerby Joseph",
       "position": "S",
       "practiceStatus": "Limited Participation in Practice",
-      "primary": null,
-      "reportStatus": null,
+      "primary": "Knee",
+      "reportStatus": "Out",
       "team": "DET"
     },
     {
@@ -85,6 +85,15 @@
       "practiceStatus": "Full Participation in Practice",
       "primary": null,
       "reportStatus": null,
+      "team": "DET"
+    },
+    {
+      "gsisId": "00-0038125",
+      "name": "Roger McCreary",
+      "position": "CB",
+      "practiceStatus": "Limited Participation in Practice",
+      "primary": "Foot",
+      "reportStatus": "Questionable",
       "team": "DET"
     },
     {
@@ -100,7 +109,7 @@
       "gsisId": "00-0033293",
       "name": "Aaron Jones",
       "position": "RB",
-      "practiceStatus": "Limited Participation in Practice",
+      "practiceStatus": "Full Participation in Practice",
       "primary": null,
       "reportStatus": null,
       "team": "MIN"
@@ -115,12 +124,39 @@
       "team": "MIN"
     },
     {
-      "gsisId": "00-0040215",
-      "name": "Gavin Bartholomew",
-      "position": "TE",
+      "gsisId": "00-0036616",
+      "name": "Christian Darrisaw",
+      "position": "T",
       "practiceStatus": "Did Not Participate In Practice",
       "primary": null,
       "reportStatus": null,
+      "team": "MIN"
+    },
+    {
+      "gsisId": "00-0040215",
+      "name": "Gavin Bartholomew",
+      "position": "TE",
+      "practiceStatus": "Full Participation in Practice",
+      "primary": null,
+      "reportStatus": null,
+      "team": "MIN"
+    },
+    {
+      "gsisId": "00-0029606",
+      "name": "Harrison Smith",
+      "position": "S",
+      "practiceStatus": "Limited Participation in Practice",
+      "primary": null,
+      "reportStatus": null,
+      "team": "MIN"
+    },
+    {
+      "gsisId": "00-0038578",
+      "name": "Jay Ward",
+      "position": "S",
+      "practiceStatus": "Limited Participation in Practice",
+      "primary": "Knee",
+      "reportStatus": "Questionable",
       "team": "MIN"
     },
     {
