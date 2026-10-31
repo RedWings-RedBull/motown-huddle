@@ -15,7 +15,7 @@ import type { Construct } from "constructs";
 import type { SiteDomain } from "./env.js";
 
 export interface HuddleSiteStackProps extends cdk.StackProps {
-  /** GitHub repository (owner/name) allowed to assume the deploy roles from main. */
+  /** GitHub repository (owner/name) allowed to assume the roles (production environment, main). */
   readonly repo: string;
   /** Optional email for the monthly budget alarm. */
   readonly budgetEmail?: string;
@@ -164,15 +164,23 @@ export class HuddleSiteStack extends cdk.Stack {
           clientIds: ["sts.amazonaws.com"],
         });
 
-    const mainBranchOnly = new iam.WebIdentityPrincipal(oidc.oidcProviderArn, {
-      StringEquals: { "token.actions.githubusercontent.com:aud": "sts.amazonaws.com" },
-      StringLike: {
-        "token.actions.githubusercontent.com:sub": `repo:${props.repo}:ref:refs/heads/main`,
-      },
-    });
+    // GitHub names the repo either as owner/name or, with immutable subjects, as
+    // owner@<id>/name@<id>; trust both so the roles work whichever the repo uses.
+    const [owner, name] = props.repo.split("/");
+    const github = (context: string) =>
+      new iam.WebIdentityPrincipal(oidc.oidcProviderArn, {
+        StringEquals: { "token.actions.githubusercontent.com:aud": "sts.amazonaws.com" },
+        StringLike: {
+          "token.actions.githubusercontent.com:sub": [
+            `repo:${props.repo}:${context}`,
+            `repo:${owner}@*/${name}@*:${context}`,
+          ],
+        },
+      });
 
+    // The deploy job runs in the production environment, which GitHub reports in place of the ref.
     this.deployRole = new iam.Role(this, "HuddleDeployRole", {
-      assumedBy: mainBranchOnly,
+      assumedBy: github("environment:production"),
       description: "GitHub Actions site deploy: sync the bucket and invalidate the distribution",
       maxSessionDuration: cdk.Duration.hours(1),
     });
@@ -193,7 +201,7 @@ export class HuddleSiteStack extends cdk.Stack {
     );
 
     this.jobsRole = new iam.Role(this, "HuddleJobsRole", {
-      assumedBy: mainBranchOnly,
+      assumedBy: github("ref:refs/heads/main"),
       description: "GitHub Actions jobs: write data/* only and invalidate the distribution",
       maxSessionDuration: cdk.Duration.hours(1),
     });
