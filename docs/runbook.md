@@ -199,5 +199,9 @@ Infra deploy (first time, and whenever `infra/` changes):
 
    `AWS_DEPLOY_ROLE_ARN` goes last: the workflow skips itself until it is set.
 
+4. The deploy role trusts any workflow running in the `production` environment, so limit that
+   environment to `main`: Settings → Environments → production → Deployment branches and tags →
+   Selected branches and tags → add `main`.
+
 Site deploy: automatic on every merge to `main`. To redeploy without a change, run **Deploy** from
 the Actions tab.

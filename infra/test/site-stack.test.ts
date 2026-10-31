@@ -55,25 +55,27 @@ describe("HuddleSiteStack", () => {
     template.resourceCountIs("AWS::CloudFront::Function", 1);
   });
 
-  it("trusts GitHub OIDC only for this repo's main branch, with both aud and sub conditions", () => {
+  it.each([
+    ["HuddleDeployRole", "environment:production"],
+    ["HuddleJobsRole", "ref:refs/heads/main"],
+  ])("trusts GitHub OIDC for %s only from this repo's %s", (role, context) => {
     const roles = template.findResources("AWS::IAM::Role");
-    const trusts = Object.values(roles).map(
-      (r) => (r as RoleResource).Properties.AssumeRolePolicyDocument.Statement,
-    );
-    expect(trusts).toHaveLength(2);
-    for (const statements of trusts) {
-      expect(statements).toEqual([
-        expect.objectContaining({
-          Action: "sts:AssumeRoleWithWebIdentity",
-          Condition: {
-            StringEquals: { "token.actions.githubusercontent.com:aud": "sts.amazonaws.com" },
-            StringLike: {
-              "token.actions.githubusercontent.com:sub": `repo:${REPO}:ref:refs/heads/main`,
-            },
+    const [id, resource] = Object.entries(roles).find(([key]) => key.startsWith(role)) ?? [];
+    expect(id).toBeDefined();
+    expect((resource as RoleResource).Properties.AssumeRolePolicyDocument.Statement).toEqual([
+      expect.objectContaining({
+        Action: "sts:AssumeRoleWithWebIdentity",
+        Condition: {
+          StringEquals: { "token.actions.githubusercontent.com:aud": "sts.amazonaws.com" },
+          StringLike: {
+            "token.actions.githubusercontent.com:sub": [
+              `repo:${REPO}:${context}`,
+              `repo:RedWings-RedBull@*/the-den-report@*:${context}`,
+            ],
           },
-        }),
-      ]);
-    }
+        },
+      }),
+    ]);
   });
 
   it("scopes the jobs role to data/* writes and one invalidation only", () => {
