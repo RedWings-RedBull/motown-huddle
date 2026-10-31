@@ -1709,7 +1709,7 @@
         "pfr": "RakeEn00"
       },
       "injury": {
-        "practiceStatus": "Limited Participation in Practice",
+        "practiceStatus": "Full Participation in Practice",
         "primary": null,
         "reportStatus": null
       },
@@ -1766,7 +1766,11 @@
         "espn": "4371973",
         "pfr": "McCrRo01"
       },
-      "injury": null,
+      "injury": {
+        "practiceStatus": "Limited Participation in Practice",
+        "primary": "Foot",
+        "reportStatus": "Questionable"
+      },
       "jersey": 21,
       "lastName": "McCreary",
       "position": "CB",
@@ -2014,8 +2018,8 @@
       },
       "injury": {
         "practiceStatus": "Limited Participation in Practice",
-        "primary": null,
-        "reportStatus": null
+        "primary": "Knee",
+        "reportStatus": "Out"
       },
       "jersey": 31,
       "lastName": "Joseph",
